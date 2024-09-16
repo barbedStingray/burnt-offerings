@@ -40,7 +40,7 @@ function App() {
       <p>Burnt Offerings</p>
 
       {allRecipes.map((recipe, index) => (
-        <p key={index}>{recipe}</p>
+        <p key={index}>{recipe.recipe}</p>
       ))}
 
     </div>

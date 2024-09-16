@@ -19,7 +19,7 @@ else {
         port: 5432,
         database: 'burnt_offerings',
     });
-    console.log('connecting to local host')
+    console.log('NOW connecting to local host')
 }
 
 module.exports = pool;
