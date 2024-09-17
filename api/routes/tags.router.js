@@ -2,19 +2,18 @@ const express = require('express')
 const pool = require('../modules/pool')
 const router = express.Router()
 
-// all recipes route
+// all tags route
 router.get('/all', (req, res) => {
-    // turn into a try/catch block later? 
-    const queryText = `SELECT * FROM "moms_recipes";`    
+
+    const queryText = `SELECT * FROM "moms_tags";`    
 
     pool.query(queryText).then((result) => {
-        console.log(`/api/recipes/all success`)
+        console.log(`/api/tags/all success`)
         res.send(result.rows)
     }).catch((error) => {
-        console.log(`/api/recipes/all ERROR`, error)
+        console.log(`/api/tags/all ERROR`, error)
         res.sendStatus(500)
     })
 })
-
 
 module.exports = router

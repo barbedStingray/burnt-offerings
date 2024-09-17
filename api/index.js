@@ -6,19 +6,20 @@ const path = require('path')
 
 // todo Route includes
 const recipeRouter = require('./routes/recipes.router')
+const tagRouter = require('./routes/tags.router')
 
 // express middleware
 app.use(express.json())
 
 // todo express routes
 app.use('/api/recipes', recipeRouter)
+app.use('/api/tags', tagRouter)
 
 
-// serve the static files
+
+
 app.use(express.static(path.join(__dirname, '..', 'build')))
 
-console.log('CONNECTING HERE')
-// requests that don't match above routes
 app.get('*', (_req, res) => {
     res.sendFile(path.join(__dirname, '..', 'build', 'index.html'))
 })
