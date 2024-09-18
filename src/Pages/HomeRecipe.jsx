@@ -1,9 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom';
-import Select from 'react-select'
 import axios from 'axios'
-
-import useAllCategory from '../utilities/allOfCategory';
 
 
 const HomeRecipe = () => {
@@ -15,15 +12,21 @@ const HomeRecipe = () => {
     const [allRecipes, setAllRecipes] = useState([])
     const [loadingStatus, setLoadingStatus] = useState('unloaded')
 
-    const fetchFilteredRecipes = async (keywords) => {
-        console.log('fetching filtered recipes', keywords)
+    // pagination
+    const [currentPage, setCurrentPage] = useState(1)
+    const [totalPages, setTotalPages] = useState(1)
+    const recipesPerPage = 5
+
+
+    const fetchFilteredRecipes = async (keywords, page = 1) => {
         setLoadingStatus('loading')
 
         try {
             const response = await axios.get('/api/recipes/all', {
-                params: { keywords },
+                params: { keywords, offset: (page - 1) * recipesPerPage, limit: recipesPerPage },
             })
-            setAllRecipes(response.data)
+            setAllRecipes(response.data.recipes)
+            setTotalPages(response.data.totalPages)
             setLoadingStatus('loaded')
         } catch (error) {
             console.log('error in loading api recipes', error)
@@ -32,22 +35,23 @@ const HomeRecipe = () => {
     }
 
     const keywordChange = (keywords) => {
-        console.log('the keyword has changed to', keywords)
         setKeywords(keywords)
+        setCurrentPage(1) // resets to 1st page on new keyword... ?
 
         if (debounceTimoutRef.current) {
             clearTimeout(debounceTimoutRef.current)
         }
         debounceTimoutRef.current = setTimeout(() => {
-            fetchFilteredRecipes(keywords)
+            fetchFilteredRecipes(keywords, 1) // always fetch from page 1 with new keyword
         }, 1000)
     }
 
 
 
-
-
-
+    const handlePageChange = (newPage) => {
+        setCurrentPage(newPage)
+        fetchFilteredRecipes(keywords, newPage) // fetch the recipes for the new page
+    }
 
 
 
@@ -56,11 +60,6 @@ const HomeRecipe = () => {
         // console.log('viewing details of', recipeID)
         navigate(`/recipeDetails/${recipeID}`)
     }
-
-
-
-
-
 
 
 
@@ -78,6 +77,21 @@ const HomeRecipe = () => {
                 value={keywords}
                 onChange={(e) => keywordChange(e.target.value)}
             />
+
+
+            {/* pagination controls */}
+            <div>
+                <button
+                    disabled={currentPage === 1}
+                    onClick={() => handlePageChange(currentPage - 1)}
+                >Previous</button>
+                <span>Page {currentPage} of {totalPages}</span>
+                <button
+                    disabled={currentPage === totalPages}
+                    onClick={() => handlePageChange(currentPage + 1)}
+                >Next</button>
+
+            </div>
 
         </div>
     )
