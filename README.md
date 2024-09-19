@@ -68,8 +68,18 @@
     Estimated: 90m
     Realsitic: 15m
 
+- Goal: Establish skeleton of Create Recipe Page (html inputs...)
+    COMPLETE
+    Estimated: 60m 8:20
+    Realistic: 30m
 
+-Goal: Design form, connect newRecipeDetails to inputs for package to DB
+    COMPLETE
+    Estimated: 30m 
+    Realistic: 35m
 
-
+- Goal: Format Ingredients, Steps, & Tag inputs to DB package
+    Estimated: 40m 10:40
+    Realistic:
 
 - Goal: Refactor recipes.router.js

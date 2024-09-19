@@ -4,6 +4,7 @@ import './App.css';
 
 import HomeRecipe from './Pages/HomeRecipe';
 import DetailsRecipe from './Pages/DetailsRecipe';
+import CreateRecipe from './Pages/CreateRecipe'
 
 
 function App() {
@@ -16,7 +17,7 @@ function App() {
       <Routes>
         <Route path='/' element={<HomeRecipe /> } />
         <Route path='/recipeDetails/:recipeID' element={<DetailsRecipe /> } />
-        {/* <Route path='/newRecipe' element={<CreateRecipe /> } /> */}
+        <Route path='/createRecipe' element={<CreateRecipe /> } />
         {/* include *** ROUTE */}
       </Routes>
 

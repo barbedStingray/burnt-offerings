@@ -19,6 +19,7 @@ const HomeRecipe = () => {
     const recipesPerPage = 5
 
 
+    // todo make this it's own utility function eventually
     const fetchFilteredRecipes = async (keywords, page = 1) => {
         setLoadingStatus('loading')
 
@@ -28,7 +29,7 @@ const HomeRecipe = () => {
             setTotalPages(1)
             setTotalRecipes(0)
             setLoadingStatus('loaded')
-            return // do not call api if no keywords
+            return // do not call api if no keywords exist
         }
 
         try {
@@ -57,8 +58,6 @@ const HomeRecipe = () => {
         }, 1000)
     }
 
-
-
     const handlePageChange = (newPage) => {
         setCurrentPage(newPage)
         fetchFilteredRecipes(keywords, newPage) // fetch the recipes for the new page
@@ -66,10 +65,14 @@ const HomeRecipe = () => {
 
 
 
-
+    // todo refactor buttons for singular button...
     function seeRecipeDetails(recipeID) {
         // console.log('viewing details of', recipeID)
         navigate(`/recipeDetails/${recipeID}`)
+    }
+    function goToCreateRecipePage(recipeID) {
+        // console.log('viewing details of', recipeID)
+        navigate(`/createRecipe`)
     }
 
 
@@ -103,6 +106,8 @@ const HomeRecipe = () => {
                 >Next</button>
                 <h1>{totalRecipes}</h1>
             </div>
+
+            <button onClick={goToCreateRecipePage}>Create New Recipe</button>
 
         </div>
     )
