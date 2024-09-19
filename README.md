@@ -70,16 +70,45 @@
 
 - Goal: Establish skeleton of Create Recipe Page (html inputs...)
     COMPLETE
-    Estimated: 60m 8:20
+    Estimated: 60m
     Realistic: 30m
 
--Goal: Design form, connect newRecipeDetails to inputs for package to DB
+-Goal: Design form, Format Recipe Details to DB package
     COMPLETE
     Estimated: 30m 
     Realistic: 35m
 
-- Goal: Format Ingredients, Steps, & Tag inputs to DB package
-    Estimated: 40m 10:40
-    Realistic:
+- Goal: Format Ingredients to DB package
+    COMPLETE
+    Estimated: 40m 
+    Realistic: 70m
 
+- Goal: Format Steps to DB package
+    COMPLETE
+    Estimated: 40m
+    Realistic: 20m
+
+- Goal: Return used Ingredients from DB to CreateRecipe.jsx and build working dropdown
+    COMPLETE
+    Estimated: 75m
+    Realistic: 20m
+
+- Goal: Integrate the working dropdown with your ingredient variable
+    Estimated: 70m
+    Realistic: 25m
+
+- Goal: Integrate the working dropdown with your tags variable
+    Estimated: 60m 
+    Realistic: 20m INCOMPLETE
+
+- Goal: Refactor CreateRecipe.jsx
+    INCOMPLETE 20m 
+
+
+
+
+
+- Goal: Hook up DB ingredients to self populate
+- Goal: Hook up DB Tags to self populate
 - Goal: Refactor recipes.router.js
+- Gaol: Re-order steps to come out in order of step_number?

@@ -2,10 +2,38 @@ const express = require('express')
 const pool = require('../modules/pool')
 const router = express.Router()
 
-
-console.log('IM WORKING')
+// TODO REFACTOR
 // todo /all NEEDS REFACTOR
 // todo /details NEEDS REFACTOR
+
+// fetches all used ingredients
+router.get('/ingredients', (req, res) => {
+
+    const queryText = `SELECT * FROM "moms_ingredients";`    
+
+    pool.query(queryText).then((result) => {
+        console.log(`/api/recipes/ingredients success`)
+        res.send(result.rows)
+    }).catch((error) => {
+        console.log(`/api/recipes/ingredients ERROR`, error)
+        res.sendStatus(500)
+    })
+})
+
+// fetches all used tags
+router.get('/tags', (req, res) => {
+
+    const queryText = `SELECT * FROM "moms_tags";`    
+
+    pool.query(queryText).then((result) => {
+        console.log(`/api/recipes/tags success`)
+        res.send(result.rows)
+    }).catch((error) => {
+        console.log(`/api/recipes/tags ERROR`, error)
+        res.sendStatus(500)
+    })
+})
+
 
 // all recipes route
 router.get('/all', (req, res) => {
