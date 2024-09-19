@@ -15,11 +15,21 @@ const HomeRecipe = () => {
     // pagination
     const [currentPage, setCurrentPage] = useState(1)
     const [totalPages, setTotalPages] = useState(1)
+    const [totalRecipes, setTotalRecipes] = useState(0)
     const recipesPerPage = 5
 
 
     const fetchFilteredRecipes = async (keywords, page = 1) => {
         setLoadingStatus('loading')
+
+        if (!keywords) {
+            console.log('no keywords!', keywords)
+            setAllRecipes([])
+            setTotalPages(1)
+            setTotalRecipes(0)
+            setLoadingStatus('loaded')
+            return // do not call api if no keywords
+        }
 
         try {
             const response = await axios.get('/api/recipes/all', {
@@ -27,6 +37,7 @@ const HomeRecipe = () => {
             })
             setAllRecipes(response.data.recipes)
             setTotalPages(response.data.totalPages)
+            setTotalRecipes(response.data.totalRecipes)
             setLoadingStatus('loaded')
         } catch (error) {
             console.log('error in loading api recipes', error)
@@ -90,7 +101,7 @@ const HomeRecipe = () => {
                     disabled={currentPage === totalPages}
                     onClick={() => handlePageChange(currentPage + 1)}
                 >Next</button>
-
+                <h1>{totalRecipes}</h1>
             </div>
 
         </div>

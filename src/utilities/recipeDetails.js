@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
+// todo REFACTOR
+
 export default function useRecipeDetails(recipeID) {
     console.log('in useRecipeDetails', recipeID)
     const [theMainRecipe, setTheMainRecipe] = useState([])
@@ -11,15 +13,14 @@ export default function useRecipeDetails(recipeID) {
         fetchRecipeDetails(recipeID)
     }, [recipeID])
 
-
     async function fetchRecipeDetails(recipeID) {
         console.log('fetching details for', recipeID)
 
         try {
             const results = await axios.get(`/api/recipes/details/${recipeID}`)
             const { mainRecipe, subRecipes } = results.data
-            console.log('mainRecipe', mainRecipe)
-            console.log('subRecipes', subRecipes)
+            // console.log('mainRecipe', mainRecipe)
+            // console.log('subRecipes', subRecipes)
             setTheMainRecipe(mainRecipe)
             setTheSubRecipes(subRecipes)
             setDetailsStatus('loaded')

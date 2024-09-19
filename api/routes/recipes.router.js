@@ -4,7 +4,8 @@ const router = express.Router()
 
 
 console.log('IM WORKING')
-// todo NEEDS REFACTOR
+// todo /all NEEDS REFACTOR
+// todo /details NEEDS REFACTOR
 
 // all recipes route
 router.get('/all', (req, res) => {
@@ -12,9 +13,9 @@ router.get('/all', (req, res) => {
     // const keywords = req.query.keywords
     const { keywords, limit, offset } = req.query
     console.log('keywords', keywords)
-    console.log('limit', limit)
-    console.log('offset', offset)
-    const keywordArray = keywords.trim().split(' ')
+    // console.log('limit', limit)
+    // console.log('offset', offset)
+    const keywordArray = keywords.trim().toLowerCase().split(' ')
     console.log('keywordArray', keywordArray)
 
     const allQueryText = `
@@ -45,7 +46,7 @@ recipes_by_tag AS (
     FROM moms_recipes r
     JOIN recipe_tags rt ON r.id = rt.recipe_id
     JOIN moms_tags t ON rt.tags_id = t.id
-    JOIN search_terms st ON LOWER(t.tags) LIKE '%' || st.term || '%'
+    JOIN search_terms st ON LOWER(t.tag) LIKE '%' || st.term || '%'
     GROUP BY r.id, r.title, r.description, r.prep_time, r.servings, r.picture
 ),
 
@@ -109,7 +110,7 @@ recipes_by_tag AS (
     FROM moms_recipes r
     JOIN recipe_tags rt ON r.id = rt.recipe_id
     JOIN moms_tags t ON rt.tags_id = t.id
-    JOIN search_terms st ON LOWER(t.tags) LIKE '%' || LOWER(st.term) || '%'
+    JOIN search_terms st ON LOWER(t.tag) LIKE '%' || LOWER(st.term) || '%'
     GROUP BY r.id
 ),
 
@@ -149,16 +150,18 @@ FROM (
     let queryParams
     let countParams
 
-    if (keywordArray.length > 0) {
-        queryText = filterQueryText
-        countQuery = countQueryText
-        queryParams = [keywordArray, limit, offset]
-        countParams = [keywordArray] // passs only keyword array to count
-    } else {
+
+    if (keywordArray[0] === 'library') {
+        console.log('LIBRARY')
         queryText = allQueryText
         countQuery = countAllRecipesQuery
         queryParams = [limit, offset]
         countParams = [] // no parameters for counting all recipes
+    } else {
+        queryText = filterQueryText
+        countQuery = countQueryText
+        queryParams = [keywordArray, limit, offset]
+        countParams = [keywordArray] // passs only keyword array to count
     }
 
     pool.query(countQuery, countParams)
@@ -206,20 +209,20 @@ router.get('/details/:id', async (req, res) => {
     const queryTextDetails = `
 WITH RECURSIVE recipe_hierarchy AS (
   -- Get the main recipe and its details for 'Very Berry Waffles'
-  SELECT r.id, r.title, r.is_sub_recipe, r.description, r.prep_time, r.servings, r.picture
+  SELECT r.id, r.title, r.is_sub_recipe, r.description, r.prep_time, r.servings, r.picture, r.is_parent_recipe
   FROM moms_recipes r
   WHERE r.id = $1
   
   UNION
   
   -- Recursively find all sub-recipes associated with 'Very Berry Waffles'
-  SELECT rr.sub_id, pr.title, pr.is_sub_recipe, pr.description, pr.prep_time, pr.servings, pr.picture
+  SELECT rr.sub_id, pr.title, pr.is_sub_recipe, pr.description, pr.prep_time, pr.servings, pr.picture, pr.is_parent_recipe
   FROM recipe_relationship rr
   JOIN moms_recipes pr ON rr.sub_id = pr.id
   JOIN recipe_hierarchy rh ON rr.parent_id = rh.id
 )
 -- Retrieve all columns for the main recipe and its sub-recipes
-SELECT rh.id as recipe_id, rh.title, rh.is_sub_recipe, rh.description, rh.prep_time, rh.servings, rh.picture
+SELECT rh.id as recipe_id, rh.title, rh.is_sub_recipe, rh.description, rh.prep_time, rh.servings, rh.picture, rh.is_parent_recipe
 FROM recipe_hierarchy rh
 ORDER BY rh.title;
 `
@@ -261,11 +264,11 @@ ORDER BY rh.title, i.ingredient;
   JOIN recipe_hierarchy rh ON rr.parent_id = rh.id
 )
 -- Retrieve all tags for the main recipe and its sub-recipes
-SELECT rh.id AS recipe_id, rh.title AS recipe_name, t.tags, t.id AS tag_id
+SELECT rh.id AS recipe_id, rh.title AS recipe_name, t.tag, t.id AS tag_id
 FROM recipe_hierarchy rh
 JOIN recipe_tags rt ON rh.id = rt.recipe_id
 JOIN moms_tags t ON rt.tags_id = t.id
-ORDER BY rh.title, t.tags;
+ORDER BY rh.title, t.tag;
 `
     const queryTextStep = `
     WITH RECURSIVE recipe_hierarchy AS (
@@ -290,7 +293,6 @@ ORDER BY rh.title, s.step_number;
 `
 
     try {
-
         // todo this will need to return the id of the respected ingredient/tag/step linked
         // this is for editing purposes...?
 
@@ -302,24 +304,24 @@ ORDER BY rh.title, s.step_number;
         // console.log('stepResult', stepResult.rows)
         const tagResult = await pool.query(queryTextTags, [recipeId]) // pulls directly from main recipe
         // console.log('tagResult', tagResult.rows)
-        
+
         const mainDetails = detailsResult.rows.filter((details) => details.recipe_id === Number(recipeId))[0]
         const mainSteps = stepResult.rows.filter((step) => step.recipe_id === Number(recipeId)) // recipeId comes in as a string
         const mainIngredients = ingredientResult.rows.filter((ingredient) => ingredient.recipe_id === Number(recipeId)) // recipeId comes in as a string
         const mainTags = tagResult.rows.filter((tag) => tag.recipe_id === Number(recipeId)) // recipeId comes in as a string
-        
+
         mainRecipe.recipeDetails = mainDetails
         mainRecipe.tags = mainTags
         mainRecipe.steps = mainSteps
         mainRecipe.ingredients = mainIngredients
-        
-        // todo form the sub recipes
+
+        // form the sub recipes
         const subDetails = detailsResult.rows.filter((details) => details.recipe_id !== Number(recipeId))
         const subSteps = stepResult.rows.filter((step) => step.recipe_id !== Number(recipeId)) // recipeId comes in as a string
         const subIngredients = ingredientResult.rows.filter((ingredient) => ingredient.recipe_id !== Number(recipeId)) // recipeId comes in as a string
         const subTags = tagResult.rows.filter((tags) => tags.recipe_id !== Number(recipeId)) // recipeId comes in as a string
-        
-        // todo get unique sub-recipe ID's
+
+        // get unique sub-recipe ID's
         const subRecipeIds = subDetails.map((detail) => detail.recipe_id)
         console.log('subRecipeIds', subRecipeIds)
 
@@ -329,7 +331,7 @@ ORDER BY rh.title, s.step_number;
                 recipeDetails: null,
                 ingredients: null,
                 tags: null,
-                steps: null                        
+                steps: null
             }
             subRecipe.recipeDetails = subDetails.filter((detail) => detail.recipe_id === subRecipeId)[0]
             subRecipe.steps = subSteps.filter((step) => step.recipe_id === subRecipeId)
@@ -341,7 +343,7 @@ ORDER BY rh.title, s.step_number;
         console.log('mainRecipe', mainRecipe)
         console.log('subRecipes', subRecipes)
 
-        res.send({ mainRecipe, subRecipes})
+        res.send({ mainRecipe, subRecipes })
 
     } catch (error) {
         console.log('router DETAILS failure', error)
@@ -351,34 +353,4 @@ ORDER BY rh.title, s.step_number;
 })
 
 
-
 module.exports = router
-
-
-
-
-
-// if (req.query.keywords.length > 0) {
-//     console.log('keywords present')
-//     queryText = filterQueryText
-
-//     pool.query(queryText, [keywordArray]).then((result) => {
-//         console.log(`/api/recipes/all success`)
-//         res.send(result.rows)
-//     }).catch((error) => {
-//         console.log(`/api/recipes/all ERROR`, error)
-//         res.sendStatus(500)
-//     })
-
-// } else {
-//     console.log('NO keywords')
-//     queryText = allQueryText
-
-//     pool.query(queryText, [limit, offset]).then((result) => {
-//         console.log(`/api/recipes/all success`)
-//         res.send(result.rows)
-//     }).catch((error) => {
-//         console.log(`/api/recipes/all ERROR`, error)
-//         res.sendStatus(500)
-//     })
-// }
