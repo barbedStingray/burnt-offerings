@@ -1,7 +1,13 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 
 import useAllCategory from '../utilities/allOfCategory'
 import handlePackingArray from '../utilities/handlePackingArray'
+
+import DetailInput from '../components/DetailInput' // input component
+import newRecipeDetailInputs from '../utilities/createInputs/newRecipeDetailInputs'
+import ingredientDetailsInputs from '../utilities/createInputs/ingredientDetailsInputs'
+import stepDetailsInputs from '../utilities/createInputs/stepDetailsInputs'
+import tagDetailsInputs from '../utilities/createInputs/tagDetailsInputs'
 
 
 // TODO REFACTOR
@@ -12,33 +18,13 @@ const CreateRecipe = () => {
     const [allIngredients, allIngredientsStatus] = useAllCategory('/api/recipes/ingredients')
     const [allTags, allTagsStatus] = useAllCategory('/api/recipes/tags')
     const [searchAttribute, setSearchAttribute] = useState('') // used for search existing tags/ingredients
-    // console.log('allTags', allTags)
 
 
     // packages for DB
     const [newIngredientsData, setNewIngredientsData] = useState([])
     const [newStepData, setNewStepData] = useState([])
     const [newTagData, setNewTagData] = useState([])
-
-    const newRecipeDetailInputs = [
-        {
-            name: 'title',
-            type: 'text',
-            placeholder: 'Recipe Name...',
-            required: 'required',
-            maxLength: 40,
-            minLength: 1,
-            autoComplete: 'off'
-        },
-    ]
-
-
-
-    const submitNewRecipe = (e) => {
-        e.preventDefault()
-        console.log('submitting new recipe')
-    }
-
+    console.log('newIngredientsData', newIngredientsData)
 
 
     const [newRecipeDetails, setNewRecipeDetails] = useState({
@@ -57,11 +43,20 @@ const CreateRecipe = () => {
         measurement: 0
     })
     // console.log('newIngredient', newIngredient)
+
+
+
+    const submitNewRecipe = (e) => {
+        e.preventDefault()
+        console.log('submitting new recipe')
+    }
+
+
     const [newStep, setNewStep] = useState({
         step_number: 'Step Number...',
         instructions: ''
     })
-    // console.log('newStep', newStep)
+    console.log('newStep', newStep)
     const [newTag, setNewTag] = useState({
         tag: ''
     })
@@ -70,28 +65,26 @@ const CreateRecipe = () => {
 
 
 
-    // helper function to populate objects
+    // ?React.memo/useMemo Quest? - callback to reduce re-renders?
+    // const handleDetailChange = useCallback((e, object, setFunction) => {
+    //     const { name, value } = e.target 
+    //     setFunction({ ...object, [name]: value })
+    // }, [])
+    // const recipeDetailInputs = useMemo(() => newRecipeDetailInputs(newRecipeDetails, setNewRecipeDetails, handleDetailChange), [newRecipeDetails, setNewRecipeDetails, handleDetailChange])
+
+
     const handleDetailChange = (e, object, setFunction) => {
         const { name, value } = e.target
         setFunction({ ...object, [name]: value }) // setting it properly
     }
 
 
-
-    // TODO ! dropdown menu for quick options
-    // ? WHAT dropdowns for ingredients and tags (unsure of subRecipes...)
-    const [searchQuery, setSearchQuery] = useState('')
+    // dropdown search and click logic
+    const [searchQuery, setSearchQuery] = useState('') // todo Why is SearchQuery not used?
     const [filteredTags, setFilteredTags] = useState([])
-
-    // logic for filtering...
-
-    // newIngredient, setNewIngredient
-    // a.ingredient b.ingredient => a.tag b.tag -> I have this from the Object.keys now
-
     const handleSearchDetailChange = (e, searchList, setSearchAttribute, newObject, setNewObject) => {
         const query = e.target.value.toLowerCase()
         setSearchQuery(query)
-
 
         const [id, attribute] = Object.keys(searchList[0]) // todo you could use the id later...
         setSearchAttribute(attribute)
@@ -122,8 +115,6 @@ const CreateRecipe = () => {
             setFilteredTags(sortedFiltered)
         }
     }
-
-
     const handleClickDetailChange = (variableName, newObject, setNewObject, searchAttribute) => {
         // set clicked ingredient
 
@@ -136,7 +127,6 @@ const CreateRecipe = () => {
 
 
 
-
     // todo you will have to run validation checks before the form is sent...
     return (
         <div>
@@ -145,55 +135,17 @@ const CreateRecipe = () => {
 
             <form onSubmit={submitNewRecipe}>
 
-                <h3>Recipe Details</h3>
-                <input
-                    name='title'
-                    type='text'
-                    value={newRecipeDetails.title}
-                    onChange={(e) => handleDetailChange(e, newRecipeDetails, setNewRecipeDetails)}
-                    placeholder='Recipe Name...'
-                    required
-                    maxLength={40}
-                    minLength={1} // needed
-                    autoComplete='off'
-                // could add pattern for acceptable characters/numbers/symbols
-                />
-                <textarea
-                    name='description'
-                    type='text'
-                    value={newRecipeDetails.description}
-                    onChange={(e) => handleDetailChange(e, newRecipeDetails, setNewRecipeDetails)}
-                    placeholder='Description...'
-                    required
-                    maxLength={300}
-                    minLength={0} // needed?
-                    autoComplete='off'
-                // could add pattern for acceptable characters/numbers/symbols
-                />
 
-                <input
-                    name='prep_time'
-                    type='text'
-                    value={newRecipeDetails.prep_time}
-                    onChange={(e) => handleDetailChange(e, newRecipeDetails, setNewRecipeDetails)}
-                    placeholder='Prep Time...'
-                    required
-                    maxLength={10}
-                    minLength={1}
-                    autoComplete='off'
-                />
-                <input
-                    name='servings'
-                    type='number'
-                    value={newRecipeDetails.servings}
-                    onChange={(e) => handleDetailChange(e, newRecipeDetails, setNewRecipeDetails)}
-                    placeholder='Servings...'
-                    required
-                    maxLength={5}
-                    minLength={1}
-                    autoComplete='off'
-                />
+                <h3>Recipe Details</h3>
+                {newRecipeDetailInputs(newRecipeDetails, setNewRecipeDetails, handleDetailChange).map((input, i) => (
+                    <DetailInput key={i} inputDetails={input} />
+                ))}
+                {/* // ?React.memo/useMemo Quest? - callback to reduce re-renders? */}
+                {/* {recipeDetailInputs.map((input, i) => (
+                    <DetailInput key={i} inputDetails={input} />
+                ))} */}
                 <button disabled>Add Photo</button>
+                {JSON.stringify(newRecipeDetails)}
 
 
                 <br />
@@ -202,18 +154,12 @@ const CreateRecipe = () => {
 
 
                 <h3>Recipe Ingredients</h3>
-
-                <input
-                    name='ingredient'
-                    type='text'
-                    value={newIngredient.ingredient}
-                    onChange={(e) => handleSearchDetailChange(e, allIngredients, setSearchAttribute, newIngredient, setNewIngredient)}
-                    placeholder='Add New Ingredient...'
-                    required
-                    maxLength={50}
-                    minLength={1}
-                    autoComplete='off'
-                />
+                {ingredientDetailsInputs(newIngredient, setNewIngredient, handleDetailChange, handleSearchDetailChange, allIngredients, setSearchAttribute)
+                    .map((input, i) => (
+                        <DetailInput key={i} inputDetails={input} />
+                    ))}
+                    
+                {/* // todo CREATE COMPONENT */}
                 {filteredTags.length > 0 && searchAttribute === 'ingredient' && (
                     <ul>
                         {filteredTags.map((item) => (
@@ -224,39 +170,6 @@ const CreateRecipe = () => {
                         ))}
                     </ul>
                 )}
-
-                {/* <input
-                    name='ingredient'
-                    type='text'
-                    value={newIngredient.ingredient} // ! not in object
-                    onChange={(e) => handleDetailChange(e, newIngredient, setNewIngredient)} // ! not in object
-                    placeholder='Add New Ingredient...'
-                    required
-                    maxLength={50}
-                    minLength={1}
-                    autoComplete='off'
-                /> */}
-                <input
-                    name='quantity'
-                    type='number'
-                    value={newIngredient.quantity}
-                    onChange={(e) => handleDetailChange(e, newIngredient, setNewIngredient)}
-                    placeholder='Add quantity...'
-                    required
-                    maxLength={10}
-                    minLength={1}
-                    autoComplete='off'
-                />
-                <select
-                    name='measurement'
-                    value={newIngredient.measurement}
-                    onChange={(e) => handleDetailChange(e, newIngredient, setNewIngredient)}
-                    required
-                >
-                    <option value=''>Select One...</option>
-                    <option value='1'>Tsp</option>
-                    <option value='2'>Tbsp</option>
-                </select>
                 <button onClick={(e) => handlePackingArray(e, newIngredient, setNewIngredient, newIngredientsData, setNewIngredientsData)}>Add Ingredient</button>
                 <br />
                 {JSON.stringify(newIngredientsData)}
@@ -268,50 +181,25 @@ const CreateRecipe = () => {
 
 
                 <h3>Recipe Steps</h3>
-                <input
-                    name='step_number'
-                    type='number'
-                    value={newStep.step_number}
-                    onChange={(e) => handleDetailChange(e, newStep, setNewStep)}
-                    placeholder='Step Number...'
-                    required
-                    maxLength={5}
-                    minLength={1}
-                    autoComplete='off'
-                />
-                <input
-                    name='instructions'
-                    type='text'
-                    value={newStep.instructions}
-                    onChange={(e) => handleDetailChange(e, newStep, setNewStep)}
-                    placeholder='Instructions...'
-                    required
-                    maxLength={100}
-                    minLength={1}
-                    autoComplete='off'
-                />
+                {stepDetailsInputs(newStep, setNewStep, handleDetailChange).map((input, i) => (
+                    <DetailInput key={i} inputDetails={input} />
+                ))}
                 <button onClick={(e) => handlePackingArray(e, newStep, setNewStep, newStepData, setNewStepData)}>Add Step</button>
                 <br />
                 {JSON.stringify(newStepData)}
 
 
 
-
-
                 <h3>Recipe Tags</h3>
-                <input
-                    name='tag'
-                    type='text'
-                    value={newTag.tag}
-                    onChange={(e) => handleSearchDetailChange(e, allTags, setSearchAttribute, newTag, setNewTag)}
-                    placeholder='Add a tag...'
-                    required
-                    maxLength={100}
-                    minLength={1}
-                    autoComplete='off'
-                />
+
+                {tagDetailsInputs(newTag, setNewTag, handleSearchDetailChange, allTags, setSearchAttribute)
+                    .map((input, i) => (
+                        <DetailInput key={i} inputDetails={input} />
+                    ))}
                 <button onClick={(e) => handlePackingArray(e, newTag, setNewTag, newTagData, setNewTagData)}>Add Tag</button>
                 <br />
+
+                {/* // todo CREATE COMPONENT */}
                 {filteredTags.length > 0 && searchAttribute === 'tag' && (
                     <ul>
                         {filteredTags.map((item) => (
@@ -322,15 +210,7 @@ const CreateRecipe = () => {
                         ))}
                     </ul>
                 )}
-
                 {JSON.stringify(newTagData)}
-
-
-
-
-
-
-
 
 
 

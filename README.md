@@ -1,6 +1,8 @@
 # Recursion on the Back End
 # Filtering
 # debouncing (reducing my api calls)
+# useCallBack to reduce re-renders...
+# React.memo useMemo... Re-rendering learning
 
 
 
@@ -108,7 +110,7 @@
 
 - Goal: Refactor CreateRecipe.jsx inputs
     Estimated: 75m
-    Realistic: INCOMPLETE 20m 9:02
+    Realistic: 155m INCOMPLETE
 
 
 
