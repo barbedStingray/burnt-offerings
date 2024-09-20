@@ -7,6 +7,19 @@ const router = express.Router()
 // todo /details NEEDS REFACTOR
 
 // fetches all used ingredients
+router.get('/notParents', (req, res) => {
+
+    const queryText = `SELECT * FROM "moms_recipes" WHERE is_parent_recipe = false;`    
+
+    pool.query(queryText).then((result) => {
+        console.log(`/api/recipes/notParents success`)
+        res.send(result.rows)
+    }).catch((error) => {
+        console.log(`/api/recipes/notParents ERROR`, error)
+        res.sendStatus(500)
+    })
+})
+
 router.get('/ingredients', (req, res) => {
 
     const queryText = `SELECT * FROM "moms_ingredients";`    

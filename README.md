@@ -108,10 +108,22 @@
     Estimated: 60m 
     Realistic: 50m
 
+- Goal: auto-display the step number based on length of stepData
+    BAILED - Will handle assigning step numbers on the back end
+    Estimated: 40m 
+    Realistic: 30m
+
+- Goal: Return non-parent recipes to be added as sub recipes
+    Estimated: 40m
+    Realistic: 10m
+
+- Goal: Format sub recipes to DB package 
+    Estimated: 60m
+    Realistic 3:21
+
 - Goal: Refactor CreateRecipe.jsx inputs
     Estimated: 75m
-    Realistic: 155m INCOMPLETE
-
+    Realistic: 175m INCOMPLETE 
 
 
 

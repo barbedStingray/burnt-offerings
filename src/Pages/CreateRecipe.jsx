@@ -8,7 +8,7 @@ import newRecipeDetailInputs from '../utilities/createInputs/newRecipeDetailInpu
 import ingredientDetailsInputs from '../utilities/createInputs/ingredientDetailsInputs'
 import stepDetailsInputs from '../utilities/createInputs/stepDetailsInputs'
 import tagDetailsInputs from '../utilities/createInputs/tagDetailsInputs'
-
+import subRecipeDetailsInputs from '../utilities/createInputs/subRecipeDetailsInputs'
 
 // TODO REFACTOR
 
@@ -17,14 +17,18 @@ const CreateRecipe = () => {
     // db used items for quick fill
     const [allIngredients, allIngredientsStatus] = useAllCategory('/api/recipes/ingredients')
     const [allTags, allTagsStatus] = useAllCategory('/api/recipes/tags')
+    const [allowedSubRecipes, allowedSubRecipesStatus] = useAllCategory('/api/recipes/notParents')
     const [searchAttribute, setSearchAttribute] = useState('') // used for search existing tags/ingredients
+    // console.log('allowedSubRecipes', allowedSubRecipes)
 
+    const [filteredTags, setFilteredTags] = useState([]) // dropdown filter logic
 
     // packages for DB
     const [newIngredientsData, setNewIngredientsData] = useState([])
     const [newStepData, setNewStepData] = useState([])
     const [newTagData, setNewTagData] = useState([])
-    console.log('newIngredientsData', newIngredientsData)
+    const [newSubRecipeData, setNewSubRecipeData] = useState([])
+    // console.log('newIngredientsData', newIngredientsData)
 
 
     const [newRecipeDetails, setNewRecipeDetails] = useState({
@@ -43,26 +47,24 @@ const CreateRecipe = () => {
         measurement: 0
     })
     // console.log('newIngredient', newIngredient)
-
+    const [newStep, setNewStep] = useState({
+        instructions: ''
+    })
+    // console.log('newStep', newStep)
+    const [newTag, setNewTag] = useState({
+        tag: ''
+    })
+    // console.log('newTag', newTag)
+    const [newSubRecipe, setNewSubRecipe] = useState({
+        title: ''
+    })
+    // console.log('newTag', newTag)
 
 
     const submitNewRecipe = (e) => {
         e.preventDefault()
-        console.log('submitting new recipe')
+        // console.log('submitting new recipe')
     }
-
-
-    const [newStep, setNewStep] = useState({
-        step_number: 'Step Number...',
-        instructions: ''
-    })
-    console.log('newStep', newStep)
-    const [newTag, setNewTag] = useState({
-        tag: ''
-    })
-    console.log('newTag', newTag)
-
-
 
 
     // ?React.memo/useMemo Quest? - callback to reduce re-renders?
@@ -80,33 +82,25 @@ const CreateRecipe = () => {
 
 
     // dropdown search and click logic
-    const [searchQuery, setSearchQuery] = useState('') // todo Why is SearchQuery not used?
-    const [filteredTags, setFilteredTags] = useState([])
     const handleSearchDetailChange = (e, searchList, setSearchAttribute, newObject, setNewObject) => {
-        const query = e.target.value.toLowerCase()
-        setSearchQuery(query)
-
-        const [id, attribute] = Object.keys(searchList[0]) // todo you could use the id later...
+        const [id, attribute] = Object.keys(searchList[0]) // ? you could use the id later...
         setSearchAttribute(attribute)
-        console.log('searchList', searchList)
         console.log('attribute', attribute)
-        // todo store the dynamic attribute
 
-        // todo update newObject with id and label...
+        const searchQuery = e.target.value.toLowerCase()
         setNewObject({ ...newObject, [attribute]: e.target.value })
 
-
-        if (query.length === 0) {
+        if (searchQuery.length === 0) {
             setFilteredTags([])
         } else {
-            const filtered = searchList.filter((item) => item[attribute].toLowerCase().includes(query))
+            const filtered = searchList.filter((item) => item[attribute].toLowerCase().includes(searchQuery))
             // console.log('filter', filtered)
 
             const sortedFiltered = filtered.sort((a, b) => {
                 // console.log(a, b)
-                const startsWithQueryA = a[attribute].toLowerCase().startsWith(query)
+                const startsWithQueryA = a[attribute].toLowerCase().startsWith(searchQuery)
                 // console.log('startsWithQueryA', startsWithQueryA)
-                const startsWithQueryB = b[attribute].toLowerCase().startsWith(query)
+                const startsWithQueryB = b[attribute].toLowerCase().startsWith(searchQuery)
                 // console.log('startsWithQueryB', startsWithQueryB)
                 if (startsWithQueryA && !startsWithQueryB) return -1
                 if (!startsWithQueryA && startsWithQueryB) return 1
@@ -115,16 +109,26 @@ const CreateRecipe = () => {
             setFilteredTags(sortedFiltered)
         }
     }
-    const handleClickDetailChange = (variableName, newObject, setNewObject, searchAttribute) => {
-        // set clicked ingredient
 
+    const handleClickDetailChange = (variableName, newObject, setNewObject, searchAttribute) => {
         setNewObject({ ...newObject, [searchAttribute]: variableName })
-        // clear the search query and filtered tags
-        setSearchQuery('')
         setFilteredTags([])
     }
 
 
+    const subRecipeDetailsInputs = [
+        {
+            name: 'title',
+            type: 'text',
+            placeholder: 'finding sub recipes...',
+            required: false,
+            maxLength: 100,
+            minLength: 1,
+            autoComplete: 'off',
+            value: newSubRecipe.title,
+            onChange: (e) => handleSearchDetailChange(e, allowedSubRecipes, setSearchAttribute, newSubRecipe, setNewSubRecipe)
+        }
+    ]
 
 
     // todo you will have to run validation checks before the form is sent...
@@ -158,8 +162,7 @@ const CreateRecipe = () => {
                     .map((input, i) => (
                         <DetailInput key={i} inputDetails={input} />
                     ))}
-                    
-                {/* // todo CREATE COMPONENT */}
+                {/* // todo CREATE COMPONENT  */}
                 {filteredTags.length > 0 && searchAttribute === 'ingredient' && (
                     <ul>
                         {filteredTags.map((item) => (
@@ -216,6 +219,26 @@ const CreateRecipe = () => {
 
                 <h3>Recipe Add Sub Recipes</h3>
                 <input type='text' placeholder='search for non parent recipes' />
+
+                {subRecipeDetailsInputs.map((input, i) => (
+                    <DetailInput key={i} inputDetails={input} />
+                ))}
+                {filteredTags.length > 0 && searchAttribute === 'title' && (
+                    <ul>
+                        {filteredTags.map((item) => (
+                            <li
+                                key={item.id}
+                                onClick={() => handleClickDetailChange(item[searchAttribute], newSubRecipe, setNewSubRecipe, searchAttribute)}
+                            >{item[searchAttribute]}</li>
+                        ))}
+                    </ul>
+                )}
+
+
+                <br />
+                <br />
+                <br />
+
 
                 <button onSubmit={submitNewRecipe}>Create Recipe</button>
             </form>
