@@ -11,6 +11,7 @@ const CreateRecipe = () => {
     // db used items for quick fill
     const [allIngredients, allIngredientsStatus] = useAllCategory('/api/recipes/ingredients')
     const [allTags, allTagsStatus] = useAllCategory('/api/recipes/tags')
+    const [searchAttribute, setSearchAttribute] = useState('') // used for search existing tags/ingredients
     // console.log('allTags', allTags)
 
 
@@ -85,30 +86,34 @@ const CreateRecipe = () => {
     // logic for filtering...
 
     // newIngredient, setNewIngredient
-    // a.ingredient b.ingredient => a.tag b.tag
+    // a.ingredient b.ingredient => a.tag b.tag -> I have this from the Object.keys now
 
-    const handleSearchDetailChange = (e, searchList) => { // takes the E, searchList...
+    const handleSearchDetailChange = (e, searchList, setSearchAttribute, newObject, setNewObject) => {
         const query = e.target.value.toLowerCase()
         setSearchQuery(query)
 
-        // update ingredient state with the type...
-        setNewIngredient({ ...newIngredient, ingredient: e.target.value })
 
-        const [ id, attribute ] = Object.keys(searchList[0]) // todo get this to return the attribute, use it later
+        const [id, attribute] = Object.keys(searchList[0]) // todo you could use the id later...
+        setSearchAttribute(attribute)
         console.log('searchList', searchList)
         console.log('attribute', attribute)
+        // todo store the dynamic attribute
+
+        // todo update newObject with id and label...
+        setNewObject({ ...newObject, [attribute]: e.target.value })
+
 
         if (query.length === 0) {
             setFilteredTags([])
         } else {
-            const filtered = searchList.filter((item) => item.ingredient.toLowerCase().includes(query))
+            const filtered = searchList.filter((item) => item[attribute].toLowerCase().includes(query))
             // console.log('filter', filtered)
 
             const sortedFiltered = filtered.sort((a, b) => {
                 // console.log(a, b)
-                const startsWithQueryA = a.ingredient.toLowerCase().startsWith(query)
+                const startsWithQueryA = a[attribute].toLowerCase().startsWith(query)
                 // console.log('startsWithQueryA', startsWithQueryA)
-                const startsWithQueryB = b.ingredient.toLowerCase().startsWith(query)
+                const startsWithQueryB = b[attribute].toLowerCase().startsWith(query)
                 // console.log('startsWithQueryB', startsWithQueryB)
                 if (startsWithQueryA && !startsWithQueryB) return -1
                 if (!startsWithQueryA && startsWithQueryB) return 1
@@ -118,9 +123,11 @@ const CreateRecipe = () => {
         }
     }
 
-    const handleClickDetailChange = (ingredientName) => {
+
+    const handleClickDetailChange = (variableName, newObject, setNewObject, searchAttribute) => {
         // set clicked ingredient
-        setNewIngredient({ ...newIngredient, ingredient: ingredientName })
+
+        setNewObject({ ...newObject, [searchAttribute]: variableName })
         // clear the search query and filtered tags
         setSearchQuery('')
         setFilteredTags([])
@@ -200,20 +207,20 @@ const CreateRecipe = () => {
                     name='ingredient'
                     type='text'
                     value={newIngredient.ingredient}
-                    onChange={(e) => handleSearchDetailChange(e, allIngredients)}
+                    onChange={(e) => handleSearchDetailChange(e, allIngredients, setSearchAttribute, newIngredient, setNewIngredient)}
                     placeholder='Add New Ingredient...'
                     required
                     maxLength={50}
                     minLength={1}
                     autoComplete='off'
                 />
-                {filteredTags.length > 0 && (
+                {filteredTags.length > 0 && searchAttribute === 'ingredient' && (
                     <ul>
                         {filteredTags.map((item) => (
                             <li
                                 key={item.id}
-                                onClick={() => handleClickDetailChange(item.ingredient)}
-                            >{item.ingredient}</li>
+                                onClick={() => handleClickDetailChange(item[searchAttribute], newIngredient, setNewIngredient, searchAttribute)}
+                            >{item[searchAttribute]}</li>
                         ))}
                     </ul>
                 )}
@@ -283,7 +290,7 @@ const CreateRecipe = () => {
                     minLength={1}
                     autoComplete='off'
                 />
-                <button onClick={(e) => handlePackingArray(e, newStep, setNewStep, newStepData, setNewStepData)}>Add Ingredient</button>
+                <button onClick={(e) => handlePackingArray(e, newStep, setNewStep, newStepData, setNewStepData)}>Add Step</button>
                 <br />
                 {JSON.stringify(newStepData)}
 
@@ -296,7 +303,7 @@ const CreateRecipe = () => {
                     name='tag'
                     type='text'
                     value={newTag.tag}
-                    onChange={(e) => handleSearchDetailChange(e, allTags)}
+                    onChange={(e) => handleSearchDetailChange(e, allTags, setSearchAttribute, newTag, setNewTag)}
                     placeholder='Add a tag...'
                     required
                     maxLength={100}
@@ -305,6 +312,17 @@ const CreateRecipe = () => {
                 />
                 <button onClick={(e) => handlePackingArray(e, newTag, setNewTag, newTagData, setNewTagData)}>Add Tag</button>
                 <br />
+                {filteredTags.length > 0 && searchAttribute === 'tag' && (
+                    <ul>
+                        {filteredTags.map((item) => (
+                            <li
+                                key={item.id}
+                                onClick={() => handleClickDetailChange(item[searchAttribute], newTag, setNewTag, searchAttribute)}
+                            >{item[searchAttribute]}</li>
+                        ))}
+                    </ul>
+                )}
+
                 {JSON.stringify(newTagData)}
 
 

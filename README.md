@@ -24,7 +24,7 @@
     COMPLETE
 
 ### Day 3
-    9/18/24 Hrs. 6.3hrs
+    9/18/24 Hrs. 6.3
 - Goal: Install my filtering SQL (GET all Recipes) to fit the UI
     COMPLETE
     Estimated: 90m
@@ -46,8 +46,8 @@
     Realistic: 20m
 
 
-### Day 4 - TODAY
-    9/19/24 40m
+### Day 4
+    9/19/24 hrs. 4
 - Goal: No input keywords no recipes
     COMPLETE
     Estimated: 20m
@@ -94,21 +94,31 @@
     Realistic: 20m
 
 - Goal: Integrate the working dropdown with your ingredient variable
+    COMPLETE
     Estimated: 70m
     Realistic: 25m
 
+
+### Day 5 - TODAY
+    9/20/24 hrs. 
 - Goal: Integrate the working dropdown with your tags variable
+    COMPLETE
     Estimated: 60m 
-    Realistic: 20m INCOMPLETE
+    Realistic: 50m
 
-- Goal: Refactor CreateRecipe.jsx
-    INCOMPLETE 20m 
-
-
-
+- Goal: Refactor CreateRecipe.jsx inputs
+    Estimated: 75m
+    Realistic: INCOMPLETE 20m 9:02
 
 
+
+
+- Goal: adjust packaging logic to 'word prep' whats going to the db
+- Goal: When listing out measurments for UI, adjust package
 - Goal: Hook up DB ingredients to self populate
 - Goal: Hook up DB Tags to self populate
 - Goal: Refactor recipes.router.js
-- Gaol: Re-order steps to come out in order of step_number?
+- Goal: Re-order steps to come out in order of step_number?
+- Goal: Use the enter key to add steps, tags, and ingredients
+- Goal: When creating tags in a new recipe, use prompt questions to guide the user based on  the newTagsData.length array...
+- Goal: individual files for each SQL query

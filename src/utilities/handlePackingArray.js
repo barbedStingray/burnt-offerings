@@ -17,6 +17,8 @@ export default function handlePackingArray(e, soloObject, setSoloObject, package
         const completedWord = wordToFormat.charAt(0).toUpperCase() + wordToFormat.slice(1).toLowerCase()
         soloObject[attribute] = completedWord
     })
+
+    
     setPackageArray([...packageArray, soloObject])
 
     // reset your object that came in
