@@ -3,7 +3,7 @@
 // if you use it as a variable, it is only created ONCE
 const newRecipeDetailInputs = (newRecipeDetails, setNewRecipeDetails, handleDetailChange) => [
     {
-        name: 'title',
+        name: 'newTitle',
         type: 'text',
         placeholder: 'looped title...',
         required: true,

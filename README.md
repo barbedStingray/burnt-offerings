@@ -114,16 +114,33 @@
     Realistic: 30m
 
 - Goal: Return non-parent recipes to be added as sub recipes
+    COMPLETE
     Estimated: 40m
     Realistic: 10m
 
 - Goal: Format sub recipes to DB package 
+    COMPLETE
     Estimated: 60m
-    Realistic 3:21
+    Realistic 40m
 
 - Goal: Refactor CreateRecipe.jsx inputs
+    PAUSED FOR MORE WORK before condensing
     Estimated: 75m
-    Realistic: 175m INCOMPLETE 
+    Realistic: 200m INCOMPLETE 
+
+
+- Goal: Create Prompts that change with the tag length for UI
+    Estimated: 60m
+    Realistic:
+
+- Goal: Create checks/format for (next) button on Recipe Details
+- Goal: Create checks/format for (add Ingredient) button on ingredients
+- Goal: Create checks/format for (add Step) button on steps
+- Goal: Create checks/format for (add Tag) button on tags
+- Goal: Create checks/format for (add sub recipe) button on sub recipes make sure the recipe exists
+
+
+
 
 
 

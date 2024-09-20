@@ -32,7 +32,7 @@ const CreateRecipe = () => {
 
 
     const [newRecipeDetails, setNewRecipeDetails] = useState({
-        title: '',
+        newTitle: '', // TODO create a check so no two titles are the same
         description: '',
         prep_time: '',
         servings: 'servings...',
@@ -109,26 +109,11 @@ const CreateRecipe = () => {
             setFilteredTags(sortedFiltered)
         }
     }
-
     const handleClickDetailChange = (variableName, newObject, setNewObject, searchAttribute) => {
         setNewObject({ ...newObject, [searchAttribute]: variableName })
         setFilteredTags([])
     }
 
-
-    const subRecipeDetailsInputs = [
-        {
-            name: 'title',
-            type: 'text',
-            placeholder: 'finding sub recipes...',
-            required: false,
-            maxLength: 100,
-            minLength: 1,
-            autoComplete: 'off',
-            value: newSubRecipe.title,
-            onChange: (e) => handleSearchDetailChange(e, allowedSubRecipes, setSearchAttribute, newSubRecipe, setNewSubRecipe)
-        }
-    ]
 
 
     // todo you will have to run validation checks before the form is sent...
@@ -163,6 +148,7 @@ const CreateRecipe = () => {
                         <DetailInput key={i} inputDetails={input} />
                     ))}
                 {/* // todo CREATE COMPONENT  */}
+                <button onClick={(e) => handlePackingArray(e, newIngredient, setNewIngredient, newIngredientsData, setNewIngredientsData)}>Add Ingredient</button>
                 {filteredTags.length > 0 && searchAttribute === 'ingredient' && (
                     <ul>
                         {filteredTags.map((item) => (
@@ -173,7 +159,6 @@ const CreateRecipe = () => {
                         ))}
                     </ul>
                 )}
-                <button onClick={(e) => handlePackingArray(e, newIngredient, setNewIngredient, newIngredientsData, setNewIngredientsData)}>Add Ingredient</button>
                 <br />
                 {JSON.stringify(newIngredientsData)}
 
@@ -218,11 +203,10 @@ const CreateRecipe = () => {
 
 
                 <h3>Recipe Add Sub Recipes</h3>
-                <input type='text' placeholder='search for non parent recipes' />
-
-                {subRecipeDetailsInputs.map((input, i) => (
+                {subRecipeDetailsInputs(newSubRecipe, setNewSubRecipe, handleSearchDetailChange, allowedSubRecipes, setSearchAttribute).map((input, i) => ( // TODO create a check so no two titles are the same
                     <DetailInput key={i} inputDetails={input} />
                 ))}
+                <button onClick={(e) => handlePackingArray(e, newSubRecipe, setNewSubRecipe, newSubRecipeData, setNewSubRecipeData)}>Add Sub Recipe</button>
                 {filteredTags.length > 0 && searchAttribute === 'title' && (
                     <ul>
                         {filteredTags.map((item) => (
@@ -233,6 +217,8 @@ const CreateRecipe = () => {
                         ))}
                     </ul>
                 )}
+                <br />
+                {JSON.stringify(newSubRecipeData)}
 
 
                 <br />

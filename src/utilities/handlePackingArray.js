@@ -8,10 +8,15 @@ export default function handlePackingArray(e, soloObject, setSoloObject, package
     const attributes = Object.keys(soloObject)
     console.log('attributes', attributes)
 
-    // todo NEED A CHECK TO MAKE SURE ALL ATTRIBUTES HAVE A VALUE
+    // todo NEED A CHECK TO MAKE SURE ALL ATTRIBUTES HAVE A VALUE -- do this in the add button?
+    // todo different function checks for different sources?
+    // - recipe Ingredients...(next)
+    // - sub Recipes - check sub recipe not entering one that doesnt exist
+    // - ingredients check ingredient and format
+    // - Tags check tag and format
+    // - Steps check step and format
+    // - tag guided progression...
     // todo NEED CHECKS SO THAT PACKING ARRAY IS FINAL
-    
-    // todo increment steps automatically? 
 
     attributes.forEach((attribute) => { // ! todo THIS ERRORS IF IT'S BLANK
         const wordToFormat = soloObject[attribute].toString()
@@ -19,6 +24,7 @@ export default function handlePackingArray(e, soloObject, setSoloObject, package
         const completedWord = wordToFormat.charAt(0).toUpperCase() + wordToFormat.slice(1).toLowerCase()
         soloObject[attribute] = completedWord
     })
+
 
     setPackageArray([...packageArray, soloObject])
 
