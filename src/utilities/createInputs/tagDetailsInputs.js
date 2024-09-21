@@ -1,6 +1,6 @@
 
 
-const tagDetailsInputs = (newTag, setNewTag, handleSearchDetailChange, allTags, setSearchAttribute) => [
+const tagDetailsInputs = (newTag, setNewTag, handleSearchDetailChange, allTags, setSearchAttribute, setFilteredTags) => [
     {
         name: 'tag',
         type: 'text',
@@ -10,7 +10,7 @@ const tagDetailsInputs = (newTag, setNewTag, handleSearchDetailChange, allTags, 
         minLength: 1,
         autoComplete: 'off',
         value: newTag.tag,
-        onChange: (e) => handleSearchDetailChange(e, allTags, setSearchAttribute, newTag, setNewTag)
+        onChange: (e) => handleSearchDetailChange(e, allTags, setSearchAttribute, newTag, setNewTag, setFilteredTags)
     }
 ]
 

@@ -8,6 +8,23 @@ export default function handlePackingArray(e, soloObject, setSoloObject, package
     const attributes = Object.keys(soloObject)
     console.log('attributes', attributes)
 
+    // todo FIRST UP Ingredients...
+    if (attributes[0] === 'ingredient') {
+        console.log('adjusting ingredient packaging')
+
+        // ensure that each field has a value...        
+        const isValue = attributes.every((attribute) => soloObject[attribute].length > 0)
+        console.log('isValue', isValue)
+        if (!isValue) {
+            alert('Please Check your Ingredient!')
+            return
+        }
+
+        // format your field...
+
+    }
+
+
     // todo NEED A CHECK TO MAKE SURE ALL ATTRIBUTES HAVE A VALUE -- do this in the add button?
     // todo different function checks for different sources?
     // - recipe Ingredients...(next)
@@ -18,13 +35,16 @@ export default function handlePackingArray(e, soloObject, setSoloObject, package
     // - tag guided progression...
     // todo NEED CHECKS SO THAT PACKING ARRAY IS FINAL
 
-    attributes.forEach((attribute) => { // ! todo THIS ERRORS IF IT'S BLANK
-        const wordToFormat = soloObject[attribute].toString()
-        console.log('wordToFormat', wordToFormat)
-        const completedWord = wordToFormat.charAt(0).toUpperCase() + wordToFormat.slice(1).toLowerCase()
-        soloObject[attribute] = completedWord
-    })
 
+    // attributes.forEach((attribute) => { // ! todo THIS ERRORS IF IT'S BLANK
+    //     const wordToFormat = soloObject[attribute].toString()
+    //     console.log('wordToFormat', wordToFormat)
+    //     const completedWord = wordToFormat.charAt(0).toUpperCase() + wordToFormat.slice(1).toLowerCase()
+    //     soloObject[attribute] = completedWord
+    // })
+
+
+    // ! SET FINAL STEPS
 
     setPackageArray([...packageArray, soloObject])
 
@@ -34,5 +54,6 @@ export default function handlePackingArray(e, soloObject, setSoloObject, package
         resetObject[attribute] = '' // empty string or you can set default values here
     })
     setSoloObject(resetObject)
+    // TODO RESET YOUR SEARCH DROPDOWN?
 }
 

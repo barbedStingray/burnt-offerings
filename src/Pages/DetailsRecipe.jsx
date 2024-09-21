@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 
-import useRecipeDetails from '../utilities/recipeDetails'
+import useRecipeDetails from '../utilities/fetchRecipeDetails'
 
 
 const DetailsRecipe = () => {

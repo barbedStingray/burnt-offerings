@@ -1,5 +1,5 @@
 
-const subRecipeDetailsInputs = (newSubRecipe, setNewSubRecipe, handleSearchDetailChange, allowedSubRecipes, setSearchAttribute) => [
+const subRecipeDetailsInputs = (newSubRecipe, setNewSubRecipe, handleSearchDetailChange, allowedSubRecipes, setSearchAttribute, setFilteredTags) => [
     {
         name: 'title',
         type: 'text',
@@ -9,7 +9,7 @@ const subRecipeDetailsInputs = (newSubRecipe, setNewSubRecipe, handleSearchDetai
         minLength: 1,
         autoComplete: 'off',
         value: newSubRecipe.title,
-        onChange: (e) => handleSearchDetailChange(e, allowedSubRecipes, setSearchAttribute, newSubRecipe, setNewSubRecipe)
+        onChange: (e) => handleSearchDetailChange(e, allowedSubRecipes, setSearchAttribute, newSubRecipe, setNewSubRecipe, setFilteredTags)
     }
 ]
 export default subRecipeDetailsInputs

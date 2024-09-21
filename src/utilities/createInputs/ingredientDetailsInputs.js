@@ -2,7 +2,7 @@
 
 const ingredientDetailsInputs = (
     newIngredient, setNewIngredient, handleDetailChange, handleSearchDetailChange,
-    allIngredients, setSearchAttribute
+    allIngredients, setSearchAttribute, setFilteredTags
 ) => [
     {
         name: 'ingredient',
@@ -13,7 +13,7 @@ const ingredientDetailsInputs = (
         minLength: 1,
         autoComplete: 'off',
         value: newIngredient.ingredient,
-        onChange: (e) => handleSearchDetailChange(e, allIngredients, setSearchAttribute, newIngredient, setNewIngredient)
+        onChange: (e) => handleSearchDetailChange(e, allIngredients, setSearchAttribute, newIngredient, setNewIngredient, setFilteredTags)
     },
     {
         name: 'quantity',
