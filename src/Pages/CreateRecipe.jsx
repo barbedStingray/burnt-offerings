@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useState } from 'react'
 
 import useAllCategory from '../utilities/allOfCategory'
 import handlePackingArray from '../utilities/handlePackingArray'
@@ -10,7 +10,9 @@ import stepDetailsInputs from '../utilities/createInputs/stepDetailsInputs'
 import tagDetailsInputs from '../utilities/createInputs/tagDetailsInputs'
 import subRecipeDetailsInputs from '../utilities/createInputs/subRecipeDetailsInputs'
 
+
 // TODO REFACTOR
+
 
 const CreateRecipe = () => {
 
@@ -29,7 +31,6 @@ const CreateRecipe = () => {
     const [newTagData, setNewTagData] = useState([])
     const [newSubRecipeData, setNewSubRecipeData] = useState([])
     // console.log('newIngredientsData', newIngredientsData)
-
 
     const [newRecipeDetails, setNewRecipeDetails] = useState({
         newTitle: '', // TODO create a check so no two titles are the same
@@ -67,14 +68,6 @@ const CreateRecipe = () => {
     }
 
 
-    // ?React.memo/useMemo Quest? - callback to reduce re-renders?
-    // const handleDetailChange = useCallback((e, object, setFunction) => {
-    //     const { name, value } = e.target 
-    //     setFunction({ ...object, [name]: value })
-    // }, [])
-    // const recipeDetailInputs = useMemo(() => newRecipeDetailInputs(newRecipeDetails, setNewRecipeDetails, handleDetailChange), [newRecipeDetails, setNewRecipeDetails, handleDetailChange])
-
-
     const handleDetailChange = (e, object, setFunction) => {
         const { name, value } = e.target
         setFunction({ ...object, [name]: value }) // setting it properly
@@ -82,6 +75,7 @@ const CreateRecipe = () => {
 
 
     // dropdown search and click logic
+    // TODO refactor into it's own file
     const handleSearchDetailChange = (e, searchList, setSearchAttribute, newObject, setNewObject) => {
         const [id, attribute] = Object.keys(searchList[0]) // ? you could use the id later...
         setSearchAttribute(attribute)
@@ -115,8 +109,23 @@ const CreateRecipe = () => {
     }
 
 
+    // todo Refactor
+    const tagPrompt = [
+        'What kind of food is this?',
+        'In what season would you make this?',
+        'Add any other Tags you like!'
+    ]
+    const getTagPrompt = () => {
+        if (newTagData.length === 0) {
+            return tagPrompt[0]
+        } else if(newTagData.length === 1) {
+            return tagPrompt[1]
+        } else {
+            return tagPrompt[2]
+        }
+    }
 
-    // todo you will have to run validation checks before the form is sent...
+
     return (
         <div>
 
@@ -129,10 +138,6 @@ const CreateRecipe = () => {
                 {newRecipeDetailInputs(newRecipeDetails, setNewRecipeDetails, handleDetailChange).map((input, i) => (
                     <DetailInput key={i} inputDetails={input} />
                 ))}
-                {/* // ?React.memo/useMemo Quest? - callback to reduce re-renders? */}
-                {/* {recipeDetailInputs.map((input, i) => (
-                    <DetailInput key={i} inputDetails={input} />
-                ))} */}
                 <button disabled>Add Photo</button>
                 {JSON.stringify(newRecipeDetails)}
 
@@ -180,13 +185,13 @@ const CreateRecipe = () => {
 
                 <h3>Recipe Tags</h3>
 
+                <p>{getTagPrompt()}</p>
                 {tagDetailsInputs(newTag, setNewTag, handleSearchDetailChange, allTags, setSearchAttribute)
                     .map((input, i) => (
                         <DetailInput key={i} inputDetails={input} />
                     ))}
                 <button onClick={(e) => handlePackingArray(e, newTag, setNewTag, newTagData, setNewTagData)}>Add Tag</button>
                 <br />
-
                 {/* // todo CREATE COMPONENT */}
                 {filteredTags.length > 0 && searchAttribute === 'tag' && (
                     <ul>
@@ -207,6 +212,7 @@ const CreateRecipe = () => {
                     <DetailInput key={i} inputDetails={input} />
                 ))}
                 <button onClick={(e) => handlePackingArray(e, newSubRecipe, setNewSubRecipe, newSubRecipeData, setNewSubRecipeData)}>Add Sub Recipe</button>
+                {/* // todo CREATE COMPONENT */}
                 {filteredTags.length > 0 && searchAttribute === 'title' && (
                     <ul>
                         {filteredTags.map((item) => (
@@ -234,3 +240,18 @@ const CreateRecipe = () => {
 }
 
 export default CreateRecipe
+
+
+
+
+// ?React.memo/useMemo Quest? - callback to reduce re-renders?
+// const handleDetailChange = useCallback((e, object, setFunction) => {
+//     const { name, value } = e.target 
+//     setFunction({ ...object, [name]: value })
+// }, [])
+// const recipeDetailInputs = useMemo(() => newRecipeDetailInputs(newRecipeDetails, setNewRecipeDetails, handleDetailChange), [newRecipeDetails, setNewRecipeDetails, handleDetailChange])
+
+{/* // ?React.memo/useMemo Quest? - callback to reduce re-renders? */ }
+{/* {recipeDetailInputs.map((input, i) => (
+<DetailInput key={i} inputDetails={input} />
+))} */}

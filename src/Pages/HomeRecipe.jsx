@@ -76,7 +76,6 @@ const HomeRecipe = () => {
     }
 
 
-
     return (
         <div>
             <p>Burnt Offerings</p>
@@ -114,51 +113,3 @@ const HomeRecipe = () => {
 }
 
 export default HomeRecipe
-
-
-
-
-// const [searchQuery, setSearchQuery] = useState('')
-// const [filteredTags, setFilteredTags] = useState([])
-// logic for filtering...
-// const handleSearchChange = (e) => {
-//     const query = e.target.value.toLowerCase()
-//     setSearchQuery(query)
-
-//     if (query.length === 0) {
-//         setFilteredTags([])
-//     } else {
-//         const filtered = allTags.filter((tag) => tag.tags.toLowerCase().includes(query))
-//         console.log('filter', filtered)
-
-//         const sortedFiltered = filtered.sort((a, b) => {
-//             console.log(a, b)
-//             const startsWithQueryA = a.tags.toLowerCase().startsWith(query)
-//             console.log('startsWithQueryA', startsWithQueryA)
-//             const startsWithQueryB = b.tags.toLowerCase().startsWith(query)
-//             console.log('startsWithQueryB', startsWithQueryB)
-//             if (startsWithQueryA && !startsWithQueryB) return -1
-//             if (!startsWithQueryA && startsWithQueryB) return 1
-//             return 0
-//         })
-//         setFilteredTags(sortedFiltered)
-//     }
-// }
-
-// HTML for dropdown searches
-{/* <div>
-                <h3>The Select Box</h3>
-                <input 
-                    type='text'
-                    value={searchQuery}
-                    onChange={handleSearchChange}
-                    placeholder='search a tag...'
-                />
-                {filteredTags.length > 0 && (
-                    <ul>
-                        {filteredTags.map((tag) => (
-                            <li key={tag.id}>{tag.tags}</li>
-                        ))}
-                    </ul>
-                )}
-            </div> */}

@@ -123,15 +123,19 @@
     Estimated: 60m
     Realistic 40m
 
-- Goal: Refactor CreateRecipe.jsx inputs
-    PAUSED FOR MORE WORK before condensing
-    Estimated: 75m
-    Realistic: 200m INCOMPLETE 
-
 
 - Goal: Create Prompts that change with the tag length for UI
+    COMPLETE
     Estimated: 60m
-    Realistic:
+    Realistic: 10m
+
+
+
+- Goal: Refactor CreateRecipe.jsx inputs
+    PAUSED FOR MORE WORK before condensing // looking at layouts
+    Estimated: 75m oh boy...
+    Realistic: 200m INCOMPLETE 
+
 
 - Goal: Create checks/format for (next) button on Recipe Details
 - Goal: Create checks/format for (add Ingredient) button on ingredients
