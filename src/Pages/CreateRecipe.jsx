@@ -9,25 +9,27 @@ import AddSubRecipes from '../components/createParts/AddSubRecipes'
 import CreateTags from '../components/createParts/CreateTags'
 
 // TODO REFACTOR single responsibilites
+// todo is redux useful anymore? 
 
 const CreateRecipe = () => {
 
     const createTagsData = useSelector((state) => state.createDetails)
     // console.log(createTagsData)
     // ! packages for DB
-    const [newRecipeDetails, setNewRecipeDetails] = useState({
-        newTitle: '', // TODO create a check so no two titles are the same
-        description: '',
-        prep_time: '',
-        servings: 'servings...',
-        is_sub_recipe: false, // probably not needed
-        is_parent_recipe: false, // returns true if sub recipes are added
-        picture: null
-    })
-    const [newIngredientsData, setNewIngredientsData] = useState([])
-    const [newStepData, setNewStepData] = useState([])
-    const [newTagData, setNewTagData] = useState([])
-    const [newSubRecipeData, setNewSubRecipeData] = useState([])
+    const [tagPackage, setTagPackage] = useState([])
+
+    // const [newRecipeDetails, setNewRecipeDetails] = useState({
+    //     newTitle: '', // TODO create a check so no two titles are the same
+    //     description: '',
+    //     prep_time: '',
+    //     servings: 'servings...',
+    //     is_sub_recipe: false, // probably not needed
+    //     is_parent_recipe: false, // returns true if sub recipes are added
+    //     picture: null
+    // })
+    // const [newIngredientsData, setNewIngredientsData] = useState([])
+    // const [newStepData, setNewStepData] = useState([])
+    // const [newSubRecipeData, setNewSubRecipeData] = useState([])
     // ! packages for DB
 
 
@@ -37,6 +39,14 @@ const CreateRecipe = () => {
         // console.log('submitting new recipe')
     }
 
+    function deleteTag(i) {
+        console.log('tagindex', i)
+        const newPackage = tagPackage.filter((_, index) => index !== i)
+        console.log('newPackage', newPackage)
+        setTagPackage(newPackage)
+    }
+
+
     return (
         <div>
 
@@ -44,7 +54,7 @@ const CreateRecipe = () => {
 
 
 
-                {/* <AddDetails dataPackage={[newRecipeDetails, setNewRecipeDetails]} />
+            {/* <AddDetails dataPackage={[newRecipeDetails, setNewRecipeDetails]} />
                 <br />
                 <br />
                 <AddIngredients dataPackage={[newIngredientsData, setNewIngredientsData]} />
@@ -58,22 +68,34 @@ const CreateRecipe = () => {
                 <br /> */}
 
 
-                {/* // ! OLD INFO <AddTags dataPackage={[newTagData, setNewTagData]} /> */}
+            {/* // ! OLD obsolete****  INFO <AddTags dataPackage={[newTagData, setNewTagData]} /> */}
 
-                <p>Reducer Data</p>
-                {JSON.stringify(createTagsData)}
-                <br />
-                <br />
+            <p>Reducer Data</p>
+            {JSON.stringify(createTagsData)}
+            <br />
+            <br />
 
-                <p>Printed Recipe</p>
-                {createTagsData.map((tag, i) => (
+            <p>Printed Recipe</p>
+            {createTagsData.map((tag, i) => (
+                <>
                     <p key={i}>{tag.tag}</p>
-                ))}
-                <br />
-                <br />
-                <CreateTags /> 
+                    <button onClick={() => deleteTag(i)}>Delete</button>
+                </>
+            ))}
+            <br />
+            <br />
+            <CreateTags dataPackage={{ tagPackage, setTagPackage }} />
+            <p>TAG PACKAGE</p>
+            {tagPackage.map((tag, i) => (
+                <div key={i}>
+                    <p>{tag.tag}</p>
+                    <button onClick={() => deleteTag(i)}>Delete</button>
+                </div>
+            ))}
+            {JSON.stringify(tagPackage)}
 
-                {/* <button onSubmit={submitNewRecipe}>Create Recipe</button> */}
+
+            {/* <button onSubmit={submitNewRecipe}>Create Recipe</button> */}
 
         </div >
     )
