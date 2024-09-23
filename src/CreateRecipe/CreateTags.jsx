@@ -1,12 +1,9 @@
-import React, { useState, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import useAllCategory from '../../utilities/allOfCategory'
-import handleValueChecks from '../../utilities/createHandlers/handleValueChecks'
-import handleDetailChange from '../../utilities/createHandlers/handleDetailChange'
+import React, { useState } from 'react'
+import useAllCategory from '../utilities/allOfCategory'
 
 // important functions
-import sbmitNewObject from '../../utilities/submitNewObject'
-import handleSearchDetailChange from '../../utilities/createHandlers/handleSearchDetailChange'
+import sbmitNewObject from '../utilities/submitNewObject'
+import handleSearchDetailChange from '../utilities/createHandlers/handleSearchDetailChange'
 
 
 
@@ -87,5 +84,4 @@ const CreateTags = ({ dataPackage }) => {
         </div>
     )
 }
-
 export default CreateTags

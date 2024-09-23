@@ -1,7 +1,7 @@
 
 // Prepares final array when CREATING a new recipe
 // to be sent to the DB for further processing
-import handleValueChecks from "./handleValueChecks"
+import handleValueChecks from "./handleValueIsPresent"
 
 export default function handlePackingArray(e, soloVariable, setSoloVariable, packageArray, setPackageArray, setFilteredTags) {
     e.preventDefault()

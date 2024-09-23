@@ -1,4 +1,4 @@
-import handleValueChecks from "./createHandlers/handleValueChecks"
+import handleValueIsPresent from "./createHandlers/handleValueIsPresent"
 
 // ! push your OBJECT to the dataArray for DB
 export default function submitNewTag(e, newObject, setNewObject, searchList, dataPackage, setDataPackage, initialState, setFilteredList) {
@@ -14,7 +14,7 @@ export default function submitNewTag(e, newObject, setNewObject, searchList, dat
     // todo ? Two-word tags?
     const checkValueArray = Object.values(newObject)
     console.log('checkValueArray', checkValueArray)
-    const isValue = handleValueChecks(...checkValueArray)
+    const isValue = handleValueIsPresent(...checkValueArray)
     if (!isValue) return alert('please check your inputs!')
 
     // ! Bundler - own function
@@ -26,7 +26,7 @@ export default function submitNewTag(e, newObject, setNewObject, searchList, dat
     if (!matchedTag) {
         matchedTag = { ...newObject, [formName]: tagKeywordFormat, id: 'zero' }
     }
-    
+
     // ! Update newTagData
     setDataPackage([...dataPackage, matchedTag])
     // ! Clear Inputs
