@@ -25,7 +25,7 @@ const DetailInput = ({ inputDetails }) => {
         onChange={onChange}
         required
       >
-        <option>Looped Select...</option>
+        <option value=''>Looped Select...</option>
         {measurementOptions.map((option, i) => (
           <option key={i} value={option}>{option}</option>
         ))}

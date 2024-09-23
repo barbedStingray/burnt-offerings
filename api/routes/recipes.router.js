@@ -7,9 +7,22 @@ const router = express.Router()
 // todo /details NEEDS REFACTOR
 
 // fetches all used ingredients
+router.get('/titleCheck', (req, res) => {
+
+    const queryText = `SELECT title FROM "moms_recipes";`    
+
+    pool.query(queryText).then((result) => {
+        console.log(`/api/recipes/titleCheck success`)
+        res.send(result.rows)
+    }).catch((error) => {
+        console.log(`/api/recipes/titleCheck ERROR`, error)
+        res.sendStatus(500)
+    })
+})
+
 router.get('/notParents', (req, res) => {
 
-    const queryText = `SELECT * FROM "moms_recipes" WHERE is_parent_recipe = false;`    
+    const queryText = `SELECT id, title FROM "moms_recipes" WHERE is_parent_recipe = false;`    
 
     pool.query(queryText).then((result) => {
         console.log(`/api/recipes/notParents success`)
