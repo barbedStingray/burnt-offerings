@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
-import useAllCategory from '../utilities/allOfCategory'
+import useAllCategory from '../../utilities/allOfCategory'
 
 // important functions
-import sbmitNewObject from '../utilities/submitNewObject'
-import handleSearchDetailChange from '../utilities/createHandlers/handleSearchDetailChange'
-
+import submitNewObject from '../../utilities/submitNewObject'
+import handleSearchDetailChange from '../../utilities/createHandlers/handleSearchDetailChange'
 
 
 const CreateTags = ({ dataPackage }) => {
@@ -41,7 +40,7 @@ const CreateTags = ({ dataPackage }) => {
 
             <h3>Create Tags</h3>
             {getTagPrompt()}
-            <form name='tag' onSubmit={(e) => sbmitNewObject(e, newTag, setNewTag, allTags, tagPackage, setTagPackage, initialTagState, setFilteredList)}>
+            <form name='tag' onSubmit={(e) => submitNewObject(e, newTag, setNewTag, allTags, tagPackage, setTagPackage, initialTagState, setFilteredList)}>
                 <input
                     name='tag'
                     type='text'
@@ -56,7 +55,7 @@ const CreateTags = ({ dataPackage }) => {
                         if (e.key === 'Enter') {
                             e.preventDefault();
                             const tagToSubmit = filteredList.length > 0 ? filteredList[0] : newTag
-                            sbmitNewObject(e, tagToSubmit, setNewTag, allTags, tagPackage, setTagPackage, initialTagState, setFilteredList)
+                            submitNewObject(e, tagToSubmit, setNewTag, allTags, tagPackage, setTagPackage, initialTagState, setFilteredList)
                         }
                     }}
                 >
@@ -68,7 +67,7 @@ const CreateTags = ({ dataPackage }) => {
                         {filteredList.map((listItem) => (
                             <li
                                 key={listItem.id}
-                                onClick={(e) => sbmitNewObject(e, newTag, setNewTag, allTags, tagPackage, setTagPackage, initialTagState, setFilteredList)}
+                                onClick={(e) => submitNewObject(e, listItem, setNewTag, allTags, tagPackage, setTagPackage, initialTagState, setFilteredList)}
                             >{listItem[searchAttribute]}</li>
                         ))}
                     </ul>

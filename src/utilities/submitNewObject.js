@@ -18,14 +18,28 @@ export default function submitNewTag(e, newObject, setNewObject, searchList, dat
     if (!isValue) return alert('please check your inputs!')
 
     // ! Bundler - own function
-    const tagKeywordFormat = tagKeyword.trim().charAt(0).toUpperCase() + tagKeyword.trim().slice(1).toLowerCase();
-    // console.log('keywordFormat', tagKeywordFormat)
+    let tagKeywordFormat
+    if (formName !== 'title') { // todo also account for steps...
+        tagKeywordFormat = tagKeyword.trim().charAt(0).toUpperCase() + tagKeyword.trim().slice(1).toLowerCase()
+    } else {
+        tagKeywordFormat = tagKeyword
+    }
+    console.log('keywordFormat', tagKeywordFormat)
     console.log('searchList', searchList)
     let matchedTag = searchList.find((item) => item[formName] === tagKeywordFormat)
-    // console.log('matchedTag', matchedTag)
+    console.log('matchedTag', matchedTag)
     if (!matchedTag) {
         matchedTag = { ...newObject, [formName]: tagKeywordFormat, id: 'zero' }
     }
+    // // ! Bundler - own function
+    // const tagKeywordFormat = tagKeyword.trim().charAt(0).toUpperCase() + tagKeyword.trim().slice(1).toLowerCase();
+    // console.log('keywordFormat', tagKeywordFormat)
+    // console.log('searchList', searchList)
+    // let matchedTag = searchList.find((item) => item[formName] === tagKeywordFormat)
+    // console.log('matchedTag', matchedTag)
+    // if (!matchedTag) {
+    //     matchedTag = { ...newObject, [formName]: tagKeywordFormat, id: 'zero' }
+    // }
 
     // ! Update newTagData
     setDataPackage([...dataPackage, matchedTag])

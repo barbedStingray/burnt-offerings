@@ -4,7 +4,7 @@ import './App.css';
 
 import HomeRecipe from './Pages/HomeRecipe';
 import DetailsRecipe from './Pages/DetailsRecipe';
-import CreateNewRecipe from './CreateRecipe/CreateNewRecipe';
+import CreateNewRecipe from './CreateRecipePage/CreateNewRecipe';
 
 function App() {
 

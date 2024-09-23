@@ -1,16 +1,15 @@
 import React, { useState } from 'react'
-import useAllCategory from '../utilities/allOfCategory'
+import useAllCategory from '../../utilities/allOfCategory'
 
-import DetailInput from '../components/DetailInput'
-import handleDetailChange
-    from '../utilities/createHandlers/handleDetailChange'
-import handleValueIsPresent from '../utilities/createHandlers/handleValueIsPresent'
+import DetailInput from '../../components/DetailInput'
+import handleDetailChange from '../../utilities/createHandlers/handleDetailChange'
+import handleValueIsPresent from '../../utilities/createHandlers/handleValueIsPresent'
 
 const CreateDetails = ({ dataPackage }) => {
 
     const { newRecipeDetails, setNewRecipeDetails } = dataPackage
     const [allRecipes, allRecipesStatus] = useAllCategory('/api/recipes/titleCheck')
-    console.log('allRecipes', allRecipes)
+    // console.log('allRecipes', allRecipes)
 
     const newRecipeDetailInputs = [
         {

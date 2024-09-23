@@ -4,7 +4,7 @@
     // ! creates the dropdown menu of options
     const handleSearchDetailChange = (e, object, setObjectFunction, searchList, setSearchAttribute, setFilteredTags) => {
         const { name, value } = e.target
-        // console.log('handleSearchDetailChange', name, value)
+        console.log('handleSearchDetailChange', name, value)
         setSearchAttribute(name)
         const searchQuery = value.toLowerCase()
 

@@ -18,8 +18,6 @@ const AddSubRecipes = ({ dataPackage }) => {
     })
 
 
-
-
     const addNewSubRecipeToData = (e, newSubRecipe, newSubRecipeObject) => {
         e.preventDefault()
         console.log('newSubRecipe', newSubRecipe)
