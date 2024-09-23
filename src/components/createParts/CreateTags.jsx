@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import useAllCategory from '../../utilities/allOfCategory'
 import handleValueChecks from '../../utilities/createHandlers/handleValueChecks'
@@ -66,13 +66,15 @@ const CreateTags = () => {
     }
 
 
-
-
-    // ! push your tag to the dataArray for DB
+    // ! push your OBJECT to the dataArray for DB
     function submitNewTag(e, newTag) {
         e.preventDefault()
+        // const formName = e.target.value ? e.target.value : e.currentTarget.closest('form').name
+        const formName = e.currentTarget.closest('form').name
+        console.log('formName', formName)
         console.log('submitNewTag', newTag)
-        const tagKeyword = newTag.tag
+        const tagKeyword = newTag[formName]
+        console.log('tagKeyword', tagKeyword)
 
         // ! pass your checks
         // todo ? Two-word tags?
@@ -83,22 +85,28 @@ const CreateTags = () => {
 
         // ! Bundler
         const tagKeywordFormat = tagKeyword.trim().charAt(0).toUpperCase() + tagKeyword.trim().slice(1).toLowerCase();
-        console.log('keywordFormat', tagKeywordFormat)
-        let matchedTag = allTags.find((item) => item.tag === tagKeywordFormat)
-        console.log('matchedTag', matchedTag)
+        // console.log('keywordFormat', tagKeywordFormat)
+        let matchedTag = allTags.find((item) => item[formName] === tagKeywordFormat)
+        // console.log('matchedTag', matchedTag)
         if (!matchedTag) {
-            matchedTag = { ...newTag, tag: tagKeywordFormat, id: 'zero' }
+            matchedTag = { ...newTag, [formName]: tagKeywordFormat, id: 'zero' }
         }
+        // ! Update newTagData
         setNewTagData([...newTagData, matchedTag])
-
         // ! Clear Inputs
         setNewTag(initialTagState)
         setFilteredTags([])
     }
 
-    function dispatchTags() {
-        console.log('dispatching tags')
-        dispatch({ type: 'CREATE_RECIPE_DETAILS', payload: newTagData })
+
+    // ! dispatch every time tagdata Changes
+    useEffect(() => {
+        if (newTagData.length > 0) {
+            dispatchObject('CREATE_RECIPE_DETAILS', newTagData)
+        }
+    })
+    function dispatchObject(reducer, updatedTags) {
+        dispatch({ type: `${reducer}`, payload: updatedTags })
     }
 
 
@@ -107,8 +115,7 @@ const CreateTags = () => {
 
             <h3>Create Tags</h3>
             {getTagPrompt()}
-            <form onSubmit={(e) => submitNewTag(e, newTag)}>
-
+            <form name='tag' onSubmit={(e) => submitNewTag(e, newTag)}>
 
                 <input
                     name='tag'
@@ -123,19 +130,13 @@ const CreateTags = () => {
                     onKeyDown={(e) => {
                         if (e.key === 'Enter') {
                             e.preventDefault();
-                            if (filteredTags.length > 0) {
-                                const firstTag = filteredTags[0];
-                                submitNewTag(e, firstTag)
-                            } else {
-                                console.log('New Variable going through...')
-                                submitNewTag(e, newTag)
-                            }
+                            const tagToSubmit = filteredTags.length > 0 ? filteredTags[0] : newTag
+                            submitNewTag(e, tagToSubmit)
                         }
                     }}
-
                 >
                 </input>
-                <button onSubmit={(e) => submitNewTag(e, newTag)}>Create Tag</button>
+                <button type='submit'>Create Tag</button>
 
                 {filteredTags.length > 0 && (
                     <ul>
@@ -148,7 +149,6 @@ const CreateTags = () => {
                     </ul>
                 )}
 
-
                 <br />
                 {JSON.stringify(newTag)}
                 <br />
@@ -157,7 +157,7 @@ const CreateTags = () => {
 
             </form>
 
-            <button onClick={() => dispatchTags()}>Next Section</button>
+            <button>Next Section</button>
 
         </div>
     )

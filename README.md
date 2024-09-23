@@ -101,7 +101,7 @@
     Realistic: 25m
 
 
-### Day 5 - TODAY
+### Day 5
     9/20/24 hrs. 
 - Goal: Integrate the working dropdown with your tags variable
     COMPLETE
@@ -135,6 +135,15 @@
     PAUSED FOR MORE WORK before condensing // looking at layouts
     Estimated: 75m oh boy...
     Realistic: 200m INCOMPLETE 
+
+
+- day 6
+    hrs 6
+
+- day 7
+    hrs 4
+
+- day 8
 
 
 - Goal: Create checks/format for (next) button on Recipe Details

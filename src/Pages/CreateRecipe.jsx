@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 
 import AddDetails from '../components/createParts/AddDetails'
@@ -13,7 +13,7 @@ import CreateTags from '../components/createParts/CreateTags'
 const CreateRecipe = () => {
 
     const createTagsData = useSelector((state) => state.createDetails)
-    console.log(createTagsData)
+    // console.log(createTagsData)
     // ! packages for DB
     const [newRecipeDetails, setNewRecipeDetails] = useState({
         newTitle: '', // TODO create a check so no two titles are the same
@@ -62,6 +62,13 @@ const CreateRecipe = () => {
 
                 <p>Reducer Data</p>
                 {JSON.stringify(createTagsData)}
+                <br />
+                <br />
+
+                <p>Printed Recipe</p>
+                {createTagsData.map((tag, i) => (
+                    <p key={i}>{tag.tag}</p>
+                ))}
                 <br />
                 <br />
                 <CreateTags /> 
