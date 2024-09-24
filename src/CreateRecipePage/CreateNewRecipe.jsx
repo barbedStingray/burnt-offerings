@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
+import './createRecipePage.css'
 
 
 import CreateDetails from './createForms/CreateDetails'
@@ -7,6 +8,7 @@ import CreateSubRecipes from './createForms/CreateSubRecipes'
 import CreateIngredients from './createForms/CreateIngredients'
 import CreateSteps from './createForms/CreateSteps'
 import CreateTags from './createForms/CreateTags'
+import SubmitRecipe from './createForms/SubmitRecipe'
 
 
 // TODO REFACTOR single responsibilites
@@ -15,8 +17,6 @@ import CreateTags from './createForms/CreateTags'
 const CreateNewRecipe = () => {
 
 
-    // ! packages for DB
-    const [tagPackage, setTagPackage] = useState([])
     const [newRecipeDetails, setNewRecipeDetails] = useState({
         newTitle: '',
         description: '',
@@ -27,19 +27,21 @@ const CreateNewRecipe = () => {
         picture: null
     })
     const [subRecipePackage, setSubRecipePackage] = useState([])
-    const [stepPackage, setStepPackage] = useState([])
     const [ingredientPackage, setIngredientPackage] = useState([])
+    const [stepPackage, setStepPackage] = useState([])
+    const [tagPackage, setTagPackage] = useState([])
 
-    // ! packages for DB
+    const [formIndex, setFormIndex] = useState(0)
+    const createForms = [
+        <CreateDetails dataPackage={{ newRecipeDetails, setNewRecipeDetails }} />,
+        <CreateSubRecipes dataPackage={{ subRecipePackage, setSubRecipePackage }} />,
+        <CreateIngredients dataPackage={{ ingredientPackage, setIngredientPackage }} />,
+        <CreateSteps dataPackage={{ stepPackage, setStepPackage }} />,
+        <CreateTags dataPackage={{ tagPackage, setTagPackage }} />,
+        <SubmitRecipe dataPackage={{ newRecipeDetails, subRecipePackage, ingredientPackage, stepPackage, tagPackage}} />
+    ]
+    const formShortcuts = ['D', 'R', 'I', 'S', 'T', 'Submit']
 
-
-
-
-
-    const submitNewRecipe = (e) => {
-        e.preventDefault()
-        // console.log('submitting new recipe')
-    }
 
 
     function deleteTag(i, dataPackage, setDataPackage) { // needs to be modular
@@ -48,6 +50,7 @@ const CreateNewRecipe = () => {
         console.log('newPackage', newPackage)
         setDataPackage(newPackage)
     }
+
 
     useEffect((e) => {
         console.log('checking if parent')
@@ -59,51 +62,92 @@ const CreateNewRecipe = () => {
     }, [subRecipePackage])
 
 
+    const nextForm = (formIndex) => {
+        console.log('view next form', formIndex)
+        if (formIndex < createForms.length - 1) {
+            setFormIndex(formIndex + 1)
+        } else {
+            console.log('Last Page!')
+        }
+    }
+    const previousForm = (formIndex) => {
+        console.log('view next form', formIndex)
+        if (formIndex > 0) {
+            setFormIndex(formIndex - 1)
+        } else {
+            console.log('First Page!')
+        }
+    }
+
 
     return (
-        <div>
-
-            <h1>CREATE RECIPE</h1>
-
-            {/* // *** SUCCESS details */}
-            <CreateDetails dataPackage={{ newRecipeDetails, setNewRecipeDetails }} />
-            <p>DETAILS PACKAGE</p>
-            <p>Title: {newRecipeDetails.newTitle}</p>
-            <p>Description: {newRecipeDetails.description}</p>
-            <p>Servings: {newRecipeDetails.servings}</p>
-            <p>prep_time: {newRecipeDetails.prep_time}</p>
-            <p>is_parent_recipe: {newRecipeDetails.is_parent_recipe ? 'true' : 'false'}</p>
-
-            <CreateIngredients dataPackage={{ ingredientPackage, setIngredientPackage }} />
-            {JSON.stringify(ingredientPackage)}
-
-            <br />
-            {/* // ** SUCCESS steps */}
-            <CreateSteps dataPackage={{ stepPackage, setStepPackage }} />
-            {JSON.stringify(stepPackage)}
+        <div className='createNewRecipe'>
 
 
-            {/* // ** SUCCESS IN TAG PACKAGE ** */}
-            <CreateTags dataPackage={{ tagPackage, setTagPackage }} />
-            <p>TAG PACKAGE</p>
-            {tagPackage.map((tag, i) => (
-                <div key={i}>
-                    <p>{tag.tag}</p>
-                    <button onClick={() => deleteTag(i, tagPackage, setTagPackage)}>Delete</button>
+
+            <div className='createDisplay'>
+                <h1>CREATE RECIPE</h1>
+                <p>DETAILS</p>
+                <p>Title: {newRecipeDetails.newTitle}</p>
+                <p>Description: {newRecipeDetails.description}</p>
+                <p>Servings: {newRecipeDetails.servings}</p>
+                <p>prep_time: {newRecipeDetails.prep_time}</p>
+                <p>is_parent_recipe: {newRecipeDetails.is_parent_recipe ? 'true' : 'false'}</p>
+                {/* {JSON.stringify(newRecipeDetails)} */}
+
+                <p>SUB RECIPE PACKAGE</p>
+                {/* {subRecipePackage.map((recipe, i) => (
+                    <div key={i}>
+                        <p>{recipe.title}</p>
+                        <button onClick={() => deleteTag(i, subRecipePackage, setSubRecipePackage)}>Delete</button>
+                    </div>
+                ))} */}
+                {JSON.stringify(subRecipePackage)}
+
+                <p>INGREDIENTS</p>
+                {JSON.stringify(ingredientPackage)}
+
+                <p>STEPS</p>
+                {JSON.stringify(stepPackage)}
+
+                <p>TAG PACKAGE</p>
+                {/* {tagPackage.map((tag, i) => (
+                    <div key={i}>
+                        <p>{tag.tag}</p>
+                        <button onClick={() => deleteTag(i, tagPackage, setTagPackage)}>Delete</button>
+                    </div>
+                ))} */}
+                {JSON.stringify(tagPackage)}
+
+            </div>
+
+            <div className='createForm'>
+                <div>
+                    {createForms[formIndex]}
                 </div>
-            ))}
-            {JSON.stringify(tagPackage)}
+                <br />
 
-            {/* // ** SUCCESS subRecipes */}
-            <CreateSubRecipes dataPackage={{ subRecipePackage, setSubRecipePackage }} />
-            {subRecipePackage.map((recipe, i) => (
-                <div key={i}>
-                    <p>{recipe.title}</p>
-                    <button onClick={() => deleteTag(i, subRecipePackage, setSubRecipePackage)}>Delete</button>
-                </div>
-            ))}
-            {JSON.stringify(subRecipePackage)}
+                <button
+                    onClick={() => previousForm(formIndex)}
+                    disabled={formIndex === 0}
+                >Previous</button>
+                {formShortcuts.map((label, i) => (
+                    <button // Todo turn into likely div later
+                        key={i}
+                        onClick={() => setFormIndex(i)}
+                    >{label}</button>
+                ))}
+                <button
+                    onClick={() => nextForm(formIndex)}
+                    disabled={formIndex === createForms.length - 1}
+                >Next</button>
+            </div>
 
+
+
+
+
+            {/* // todo - review page with submit button */}
             {/* <button onSubmit={submitNewRecipe}>Create Recipe</button> */}
 
         </div >

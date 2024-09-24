@@ -1,0 +1,13 @@
+.createNewRecipe {
+    border: 3px solid grey;
+    display: flex;
+}
+
+.createDisplay {
+    border: 2px solid red;
+    flex: 1;
+}
+.createForm {
+    border: 2px solid blue;
+    flex: 1;
+}

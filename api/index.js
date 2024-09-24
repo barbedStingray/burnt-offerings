@@ -6,14 +6,12 @@ const path = require('path')
 
 // todo Route includes
 const recipeRouter = require('./routes/recipes.router')
-const tagRouter = require('./routes/tags.router')
 
 // express middleware
 app.use(express.json())
 
 // todo express routes
 app.use('/api/recipes', recipeRouter)
-app.use('/api/tags', tagRouter)
 
 
 
