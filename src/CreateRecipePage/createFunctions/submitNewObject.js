@@ -1,16 +1,18 @@
-import handleValueIsPresent from "./createHandlers/handleValueIsPresent"
+import handleValueIsPresent from "./handleValueIsPresent"
 
 // ! push your OBJECT to the dataArray for DB
-export default function submitNewTag(e, newObject, setNewObject, searchList, dataPackage, setDataPackage, initialState, setFilteredList) {
+export default function submitNewObject(e, newObject, setNewObject, searchList, dataPackage, setDataPackage, initialState, setFilteredList) {
     e.preventDefault()
     const formName = e.currentTarget.closest('form').name
     console.log('formName', formName)
-    console.log('submitNewTag', newObject)
+    console.log('submitNewObject', newObject)
+    
     const tagKeyword = newObject[formName]
     console.log('tagKeyword', tagKeyword)
 
     // ! pass your checks - own function
-    // todo logic for if a tag exists, no duplicate tags...
+    // todo duplicate tag check
+    // todo duplicate ingredient check
     // todo ? Two-word tags?
     const checkValueArray = Object.values(newObject)
     console.log('checkValueArray', checkValueArray)
@@ -19,7 +21,7 @@ export default function submitNewTag(e, newObject, setNewObject, searchList, dat
 
     // ! Bundler - own function
     let tagKeywordFormat
-    if (formName !== 'title') { // todo also account for steps...
+    if (formName !== 'title' && formName !== 'instructions') { // todo also account for steps...
         tagKeywordFormat = tagKeyword.trim().charAt(0).toUpperCase() + tagKeyword.trim().slice(1).toLowerCase()
     } else {
         tagKeywordFormat = tagKeyword
@@ -27,10 +29,15 @@ export default function submitNewTag(e, newObject, setNewObject, searchList, dat
     console.log('keywordFormat', tagKeywordFormat)
     console.log('searchList', searchList)
     let matchedTag = searchList.find((item) => item[formName] === tagKeywordFormat)
-    console.log('matchedTag', matchedTag)
+    console.log('matchedTag', matchedTag) 
+
+    let finalObject
     if (!matchedTag) {
-        matchedTag = { ...newObject, [formName]: tagKeywordFormat, id: 'zero' }
+        finalObject = { ...newObject, id: 'zero', [formName]: tagKeywordFormat }
+    } else {
+        finalObject = { ...newObject, id: matchedTag.id, [formName]: matchedTag[formName] }
     }
+
     // // ! Bundler - own function
     // const tagKeywordFormat = tagKeyword.trim().charAt(0).toUpperCase() + tagKeyword.trim().slice(1).toLowerCase();
     // console.log('keywordFormat', tagKeywordFormat)
@@ -42,7 +49,7 @@ export default function submitNewTag(e, newObject, setNewObject, searchList, dat
     // }
 
     // ! Update newTagData
-    setDataPackage([...dataPackage, matchedTag])
+    setDataPackage([...dataPackage, finalObject])
     // ! Clear Inputs
     setNewObject(initialState)
     setFilteredList([])

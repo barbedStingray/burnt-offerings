@@ -3,8 +3,10 @@ import { useSelector } from 'react-redux'
 
 
 import CreateDetails from './createForms/CreateDetails'
-import CreateTags from './createForms/CreateTags'
 import CreateSubRecipes from './createForms/CreateSubRecipes'
+import CreateIngredients from './createForms/CreateIngredients'
+import CreateSteps from './createForms/CreateSteps'
+import CreateTags from './createForms/CreateTags'
 
 
 // TODO REFACTOR single responsibilites
@@ -25,10 +27,9 @@ const CreateNewRecipe = () => {
         picture: null
     })
     const [subRecipePackage, setSubRecipePackage] = useState([])
+    const [stepPackage, setStepPackage] = useState([])
+    const [ingredientPackage, setIngredientPackage] = useState([])
 
-
-    // const [newIngredientsData, setNewIngredientsData] = useState([])
-    // const [newStepData, setNewStepData] = useState([])
     // ! packages for DB
 
 
@@ -73,9 +74,14 @@ const CreateNewRecipe = () => {
             <p>prep_time: {newRecipeDetails.prep_time}</p>
             <p>is_parent_recipe: {newRecipeDetails.is_parent_recipe ? 'true' : 'false'}</p>
 
+            <CreateIngredients dataPackage={{ ingredientPackage, setIngredientPackage }} />
+            {JSON.stringify(ingredientPackage)}
 
             <br />
-            {/* // todo ingredient */}
+            {/* // ** SUCCESS steps */}
+            <CreateSteps dataPackage={{ stepPackage, setStepPackage }} />
+            {JSON.stringify(stepPackage)}
+
 
             {/* // ** SUCCESS IN TAG PACKAGE ** */}
             <CreateTags dataPackage={{ tagPackage, setTagPackage }} />

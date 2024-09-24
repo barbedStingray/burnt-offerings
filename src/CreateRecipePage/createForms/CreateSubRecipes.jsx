@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 
-import useAllCategory from '../../utilities/allOfCategory'
-import handleSearchDetailChange from '../../utilities/createHandlers/handleSearchDetailChange'
-import submitNewObject from '../../utilities/submitNewObject'
+import useAllCategory from '../createFunctions/allOfCategory'
+import handleSearchDetailChange from '../createFunctions/handleSearchDetailChange'
+import submitNewObject from '../createFunctions/submitNewObject'
 
 
 const CreateSubRecipes = ({ dataPackage }) => {

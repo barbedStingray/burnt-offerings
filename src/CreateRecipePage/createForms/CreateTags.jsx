@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import useAllCategory from '../../utilities/allOfCategory'
+import useAllCategory from '../createFunctions/allOfCategory'
 
 // important functions
-import submitNewObject from '../../utilities/submitNewObject'
-import handleSearchDetailChange from '../../utilities/createHandlers/handleSearchDetailChange'
+import submitNewObject from '../createFunctions/submitNewObject'
+import handleSearchDetailChange from '../createFunctions/handleSearchDetailChange'
 
 
 const CreateTags = ({ dataPackage }) => {
@@ -32,7 +32,6 @@ const CreateTags = ({ dataPackage }) => {
             return tagPrompt[2]
         }
     }
-
 
 
     return (

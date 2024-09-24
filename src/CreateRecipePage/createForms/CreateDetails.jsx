@@ -1,15 +1,15 @@
 import React, { useState } from 'react'
-import useAllCategory from '../../utilities/allOfCategory'
+import useAllCategory from '../createFunctions/allOfCategory'
 
 import DetailInput from '../../components/DetailInput'
-import handleDetailChange from '../../utilities/createHandlers/handleDetailChange'
-import handleValueIsPresent from '../../utilities/createHandlers/handleValueIsPresent'
+import handleDetailChange from '../createFunctions/handleDetailChange'
+import handleValueIsPresent from '../createFunctions/handleValueIsPresent'
+
 
 const CreateDetails = ({ dataPackage }) => {
 
     const { newRecipeDetails, setNewRecipeDetails } = dataPackage
     const [allRecipes, allRecipesStatus] = useAllCategory('/api/recipes/titleCheck')
-    // console.log('allRecipes', allRecipes)
 
     const newRecipeDetailInputs = [
         {
@@ -59,11 +59,15 @@ const CreateDetails = ({ dataPackage }) => {
     ]
 
     function letsCheckValues(e, newObject) {
+
+        // todo format your white space here! for the titles...
+
         e.preventDefault()
         const checkValueArray = Object.values(newObject)
         console.log('checkValueArray', checkValueArray)
         const isValue = handleValueIsPresent(...checkValueArray)
         if (!isValue) return alert('please check your inputs!')
+        
         // ! check for duplicate name
         const isDuplicate = allRecipes.map((recipe) => recipe.title.toLowerCase()).includes(newObject.newTitle.toLowerCase())
         console.log('isDuplicate', isDuplicate)
