@@ -7,6 +7,7 @@ import React from 'react'
 // ?React.memo/useMemo Quest? - callback to reduce re-renders?
 // const DetailInput = React.memo({ inputDetails }) => {
 
+  // ! there is no e in this... ? does that matter? 
 const DetailInput = ({ inputDetails }) => {
   const { name, type, placeholder, required, minLength, maxLength, autoComplete, value, onChange } = inputDetails
   // console.log(name, type, placeholder, required, minLength, maxLength, autoComplete)

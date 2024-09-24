@@ -6,10 +6,80 @@ const router = express.Router()
 // todo /all NEEDS REFACTOR
 // todo /details NEEDS REFACTOR
 
+
+// POST new recipe / async
+router.post('/newRecipe', async (req, res) => {
+    console.log('req.body', req.body)
+    const newRecipeDetails = req.body.newRecipeDetails
+    const newSteps = req.body.stepPackage
+    const newSubRecipes = req.body.subRecipePackage
+    console.log('newSubRecipes', newSubRecipes)
+
+    const detailsText = `INSERT INTO "moms_recipes" 
+    ("title", "description", "prep_time", "servings", "is_parent_recipe", "picture")
+    VALUES ($1, $2, $3, $4, $5, $6) RETURNING id;`
+    const stepText = `INSERT INTO "moms_steps" ("recipe_id", "instructions") VALUES ($1, $2);`
+    const subRecipeText = `INSERT INTO "recipe_relationship" ("parent_id", "sub_id") VALUES ($1, $2);`
+    const isSubRecipeText = `UPDATE moms_recipes SET is_sub_recipe = true WHERE id = $1;`
+
+    try {
+        // ! moms_recipes post recipeDetails - return new recipe ID **
+        const { newTitle, description, prep_time, servings, is_parent_recipe, picture } = newRecipeDetails
+        const results = await pool.query(detailsText, [newTitle, description, prep_time, servings, is_parent_recipe, picture])
+        const newRecipeId = results.rows[0].id
+        console.log('newRecipeId', newRecipeId)
+
+        // ! moms_steps post Steps w/ need: new Recipe ID
+        const stepPromises = newSteps.map((step) => {
+            return pool.query(stepText, [newRecipeId, step.instructions]) 
+        })
+        await Promise.all(stepPromises)
+
+
+        // ! recipe_relationship post sub recipes need: new Recipe ID (parent) // you have the sub recipe ID's
+        // todo switch any sub recipes is_sub_recipe = true
+        const subPromises = newSubRecipes.map(async (sub) => {
+            console.log('sub', sub.id, sub.title)
+            await pool.query(subRecipeText, [newRecipeId, sub.id]) // post relationship
+            await pool.query(isSubRecipeText, [sub.id])
+            return
+        })
+        await Promise.all(subPromises)
+
+        console.log('made it async')
+        
+
+
+
+        res.status(201)
+        // res.status(201).send('Recipe Success!') // used for a toggle later?
+
+    } catch (error) {
+        console.log('error in creating new recipe', error)
+        res.sendStatus(500)
+    }
+
+    // order of operations... 
+
+
+
+
+    // todo moms_ingredients post new ingredients, return id's 
+    // todo recipe_ingredients post specified ingredients recipe_id (newRecipe ID), ingredient_id
+
+
+    // todo moms_tags post new tags, return id's
+    // todo recipe_tags post specified tags recipe_id tags_id
+
+    // SEND YOUR SUCCESS
+
+})
+
+
 // fetches all used ingredients
 router.get('/titleCheck', (req, res) => {
 
-    const queryText = `SELECT title FROM "moms_recipes";`    
+    const queryText = `SELECT title FROM "moms_recipes";`
 
     pool.query(queryText).then((result) => {
         console.log(`/api/recipes/titleCheck success`)
@@ -22,7 +92,7 @@ router.get('/titleCheck', (req, res) => {
 
 router.get('/notParents', (req, res) => {
 
-    const queryText = `SELECT id, title FROM "moms_recipes" WHERE is_parent_recipe = false;`    
+    const queryText = `SELECT id, title FROM "moms_recipes" WHERE is_parent_recipe = false;`
 
     pool.query(queryText).then((result) => {
         console.log(`/api/recipes/notParents success`)
@@ -35,7 +105,7 @@ router.get('/notParents', (req, res) => {
 
 router.get('/ingredients', (req, res) => {
 
-    const queryText = `SELECT * FROM "moms_ingredients";`    
+    const queryText = `SELECT * FROM "moms_ingredients";`
 
     pool.query(queryText).then((result) => {
         console.log(`/api/recipes/ingredients success`)
@@ -49,7 +119,7 @@ router.get('/ingredients', (req, res) => {
 // fetches all used tags
 router.get('/tags', (req, res) => {
 
-    const queryText = `SELECT * FROM "moms_tags";`    
+    const queryText = `SELECT * FROM "moms_tags";`
 
     pool.query(queryText).then((result) => {
         console.log(`/api/recipes/tags success`)

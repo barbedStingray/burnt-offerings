@@ -39,6 +39,7 @@ const CreateTags = ({ dataPackage }) => {
 
             <h3>Create Tags</h3>
             {getTagPrompt()}
+
             <form name='tag' onSubmit={(e) => submitNewObject(e, newTag, setNewTag, allTags, tagPackage, setTagPackage, initialTagState, setFilteredList)}>
                 <input
                     name='tag'
@@ -54,19 +55,19 @@ const CreateTags = ({ dataPackage }) => {
                         if (e.key === 'Enter') {
                             e.preventDefault();
                             const tagToSubmit = filteredList.length > 0 ? filteredList[0] : newTag
+                            console.log('submitting', tagToSubmit)
                             submitNewObject(e, tagToSubmit, setNewTag, allTags, tagPackage, setTagPackage, initialTagState, setFilteredList)
                         }
                     }}
                 >
                 </input>
-                <button type='submit'>Create Tag</button>
 
                 {filteredList.length > 0 && (
                     <ul>
                         {filteredList.map((listItem) => (
                             <li
-                                key={listItem.id}
-                                onClick={(e) => submitNewObject(e, listItem, setNewTag, allTags, tagPackage, setTagPackage, initialTagState, setFilteredList)}
+                            key={listItem.id}
+                            onClick={(e) => submitNewObject(e, listItem, setNewTag, allTags, tagPackage, setTagPackage, initialTagState, setFilteredList)}
                             >{listItem[searchAttribute]}</li>
                         ))}
                     </ul>
@@ -74,11 +75,9 @@ const CreateTags = ({ dataPackage }) => {
 
                 <br />
                 {JSON.stringify(newTag)}
+                <button type='submit'>Create Tag</button>
 
             </form>
-
-            <button>Next Section</button>
-
         </div>
     )
 }

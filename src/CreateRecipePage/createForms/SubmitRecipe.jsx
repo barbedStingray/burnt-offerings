@@ -1,14 +1,17 @@
 import React from 'react'
+import axios from 'axios'
 
 const SubmitRecipe = ({ dataPackage }) => {
-    const { newRecipeDetails, subRecipeDetails, ingredientPackage, stepPackage, tagPackage } = dataPackage
+    const { newRecipeDetails, subRecipePackage, ingredientPackage, stepPackage, tagPackage } = dataPackage
 
     // does this have to be async?
-    const submitNewRecipe = () => {
+    const submitNewRecipe = async () => {
         // todo status display while waiting...
         // submit to dB! 
         try {
-            console.log('submitting new recipe', newRecipeDetails, subRecipeDetails, ingredientPackage, stepPackage, tagPackage)
+            console.log('submitting new recipe', newRecipeDetails, subRecipePackage, ingredientPackage, stepPackage, tagPackage)
+            await axios.post(`/api/recipes/newRecipe`, { newRecipeDetails, subRecipePackage, ingredientPackage, stepPackage, tagPackage })
+            console.log('success in recipe POST')
         } catch (error) {
             console.log('error in recipe POST')
         }
