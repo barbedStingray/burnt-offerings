@@ -13,7 +13,9 @@ router.post('/newRecipe', async (req, res) => {
     const newRecipeDetails = req.body.newRecipeDetails
     const newSteps = req.body.stepPackage
     const newSubRecipes = req.body.subRecipePackage
-    console.log('newSubRecipes', newSubRecipes)
+    const newIngredients = req.body.ingredientPackage
+    const newTags = req.body.tagPackage
+    console.log('newTags', newTags)
 
     const detailsText = `INSERT INTO "moms_recipes" 
     ("title", "description", "prep_time", "servings", "is_parent_recipe", "picture")
@@ -21,58 +23,87 @@ router.post('/newRecipe', async (req, res) => {
     const stepText = `INSERT INTO "moms_steps" ("recipe_id", "instructions") VALUES ($1, $2);`
     const subRecipeText = `INSERT INTO "recipe_relationship" ("parent_id", "sub_id") VALUES ($1, $2);`
     const isSubRecipeText = `UPDATE moms_recipes SET is_sub_recipe = true WHERE id = $1;`
+    const ingredientText = `INSERT INTO "moms_ingredients" ("ingredient") VALUES ($1) RETURNING id;`
+    const postIngredientText = `INSERT INTO "recipe_ingredients" ("recipe_id", "ingredient_id", "quantity", "measurement") VALUES ($1, $2, $3, $4);`   
+    const tagText = `INSERT INTO "moms_tags" ("tag") VALUES ($1) RETURNING id;`
+    const postTagText = `INSERT INTO "recipe_tags" ("recipe_id", "tags_id") VALUES ($1, $2);`
 
     try {
+        // ** FILTERing is all done client side...
+
+        // begin transaction 
+        // await pool.query('BEGIN')        
+        // console.log('begin')
+
+
         // ! moms_recipes post recipeDetails - return new recipe ID **
         const { newTitle, description, prep_time, servings, is_parent_recipe, picture } = newRecipeDetails
-        const results = await pool.query(detailsText, [newTitle, description, prep_time, servings, is_parent_recipe, picture])
-        const newRecipeId = results.rows[0].id
-        console.log('newRecipeId', newRecipeId)
+        const detailResults = await pool.query(detailsText, [newTitle, description, prep_time, servings, is_parent_recipe, picture])
+        const newRecipeId = detailResults.rows[0].id
 
         // ! moms_steps post Steps w/ need: new Recipe ID
         const stepPromises = newSteps.map((step) => {
-            return pool.query(stepText, [newRecipeId, step.instructions]) 
+            return pool.query(stepText, [newRecipeId, step.instructions])
         })
         await Promise.all(stepPromises)
 
 
         // ! recipe_relationship post sub recipes need: new Recipe ID (parent) // you have the sub recipe ID's
-        // todo switch any sub recipes is_sub_recipe = true
+        // ! switch any sub recipes is_sub_recipe = true
         const subPromises = newSubRecipes.map(async (sub) => {
-            console.log('sub', sub.id, sub.title)
             await pool.query(subRecipeText, [newRecipeId, sub.id]) // post relationship
-            await pool.query(isSubRecipeText, [sub.id])
+            await pool.query(isSubRecipeText, [sub.id]) // change is_sub_recipe
             return
         })
         await Promise.all(subPromises)
 
-        console.log('made it async')
-        
+        // ! moms_ingredients post new ingredients, return id's 
+        // ! recipe_ingredients post specified ingredients recipe_id (newRecipe ID), ingredient_id
+        const ingredientPromises = newIngredients.map(async (ingredientObject) => {
+            if (ingredientObject.id === 'zero') {
+                const result = await pool.query(ingredientText, [ingredientObject.ingredient])
+                const newId = result.rows[0].id
+                ingredientObject.id = newId
+                const { id, measurement, quantity } = ingredientObject
+                await pool.query(postIngredientText, [newRecipeId, id, quantity, measurement])
+            } else {
+                const { id, measurement, quantity } = ingredientObject
+                await pool.query(postIngredientText, [newRecipeId, id, quantity, measurement])
+            }
+        })
+        await Promise.all(ingredientPromises)
 
+        // todo moms_tags post new tags, return id's
+        // todo recipe_tags post specified tags recipe_id tags_id
+        const tagPromises = newTags.map(async (tagObject) => {
+            if (tagObject.id === 'zero') {
+                const result = await pool.query(tagText, [tagObject.tag])
+                const newId = result.rows[0].id
+                tagObject.id = newId
+                const { id } = tagObject
+                await pool.query(postTagText, [newRecipeId, id])
+            } else {
+                const { id } = tagObject
+                await pool.query(postTagText, [newRecipeId, id])
+            }
+        })
+        await Promise.all(tagPromises)
 
+        // todo add commit, begin and rollback transaction
+        // commit transaction
+        // await pool.query('COMMIT')
+        // console.log('commit')
 
-        res.status(201)
-        // res.status(201).send('Recipe Success!') // used for a toggle later?
+        // todo return a boolean true? 
+
+        res.status(201).send({ success: true })
 
     } catch (error) {
+        // await pool.query('ROLLBACK')
         console.log('error in creating new recipe', error)
+        // res.status(500).send({ success: false, error: error.message });
         res.sendStatus(500)
     }
-
-    // order of operations... 
-
-
-
-
-    // todo moms_ingredients post new ingredients, return id's 
-    // todo recipe_ingredients post specified ingredients recipe_id (newRecipe ID), ingredient_id
-
-
-    // todo moms_tags post new tags, return id's
-    // todo recipe_tags post specified tags recipe_id tags_id
-
-    // SEND YOUR SUCCESS
-
 })
 
 

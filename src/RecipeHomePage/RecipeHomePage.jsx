@@ -1,9 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
+import './RecipeHomePage.css'
 
 
-const HomeRecipe = () => {
+
+const RecipeHomePage = () => {
 
     const navigate = useNavigate()
     const debounceTimoutRef = useRef(null)
@@ -16,7 +18,7 @@ const HomeRecipe = () => {
     const [currentPage, setCurrentPage] = useState(1)
     const [totalPages, setTotalPages] = useState(1)
     const [totalRecipes, setTotalRecipes] = useState(0)
-    const recipesPerPage = 5
+    const recipesPerPage = 10
 
 
     // todo make this it's own utility function eventually
@@ -31,7 +33,6 @@ const HomeRecipe = () => {
             setLoadingStatus('loaded')
             return // do not call api if no keywords exist
         }
-
         try {
             const response = await axios.get('/api/recipes/all', {
                 params: { keywords, offset: (page - 1) * recipesPerPage, limit: recipesPerPage },
@@ -58,6 +59,7 @@ const HomeRecipe = () => {
         }, 1000)
     }
 
+
     const handlePageChange = (newPage) => {
         setCurrentPage(newPage)
         fetchFilteredRecipes(keywords, newPage) // fetch the recipes for the new page
@@ -76,40 +78,78 @@ const HomeRecipe = () => {
     }
 
 
+
+
+
     return (
-        <div>
-            <p>Burnt Offerings</p>
+        <div className='homePage'>
+            <div className='greetingContainer'>
+                <div className='greeting'>
+                    <p>Hello!</p>
+                    <p>Whatcha Cookin??</p>
+                </div>
+                <div className='momPic'>mom</div>
+            </div>
 
-            {allRecipes.map((recipe, index) => (
-                <p onClick={() => seeRecipeDetails(recipe.id)} key={index}>{recipe.title}</p>
-            ))}
 
-            <input
-                type='text'
-                placeholder='Search Keywords...'
-                value={keywords}
-                onChange={(e) => keywordChange(e.target.value)}
-            />
+            <div className='homeSearchBar'>
+                <input
+                    className='keywordSearch'
+                    type='text'
+                    placeholder='Search Keywords...'
+                    value={keywords}
+                    onChange={(e) => keywordChange(e.target.value)}
+                />
+            </div>
+
+
+
+
+            <div className='displayMosaic'>
+                <div className="searchReturn">{totalRecipes} | Recipes</div>
+                {allRecipes.map((recipe, i) => (
+                    <div
+                        onClick={() => seeRecipeDetails(recipe.id)}
+                        className={`recipeContainer`}
+                    >
+                        <div className='recipePhoto'></div>
+                        <div className='cardDisplay'>
+                            <h4>{recipe.title}</h4>
+                            <p>10 Ingredients</p>
+                            <p>{recipe.prep_time}</p>
+                        </div>
+                    </div>
+                ))}
+                <div className='lastSquareDiv'></div>
+            </div>
+
+
 
 
             {/* pagination controls */}
-            <div>
-                <button
-                    disabled={currentPage === 1}
-                    onClick={() => handlePageChange(currentPage - 1)}
-                >Previous</button>
-                <span>Page {currentPage} of {totalPages}</span>
-                <button
-                    disabled={currentPage === totalPages}
-                    onClick={() => handlePageChange(currentPage + 1)}
-                >Next</button>
-                <h1>{totalRecipes}</h1>
-            </div>
+            {keywords.length === 0 ? (
 
-            <button onClick={goToCreateRecipePage}>Create New Recipe</button>
+                <div className='navBar' onClick={() => goToCreateRecipePage()}>
+                    <p>+</p>
+                </div>
+
+            ) : (
+
+                <div className='paginationBar'>
+                    <button
+                        disabled={currentPage === 1}
+                        onClick={() => handlePageChange(currentPage - 1)}
+                    >Previous</button>
+                    <span>Page {currentPage} of {totalPages}</span>
+                    <button
+                        disabled={currentPage === totalPages}
+                        onClick={() => handlePageChange(currentPage + 1)}
+                    >Next</button>
+                </div>
+            )}
 
         </div>
     )
 }
 
-export default HomeRecipe
+export default RecipeHomePage

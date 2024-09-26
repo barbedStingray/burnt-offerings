@@ -1,0 +1,322 @@
+@media (max-width: 1024px) and (orientation: portrait) {
+
+    .homePage {
+        border: 2px solid blue;
+        min-height: 100vh;
+        display: flex;
+        flex-flow: column nowrap;
+    }
+
+    .greetingContainer {
+        border: 2px solid yellow;
+        background-color: white;
+        display: flex;
+        justify-content: space-between;
+        height: 60px;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+
+    .greeting {
+        /* border: 2px solid green; */
+        flex: 1;
+    }
+
+    .momPic {
+        border: 2px solid black;
+        border-radius: 50%;
+    }
+
+    /* SEARCH BAR */
+    .homeSearchBar {
+        border: 2px solid black;
+        background-color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 50px;
+        position: sticky;
+        /* total space that greeting takes up */
+        top: 60px;
+        z-index: 100;
+        /* white fade... */
+        box-shadow: 0 20px 25px 0 white;
+    }
+
+    .keywordSearch {
+        border: none;
+        border-bottom: 2px solid blue;
+        width: 65%;
+        height: 85%;
+        /* fix ratio */
+        outline: none;
+        font-size: 1.25em;
+        padding-left: 10px;
+    }
+
+    .displayMosaic {
+        border: 2px solid black;
+        display: grid;
+        margin: 6vw;
+        grid-template-columns: repeat(2, 1fr);
+        /* This is half the height of each recipeContainer */
+        grid-template-rows: repeat(auto-fill, minmax(120px, auto));
+        padding: 3vh 0 3vh 0;
+    }
+
+    .searchReturn {
+        border: 2px solid red;
+        grid-column: span 1;
+        grid-row: span 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .lastSquareDiv {
+        border: 2px solid red;
+        grid-column: span 1;
+        grid-row: span 2;
+    }
+
+    .recipeContainer {
+        border: 1px solid black;
+        height: 240px;
+        /* padding: 10px; */
+        position: relative;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: flex-end;
+        align-items: center;
+        grid-column: span 1;
+        grid-row: span 2;
+        overflow: hidden;
+    }
+
+    /* alternating columns */
+    .recipeContainer:nth-child(odd) {
+        flex-direction: row-reverse;
+        .recipePhoto {
+            position: absolute;
+            left: -35px;
+        }
+        .cardDisplay {
+            align-items: flex-end;
+        }
+    
+    }
+
+    .recipeContainer:nth-child(even) {
+        flex-direction: row;
+        .recipePhoto {
+            position: absolute;
+            right: -35px;
+        }
+        .cardDisplay {
+            align-items: flex-start;
+        }
+    }
+    
+    .cardDisplay {
+        border: 2px solid limegreen;
+        background-color: #dcdcdc;
+        height: 75%;
+        width: 95%;
+        border-radius: 20px;
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+    }
+
+    .recipePhoto {
+        border: 3px solid grey;
+        background-color: ghostwhite;
+        position: absolute;
+        width: 16vh;
+        height: 16vh;
+        border-radius: 50%;
+    }
+
+
+
+    .paginationBar {
+        border: 2px solid gold;
+        height: 8vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+
+    .navBar {
+        border: 2px solid grey;
+        /* position: fixed; */
+        width: 7vh;
+        height: 7vh;
+        border-radius: 50%;
+        font-size: 6vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* z-index: 100; */
+    }
+
+    /* END 1024px */
+}
+
+
+
+
+@media (max-width: 430px) {
+    /* ? Maybe 425? */
+
+
+    .homePage {
+        border: 2px solid red;
+        min-height: 100vh;
+        display: flex;
+        flex-flow: column nowrap;
+    }
+
+    /* BANNER */
+    .greetingContainer {
+        border: 2px solid yellow;
+        background-color: white;
+        display: flex;
+        /* flex-flow: row nowrap; */
+        justify-content: space-between;
+        height: 60px;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+
+    .greeting {
+        /* border: 2px solid green; */
+        flex: 1;
+    }
+
+    .momPic {
+        border: 2px solid black;
+        border-radius: 50%;
+    }
+
+    /* SEARCH BAR */
+    .homeSearchBar {
+        border: 2px solid black;
+        background-color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 50px;
+        position: sticky;
+        /* total space that greeting takes up */
+        top: 60px;
+        z-index: 100;
+        /* white fade... */
+        box-shadow: 0 20px 25px 0 white;
+    }
+
+    .keywordSearch {
+        border: none;
+        border-bottom: 2px solid blue;
+        width: 65%;
+        height: 85%;
+        /* fix ratio */
+        outline: none;
+        font-size: 1.25em;
+        padding-left: 10px;
+    }
+
+
+
+    /* RECIPE DISPLAY */
+    .displayMosaic {
+        border: 2px solid black;
+        display: grid;
+        margin: 6vw;
+        gap: 3vw;
+        grid-template-columns: repeat(2, 1fr);
+        /* This is half the height of each recipeContainer */
+        grid-template-rows: repeat(auto-fill, minmax(135px, auto));
+        padding: 3vh 0 3vh 0;
+    }
+
+
+    .searchReturn {
+        border: 2px solid red;
+        grid-column: span 1;
+        grid-row: span 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .lastSquareDiv {
+        border: 2px solid red;
+        grid-column: span 1;
+        grid-row: span 1;
+    }
+
+    .recipeContainer {
+        border: 1px solid black;
+        height: 270px;
+        position: relative;
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: flex-end;
+        align-items: center;
+        grid-column: span 1;
+        grid-row: span 2;
+    }
+
+    .cardDisplay {
+        border: 2px solid limegreen;
+        background-color: #dcdcdc;
+        height: 85%;
+        width: 100%;
+        border-radius: 20px;
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: flex-end;
+        align-items: center;
+        padding: 0 20px 50px 20px;
+    }
+
+    .recipePhoto {
+        border: 3px solid grey;
+        background-color: ghostwhite;
+        position: absolute;
+        width: 13vh;
+        height: 13vh;
+        border-radius: 50%;
+        top: 0px;
+    }
+
+    .paginationBar {
+        border: 2px solid gold;
+        height: 8vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+
+    .navBar {
+        border: 2px solid grey;
+        /* position: fixed; */
+        width: 7vh;
+        height: 7vh;
+        border-radius: 50%;
+        font-size: 6vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* z-index: 100; */
+    }
+
+
+    /* END OF 425PX width */
+}
+
