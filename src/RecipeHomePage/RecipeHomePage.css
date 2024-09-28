@@ -9,7 +9,6 @@
     position: relative;
     height: 100vh;
 }
-
 .homeQuarter {
     width: 80%;
     height: 50%;
@@ -21,118 +20,121 @@
     z-index: -10;
 }
 
-.homeMainDisplay {
-    /* border: 2px solid blue; */
-    display: flex;
-    flex-flow: column nowrap;
-    width: 100%;
-}
-
-.homeTopMain {
-    border: 2px solid green;
-    background-color: #555555dd;
-    height: 100px;
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-    align-items: center;
-}
-
-.bottomMain {
-    border: 2px solid orangered;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    /* CALC for fixed heights... ftw. */
-    height: calc(100vh - 200px);
-    overflow: auto;
-}
-
-.homeSubDisplay {
-    border: 2px solid red;
-    background-color: #555555dd;
-    width: 100%;
-    height: 100px;
-}
-
-
-
-
 
 /* NAVIGATION */
 .homeNavigation {
     /* border: 2px solid gold; */
 }
-
 .homeNavigationLinks {
     /* border: 2px solid blue; */
 }
-
 .homeAddButton {
-    border: 2px solid black;
-    background-color: ghostwhite;
+    /* border: 2px solid black; */
+    color: white;
     border-radius: 50%;
-    width: 75px;
-    height: 75px;
+    /* background-color: ghostwhite; */
+    width: 70px;
+    height: 70px;
     position: fixed;
-    bottom: 10px;
-    left: 10px;
+    top: 15px;
+    left: 15px;
     z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* matches container size */
+    font-size: 70px;
 }
-
 .homeNavButton {
     display: none;
 }
-
 .homeStingrayLogo {
     display: none;
 }
 
 
 
+
 /* MAIN recipe display */
-/* the top */
+/* top main */
+.homeMainDisplay {
+    /* border: 2px solid blue; */
+    display: flex;
+    flex-flow: column nowrap;
+    width: 100%;
+}
+.homeTopMain {
+    /* border: 2px solid green; */
+    background-color: #555555dd;
+    height: 10vh;
+}
 .homeSearchBar {
     /* border: 2px solid black; */
-    width: 80%;
-    height: 50%;
+    width: 75%;
+    height: 40px;
+    position: fixed;
+    top: 30px;
+    right: 15px;
 }
-
 .homeKeywordSearch {
+    border: none;
     /* border: 2px solid orange; */
     background-color: rgb(175, 175, 175);
-    border: none;
     width: 100%;
     height: 100%;
     border-radius: 30px;
-    padding: 12px;
     font-size: 20px;
     text-align: center;
 }
 
-
-
-
-
+/* bottom main */
+.bottomMain {
+    /* border: 2px solid orangered; */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    /* CALC for fixed heights... ftw. */
+    height: calc(100vh - 20vh);
+    overflow: auto;
+}
 .recipeMosaic {
     /* border: 2px solid blue; */
     width: 85%;
     display: grid;
-    gap: 3vw;
+    gap: 15px;
     grid-template-columns: repeat(2, 1fr);
     /* This is half the height of each recipeContainer */
-    grid-template-rows: repeat(auto-fill, minmax(135px, auto));
-    padding: 3vh 0 3vh 0;
+    /* grid-template-rows: repeat(auto-fill, minmax(135px, auto)); */
+    grid-auto-rows: minmax(135px, auto);
+    padding: 5vh 0 3vh 0;
+    justify-items: center;
+}
+.homeSearchReturn {
+    /* border: 1px solid grey; */
+    border-radius: 20px;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    font-size: 30px;
+    gap: 10px;
+}
+.homeRecipeTotal {
+    border: none;
+}
+.homeRecipeLabel {
+    border-top: 1px solid black;
 }
 
-.searchReturn {
-    /* border: 2px solid gold; */
-}
 
 
 .recipeContainer {
     /* border: 1px solid black; */
-    height: 270px;
+    /* sum of your gap and 2x row height */
+    /* use calc, specify constants */
+    height: 285px;
+    width: 100%;
     position: relative;
     display: flex;
     flex-flow: column nowrap;
@@ -143,7 +145,6 @@
     perspective: 1000px;
     transform-style: preserve-3d;
 }
-
 .recipePhoto {
     border: 2px solid grey;
     background-color: ghostwhite;
@@ -175,37 +176,86 @@
 }
 
 .cardDetails {
-    height: 65%;
+    /* border: 2px solid red; */
+    width: 100%;
+    height: 63%;
     display: flex;
     flex-flow: column nowrap;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     align-items: center;
 }
-
-.paginationBar {
-    border: 2px solid yellow;
-    position: fixed;
-    bottom: 40px;
+.homeRecipeTitle {
+    /* border: 2px solid blue; */
+    width: 90%;
+    height: 40%;
+    font-size: 18px;
+    margin-top: 10px;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+}
+.homeDetail {
+    /* border: 2px solid green; */
+    background-color: #e6f7fc;
+    width: 50%;
+    border-radius: 20px;
+    height: 20%;
     display: flex;
-    gap: 40px;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 16px;
+    padding: 0 10px 0 10px;
+    margin-bottom: 10px;
+}
+.homeIconDetail {
+    /* border: 2px solid yellow; */
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+}
+.paginationBar {
+    /* border: 2px solid yellow; */
+    position: fixed;
+    bottom: 15px;
+    display: flex;
+    gap: calc(100vw - 55vw);
+}
+.homePageNext {
+    /* border: 2px solid blue; */
+    height: 60px;
+    width: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 60px;
+    color: white;
 }
 
 
 
 
 /* sub display */
+.homeSubDisplay {
+    /* border: 2px solid red; */
+    background-color: #555555dd;
+    width: 100%;
+    height: 10vh;
+}
 .momPic {
     border: 2px solid black;
     background-color: ghostwhite;
     border-radius: 50%;
-    width: 75px;
-    height: 75px;
+    width: 70px;
+    height: 70px;
     position: fixed;
     bottom: 10px;
-    right: 10px;
+    /* center property */
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 5;
 }
-
 .recipePreview {
     display: none;
 }

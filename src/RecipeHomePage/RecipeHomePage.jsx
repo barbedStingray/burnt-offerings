@@ -4,6 +4,13 @@ import axios from 'axios'
 import './RecipeHomePage.css'
 
 
+import { CiCirclePlus } from "react-icons/ci";
+import { IoIosArrowDropright } from "react-icons/io";
+import { IoIosArrowDropleft } from "react-icons/io";
+import { FaInfo } from "react-icons/fa";
+import { LuAlarmClock } from "react-icons/lu";
+
+
 
 const RecipeHomePage = () => {
 
@@ -89,9 +96,10 @@ const RecipeHomePage = () => {
         <div className='homePage'>
             <div className='homeQuarter'></div>
 
+        {/* navigation */}
             <div className='homeNavigation'>
                 <div className='homeNavigationLinks'>
-                    <div className='homeAddButton'>Add</div>
+                    <div className='homeAddButton'><CiCirclePlus /></div>
                     <div className='homeNavButton'>Home</div>
                     <div className='homeNavButton'>Other</div>
                     {/* Others... */}
@@ -99,8 +107,8 @@ const RecipeHomePage = () => {
                 <div className='homeStingrayLogo'>Logo</div>
             </div>
 
+        {/* main display */}
             <div className='homeMainDisplay'>
-
                 <div className='homeTopMain'>
                     {/* other element here... */}
                     <div className='homeSearchBar'>
@@ -113,12 +121,12 @@ const RecipeHomePage = () => {
                         />
                     </div>
                 </div>
-
                 <div className='bottomMain'>
 
                     <div className='recipeMosaic'>
-                        <div className='searchReturn'>
-                            <div className="recipeTotal">{totalRecipes} | Recipes</div>
+                        <div className='homeSearchReturn'>
+                            <div className="homeRecipeTotal">{totalRecipes}</div>
+                            <div className="homeRecipeLabel">Recipes</div>
                         </div>
 
                         {allRecipes.map((recipe, i) => (
@@ -130,23 +138,25 @@ const RecipeHomePage = () => {
                                 <div className='recipePhoto'></div>
                                 <div className='cardDisplay'>
                                     <div className='cardDetails'>
-                                        <h4>{recipe.title}</h4>
-                                        <p>10 Ingredients</p>
-                                        <p>{recipe.prep_time}</p>
+                                        <p className='homeRecipeTitle'>{recipe.title}</p>
+                                        <p className='homeDetail'><span className='homeIconDetail'><FaInfo /></span> 10</p>
+                                        <p className='homeDetail'><span className='homeIconDetail'><LuAlarmClock /></span> 180m</p>
                                     </div>
                                 </div>
                             </div>
                         ))}
                     </div>
                     <div className='paginationBar'>
-                        <button
+                        <div
+                            className='homePageNext'
                             disabled={currentPage === 1}
                             onClick={() => handlePageChange(currentPage - 1)}
-                        >Previous</button>
-                        <button
+                        ><IoIosArrowDropleft /></div>
+                        <div
+                            className='homePageNext'
                             disabled={currentPage === totalPages}
                             onClick={() => handlePageChange(currentPage + 1)}
-                        >Next</button>
+                        ><IoIosArrowDropright /></div>
                     </div>
 
                 </div>
@@ -154,7 +164,7 @@ const RecipeHomePage = () => {
             </div>
 
             <div className='homeSubDisplay'>
-                <div className='momPic'>Pic of Mom</div>
+                <div className='momPic'></div>
                 <div className='recipePreview'>Pic</div>
             </div>
 
