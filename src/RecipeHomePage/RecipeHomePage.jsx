@@ -15,7 +15,12 @@ import { LuAlarmClock } from "react-icons/lu";
 const RecipeHomePage = () => {
 
     const navigate = useNavigate()
-    const debounceTimoutRef = useRef(null)
+    const debounceTimoutRef = useRef(null) // delay in db request
+    // ! animate recipes
+    const [animate, setAnimate] = useState(false)
+    const [uniqueKey, setUniqueKey] = useState(0)
+
+
 
     const [keywords, setKeywords] = useState('')
     const [allRecipes, setAllRecipes] = useState([])
@@ -26,7 +31,7 @@ const RecipeHomePage = () => {
     const [currentPage, setCurrentPage] = useState(1)
     const [totalPages, setTotalPages] = useState(1)
     const [totalRecipes, setTotalRecipes] = useState(0)
-    const recipesPerPage = 10
+    const recipesPerPage = 5
 
     // display recipe
     const [displayRecipe, setDisplayRecipe] = useState([])
@@ -35,6 +40,13 @@ const RecipeHomePage = () => {
     // todo make this it's own utility function eventually
     const fetchFilteredRecipes = async (keywords, page = 1) => {
         setLoadingStatus('loading')
+
+        // ! animate
+        setAnimate(true)
+        setUniqueKey(uniqueKey + 1)
+        setTimeout(() => {
+            setAnimate(false)
+        }, 500)
 
         if (!keywords) {
             console.log('no keywords!', keywords)
@@ -74,6 +86,13 @@ const RecipeHomePage = () => {
     const handlePageChange = (newPage) => {
         setCurrentPage(newPage)
         fetchFilteredRecipes(keywords, newPage) // fetch the recipes for the new page
+    
+        // ! animate 
+        setAnimate(true)
+        setUniqueKey(uniqueKey + 1)
+        setTimeout(() => {
+            setAnimate(false)
+        }, 500)
     }
 
 
@@ -131,9 +150,11 @@ const RecipeHomePage = () => {
 
                         {allRecipes.map((recipe, i) => (
                             <div
-                                key={i}
+                                // key={i}
+                                key={`${uniqueKey}-${i}`}
                                 onClick={() => seeRecipeDetails(recipe.id)}
-                                className='recipeContainer'
+                                className={`recipeContainer ${animate ? 'animate' : ''}`}
+                                style={{ animationDelay: `${i * 100}ms`}}
                             >
                                 <div className='recipePhoto'></div>
                                 <div className='cardDisplay'>
@@ -148,14 +169,12 @@ const RecipeHomePage = () => {
                     </div>
                     <div className='paginationBar'>
                         <div
-                            className='homePageNext'
-                            disabled={currentPage === 1}
-                            onClick={() => handlePageChange(currentPage - 1)}
+                            className={`homePageNext ${currentPage === 1 ? 'homeNextDeactivate' : ''}`}
+                            onClick={currentPage === 1 ? null : () => handlePageChange(currentPage - 1)}
                         ><IoIosArrowDropleft /></div>
                         <div
-                            className='homePageNext'
-                            disabled={currentPage === totalPages}
-                            onClick={() => handlePageChange(currentPage + 1)}
+                            className={`homePageNext ${currentPage === totalPages ? 'homeNextDeactivate' : ''}`}
+                            onClick={currentPage === totalPages ? null : () => handlePageChange(currentPage + 1)}
                         ><IoIosArrowDropright /></div>
                     </div>
 
@@ -163,6 +182,7 @@ const RecipeHomePage = () => {
 
             </div>
 
+            {/* sub display */}
             <div className='homeSubDisplay'>
                 <div className='momPic'></div>
                 <div className='recipePreview'>Pic</div>
