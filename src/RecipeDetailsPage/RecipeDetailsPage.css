@@ -11,7 +11,7 @@
     align-items: center;
 }
 
-.quarter-circle {
+/* .quarter-circle {
     width: 75%;
     height: 25%;
     background-color: #d1edff;
@@ -20,7 +20,7 @@
     top: 0;
     left: 0;
     z-index: -10;
-}
+} */
 
 .recipeDetailsContainer {
     border: 2px solid magenta;

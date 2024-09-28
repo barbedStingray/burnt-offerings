@@ -12,6 +12,7 @@ const RecipeHomePage = () => {
 
     const [keywords, setKeywords] = useState('')
     const [allRecipes, setAllRecipes] = useState([])
+    console.log('allRecipes', allRecipes)
     const [loadingStatus, setLoadingStatus] = useState('unloaded')
 
     // pagination
@@ -19,6 +20,9 @@ const RecipeHomePage = () => {
     const [totalPages, setTotalPages] = useState(1)
     const [totalRecipes, setTotalRecipes] = useState(0)
     const recipesPerPage = 10
+
+    // display recipe
+    const [displayRecipe, setDisplayRecipe] = useState ([])
 
 
     // todo make this it's own utility function eventually
@@ -83,70 +87,79 @@ const RecipeHomePage = () => {
 
     return (
         <div className='homePage'>
-            <div className='greetingContainer'>
-                <div className='greeting'>
-                    <p>Hello!</p>
-                    <p>Whatcha Cookin??</p>
+            <div className='homeQuarter'></div>
+
+            <div className='homeNavigation'>
+                <div className='homeNavigationLinks'>
+                    <div className='homeAddButton'>Add</div>
+                    <div className='homeNavButton'>Home</div>
+                    <div className='homeNavButton'>Other</div>
+                    {/* Others... */}
                 </div>
-                <div className='momPic'>mom</div>
+                <div className='homeStingrayLogo'>Logo</div>
             </div>
 
+            <div className='homeMainDisplay'>
 
-            <div className='homeSearchBar'>
-                <input
-                    className='keywordSearch'
-                    type='text'
-                    placeholder='Search Keywords...'
-                    value={keywords}
-                    onChange={(e) => keywordChange(e.target.value)}
-                />
-            </div>
-
-
-
-
-            <div className='displayMosaic'>
-                <div className="searchReturn">{totalRecipes} | Recipes</div>
-                {allRecipes.map((recipe, i) => (
-                    <div
-                        onClick={() => seeRecipeDetails(recipe.id)}
-                        className={`recipeContainer`}
-                    >
-                        <div className='recipePhoto'></div>
-                        <div className='cardDisplay'>
-                            <h4>{recipe.title}</h4>
-                            <p>10 Ingredients</p>
-                            <p>{recipe.prep_time}</p>
-                        </div>
+                <div className='homeTopMain'>
+                    {/* other element here... */}
+                    <div className='homeSearchBar'>
+                        <input
+                            className='homeKeywordSearch'
+                            type='text'
+                            placeholder='Search Keywords...'
+                            value={keywords}
+                            onChange={(e) => keywordChange(e.target.value)}
+                        />
                     </div>
-                ))}
-                <div className='lastSquareDiv'></div>
+                </div>
+
+                <div className='bottomMain'>
+
+                    <div className='recipeMosaic'>
+                        <div className='searchReturn'>
+                            <div className="recipeTotal">{totalRecipes} | Recipes</div>
+                            <div className='paginationBar'>
+                                <button
+                                    disabled={currentPage === 1}
+                                    onClick={() => handlePageChange(currentPage - 1)}
+                                >Previous</button>
+                                <span>Page {currentPage} of {totalPages}</span>
+                                <button
+                                    disabled={currentPage === totalPages}
+                                    onClick={() => handlePageChange(currentPage + 1)}
+                                >Next</button>
+                            </div>
+                        </div>
+
+                        {allRecipes.map((recipe, i) => (
+                            <div
+                                key={i}
+                                onClick={() => seeRecipeDetails(recipe.id)}
+                                className='recipeContainer'
+                            >
+                                <div className='recipePhoto'></div>
+                                <div className='cardDisplay'>
+                                    <div className='cardDetails'>
+                                        <h4>{recipe.title}</h4>
+                                        <p>10 Ingredients</p>
+                                        <p>{recipe.prep_time}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+            </div>
+
+            <div className='homeSubDisplay'>
+                <div className='momPic'>Pic of Mom</div>
+                <div className='recipePreview'>Pic</div>
             </div>
 
 
 
-
-            {/* pagination controls */}
-            {keywords.length === 0 ? (
-
-                <div className='navBar' onClick={() => goToCreateRecipePage()}>
-                    <p>+</p>
-                </div>
-
-            ) : (
-
-                <div className='paginationBar'>
-                    <button
-                        disabled={currentPage === 1}
-                        onClick={() => handlePageChange(currentPage - 1)}
-                    >Previous</button>
-                    <span>Page {currentPage} of {totalPages}</span>
-                    <button
-                        disabled={currentPage === totalPages}
-                        onClick={() => handlePageChange(currentPage + 1)}
-                    >Next</button>
-                </div>
-            )}
 
         </div>
     )

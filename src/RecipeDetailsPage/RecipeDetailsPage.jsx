@@ -31,7 +31,7 @@ const RecipeDetailsPage = () => {
 
     return (
         <div className='recipeDetailsPage'>
-            <div className='quarter-circle'></div>
+            <div className='homeQuarter'></div>
 
             <div className='recipeDetailsContainer'>
                 {detailsStatus === 'loaded' ? (
