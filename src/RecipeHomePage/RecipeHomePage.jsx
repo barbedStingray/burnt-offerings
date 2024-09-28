@@ -22,7 +22,7 @@ const RecipeHomePage = () => {
     const recipesPerPage = 10
 
     // display recipe
-    const [displayRecipe, setDisplayRecipe] = useState ([])
+    const [displayRecipe, setDisplayRecipe] = useState([])
 
 
     // todo make this it's own utility function eventually
@@ -119,17 +119,6 @@ const RecipeHomePage = () => {
                     <div className='recipeMosaic'>
                         <div className='searchReturn'>
                             <div className="recipeTotal">{totalRecipes} | Recipes</div>
-                            <div className='paginationBar'>
-                                <button
-                                    disabled={currentPage === 1}
-                                    onClick={() => handlePageChange(currentPage - 1)}
-                                >Previous</button>
-                                <span>Page {currentPage} of {totalPages}</span>
-                                <button
-                                    disabled={currentPage === totalPages}
-                                    onClick={() => handlePageChange(currentPage + 1)}
-                                >Next</button>
-                            </div>
                         </div>
 
                         {allRecipes.map((recipe, i) => (
@@ -149,6 +138,17 @@ const RecipeHomePage = () => {
                             </div>
                         ))}
                     </div>
+                    <div className='paginationBar'>
+                        <button
+                            disabled={currentPage === 1}
+                            onClick={() => handlePageChange(currentPage - 1)}
+                        >Previous</button>
+                        <button
+                            disabled={currentPage === totalPages}
+                            onClick={() => handlePageChange(currentPage + 1)}
+                        >Next</button>
+                    </div>
+
                 </div>
 
             </div>

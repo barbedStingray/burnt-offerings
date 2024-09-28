@@ -2,14 +2,14 @@
 
 /* DEFAULT 430-425 */
 .homePage {
-    /* border: 2px solid magenta; */
+    /* border: 2px solid black; */
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
     position: relative;
-    /* min-height: 100vh; */
     height: 100vh;
 }
+
 .homeQuarter {
     width: 80%;
     height: 50%;
@@ -20,30 +20,40 @@
     left: 0;
     z-index: -10;
 }
+
 .homeMainDisplay {
-    border: 2px solid blue;
+    /* border: 2px solid blue; */
     display: flex;
     flex-flow: column nowrap;
     width: 100%;
-    /* flex: 6; */
-    flex-grow: 1;
-}
-.bottomMain {
-    border: 2px solid orangered;
-    /* margin: 90px 0 90px 0; */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 500px;
-    overflow: scroll;
-}
-.homeSubDisplay {
-    /* border: 2px solid red; */
-    background-color: #555555dd;
-    width: 100%;
-    flex-grow: 1;
 }
 
+.homeTopMain {
+    border: 2px solid green;
+    background-color: #555555dd;
+    height: 100px;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.bottomMain {
+    border: 2px solid orangered;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    /* CALC for fixed heights... ftw. */
+    height: calc(100vh - 200px);
+    overflow: auto;
+}
+
+.homeSubDisplay {
+    border: 2px solid red;
+    background-color: #555555dd;
+    width: 100%;
+    height: 100px;
+}
 
 
 
@@ -53,9 +63,11 @@
 .homeNavigation {
     /* border: 2px solid gold; */
 }
+
 .homeNavigationLinks {
     /* border: 2px solid blue; */
 }
+
 .homeAddButton {
     border: 2px solid black;
     background-color: ghostwhite;
@@ -67,9 +79,11 @@
     left: 10px;
     z-index: 10;
 }
+
 .homeNavButton {
     display: none;
 }
+
 .homeStingrayLogo {
     display: none;
 }
@@ -78,20 +92,12 @@
 
 /* MAIN recipe display */
 /* the top */
-.homeTopMain {
-    border: 2px solid green;
-    /* background-color: #555555dd; */
-    height: 95px;
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-    align-items: center;
-}
 .homeSearchBar {
     /* border: 2px solid black; */
     width: 80%;
     height: 50%;
 }
+
 .homeKeywordSearch {
     /* border: 2px solid orange; */
     background-color: rgb(175, 175, 175);
@@ -110,9 +116,8 @@
 
 .recipeMosaic {
     /* border: 2px solid blue; */
-    width: 90%;
+    width: 85%;
     display: grid;
-    /* margin: 6vw; */
     gap: 3vw;
     grid-template-columns: repeat(2, 1fr);
     /* This is half the height of each recipeContainer */
@@ -147,7 +152,7 @@
     top: 0;
     width: 110px;
     height: 110px;
-    box-shadow: -5px 10px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: -6px 11px 10px rgba(0, 0, 0, 0.4);
 }
 
 .cardDisplay {
@@ -179,7 +184,12 @@
 
 .paginationBar {
     border: 2px solid yellow;
+    position: fixed;
+    bottom: 40px;
+    display: flex;
+    gap: 40px;
 }
+
 
 
 
@@ -195,10 +205,10 @@
     right: 10px;
     z-index: 5;
 }
+
 .recipePreview {
     display: none;
 }
-
 
 
 
