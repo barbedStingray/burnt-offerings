@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import './RecipeDetailsPage.css'
 
-import useRecipeDetails from '../utilities/fetchRecipeDetails'
+import useRecipeDetails from './detailFunctions/fetchRecipeDetails'
 
 
 const RecipeDetailsPage = () => {

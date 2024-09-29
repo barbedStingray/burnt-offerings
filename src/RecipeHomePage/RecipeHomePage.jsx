@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios'
 import './RecipeHomePage.css'
 
@@ -9,6 +9,10 @@ import { IoIosArrowDropright } from "react-icons/io";
 import { IoIosArrowDropleft } from "react-icons/io";
 import { FaInfo } from "react-icons/fa";
 import { LuAlarmClock } from "react-icons/lu";
+import { TbCookieMan } from "react-icons/tb";
+import { LiaCookieBiteSolid } from "react-icons/lia";
+import { GiPumpkinLantern } from "react-icons/gi";
+
 
 
 
@@ -16,15 +20,13 @@ const RecipeHomePage = () => {
 
     const navigate = useNavigate()
     const debounceTimoutRef = useRef(null) // delay in db request
-    // ! animate recipes
-    const [animate, setAnimate] = useState(false)
-    const [uniqueKey, setUniqueKey] = useState(0)
+    const [uniqueKey, setUniqueKey] = useState(0) // forced re-render for animation
 
 
 
     const [keywords, setKeywords] = useState('')
     const [allRecipes, setAllRecipes] = useState([])
-    console.log('allRecipes', allRecipes)
+    // console.log('allRecipes', allRecipes)
     const [loadingStatus, setLoadingStatus] = useState('unloaded')
 
     // pagination
@@ -40,13 +42,6 @@ const RecipeHomePage = () => {
     // todo make this it's own utility function eventually
     const fetchFilteredRecipes = async (keywords, page = 1) => {
         setLoadingStatus('loading')
-
-        // ! animate
-        setAnimate(true)
-        setUniqueKey(uniqueKey + 1)
-        setTimeout(() => {
-            setAnimate(false)
-        }, 500)
 
         if (!keywords) {
             console.log('no keywords!', keywords)
@@ -86,24 +81,15 @@ const RecipeHomePage = () => {
     const handlePageChange = (newPage) => {
         setCurrentPage(newPage)
         fetchFilteredRecipes(keywords, newPage) // fetch the recipes for the new page
-    
-        // ! animate 
-        setAnimate(true)
         setUniqueKey(uniqueKey + 1)
-        setTimeout(() => {
-            setAnimate(false)
-        }, 500)
     }
-
-
 
     // todo refactor buttons for singular button...
     function seeRecipeDetails(recipeID) {
         // console.log('viewing details of', recipeID)
         navigate(`/recipeDetails/${recipeID}`)
     }
-    function goToCreateRecipePage(recipeID) {
-        // console.log('viewing details of', recipeID)
+    function goToCreateRecipePage() {
         navigate(`/createRecipe`)
     }
 
@@ -115,10 +101,10 @@ const RecipeHomePage = () => {
         <div className='homePage'>
             <div className='homeQuarter'></div>
 
-        {/* navigation */}
+            {/* navigation */}
             <div className='homeNavigation'>
                 <div className='homeNavigationLinks'>
-                    <div className='homeAddButton'><CiCirclePlus /></div>
+                    <Link to={`/createRecipe`} className='homeAddButton'><CiCirclePlus /></Link>
                     <div className='homeNavButton'>Home</div>
                     <div className='homeNavButton'>Other</div>
                     {/* Others... */}
@@ -126,7 +112,7 @@ const RecipeHomePage = () => {
                 <div className='homeStingrayLogo'>Logo</div>
             </div>
 
-        {/* main display */}
+            {/* main display */}
             <div className='homeMainDisplay'>
                 <div className='homeTopMain'>
                     {/* other element here... */}
@@ -142,45 +128,59 @@ const RecipeHomePage = () => {
                 </div>
                 <div className='bottomMain'>
 
-                    <div className='recipeMosaic'>
-                        <div className='homeSearchReturn'>
-                            <div className="homeRecipeTotal">{totalRecipes}</div>
-                            <div className="homeRecipeLabel">Recipes</div>
-                        </div>
 
-                        {allRecipes.map((recipe, i) => (
-                            <div
-                                // key={i}
-                                key={`${uniqueKey}-${i}`}
-                                onClick={() => seeRecipeDetails(recipe.id)}
-                                className={`recipeContainer ${animate ? 'animate' : ''}`}
-                                style={{ animationDelay: `${i * 100}ms`}}
-                            >
-                                <div className='recipePhoto'></div>
-                                <div className='cardDisplay'>
-                                    <div className='cardDetails'>
-                                        <p className='homeRecipeTitle'>{recipe.title}</p>
-                                        <p className='homeDetail'><span className='homeIconDetail'><FaInfo /></span> 10</p>
-                                        <p className='homeDetail'><span className='homeIconDetail'><LuAlarmClock /></span> 180m</p>
-                                    </div>
+                    {allRecipes.length === 0 ? (
+                        <div className='homeNoRecipes'>
+                            <p className='homeNoRecipeText'>Search Recipes!</p>
+                            {/* <div className='homeNoCookieMan'><TbCookieMan /></div> */}
+                            <div className='homeNoCookieMan'><GiPumpkinLantern /></div>
+                        </div>
+                    ) : (
+                        <>
+                            <div className='recipeMosaic'>
+                                <div className='homeSearchReturn'>
+                                    <div className="homeRecipeTotal">{totalRecipes}</div>
+                                    <div className="homeRecipeLabel">Recipes</div>
                                 </div>
+
+                                {allRecipes.map((recipe, i) => (
+                                    <div
+                                        // key={i}
+                                        key={`${uniqueKey}-${i}`}
+                                        onClick={() => seeRecipeDetails(recipe.id)}
+                                        className={`recipeContainer`}
+                                        style={{ animationDelay: `${i * 100}ms` }}
+                                    >
+                                        <div className='recipePhoto'></div>
+                                        <div className='cardDisplay'>
+                                            <div className='cardDetails'>
+                                                <p className='homeRecipeTitle'>{recipe.title}</p>
+                                                <p className='homeDetail'><span className='homeIconDetail'><FaInfo /></span> 10</p>
+                                                <p className='homeDetail'><span className='homeIconDetail'><LuAlarmClock /></span> 180m</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
-                        ))}
-                    </div>
-                    <div className='paginationBar'>
-                        <div
-                            className={`homePageNext ${currentPage === 1 ? 'homeNextDeactivate' : ''}`}
-                            onClick={currentPage === 1 ? null : () => handlePageChange(currentPage - 1)}
-                        ><IoIosArrowDropleft /></div>
-                        <div
-                            className={`homePageNext ${currentPage === totalPages ? 'homeNextDeactivate' : ''}`}
-                            onClick={currentPage === totalPages ? null : () => handlePageChange(currentPage + 1)}
-                        ><IoIosArrowDropright /></div>
-                    </div>
+
+                            <div className='paginationBar'>
+                                <div
+                                    className={`homePageNext ${currentPage === 1 ? 'homeNextDeactivate' : ''}`}
+                                    onClick={currentPage === 1 ? null : () => handlePageChange(currentPage - 1)}
+                                ><IoIosArrowDropleft /></div>
+                                <div
+                                    className={`homePageNext ${currentPage === totalPages ? 'homeNextDeactivate' : ''}`}
+                                    onClick={currentPage === totalPages ? null : () => handlePageChange(currentPage + 1)}
+                                ><IoIosArrowDropright /></div>
+                            </div>
+                        </>
+                    )}
+
 
                 </div>
 
             </div>
+
 
             {/* sub display */}
             <div className='homeSubDisplay'>

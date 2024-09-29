@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import React, { useState, useEffect, useRef } from 'react'
+import { Link } from 'react-router-dom'
 import './createRecipePage.css'
 
 
@@ -18,6 +18,7 @@ import { GiSandwich } from "react-icons/gi";
 import { GiFruitBowl } from "react-icons/gi";
 import { GiHotMeal } from "react-icons/gi";
 
+import { LiaCookieBiteSolid } from "react-icons/lia";
 
 
 
@@ -32,7 +33,6 @@ const CreateNewRecipe = () => {
         description: '',
         prep_time: '',
         servings: '',
-        // is_sub_recipe: false,
         is_parent_recipe: false,
         picture: 'no photo'
     })
@@ -42,6 +42,7 @@ const CreateNewRecipe = () => {
     const [tagPackage, setTagPackage] = useState([])
 
     const [formIndex, setFormIndex] = useState(0)
+    const formContainerRef = useRef(null)
     const createForms = [
         <CreateDetails dataPackage={{ newRecipeDetails, setNewRecipeDetails }} />,
         <CreateSubRecipes dataPackage={{ subRecipePackage, setSubRecipePackage }} />,
@@ -50,10 +51,26 @@ const CreateNewRecipe = () => {
         <CreateTags dataPackage={{ tagPackage, setTagPackage }} />,
         <SubmitRecipe dataPackage={{ newRecipeDetails, subRecipePackage, ingredientPackage, stepPackage, tagPackage }} />
     ]
-    const formShortcuts = ['D', 'R', 'I', 'S', 'T', 'Submit']
+    const formShortcuts = ['MR', 'SR', 'IN', 'ST', 'TA', 'Check']
 
+    useEffect(() => {
+        // picking up my formIndex for scroll
+        const handleScroll = () => {
+            const formWidth = formContainerRef.current.clientWidth
+            const currentScroll = formContainerRef.current.scrollLeft
+            const newIndex = Math.round(currentScroll / formWidth)
+            setFormIndex(newIndex)
+        }
+        formContainerRef.current.addEventListener('scroll', handleScroll)
+        // cleanup function
+        return () => {
+            if (formContainerRef.current) {
+                formContainerRef.current.removeEventListener('scroll', handleScroll)
+            }
+        }
+    }, [])
 
-
+// deletePackageItem
     function deleteTag(i, dataPackage, setDataPackage) { // needs to be modular
         console.log('tagindex', i)
         const newPackage = dataPackage.filter((_, index) => index !== i)
@@ -72,27 +89,20 @@ const CreateNewRecipe = () => {
     }, [subRecipePackage])
 
 
-    const nextForm = (formIndex) => {
-        console.log('view next form', formIndex)
-        if (formIndex < createForms.length - 1) {
-            setFormIndex(formIndex + 1)
-        } else {
-            console.log('Last Page!')
-        }
+
+    const scrollToForm = (formIndex) => {
+        console.log('scrolling to', formIndex)
+        const formWidth = formContainerRef.current.clientWidth // set width
+        formContainerRef.current.scrollTo({
+            left: formWidth * formIndex, // scroll to correct position
+            behavior: 'smooth'
+        })
     }
-    const previousForm = (formIndex) => {
-        console.log('view next form', formIndex)
-        if (formIndex > 0) {
-            setFormIndex(formIndex - 1)
-        } else {
-            console.log('First Page!')
-        }
-    }
+
 
     const [photoModule, setPhotoModule] = useState(false)
     const addNewPhoto = () => {
         console.log('adding photo')
-
     }
 
     function generatePhoto(iconString) {
@@ -109,7 +119,6 @@ const CreateNewRecipe = () => {
                 return <GiFruitBowl />
         }
     }
-
     const reactIcons = [
         {
             iconName: 'dinner',
@@ -136,7 +145,11 @@ const CreateNewRecipe = () => {
 
     return (
         <div className='createNewRecipe'>
+            <div className='createQuarter'></div>
 
+            <div className='createRecipeHeader'>
+                <Link className='createToHomeLink' to={'/'}><LiaCookieBiteSolid /></Link>
+            </div>
 
 
             <div className='createDisplay'>
@@ -196,34 +209,35 @@ const CreateNewRecipe = () => {
 
             </div>
 
-            <div className='createForm'>
-                <div>
-                    {createForms[formIndex]}
-                </div>
-                <br />
 
-                <button
-                    onClick={() => previousForm(formIndex)}
-                    disabled={formIndex === 0}
-                >Previous</button>
-                {formShortcuts.map((label, i) => (
-                    <button // Todo turn into likely div later
-                        key={i}
-                        onClick={() => setFormIndex(i)}
-                    >{label}</button>
-                ))}
-                <button
-                    onClick={() => nextForm(formIndex)}
-                    disabled={formIndex === createForms.length - 1}
-                >Next</button>
+
+            <div className='createFormSubmission'>
+
+                {/* snap scroll... */}
+                <div className={`createForms`} ref={formContainerRef}>
+                    {createForms.map((formContent, i) => (
+                        <div key={i} className='createSingleForm'>
+                            {formContent}
+                        </div>
+                    ))}
+                </div>
+
+                <div className='createFormNavigation'>
+                    {formShortcuts.map((label, i) => (
+                        <div
+                            className={`
+                                navigateForm
+                                ${formIndex === i ? 'identifyNavigate' : ''}
+                                ${i === formShortcuts.length - 1 ? 'lastNavigate' : ''}
+                                `}
+                            key={i}
+                            onClick={() => scrollToForm(i)}
+                        >{label}</div>
+                    ))}
+                </div>
+
             </div>
 
-
-
-
-
-            {/* // todo - review page with submit button */}
-            {/* <button onSubmit={submitNewRecipe}>Create Recipe</button> */}
 
         </div >
     )

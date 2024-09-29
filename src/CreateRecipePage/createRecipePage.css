@@ -1,13 +1,216 @@
 .createNewRecipe {
-    border: 3px solid grey;
+    /* border: 3px solid purple; */
     display: flex;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.createQuarter {
+    width: 80%;
+    height: 50%;
+    background-color: #6ffbf477;
+    border-bottom-right-radius: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -10;
+}
+
+.createRecipeHeader {
+    /* border: 2px solid gold; */
+    background-color: #555555dd;
+    height: 10vh;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: flex-start;
+
+}
+.createToHomeLink {
+    /* border: 2px solid green; */
+    width: 8vh;
+    height: 8vh;
+    font-size: 8vh;
+    margin-left: 2vh;
+    color: ghostwhite;
 }
 
 .createDisplay {
-    border: 2px solid red;
-    flex: 1;
+    display: none;
 }
-.createForm {
-    border: 2px solid blue;
-    flex: 1;
+
+
+
+.createFormSubmission {
+    /* border: 2px solid blue; */
+    height: calc(100vh - 20vh);
+    overflow: hidden;
 }
+.createForms {
+    /* border: 2px solid magenta; */
+    height: 100%;
+    width: 100%;
+    display: flex;
+    /* enable horizontal scrolling */
+    overflow: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+}
+.createForms::-webkit-scrollbar {
+    display: none;
+}
+
+.createSingleForm {
+    /* border: 2px solid lime; */
+    width: 100%;
+    height: 100%;
+    flex-shrink: 0;
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    justify-content: center;
+    /* snaps to the center */
+    scroll-snap-align: center;
+}
+
+.createFormNavigation {
+    background-color: #555555dd;
+    /* border: 2px solid red; */
+    height: 10vh;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+.navigateForm {
+    border: 2px solid white;
+    width: 5vh;
+    height: 5vh;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+.lastNavigate {
+    border: 2px solid white;
+    width: 7vh;
+    height: 7vh;
+}
+.identifyNavigate {
+    box-shadow: 0px 0px 6px 3px white;
+}
+
+
+
+
+
+/* TAG FORM */
+.createTagsFormPage {
+    border: none;
+    border-radius: 30px;
+    box-shadow: 0px 2px 6px 2px grey;
+    display: flex;
+    height: 95%;
+    width: 90%;
+    flex-flow: column nowrap;
+    justify-content: space-around;
+    align-items: center;
+}
+.createTagTitle {
+    /* border: 2px solid red; */
+    font-size: 4.5vh;
+}
+.createAddedTagsContainer {
+    border: 1px solid grey;
+    border-radius: 20px;
+    padding: 1vh;
+    width: 90%;
+    height: 26%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow: scroll;
+    scrollbar-width: none;
+}
+/* ! hide webkit scroll bar */
+.createAddedTags {
+    /* border: 2px solid orange; */
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    gap: 1vh;
+}
+.createAddedTag {
+    border: 1px solid grey;
+    /* font-size: 14px; */
+    background-color: ghostwhite;
+    border-radius: 20px;
+    padding: 6px;
+}
+
+
+
+.createTagPrompt {
+    /* border: 2px solid pink; */
+    font-size: 2.5vh;
+}
+
+.createTagInputForm {
+    /* border: 2px solid green; */
+    display: flex;
+    width: 90%;
+    height: 50%;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 3vh;
+}
+.createTagInput {
+    border: none;
+    background-color: lavender;
+    border-radius: 20px;
+    width: 60%;
+    height: 4vh;
+    font-size: 2.5vh;
+    text-align: center;
+}
+.createTagButton {
+    border: 1px solid black;
+    border-radius: 20px;
+    width: 40%;
+    height: 4vh;
+    font-size: 2vh;
+}
+.filteredTagSearchContainer {
+    /* border: 2px solid red; */
+    width: 100%;
+    height: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    /* ! eventually only return top X items in .jsx? */
+}
+.createFilteredTagSearch {
+    /* border: 2px solid orange; */
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    /* align-items: flex-start; */
+    gap: 1vh;
+}
+.createTagMenuItem {
+    border: 1px solid grey;
+    background-color: ghostwhite;
+    border-radius: 20px;
+    padding: 6px;
+}
+
