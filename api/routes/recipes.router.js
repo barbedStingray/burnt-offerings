@@ -9,18 +9,16 @@ const router = express.Router()
 
 // POST new recipe / async
 router.post('/newRecipe', async (req, res) => {
-    console.log('req.body', req.body)
     const newRecipeDetails = req.body.newRecipeDetails
     const newSteps = req.body.stepPackage
     const newSubRecipes = req.body.subRecipePackage
     const newIngredients = req.body.ingredientPackage
     const newTags = req.body.tagPackage
-    console.log('newTags', newTags)
 
     const detailsText = `INSERT INTO "moms_recipes" 
     ("title", "description", "prep_time", "servings", "is_parent_recipe", "picture")
     VALUES ($1, $2, $3, $4, $5, $6) RETURNING id;`
-    const stepText = `INSERT INTO "moms_steps" ("recipe_id", "instructions") VALUES ($1, $2);`
+    const stepText = `INSERT INTO "moms_steps" ("recipe_id", "step_number", "instructions") VALUES ($1, $2, $3);`
     const subRecipeText = `INSERT INTO "recipe_relationship" ("parent_id", "sub_id") VALUES ($1, $2);`
     const isSubRecipeText = `UPDATE moms_recipes SET is_sub_recipe = true WHERE id = $1;`
     const ingredientText = `INSERT INTO "moms_ingredients" ("ingredient") VALUES ($1) RETURNING id;`
@@ -41,9 +39,15 @@ router.post('/newRecipe', async (req, res) => {
         const detailResults = await pool.query(detailsText, [newTitle, description, prep_time, servings, is_parent_recipe, picture])
         const newRecipeId = detailResults.rows[0].id
 
+        
         // ! moms_steps post Steps w/ need: new Recipe ID
-        const stepPromises = newSteps.map((step) => {
-            return pool.query(stepText, [newRecipeId, step.instructions])
+        // ! generate step#
+        const stepPromises = newSteps.map((step, i) => {
+            console.log('STEP, i', step, i)
+            const stepNumber = i + 1
+            console.log('step_number', stepNumber)
+            pool.query(stepText, [newRecipeId, stepNumber, step.instructions])
+            return 
         })
         await Promise.all(stepPromises)
 
@@ -344,8 +348,7 @@ FROM (
 })
 
 
-
-// todo recipe details route
+// recipe details route
 router.get('/details/:id', async (req, res) => {
     console.log('inside the router for', req.params.id)
 

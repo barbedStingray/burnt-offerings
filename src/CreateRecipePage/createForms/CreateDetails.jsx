@@ -4,7 +4,7 @@ import useAllCategory from '../createFunctions/allOfCategory'
 import DetailInput from '../../components/DetailInput'
 import handleDetailChange from '../createFunctions/handleDetailChange'
 import handleValueIsPresent from '../createFunctions/handleValueIsPresent'
-
+import ImageUpload from '../../components/ImageUpload'
 
 const CreateDetails = ({ dataPackage }) => {
 
@@ -62,6 +62,11 @@ const CreateDetails = ({ dataPackage }) => {
         },
     ]
 
+    // handle photo solo
+    const addCustomPhoto = (properties) => {
+        setNewRecipeDetails({ ...newRecipeDetails, picture: properties })
+    }
+
     function letsCheckValues(e, newObject) {
 
         // todo format your white space here! for the titles...
@@ -83,15 +88,22 @@ const CreateDetails = ({ dataPackage }) => {
     return (
         <div className='createDetailsFormPage'>
 
+
             <p className='createDetailsTitle'>Recipe Details</p>
 
             <form className='createDetailInputForm'>
+
+                <ImageUpload photoFunction={addCustomPhoto} />
+
                 {newRecipeDetailInputs.map((input, i) => (
-                        <DetailInput key={i} inputDetails={input} />
+                    <DetailInput key={i} inputDetails={input} />
                 ))}
             </form>
+
+
             {/* // todo Need to implement checks before submission */}
             {/* <button onClick={(e) => letsCheckValues(e, newRecipeDetails)}>Check/Next</button> */}
+        
         </div>
     )
 }
