@@ -89,7 +89,6 @@ const CreateNewRecipe = () => {
     }, [subRecipePackage])
 
 
-
     const scrollToForm = (formIndex) => {
         console.log('scrolling to', formIndex)
         const formWidth = formContainerRef.current.clientWidth // set width
