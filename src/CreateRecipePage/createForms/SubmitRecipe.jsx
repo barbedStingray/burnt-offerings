@@ -5,7 +5,7 @@ const SubmitRecipe = ({ dataPackage }) => {
     const { newRecipeDetails, subRecipePackage, ingredientPackage, stepPackage, tagPackage } = dataPackage
 
     const [isRecipeCreated, setIsRecipeCreated] = useState(false)
-    console.log('isRecipeCreated', isRecipeCreated)
+    // console.log('isRecipeCreated', isRecipeCreated)
     // does this have to be async? probably...
     
 
@@ -24,7 +24,7 @@ const SubmitRecipe = ({ dataPackage }) => {
             
             if (postResponse.data.success) {
                 console.log('success in recipe POST')
-                setIsRecipeCreated(true)
+                // setIsRecipeCreated(true)
             }
 
             // todo RESET variables
@@ -34,7 +34,7 @@ const SubmitRecipe = ({ dataPackage }) => {
 
         } catch (error) {
             console.log('error in recipe POST')
-            setIsRecipeCreated(false)
+            // setIsRecipeCreated(false)
         }
 
 

@@ -14,8 +14,9 @@ const CreateDetails = ({ dataPackage }) => {
     const newRecipeDetailInputs = [
         {
             name: 'newTitle',
+            className: 'createDetailsInput',
             type: 'text',
-            placeholder: 'looped title...',
+            placeholder: 'Recipe Title',
             required: true,
             maxLength: 40,
             minLength: 1,
@@ -25,8 +26,9 @@ const CreateDetails = ({ dataPackage }) => {
         },
         {
             name: 'description',
+            className: 'createDetailsTextArea',
             type: 'textarea',
-            placeholder: 'looped textArea...',
+            placeholder: 'The Description of your Recipe!',
             required: false,
             maxLength: 300,
             minLength: 0,
@@ -36,10 +38,11 @@ const CreateDetails = ({ dataPackage }) => {
         },
         {
             name: 'prep_time',
+            className: 'createDetailsInput prep',
             type: 'text',
-            placeholder: 'looped prep_time...',
+            placeholder: 'Prep Time',
             required: false,
-            maxLength: 10,
+            maxLength: 5,
             minLength: 1,
             autoComplete: 'off',
             value: newRecipeDetails.prep_time,
@@ -47,10 +50,11 @@ const CreateDetails = ({ dataPackage }) => {
         },
         {
             name: 'servings',
+            className: 'createDetailsInput prep',
             type: 'number',
-            placeholder: 'looped servings...',
+            placeholder: 'Servings',
             required: false,
-            maxLength: 5,
+            maxLength: 999,
             minLength: 1,
             autoComplete: 'off',
             value: newRecipeDetails.servings,
@@ -67,7 +71,7 @@ const CreateDetails = ({ dataPackage }) => {
         console.log('checkValueArray', checkValueArray)
         const isValue = handleValueIsPresent(...checkValueArray)
         if (!isValue) return alert('please check your inputs!')
-        
+
         // ! check for duplicate name
         const isDuplicate = allRecipes.map((recipe) => recipe.title.toLowerCase()).includes(newObject.newTitle.toLowerCase())
         console.log('isDuplicate', isDuplicate)
@@ -77,16 +81,17 @@ const CreateDetails = ({ dataPackage }) => {
     }
 
     return (
-        <div>
-            <h3>Recipe Details</h3>
-            <form >
+        <div className='createDetailsFormPage'>
+
+            <p className='createDetailsTitle'>Recipe Details</p>
+
+            <form className='createDetailInputForm'>
                 {newRecipeDetailInputs.map((input, i) => (
-                    <DetailInput key={i} inputDetails={input} />
+                        <DetailInput key={i} inputDetails={input} />
                 ))}
-                <br />
-                {/* {JSON.stringify(newRecipeDetails)} */}
-                <button onClick={(e) => letsCheckValues(e, newRecipeDetails)}>Check/Next</button>
             </form>
+            {/* // todo Need to implement checks before submission */}
+            {/* <button onClick={(e) => letsCheckValues(e, newRecipeDetails)}>Check/Next</button> */}
         </div>
     )
 }
