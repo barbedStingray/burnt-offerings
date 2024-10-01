@@ -20,6 +20,9 @@ export default function useRecipeDetails(recipeID) {
             const results = await axios.get(`/api/recipes/details/${recipeID}`)
             const { mainRecipe, subRecipes } = results.data
             // console.log('mainRecipe', mainRecipe)
+
+            // todo if recipe is does not exist, must return unloaded or error
+
             // console.log('subRecipes', subRecipes)
             setTheMainRecipe(mainRecipe)
             setTheSubRecipes(subRecipes)

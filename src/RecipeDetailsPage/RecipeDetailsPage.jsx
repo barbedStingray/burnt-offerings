@@ -1,91 +1,167 @@
 import React, { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate, Link } from 'react-router-dom'
 import './RecipeDetailsPage.css'
+import axios from 'axios'
 
 import useRecipeDetails from './detailFunctions/fetchRecipeDetails'
+
+import { FaInfo } from "react-icons/fa";
+import { LuAlarmClock } from "react-icons/lu";
+import { LiaCookieBiteSolid } from "react-icons/lia";
+
 
 
 const RecipeDetailsPage = () => {
 
     const { recipeID } = useParams()
-    console.log('recipeID', recipeID)
+    const navigate = useNavigate()
 
     // todo return just an array of recipes with the main first...
     const { theMainRecipe, theSubRecipes, detailsStatus } = useRecipeDetails(recipeID)
-    console.log('theMainRecipe', theMainRecipe)
+    // console.log('theMainRecipe', theMainRecipe)
     const [isIngredient, setIsIngredient] = useState(true)
     // todo this can then be obsolete...
     const recipeDisplay = [theMainRecipe].concat(theSubRecipes)
 
     const [recipeIndex, setRecipeIndex] = useState(0)
+    const slideDistance = 67;
 
     function displayNextRecipe(recipeIndex) {
-        console.log('next recipe', recipeIndex)
         setRecipeIndex(recipeIndex + 1)
     }
     function displayPreviousRecipe(recipeIndex) {
-        console.log('next recipe', recipeIndex)
         setRecipeIndex(recipeIndex - 1)
     }
 
+    // add sweet alert to confirm you want to delete...
+    
+    const deleteEntireRecipe = async (id) => {
+        try {
+            console.log('delete entire recipe', id)
+            await axios.delete(`/api/recipes/deleteEntireRecipe/${id}`)
+            
+            // show module on success.. then navigate and close module
+            // navigate('/')
+        } catch (error) {
+            console.log('ERROR delete entire recipe', id)
+            // return some form of user error.
+        }
+    }
 
     return (
         <div className='recipeDetailsPage'>
-            <div className='homeQuarter'></div>
+            <div className='detailsQuarter'></div>
+
+            <div className='detailNavigateBar'>
+                {/* home button... edit button... */}
+                <button onClick={() => deleteEntireRecipe(recipeID)}>Delete Recipe</button>
+                <Link to={`/`} className='homeAddButton'><LiaCookieBiteSolid /></Link>
+                </div>
+
+            {/* // todo footer for home, edit, delete... */}
 
             <div className='recipeDetailsContainer'>
                 {detailsStatus === 'loaded' ? (
                     // LOADED
                     <>
-                        <div className='detailsPhoto'></div>
-                        <div className='prepServings'>
-                            <p>XX 30m</p>
-                            <p>Makes: {recipeDisplay[recipeIndex].recipeDetails.servings}</p>
-                        </div>
-                        <h1>{recipeDisplay[recipeIndex].recipeDetails.title}</h1>
-                        <div className='tagDetails'>
-                            {recipeDisplay[recipeIndex].tags.map((tag) => (
-                                <p key={tag.tag_id}>{tag.tag} X</p>
-                            ))}
-                        </div>
-                        <p>{recipeDisplay[recipeIndex].recipeDetails.description}</p>
+                        <div className='detailsTopDisplay'>
 
+                            <div className='detailsTopInfo'>
 
-                        <div className='ingredientInstructionsToggle'>
-                            <div onClick={() => setIsIngredient(true)}><h3>Ingredients</h3></div>
-                            <div onClick={() => setIsIngredient(false)}><h3>Instructions</h3></div>
-                        </div>
+                                <div className='detailsPhoto'></div>
+                                <div className='prepServings'>
+                                    <p><LuAlarmClock /> 30m</p>
+                                    <p><FaInfo /> {recipeDisplay[recipeIndex].recipeDetails.servings}</p>
+                                </div>
 
-                        {isIngredient ? (
-                            <div className='ingredients'>
-                                <h3>Ingredients</h3>
-                                {recipeDisplay[recipeIndex].ingredients.map((ingredient) => (
-                                    <p key={ingredient.id}>{ingredient.ingredient}{ingredient.quantity}{ingredient.measurement}</p>
-                                ))}
+                                <div className='detailsRecipeSubSlider'>
+                                    <button
+                                        className='createSubSliderButton'
+                                        disabled={recipeIndex === 0}
+                                        onClick={() => displayPreviousRecipe(recipeIndex)}>Pr.</button>
+
+                                    <div className='detailRecipeSlideContainer'>
+                                        <div
+                                            className='detailRecipeSubDisplay'
+                                            style={{
+                                                transform: `translateX(-${recipeIndex * slideDistance}px)`
+                                            }}
+                                        >
+                                            <div className='detailRecipeSubItem'></div>
+                                            {recipeDisplay.map((recipe, i) => (
+                                                <div
+                                                    key={i}
+                                                    className={`detailRecipeSubItem ${i === recipeIndex ? 'featureSub' : 'subFeature'}`}
+
+                                                >
+                                                    <p>{i === 0 ? 'Main' : `Sub${i}`}</p>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                    <button
+                                        className='createSubSliderButton'
+                                        disabled={recipeIndex === recipeDisplay.length - 1}
+                                        onClick={() => displayNextRecipe(recipeIndex)}>N.</button>
+                                </div>
                             </div>
-                        ) : (
-                            <div className='instructions'>
-                                <h3>Steps</h3>
-                                {recipeDisplay[recipeIndex].steps.map((step) => (
-                                    <p key={step.step_id}>{step.step_number}{step.instructions}</p>
-                                ))}
+
+                            <div className='detailsBottomInfo'>
+                                <div className='detailsTitleDisplay'>
+                                    <p>{recipeDisplay[recipeIndex].recipeDetails.title}</p>
+                                </div>
+
+
+                                <div className='tagDetails'>
+                                    {recipeDisplay[recipeIndex].tags.map((tag) => (
+                                        <p key={tag.tag_id}>{tag.tag}</p>
+                                    ))}
+                                </div>
+
+                                <div className='detailsRecipeDetails'>
+                                    <p>{recipeDisplay[recipeIndex].recipeDetails.description}</p>
+                                </div>
                             </div>
-                        )}
+                        </div>
+
+                        <div className='detailsTagsAndSteps'>
+                            <div className='ingredientInstructionsToggle'>
+                                <div
+                                    className={`detailIngredients ${isIngredient ? 'indicateIngredient' : ''}`}
+                                    onClick={() => setIsIngredient(true)}><p>Ingredients</p></div>
+                                <div
+                                    className={`detailSteps ${isIngredient ? '' : 'indicateIngredient'}`}
+                                    onClick={() => setIsIngredient(false)}><p>Instructions</p></div>
+                            </div>
+
+
+                            {isIngredient ? (
+                                <div className='displayRecipeIngredients'>
+                                    {recipeDisplay[recipeIndex].ingredients.map((ingredient) => (
+                                        <div key={ingredient.id} className='displaySingleIngredient'>
+                                            <p className='displayIngredientQuantity' >{ingredient.quantity}</p>
+                                            <p className='displayIngredientMeasurement'>{ingredient.measurement}</p>
+                                            <p className='displayIngredientIngredient'>{ingredient.ingredient}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            ) : (
+                                <div className='displayRecipeSteps'>
+                                    {recipeDisplay[recipeIndex].steps.map((step) => (
+                                        <div key={step.step_id} className='displayStepItem'>
+                                            <p className='displayStepNumber'>{step.step_number}</p>
+                                            <p className='displayStepStep'>{step.instructions}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
 
                     </>
                 ) : (
                     // RECIPEs NOT LOADED
                     <></>
                 )}
-            </div>
-
-            <div className='recipeSlider'>
-                <button
-                    disabled={recipeIndex === 0}
-                    onClick={() => displayPreviousRecipe(recipeIndex)}>Prev</button>
-                <button
-                    disabled={recipeIndex === recipeDisplay.length - 1}
-                    onClick={() => displayNextRecipe(recipeIndex)}>Next</button>
             </div>
 
 

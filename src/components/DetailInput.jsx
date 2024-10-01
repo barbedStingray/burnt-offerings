@@ -15,7 +15,7 @@ const DetailInput = ({ inputDetails }) => {
   // todo what select doesnt use returns undefined
 
   // todo import your measurements to here... no need to pass them through props to createRecipe
-  const measurementOptions = ['Tbsp', 'Cups', 'Tsp', 'oz']
+  const measurementOptions = ['Tsp', 'Tbsp', 'Cup', 'whole', 'Pinch', 'floz', 'ml', 'oz', 'g', 'lbs', 'Qrt', 'Pint', 'Gal']
 
 
   if (type === 'select') {

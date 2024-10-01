@@ -219,16 +219,11 @@
     border-radius: 50%;
     width: 90%;
     height: 90%;
-    /* aspect-ratio: 1 / 1; */
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 7vh;
     /* background: linear-gradient(135deg, #d4d4d4, #eaeaea, #f6f6f6, #d1d1d1, #a9a9a9, #707070); */
-    /* background-clip: text; */
-    /* -webkit-background-clip: text;  */
-    /* color: transparent; */
-    /* font-weight: bold; */
 }
 .createSingleIcon svg {
     fill: black;

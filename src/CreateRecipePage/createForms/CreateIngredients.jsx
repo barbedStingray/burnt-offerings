@@ -25,10 +25,10 @@ const CreateIngredients = ({ dataPackage }) => {
         {
             name: 'quantity',
             className: 'createIngredientInput quantity',
-            type: 'number',
+            type: 'text',
             placeholder: 'Qty.',
             required: true,
-            maxLength: 10,
+            maxLength: 5,
             minLength: 1,
             autoComplete: 'off',
             value: newIngredient.quantity,
@@ -70,7 +70,7 @@ const CreateIngredients = ({ dataPackage }) => {
                         type='text'
                         placeholder='Add Ingredient'
                         required
-                        maxLength={20}
+                        maxLength={30}
                         minLength={1}
                         autoComplete='off'
                         value={newIngredient.ingredient}

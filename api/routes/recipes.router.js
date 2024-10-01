@@ -7,6 +7,52 @@ const router = express.Router()
 // todo /details NEEDS REFACTOR
 
 
+
+// DELETE ENTIRE
+router.delete('/deleteEntireRecipe/:id', async (req, res) => {
+    console.log('params', req.params)
+
+    const recipeId = req.params.id
+    const deleteRelationsText = `DELETE FROM "recipe_relationship" WHERE "parent_id" = $1;`
+    const deleteTagsText = `DELETE FROM "recipe_tags" WHERE "recipe_id" = $1;`
+    const deleteIngredientsText = `DELETE FROM "recipe_ingredients" WHERE "recipe_id" = $1;`
+    const deleteStepsText = `DELETE FROM "moms_steps" WHERE "recipe_id" = $1;`
+    const deleteRecipeText = `DELETE FROM "moms_recipes" WHERE "id" = $1;`
+    const getSubRecipesText = `SELECT "sub_id" FROM "recipe_relationship" WHERE "parent_id" = $1`
+    const getParentRecipesText = `SELECT "parent_id" FROM "recipe_relationship" WHERE "sub_id" = $1`
+    const isSubRecipeText = `UPDATE moms_recipes SET is_sub_recipe = false WHERE id = $1`
+
+    try {
+        // recipe relations - switch to non sub if no parents
+        const potentialNonSubRecipes = await pool.query(getSubRecipesText, [recipeId])
+        // delete the parent recipe from table
+        await pool.query(deleteRelationsText, [recipeId])
+        // check to see if it still has parents
+        const subCheckPromises = potentialNonSubRecipes.rows.map(async (sub) => {
+            const parentRecipes = await pool.query(getParentRecipesText, [sub.sub_id])
+            const hasParent = parentRecipes.rows.length > 0
+            if (!hasParent) {
+                await pool.query(isSubRecipeText, [sub.sub_id])
+            }
+        })
+        await Promise.all(subCheckPromises)
+
+        // recipe tags
+        await pool.query(deleteTagsText, [recipeId])
+        // recipe ingredients
+        await pool.query(deleteIngredientsText, [recipeId])
+        // moms steps
+        await pool.query(deleteStepsText, [recipeId])
+        // moms recipes
+        await pool.query(deleteRecipeText, [recipeId])
+
+        res.sendStatus(201)
+    } catch (error) {
+        console.log('Error in Delete Entire', error)
+        res.sendStatus(500)
+    }
+})
+
 // POST new recipe / async
 router.post('/newRecipe', async (req, res) => {
     const newRecipeDetails = req.body.newRecipeDetails
@@ -43,9 +89,7 @@ router.post('/newRecipe', async (req, res) => {
         // ! moms_steps post Steps w/ need: new Recipe ID
         // ! generate step#
         const stepPromises = newSteps.map((step, i) => {
-            console.log('STEP, i', step, i)
             const stepNumber = i + 1
-            console.log('step_number', stepNumber)
             pool.query(stepText, [newRecipeId, stepNumber, step.instructions])
             return 
         })
