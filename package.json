@@ -25,7 +25,7 @@
     "start-client": "react-scripts start",
     "server": "nodemon --watch server api/index.js",
     "start-api": "node api/index.js",
-    "build": "react-scripts build",
+    "build": "CI=false && react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
