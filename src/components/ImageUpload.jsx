@@ -43,15 +43,15 @@ function ImageUpload({ photoFunction }) {
 
     
     return (
-        <div id='picture-input'>
+        <div className=''>
             <input
                 type="file"
                 accept="image/*"
                 onChange={onFileChange}
-                className='pictureImport'
+                className='originalAddButton'
                 id='fileInput'
             />
-            <label htmlFor="fileInput" className="btn">Custom Photo</label>
+            <label htmlFor="fileInput" className="createAddImageButton">Custom Photo</label>
 
         </div>
     );

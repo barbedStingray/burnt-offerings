@@ -12,18 +12,11 @@ import SubmitRecipe from './createForms/SubmitRecipe'
 
 
 // todo implement react Icons use gi
-import { GiFishbone } from "react-icons/gi";
-import { GiRawEgg } from "react-icons/gi";
-import { GiSandwich } from "react-icons/gi";
-import { GiFruitBowl } from "react-icons/gi";
-import { GiHotMeal } from "react-icons/gi";
-
 import { LiaCookieBiteSolid } from "react-icons/lia";
 
 
 
 // TODO REFACTOR single responsibilites
-// todo is redux useful anymore? 
 
 const CreateNewRecipe = () => {
 
@@ -99,47 +92,6 @@ const CreateNewRecipe = () => {
     }
 
 
-    const [photoModule, setPhotoModule] = useState(false)
-    const addNewPhoto = () => {
-        console.log('adding photo')
-    }
-
-    function generatePhoto(iconString) {
-        switch (iconString) {
-            case 'dinner':
-                return <GiHotMeal />
-            case 'egg':
-                return <GiRawEgg />
-            case 'fish':
-                return <GiFishbone />
-            case 'lunch':
-                return <GiSandwich />
-            case 'snack':
-                return <GiFruitBowl />
-        }
-    }
-    const reactIcons = [
-        {
-            iconName: 'dinner',
-            icon: <GiHotMeal />
-        },
-        {
-            iconName: 'egg',
-            icon: <GiRawEgg />
-        },
-        {
-            iconName: 'fish',
-            icon: <GiFishbone />
-        },
-        {
-            iconName: 'lunch',
-            icon: <GiSandwich />
-        },
-        {
-            iconName: 'snack',
-            icon: <GiFruitBowl />
-        }
-    ]
 
 
     return (
@@ -155,26 +107,6 @@ const CreateNewRecipe = () => {
                 <h1>CREATE RECIPE</h1>
                 <p>DETAILS</p>
                 <div>Photo: {newRecipeDetails.picture}</div>
-                {generatePhoto(newRecipeDetails.picture)}
-                <button onClick={() => setPhotoModule(!photoModule)}>Add Photo</button>
-                {photoModule ? (
-                    <div>
-                        <p>Lets Get some Options</p>
-                        <button disabled >Own Photo</button>
-                        <h3>Icon List</h3>
-                        {reactIcons.map((icon, i) => (
-                            <div
-                                key={i}
-                                onClick={() => {
-                                    setNewRecipeDetails({ ...newRecipeDetails, picture: icon.iconName })
-                                    setPhotoModule(!photoModule)
-                                }}
-                            >{icon.iconName}{icon.icon}</div>
-                        ))}
-                    </div>
-                ) : (
-                    <></>
-                )}
                 <p>Title: {newRecipeDetails.newTitle}</p>
                 <p>Description: {newRecipeDetails.description}</p>
                 <p>Servings: {newRecipeDetails.servings}</p>
@@ -205,7 +137,6 @@ const CreateNewRecipe = () => {
                     </div>
                 ))} */}
                 {JSON.stringify(tagPackage)}
-
             </div>
 
 

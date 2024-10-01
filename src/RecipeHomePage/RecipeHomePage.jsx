@@ -69,11 +69,14 @@ const RecipeHomePage = () => {
         setKeywords(keywords)
         setCurrentPage(1) // resets to 1st page on new keyword... ?
 
+        
         if (debounceTimoutRef.current) {
             clearTimeout(debounceTimoutRef.current)
         }
         debounceTimoutRef.current = setTimeout(() => {
             fetchFilteredRecipes(keywords, 1) // always fetch from page 1 with new keyword
+            // trigger animation
+            setUniqueKey(uniqueKey + 1)
         }, 1000)
     }
 

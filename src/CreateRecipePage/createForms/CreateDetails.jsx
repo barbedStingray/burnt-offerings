@@ -6,6 +6,14 @@ import handleDetailChange from '../createFunctions/handleDetailChange'
 import handleValueIsPresent from '../createFunctions/handleValueIsPresent'
 import ImageUpload from '../../components/ImageUpload'
 
+
+import { GiFishbone } from "react-icons/gi";
+import { GiRawEgg } from "react-icons/gi";
+import { GiSandwich } from "react-icons/gi";
+import { GiFruitBowl } from "react-icons/gi";
+import { GiHotMeal } from "react-icons/gi";
+
+
 const CreateDetails = ({ dataPackage }) => {
 
     const { newRecipeDetails, setNewRecipeDetails } = dataPackage
@@ -62,6 +70,46 @@ const CreateDetails = ({ dataPackage }) => {
         },
     ]
 
+
+    const [photoModal, setPhotoModal] = useState(false)
+    function generatePhoto(iconString) {
+        switch (iconString) {
+            case 'dinner':
+                return <GiHotMeal />
+            case 'egg':
+                return <GiRawEgg />
+            case 'fish':
+                return <GiFishbone />
+            case 'lunch':
+                return <GiSandwich />
+            case 'snack':
+                return <GiFruitBowl />
+        }
+    }
+    const reactIcons = [
+        {
+            iconName: 'dinner',
+            icon: <GiHotMeal />
+        },
+        {
+            iconName: 'egg',
+            icon: <GiRawEgg />
+        },
+        {
+            iconName: 'fish',
+            icon: <GiFishbone />
+        },
+        {
+            iconName: 'lunch',
+            icon: <GiSandwich />
+        },
+        {
+            iconName: 'snack',
+            icon: <GiFruitBowl />
+        }
+    ]
+
+
     // handle photo solo
     const addCustomPhoto = (properties) => {
         setNewRecipeDetails({ ...newRecipeDetails, picture: properties })
@@ -86,25 +134,46 @@ const CreateDetails = ({ dataPackage }) => {
     }
 
     return (
-        <div className='createDetailsFormPage'>
+
+        <>
+            {photoModal ? (
+                <div className='createDetailsAddPhotoPage'>
+                    <div>
+                    {generatePhoto(newRecipeDetails.picture)}
+                    </div>
+                    <ImageUpload photoFunction={addCustomPhoto} />
+                    <button onClick={() => setPhotoModal(false)} className='createAddImageButton'>Back</button>
+                </div>
+            ) : (
+                <>
+                    <div className='createDetailsFormPage'>
+
+                        <p className='createDetailsTitle'>Recipe Details</p >
+
+                        <form className='createDetailInputForm'>
+
+                            {newRecipeDetailInputs.map((input, i) => (
+                                <DetailInput key={i} inputDetails={input} />
+                            ))}
+
+                            <button className='createAddImageButton' onClick={(e) => {
+                                e.preventDefault()
+                                setPhotoModal(true)
+                            }}>
+                                Add Photo
+                            </button>
+
+                        </form>
 
 
-            <p className='createDetailsTitle'>Recipe Details</p>
+                        {/* // todo Need to implement checks before submission */}
+                        {/* <button onClick={(e) => letsCheckValues(e, newRecipeDetails)}>Check/Next</button> */}
+                    </div >
+                </>
 
-            <form className='createDetailInputForm'>
+            )}
+        </>
 
-                <ImageUpload photoFunction={addCustomPhoto} />
-
-                {newRecipeDetailInputs.map((input, i) => (
-                    <DetailInput key={i} inputDetails={input} />
-                ))}
-            </form>
-
-
-            {/* // todo Need to implement checks before submission */}
-            {/* <button onClick={(e) => letsCheckValues(e, newRecipeDetails)}>Check/Next</button> */}
-        
-        </div>
     )
 }
 
