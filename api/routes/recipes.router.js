@@ -121,8 +121,8 @@ router.post('/newRecipe', async (req, res) => {
         })
         await Promise.all(ingredientPromises)
 
-        // todo moms_tags post new tags, return id's
-        // todo recipe_tags post specified tags recipe_id tags_id
+        // ! moms_tags post new tags, return id's
+        // ! recipe_tags post specified tags recipe_id tags_id
         const tagPromises = newTags.map(async (tagObject) => {
             if (tagObject.id === 'zero') {
                 const result = await pool.query(tagText, [tagObject.tag])
@@ -142,9 +142,7 @@ router.post('/newRecipe', async (req, res) => {
         // await pool.query('COMMIT')
         // console.log('commit')
 
-        // todo return a boolean true? 
-
-        res.status(201).send({ success: true })
+        res.status(201).send({ success: true, newRecipeId: newRecipeId })
 
     } catch (error) {
         // await pool.query('ROLLBACK')

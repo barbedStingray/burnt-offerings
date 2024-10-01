@@ -61,7 +61,6 @@ const CreateIngredients = ({ dataPackage }) => {
                         {ingredientDetailsInputs.map((input, i) => (
                             <DetailInput key={i} inputDetails={input} />
                         ))}
-                        {/* // todo make your own modal for dropdown menu... */}
                     </div>
 
                     <input // having this input outside the loop mattered when it came to handling events...

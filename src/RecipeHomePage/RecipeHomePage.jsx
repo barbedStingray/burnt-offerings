@@ -92,9 +92,6 @@ const RecipeHomePage = () => {
         // console.log('viewing details of', recipeID)
         navigate(`/recipeDetails/${recipeID}`)
     }
-    function goToCreateRecipePage() {
-        navigate(`/createRecipe`)
-    }
 
 
 

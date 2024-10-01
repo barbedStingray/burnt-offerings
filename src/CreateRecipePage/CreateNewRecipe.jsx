@@ -11,7 +11,6 @@ import CreateTags from './createForms/CreateTags'
 import SubmitRecipe from './createForms/SubmitRecipe'
 
 
-// todo implement react Icons use gi
 import { LiaCookieBiteSolid } from "react-icons/lia";
 
 
@@ -42,7 +41,7 @@ const CreateNewRecipe = () => {
         <CreateIngredients dataPackage={{ ingredientPackage, setIngredientPackage }} />,
         <CreateSteps dataPackage={{ stepPackage, setStepPackage }} />,
         <CreateTags dataPackage={{ tagPackage, setTagPackage }} />,
-        <SubmitRecipe dataPackage={{ newRecipeDetails, subRecipePackage, ingredientPackage, stepPackage, tagPackage }} />
+        <SubmitRecipe dataPackage={{ newRecipeDetails, setNewRecipeDetails, subRecipePackage, ingredientPackage, stepPackage, tagPackage }} />
     ]
     const formShortcuts = ['MR', 'SR', 'IN', 'ST', 'TA', 'Check']
 

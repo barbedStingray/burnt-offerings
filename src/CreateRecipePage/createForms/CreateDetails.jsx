@@ -17,7 +17,6 @@ import { GiHotMeal } from "react-icons/gi";
 const CreateDetails = ({ dataPackage }) => {
 
     const { newRecipeDetails, setNewRecipeDetails } = dataPackage
-    const [allRecipes, allRecipesStatus] = useAllCategory('/api/recipes/titleCheck')
 
     const newRecipeDetailInputs = [
         {
@@ -84,6 +83,8 @@ const CreateDetails = ({ dataPackage }) => {
                 return <GiSandwich />
             case 'snack':
                 return <GiFruitBowl />
+            default:
+                return
         }
     }
     const reactIcons = [
@@ -115,24 +116,6 @@ const CreateDetails = ({ dataPackage }) => {
         setNewRecipeDetails({ ...newRecipeDetails, picture: properties })
     }
 
-    function letsCheckValues(e, newObject) {
-
-        // todo format your white space here! for the titles...
-
-        e.preventDefault()
-        const checkValueArray = Object.values(newObject)
-        console.log('checkValueArray', checkValueArray)
-        const isValue = handleValueIsPresent(...checkValueArray)
-        if (!isValue) return alert('please check your inputs!')
-
-        // ! check for duplicate name
-        const isDuplicate = allRecipes.map((recipe) => recipe.title.toLowerCase()).includes(newObject.newTitle.toLowerCase())
-        console.log('isDuplicate', isDuplicate)
-        if (isDuplicate) return alert('Your title is a duplicate!')
-
-        alert('variables are good!')
-    }
-
     return (
 
         <>
@@ -162,6 +145,7 @@ const CreateDetails = ({ dataPackage }) => {
 
                         <p className='createDetailsTitle'>Recipe Details</p >
 
+
                         <form className='createDetailInputForm'>
 
                             {newRecipeDetailInputs.map((input, i) => (
@@ -174,12 +158,8 @@ const CreateDetails = ({ dataPackage }) => {
                             }}>
                                 Add Photo
                             </button>
-
                         </form>
 
-
-                        {/* // todo Need to implement checks before submission */}
-                        {/* <button onClick={(e) => letsCheckValues(e, newRecipeDetails)}>Check/Next</button> */}
                     </div >
                 </>
 
