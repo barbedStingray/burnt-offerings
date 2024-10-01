@@ -43,7 +43,7 @@ function ImageUpload({ photoFunction }) {
 
     
     return (
-        <div className=''>
+        <div className='imageUpload'>
             <input
                 type="file"
                 accept="image/*"

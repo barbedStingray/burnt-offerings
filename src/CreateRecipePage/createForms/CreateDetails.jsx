@@ -138,10 +138,22 @@ const CreateDetails = ({ dataPackage }) => {
         <>
             {photoModal ? (
                 <div className='createDetailsAddPhotoPage'>
-                    <div>
-                    {generatePhoto(newRecipeDetails.picture)}
+                    <div className='createAddPhotoDisplay'>
+                        {generatePhoto(newRecipeDetails.picture)}
                     </div>
                     <ImageUpload photoFunction={addCustomPhoto} />
+
+                    <div className='createIconSelectors'>
+                        {reactIcons.map((icon, i) => (
+                            <div
+                                key={i}
+                                className={`createSingleIcon ${newRecipeDetails.picture === icon.iconName ? 'iconSelect' : ''}`}
+                                onClick={() => setNewRecipeDetails({ ...newRecipeDetails, picture: icon.iconName })}
+                            >
+                                {icon.icon}
+                            </div>
+                        ))}
+                    </div>
                     <button onClick={() => setPhotoModal(false)} className='createAddImageButton'>Back</button>
                 </div>
             ) : (

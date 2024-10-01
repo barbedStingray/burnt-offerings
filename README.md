@@ -11,4 +11,4 @@ adjust database parameters to include really long strings. I'll limit them on th
 
 changes to front end
 
-add photo module
+style photo module

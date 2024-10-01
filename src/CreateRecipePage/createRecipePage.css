@@ -177,8 +177,64 @@
     height: 95%;
     width: 90%;
     flex-flow: column nowrap;
-    justify-content: space-around;
+    justify-content: flex-start;
     align-items: center;
+}
+.createAddPhotoDisplay {
+    border: 2px solid lime;
+    width: 25vh;
+    height: 25vh;
+}
+.imageUpload {
+    border: 2px solid green;
+    width: 90%;
+    height: 4vh;
+}
+.originalAddButton {
+    display: none;
+}
+.createAddImageButton {
+    border: 1px solid black;
+    background-color: ghostwhite;
+    border-radius: 20px;
+    width: 40%;
+    height: 4vh;
+    font-size: 2vh;
+}
+
+.createIconSelectors {
+    border: 2px solid red;
+    width: 90%;
+    height: 30%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    justify-items: center;
+    align-items: center;
+    gap: 1vh;
+}
+
+.createSingleIcon {
+    border: 2px solid blue;
+    border-radius: 50%;
+    width: 90%;
+    height: 90%;
+    /* aspect-ratio: 1 / 1; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 7vh;
+    /* background: linear-gradient(135deg, #d4d4d4, #eaeaea, #f6f6f6, #d1d1d1, #a9a9a9, #707070); */
+    /* background-clip: text; */
+    /* -webkit-background-clip: text;  */
+    /* color: transparent; */
+    /* font-weight: bold; */
+}
+.createSingleIcon svg {
+    fill: black;
+}
+.iconSelect {
+    box-shadow: 0px 0px 6px 3px blue;
 }
 
 
