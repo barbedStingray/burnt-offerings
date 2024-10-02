@@ -18,26 +18,13 @@ const CreateSubRecipes = ({ dataPackage }) => {
 
 
   return (
-    <div className='createSubRecipesFormPage'>
+    <div className='createFormPage'>
 
-      <p className='createSubRecipesTitle'>Any Sub Recipes?</p>
+      <p className='createFormTitle'>Any Sub Recipes?</p>
 
-      <div className='createSubRecipesBox'>
+      <div className='createFormBox'>
 
-        <form className='createSubRecipeForm' name='title' onSubmit={(e) => submitNewObject(e, newSubRecipe, setNewSubRecipe, allowedSubRecipes, subRecipePackage, setSubRecipePackage, initialSubState, setFilteredList)}>
-
-          <p>Added Sub Recipes</p>
-          <div className='addedSubRecipesBox'>
-            {subRecipePackage.length === 0 ? (
-              <p>No Recipes Added</p>
-            ) : (
-              <>
-                {subRecipePackage.map((recipe) => (
-                  <p>{recipe.title}</p>
-                ))}
-              </>
-            )}
-          </div>
+        <form className='createInputForm' name='title' onSubmit={(e) => submitNewObject(e, newSubRecipe, setNewSubRecipe, allowedSubRecipes, subRecipePackage, setSubRecipePackage, initialSubState, setFilteredList)}>
 
           <input
             name='title'
@@ -56,15 +43,14 @@ const CreateSubRecipes = ({ dataPackage }) => {
             }}
           >
           </input>
-
           <div className='filteredSubSearchContainer'>
             {filteredList.length > 0 && (
               <div className='filteredListSubRecipes'>
                 {filteredList.map((listItem) => (
                   <div
-                  className='filteredListSub'
-                  key={listItem.id}
-                  onClick={(e) => submitNewObject(e, listItem, setNewSubRecipe, allowedSubRecipes, subRecipePackage, setSubRecipePackage, initialSubState, setFilteredList)}
+                    className='filteredListSub'
+                    key={listItem.id}
+                    onClick={(e) => submitNewObject(e, listItem, setNewSubRecipe, allowedSubRecipes, subRecipePackage, setSubRecipePackage, initialSubState, setFilteredList)}
                   >
                     {listItem[searchAttribute]}
                   </div>
@@ -72,10 +58,23 @@ const CreateSubRecipes = ({ dataPackage }) => {
               </div>
             )}
           </div>
+
         </form>
+
+        <p>Sub Recipes</p>
+        <div className='addedSubRecipesBox'>
+          {subRecipePackage.length === 0 ? (
+            <p>No Recipes Added</p>
+          ) : (
+            <>
+              {subRecipePackage.map((recipe) => (
+                <p>{recipe.title}</p>
+              ))}
+            </>
+          )}
+        </div>
+
       </div>
-
-
 
     </div>
   )

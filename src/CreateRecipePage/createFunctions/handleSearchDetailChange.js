@@ -23,7 +23,9 @@
                 if (!startsWithQueryA && startsWithQueryB) return 1
                 return 0
             })
-            setFilteredTags(sortedFiltered)
+            // return max of 6
+            const limitedFilter = sortedFiltered.slice(0, 6)
+            setFilteredTags(limitedFilter)
         }
     }
     export default handleSearchDetailChange

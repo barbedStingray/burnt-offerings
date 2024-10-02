@@ -67,6 +67,7 @@
 
 
 
+
 .createDisplay {
     display: none;
 }
@@ -74,44 +75,6 @@
 
 
 /* footer */
-.createFooter {
-    /* border: 2px solid blue; */
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-    align-items: center;
-    height: calc(100dvh - 20dvh);
-    overflow: hidden;
-}
-
-.createForms {
-    /* border: 2px solid magenta; */
-    height: 100%;
-    width: 100%;
-    display: flex;
-    /* enable horizontal scrolling */
-    overflow: auto;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
-    scrollbar-width: none;
-}
-.createForms::-webkit-scrollbar {
-    display: none;
-}
-.createSingleForm {
-    /* border: 2px solid lime; */
-    width: 100%;
-    height: 100%;
-    flex-shrink: 0;
-    display: flex;
-    flex-flow: column wrap;
-    align-items: center;
-    justify-content: center;
-    /* snaps to the center */
-    scroll-snap-align: center;
-}
-
-
 
 .createFormNavigation {
     background-color: #808080cc;
@@ -150,6 +113,123 @@
 
 
 
+/* forms begin */
+.createFooter {
+    /* border: 2px solid blue; */
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    height: calc(100dvh - 20dvh);
+    overflow: hidden;
+}
+.createForms {
+    /* border: 2px solid magenta; */
+    height: 100%;
+    width: 100%;
+    display: flex;
+    /* enable horizontal scrolling */
+    overflow: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+}
+.createForms::-webkit-scrollbar {
+    display: none;
+}
+.createSingleForm {
+    /* border: 2px solid lime; */
+    width: 100%;
+    height: 100%;
+    flex-shrink: 0;
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    justify-content: center;
+    /* snaps to the center */
+    scroll-snap-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* form boxes */
+/* contains 2 elements title and box*/
+.createFormPage {
+    border: none;
+    /* border: 2px solid blue; */
+    border-radius: 30px;
+    box-shadow: 0px 2px 6px 2px grey;
+    height: 95%;
+    width: 90%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+}
+/* form titles */
+.createFormTitle {
+    /* border: 2px solid grey; */
+    font-size: 4.5dvh;
+}
+/* total form display container */
+.createFormBox {
+    /* border: 2px solid gold; */
+    width: 100%;
+    height: 85%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    /* outside form, inside box */
+    gap: 3dvh;
+}
+/* the actual forms */
+.createInputForm {
+    /* border: 2px solid red; */
+    width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    /* inside form */
+    gap: 3dvh;
+}
+.createDetailsForm {
+    height: 70%;
+}
+
+
+/* todo input box combinations */
+
+/* todo flex 1 displays combinations */
+
+/* todo filtered menu displays combinations */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -162,33 +242,6 @@
 
 
 /* Details Form */
-
-.createDetailsFormPage {
-    border: none;
-    border-radius: 30px;
-    box-shadow: 0px 2px 6px 2px grey;
-    display: flex;
-    height: 95%;
-    width: 90%;
-    flex-flow: column nowrap;
-    justify-content: space-around;
-    align-items: center;
-}
-
-.createDetailsTitle {
-    font-size: 4.5dvh;
-}
-
-.createDetailInputForm {
-    /* border: 2px solid orange; */
-    width: 100%;
-    height: 85%;
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: space-evenly;
-    align-items: center;
-}
-
 .createDetailsInput {
     border: none;
     background-color: lavender;
@@ -302,50 +355,6 @@
 
 
 /* Sub Recipe Form */
-.createSubRecipesFormPage {
-    border: none;
-    border-radius: 30px;
-    box-shadow: 0px 2px 6px 2px grey;
-    display: flex;
-    height: 95%;
-    width: 90%;
-    flex-flow: column nowrap;
-    justify-content: space-around;
-    align-items: center;
-}
-
-.createSubRecipesBox {
-    /* border: 2px solid orange; */
-    width: 100%;
-    height: 85%;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: center;
-}
-
-.createSubRecipesTitle {
-    font-size: 4.5dvh;
-}
-
-.createSubRecipeForm {
-    /* border: 2px solid red; */
-    width: 90%;
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: space-evenly;
-    align-items: center;
-}
-
-.addedSubRecipesBox {
-    border: 1px solid grey;
-    width: 100%;
-    height: 25%;
-    text-align: center;
-    border-radius: 30px;
-    overflow: scroll;
-    scrollbar-width: none;
-    padding: 1.5dvh;
-}
 
 .createSubRecipeInput {
     border: none;
@@ -359,23 +368,36 @@
 
 .filteredSubSearchContainer {
     /* border: 2px solid blue; */
-    width: 100%;
-    height: 40%;
+    width: 90%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
 }
-
 .filteredListSubRecipes {
     /* border: 2px solid lime; */
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
+    align-items: center;
     gap: 1dvh;
 }
-
 .filteredListSub {
     border: 2px solid grey;
     background-color: ghostwhite;
     padding: 6px;
     border-radius: 20px;
+}
+.addedSubRecipesBox {
+    /* border: 1px solid grey; */
+    width: 100%;
+    height: 40%;
+    text-align: center;
+    border-radius: 30px;
+    overflow: scroll;
+    scrollbar-width: none;
+    padding: 1.5dvh;
+    /* flex: 1; */
 }
 
 
@@ -391,70 +413,44 @@
 
 
 /* Ingredients form */
-.createIngredientFormPage {
-    border: none;
-    border-radius: 30px;
-    box-shadow: 0px 2px 6px 2px grey;
-    display: flex;
-    height: 95%;
-    width: 90%;
-    flex-flow: column nowrap;
-    justify-content: space-around;
-    align-items: center;
-}
 
-.createIngredientBox {
-    /* border: 2px solid orange; */
-    width: 100%;
-    height: 85%;
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: flex-start;
-    align-items: center;
-}
-
-.createIngredientTitle {
-    font-size: 4.5dvh;
-}
-
-.createIngredientForm {
-    /* border: 2px solid gold; */
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: flex-start;
-    gap: 1dvh;
-    align-items: center;
+.inputIngredients {
+    /* border: 2px solid magenta; */
     width: 90%;
     height: 100%;
-}
-
-.createQuantityMeasurement {
-    /* border: 2px solid blue; */
-    height: 15%;
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     gap: 1dvh;
 }
-
+.createQuantityMeasurement,
+.createIngredientandAdd {
+    /* border: 2px solid blue; */
+    height: 100%;
+    flex: 1;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 2dvh;
+}
+.createIngredientandAdd {
+    flex: 3;
+}
 .createIngredientInput {
+    /* border: 2px solid lime; */
     border: none;
+    width: 100%;
     background-color: lavender;
     border-radius: 20px;
-    width: 60%;
     height: 4dvh;
     font-size: 2.5dvh;
     text-align: center;
 }
-
-.quantity {
-    width: 20%;
-}
-
 .createIngredientSelect {
-    width: 60%;
-    border: none;
+    /* border: none; */
+    width: 100%;
     background-color: lavender;
     border-radius: 20px;
     height: 4dvh;
@@ -465,7 +461,7 @@
 .createIngredientButton {
     border: 1px solid black;
     border-radius: 20px;
-    width: 40%;
+    width: 60%;
     height: 4dvh;
     font-size: 2dvh;
 }
@@ -473,12 +469,11 @@
 /* ! this is the same for the finding of tags, ingredients, and subRecipes... */
 .filteredIngredientSearchContainer {
     /* border: 2px solid red; */
-    width: 100%;
-    height: 33%;
+    width: 90%;
+    /* height: 33%; */
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    /* ! eventually only return top X items in .jsx? */
 }
 
 .createFilteredIngredientSearch {
@@ -502,7 +497,7 @@
     /* border: 1px solid grey; */
     border-radius: 30px;
     width: 90%;
-    height: 30%;
+    flex: 1;
     padding: 2.5dvh;
     display: flex;
     flex-flow: column nowrap;
@@ -558,49 +553,13 @@
 
 
 /* Steps form */
-/* ! these first three steps should be almost identical for each form... */
-.createStepsFormPage {
-    border: none;
-    border-radius: 30px;
-    box-shadow: 0px 2px 6px 2px grey;
-    display: flex;
-    height: 95%;
-    width: 90%;
-    flex-flow: column nowrap;
-    justify-content: space-around;
-    align-items: center;
-}
-
-.createStepsBox {
-    /* border: 2px solid orange; */
-    width: 100%;
-    height: 85%;
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: space-evenly;
-    align-items: center;
-}
-
-.createStepsTitle {
-    font-size: 4.5dvh;
-}
-
-.createStepsForm {
-    /* border: 2px solid blue; */
-    height: 35%;
-    width: 90%;
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: space-evenly;
-    align-items: center;
-}
 
 /* ! Same as createDetailsTextArea... */
 .createStepTextArea {
-    width: 80%;
-    /* this is different... */
-    height: 68%;
+    /* border: 2px solid blue; */
     border: none;
+    width: 90%;
+    height: 15dvh;
     background-color: lavender;
     border-radius: 20px;
     padding: 1.5dvh;
@@ -622,7 +581,7 @@
     /* border: 1px solid grey; */
     border-radius: 30px;
     width: 90%;
-    height: 50%;
+    flex: 1;
     padding: 2.5dvh;
     overflow: scroll;
     scrollbar-width: none;
@@ -662,50 +621,43 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 /* TAG FORM */
-.createTagsFormPage {
-    border: none;
-    border-radius: 30px;
-    box-shadow: 0px 2px 6px 2px grey;
-    display: flex;
-    height: 95%;
+
+.filteredTagSearchContainer {
+    /* border: 2px solid blue; */
     width: 90%;
-    flex-flow: column nowrap;
-    justify-content: space-around;
-    align-items: center;
+    display: flex;
+    justify-content: center;
+    /* ! eventually only return top X items in .jsx? */
+}
+.createFilteredTagSearch {
+    /* border: 2px solid orange; */
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    gap: 1dvh;
 }
 
-/* ! titles should be all the same... */
-.createTagTitle {
-    /* border: 2px solid red; */
-    font-size: 4.5dvh;
+.createTagMenuItem {
+    border: 1px solid grey;
+    background-color: ghostwhite;
+    border-radius: 20px;
+    padding: 6px;
 }
 
 .createAddedTagsContainer {
-    border: 1px solid grey;
+    border-top: 1px solid grey;
+    border-bottom: 1px solid grey;
     border-radius: 20px;
     padding: 1dvh;
     width: 90%;
-    height: 26%;
+    flex: 1;
     display: flex;
     justify-content: center;
     align-items: flex-start;
     overflow: scroll;
     scrollbar-width: none;
 }
-
 /* ! hide webkit scroll bar */
 .createAddedTags {
     /* border: 2px solid orange; */
@@ -728,17 +680,6 @@
     font-size: 2.5dvh;
 }
 
-.createTagInputForm {
-    /* border: 2px solid green; */
-    display: flex;
-    width: 90%;
-    height: 50%;
-    flex-flow: column nowrap;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 3dvh;
-}
-
 .createTagInput {
     border: none;
     background-color: lavender;
@@ -757,28 +698,3 @@
     font-size: 2dvh;
 }
 
-.filteredTagSearchContainer {
-    /* border: 2px solid red; */
-    width: 100%;
-    height: 60%;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    /* ! eventually only return top X items in .jsx? */
-}
-
-.createFilteredTagSearch {
-    /* border: 2px solid orange; */
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
-    /* align-items: flex-start; */
-    gap: 1dvh;
-}
-
-.createTagMenuItem {
-    border: 1px solid grey;
-    background-color: ghostwhite;
-    border-radius: 20px;
-    padding: 6px;
-}

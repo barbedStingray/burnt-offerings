@@ -141,24 +141,26 @@ const CreateDetails = ({ dataPackage }) => {
                 </div>
             ) : (
                 <>
-                    <div className='createDetailsFormPage'>
+                    <div className='createFormPage'>
 
-                        <p className='createDetailsTitle'>Recipe Details</p >
+                        <p className='createFormTitle'>Recipe Details</p >
 
+                        <div className='createFormBox'>
+                            <form className='createInputForm createDetailsForm'>
 
-                        <form className='createDetailInputForm'>
+                                {newRecipeDetailInputs.map((input, i) => (
+                                    <DetailInput key={i} inputDetails={input} />
+                                ))}
 
-                            {newRecipeDetailInputs.map((input, i) => (
-                                <DetailInput key={i} inputDetails={input} />
-                            ))}
+                            </form>
 
-                            <button className='createAddImageButton' onClick={(e) => {
-                                e.preventDefault()
-                                setPhotoModal(true)
+                            <button className='createAddImageButton' onClick={() => {
+                                // e.preventDefault()
+                                // setPhotoModal(true)
                             }}>
                                 Add Photo
                             </button>
-                        </form>
+                        </div>
 
                     </div >
                 </>

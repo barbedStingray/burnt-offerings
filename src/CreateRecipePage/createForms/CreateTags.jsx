@@ -31,7 +31,7 @@ const CreateTags = ({ dataPackage }) => {
             return tagPrompt[1]
         } else if (tagPackage.length === 2) {
             return tagPrompt[2]
-        } 
+        }
         else {
             return tagPrompt[3]
         }
@@ -47,72 +47,75 @@ const CreateTags = ({ dataPackage }) => {
 
 
     return (
-        <div className='createTagsFormPage'>
+        <div className='createFormPage'>
 
-            <p className='createTagTitle'>Add Your Tags</p>
+            <p className='createFormTitle'>Add Your Tags</p>
 
+            <div className='createFormBox'>
 
-            {/* //! 10 tag limit to start? */}
-            <div className='createAddedTagsContainer'>
-                <div className='createAddedTags'>
-                    {tagPackage.map((tag, i) => (
-                        <div 
-                        onClick={() => deletePackageItem(i, tagPackage, setTagPackage)}
-                        className='createAddedTag'
-                        >
-                            <p>{tag.tag} X</p>
-                        </div>
-                    ))}
+                <form className='createInputForm' name='tag' onSubmit={(e) => submitNewObject(e, newTag, setNewTag, allTags, tagPackage, setTagPackage, initialTagState, setFilteredList)}>
+
+                    <input
+                        className='createTagInput'
+                        name='tag'
+                        type='text'
+                        placeholder='tag here...'
+                        required
+                        maxLength={25}
+                        minLength={1}
+                        autoComplete='off'
+                        value={newTag.tag}
+                        onChange={(e) => handleSearchDetailChange(e, newTag, setNewTag, allTags, setSearchAttribute, setFilteredList)}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                                e.preventDefault();
+                                const tagToSubmit = filteredList.length > 0 ? filteredList[0] : newTag
+                                console.log('submitting', tagToSubmit)
+                                submitNewObject(e, tagToSubmit, setNewTag, allTags, tagPackage, setTagPackage, initialTagState, setFilteredList)
+                            }
+                        }}
+                    >
+                    </input>
+
+                    <div className='createTagPrompt'>
+                        <p>{getTagPrompt()}</p>
+                    </div>
+
+                    <button className='createTagButton' type='submit'>Add Tag</button>
+
+                    <div className='filteredTagSearchContainer' >
+                        {filteredList.length > 0 && (
+                            <div className='createFilteredTagSearch'>
+                                {filteredList.map((listItem) => (
+                                    <div
+                                        className='createTagMenuItem'
+                                        key={listItem.id}
+                                        onClick={(e) => submitNewObject(e, listItem, setNewTag, allTags, tagPackage, setTagPackage, initialTagState, setFilteredList)}
+                                    >
+                                        <p>{listItem[searchAttribute]}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                </form>
+
+                <p>Tags</p>
+                {/* //! 10 tag limit to start? */}
+                <div className='createAddedTagsContainer'>
+                    <div className='createAddedTags'>
+                        {tagPackage.map((tag, i) => (
+                            <div
+                                onClick={() => deletePackageItem(i, tagPackage, setTagPackage)}
+                                className='createAddedTag'
+                            >
+                                <p>{tag.tag} X</p>
+                            </div>
+                        ))}
+                    </div>
                 </div>
+
             </div>
-
-
-            <div className='createTagPrompt'>
-                <p>{getTagPrompt()}</p>
-            </div>
-
-            <form className='createTagInputForm' name='tag' onSubmit={(e) => submitNewObject(e, newTag, setNewTag, allTags, tagPackage, setTagPackage, initialTagState, setFilteredList)}>
-
-                <input
-                    className='createTagInput'
-                    name='tag'
-                    type='text'
-                    placeholder='delicious...'
-                    required
-                    maxLength={25}
-                    minLength={1}
-                    autoComplete='off'
-                    value={newTag.tag}
-                    onChange={(e) => handleSearchDetailChange(e, newTag, setNewTag, allTags, setSearchAttribute, setFilteredList)}
-                    onKeyDown={(e) => {
-                        if (e.key === 'Enter') {
-                            e.preventDefault();
-                            const tagToSubmit = filteredList.length > 0 ? filteredList[0] : newTag
-                            console.log('submitting', tagToSubmit)
-                            submitNewObject(e, tagToSubmit, setNewTag, allTags, tagPackage, setTagPackage, initialTagState, setFilteredList)
-                        }
-                    }}
-                >
-                </input>
-
-                <button className='createTagButton' type='submit'>Add Tag</button>
-
-                <div className='filteredTagSearchContainer' >
-                    {filteredList.length > 0 && (
-                        <div className='createFilteredTagSearch'>
-                            {filteredList.map((listItem) => (
-                                <div
-                                    className='createTagMenuItem'
-                                    key={listItem.id}
-                                    onClick={(e) => submitNewObject(e, listItem, setNewTag, allTags, tagPackage, setTagPackage, initialTagState, setFilteredList)}
-                                >
-                                    <p>{listItem[searchAttribute]}</p>
-                                </div>
-                            ))}
-                        </div>
-                    )}
-                </div>
-            </form>
 
 
         </div>

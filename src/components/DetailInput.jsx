@@ -26,7 +26,7 @@ const DetailInput = ({ inputDetails }) => {
         onChange={onChange}
         required
       >
-        <option value=''>Measurement</option>
+        <option value=''>Mea.</option>
         {measurementOptions.map((option, i) => (
           <option key={i} value={option}>{option}</option>
         ))}

@@ -14,12 +14,12 @@ const CreateSteps = ({ dataPackage }) => {
 
 
     return (
-        <div className='createStepsFormPage'>
+        <div className='createFormPage'>
 
-            <p className='createStepsTitle'>Add Instructions!</p>
+            <p className='createFormTitle'>Add Instructions!</p>
 
-            <div className='createStepsBox'>
-                <form className='createStepsForm' name='instructions' onSubmit={(e) => submitNewObject(e, newStep, setNewStep, allSteps, stepPackage, setStepPackage, initialTagState, setFilteredList)}>
+            <div className='createFormBox'>
+                <form className='createInputForm' name='instructions' onSubmit={(e) => submitNewObject(e, newStep, setNewStep, allSteps, stepPackage, setStepPackage, initialTagState, setFilteredList)}>
                     <textarea
                         name='instructions'
                         className='createStepTextArea'
@@ -40,6 +40,8 @@ const CreateSteps = ({ dataPackage }) => {
                     </textarea>
                     <button className='createStepButton' type='submit'>Add Step</button>
                 </form>
+
+                <p>Added Instructions</p>
 
                 <div className='createStepsDisplay'>
                     {stepPackage.map((step, i) => (
