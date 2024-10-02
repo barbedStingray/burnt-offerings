@@ -188,10 +188,9 @@ const RecipeHomePage = () => {
 
             </div>
 
-            {/* sub display */}
-            <div className='homeSubDisplay'>
-                <div className='momPic'></div>
-                <div className='recipePreview'>Pic</div>
+
+            <div className='homeFooter'>
+                <div className='homePreview'></div>
             </div>
 
 

@@ -3,7 +3,7 @@
     /* border: 2px solid black; */
     display: flex;
     flex-flow: column nowrap;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     position: relative;
     height: 100vh;
@@ -20,6 +20,9 @@
 }
 
 
+
+
+
 /* navigation */
 .homeNavigation {
     /* border: 2px solid gold; */
@@ -31,7 +34,7 @@
     z-index: 10;
 }
 .homeNavigationParts {
-    border: 2px solid blue;
+    /* border: 2px solid blue; */
     height: 100%;
     width: 100%;
     display: flex;
@@ -58,6 +61,7 @@
 .homeStingrayLogo {
     display: none;
 }
+
 
 
 
@@ -318,29 +322,36 @@
 
 
 
+
+
 /* sub display */
-.homeSubDisplay {
-    /* border: 2px solid red; */
-    background-color: #555555dd;
+.homeFooter {
+    border: 2px solid blue;
+    background-color: #808080cc;
     width: 100%;
     height: 10vh;
-}
-.momPic {
-    border: 2px solid black;
-    background-color: ghostwhite;
-    border-radius: 50%;
-    width: 8vh;
-    height: 8vh;
     position: fixed;
-    bottom: 1vh;
-    /* center property */
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 5;
+    bottom: 0;
+    z-index: 10;
 }
-.recipePreview {
-    display: none;
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -20,6 +20,7 @@
     z-index: -10;
 }
 
+
 /* navigation */
 .detailNavigation {
     /* border: 2px solid gold; */
@@ -59,6 +60,11 @@
 .detailStingrayLogo {
     display: none;
 }
+
+
+
+
+
 
 
 .recipeDetailsContainer {

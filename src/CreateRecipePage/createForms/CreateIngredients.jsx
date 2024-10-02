@@ -112,8 +112,8 @@ const CreateIngredients = ({ dataPackage }) => {
                     <div className='createIngredientDisplay'>
                             {ingredientPackage.map((ingredient) => (
                                 <div className='createIngredientItem'>
-                                    <p className='createIngredientQuantity'>99</p>
-                                    <p className='createIngredientMeasurement'>Pinch</p>
+                                    <p className='createIngredientQuantity'>{ingredient.quantity}</p>
+                                    <p className='createIngredientMeasurement'>{ingredient.measurement}</p>
                                     <p className='createIngredientIngredient'>{ingredient.ingredient}</p>
                                 </div>
                             ))}
