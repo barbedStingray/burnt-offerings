@@ -6,7 +6,7 @@
     justify-content: flex-start;
     align-items: center;
     position: relative;
-    height: 100vh;
+    height: 100dvh;
 }
 .homeQuarter {
     width: 80%;
@@ -110,7 +110,7 @@
     justify-content: center;
     align-items: flex-start;
     /* CALC for fixed heights... ftw. */
-    height: calc(100dvh - 19dvh);
+    height: calc(100dvh - 20dvh);
     overflow: auto;
     scrollbar-width: none;
 }
