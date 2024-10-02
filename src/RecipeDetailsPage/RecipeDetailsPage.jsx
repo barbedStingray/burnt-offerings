@@ -90,22 +90,24 @@ const RecipeDetailsPage = () => {
                                     <p>{recipeDisplay[recipeIndex].recipeDetails.title}</p>
                                 </div>
 
-
                                 <div className='tagDetails'>
                                     {recipeDisplay[recipeIndex].tags.map((tag) => (
                                         <p key={tag.tag_id}>{tag.tag}</p>
                                     ))}
                                 </div>
 
-                                <div className='detailsRecipeDetails'>
-                                    <p>{recipeDisplay[recipeIndex].recipeDetails.description}</p>
-                                </div>
                             </div>
+                        </div>
+
+                        <div className='detailsDescriptionParts'>
+                            <p className='detailsDescriptionTitle'>Description</p>
+                            <p className='detailsDescription'>{recipeDisplay[recipeIndex].recipeDetails.description}</p>
                         </div>
 
                         <div className='detailsTagsAndSteps'>
 
-                            <p>Ingredients</p>
+                            <p className='detailsDescriptionTitle'>Ingredients</p>
+
                             <div className='displayRecipeIngredients'>
                                 {recipeDisplay[recipeIndex].ingredients.map((ingredient) => (
                                     <div key={ingredient.id} className='displaySingleIngredient'>
@@ -116,7 +118,7 @@ const RecipeDetailsPage = () => {
                                 ))}
                             </div>
 
-                            <p>Instructions</p>
+                            <p className='detailsDescriptionTitle'>Instructions</p>
 
                             <div className='displayRecipeSteps'>
                                 {recipeDisplay[recipeIndex].steps.map((step) => (
@@ -140,47 +142,49 @@ const RecipeDetailsPage = () => {
                 )}
             </div>
 
-            <div className='detailsFooter'>
-                <button
-                    className='createSubSliderButton'
-                    disabled={recipeIndex === 0}
-                    onClick={() => displayPreviousRecipe(recipeIndex)}
-                >
-                    Pr.
-                </button>
 
-                <div className='detailRecipeSlideContainer'>
-                    <div
-                        className='detailRecipeSubDisplay'
-                        style={{
-                            transform: `translateX(-${recipeIndex * slideDistance}px)`
-                        }}
+            {recipeDisplay > 1 && (
+                <div className='detailsFooter'>
+                    <button
+                        className='createSubSliderButton'
+                        disabled={recipeIndex === 0}
+                        onClick={() => displayPreviousRecipe(recipeIndex)}
                     >
-                        <div className='detailRecipeSubItem'></div>
-                        {recipeDisplay.map((recipe, i) => (
-                            <div
-                                key={i}
-                                className={`detailRecipeSubItem ${i === recipeIndex ? 'featureSub' : 'subFeature'}`}
+                        Pr.
+                    </button>
 
-                            >
-                                <p>{i === 0 ? 'Main' : `Sub${i}`}</p>
-                            </div>
-                        ))}
+                    <div className='detailRecipeSlideContainer'>
+                        <div
+                            className='detailRecipeSubDisplay'
+                            style={{
+                                transform: `translateX(-${recipeIndex * slideDistance}px)`
+                            }}
+                        >
+                            <div className='detailRecipeSubItem'></div>
+                            {recipeDisplay.map((recipe, i) => (
+                                <div
+                                    key={i}
+                                    className={`detailRecipeSubItem ${i === recipeIndex ? 'featureSub' : 'subFeature'}`}
+
+                                >
+                                    <p>{i === 0 ? 'Main' : `Sub${i}`}</p>
+                                </div>
+                            ))}
+                        </div>
                     </div>
+                    <button
+                        className='createSubSliderButton'
+                        disabled={recipeIndex === recipeDisplay.length - 1}
+                        onClick={() => displayNextRecipe(recipeIndex)}
+                    >
+                        N.
+                    </button>
                 </div>
-                <button
-                    className='createSubSliderButton'
-                    disabled={recipeIndex === recipeDisplay.length - 1}
-                    onClick={() => displayNextRecipe(recipeIndex)}
-                >
-                    N.
-                </button>
-            </div>
+            )}
 
 
 
-            <h1>STATUS</h1>
-            {JSON.stringify(detailsStatus)}
+            {/* {JSON.stringify(detailsStatus)} */}
 
         </div>
     )
