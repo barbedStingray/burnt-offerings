@@ -73,10 +73,10 @@
 
 
 .recipeDetailsContainer {
-    /* border: 2px solid magenta; */
+    border: 2px solid magenta;
     height: 100dvh;
     width: 90dvw;
-    padding: 12dvh 0dvh 12dvh 0dvh;
+    padding: 14dvh 0dvh 12dvh 0dvh;
     ;
     display: flex;
     flex-flow: column nowrap;

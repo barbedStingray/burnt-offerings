@@ -28,15 +28,13 @@ const RecipeHomePage = () => {
     const [allRecipes, setAllRecipes] = useState([])
     // console.log('allRecipes', allRecipes)
     const [loadingStatus, setLoadingStatus] = useState('unloaded')
-
+    console.log('allRecipes', allRecipes.length)
     // pagination
     const [currentPage, setCurrentPage] = useState(1)
     const [totalPages, setTotalPages] = useState(1)
     const [totalRecipes, setTotalRecipes] = useState(0)
     const recipesPerPage = 5
 
-    // display recipe
-    const [displayRecipe, setDisplayRecipe] = useState([])
 
 
     // todo make this it's own utility function eventually
@@ -188,10 +186,11 @@ const RecipeHomePage = () => {
 
             </div>
 
-
-            <div className='homeFooter'>
-                <div className='homePreview'></div>
-            </div>
+            {allRecipes.length > 0 && (
+                <div className='homeFooter'>
+                    <div className='homePreview'></div>
+                </div>
+            )}
 
 
 
