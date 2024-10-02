@@ -62,7 +62,7 @@ const CreateNewRecipe = () => {
         }
     }, [])
 
-// deletePackageItem
+    // deletePackageItem
     function deleteTag(i, dataPackage, setDataPackage) { // needs to be modular
         console.log('tagindex', i)
         const newPackage = dataPackage.filter((_, index) => index !== i)
@@ -94,11 +94,18 @@ const CreateNewRecipe = () => {
 
 
     return (
-        <div className='createNewRecipe'>
+        <div className='createPage'>
             <div className='createQuarter'></div>
 
-            <div className='createRecipeHeader'>
-                <Link className='createToHomeLink' to={'/'}><LiaCookieBiteSolid /></Link>
+            {/* navigation */}
+            <div className='createNavigation'>
+                <div className='createNavigationParts'>
+                    <Link className='createHomeButton' to={'/'}><LiaCookieBiteSolid /></Link>
+                </div>
+                <div className='createLogoParts'>
+                    <div className='createMomPhoto'></div>
+                    <div className='createStingrayLogo'>Logo</div>
+                </div>
             </div>
 
 

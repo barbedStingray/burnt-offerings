@@ -1,10 +1,9 @@
-/* 425 is more common... */
-
 /* DEFAULT 430-425 */
 .homePage {
     /* border: 2px solid black; */
     display: flex;
     flex-flow: column nowrap;
+    justify-content: center;
     align-items: center;
     position: relative;
     height: 100vh;
@@ -21,35 +20,47 @@
 }
 
 
-/* NAVIGATION */
+/* navigation */
 .homeNavigation {
     /* border: 2px solid gold; */
+    background-color: #808080cc;
+    width: 100%;
+    height: 10vh;
+    position: fixed;
+    top: 0;
+    z-index: 10;
 }
-.homeNavigationLinks {
-    /* border: 2px solid blue; */
+.homeNavigationParts {
+    border: 2px solid blue;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
 }
 .homeAddButton {
     /* border: 2px solid black; */
     color: ghostwhite;
-    /* background-color: ghostwhite; */
     width: 8vh;
     height: 8vh;
-    /* matches container size */
     font-size: 8vh;
-    position: fixed;
-    top: 1vh;
-    left: 1vh;
-    z-index: 10;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-left: 1vh;
 }
-.homeNavButton {
+.detailLogoParts {
+    display: none
+}
+.homeMomPhoto {
     display: none;
 }
 .homeStingrayLogo {
     display: none;
 }
+
+
+
 
 
 
@@ -64,8 +75,8 @@
 }
 .homeTopMain {
     /* border: 2px solid green; */
-    background-color: #555555dd;
-    height: 10vh;
+    /* background-color: #555555dd; */
+    /* height: 10vh; */
 }
 .homeSearchBar {
     /* border: 2px solid black; */
@@ -74,6 +85,7 @@
     position: fixed;
     top: 3vh;
     right: 15px;
+    z-index: 15;
 }
 .homeKeywordSearch {
     border: none;
@@ -88,7 +100,8 @@
 
 /* bottom main */
 .bottomMain {
-    /* border: 2px solid orangered; */
+    border: 2px solid orangered;
+    margin-top: 10vh;
     display: flex;
     justify-content: center;
     align-items: flex-start;

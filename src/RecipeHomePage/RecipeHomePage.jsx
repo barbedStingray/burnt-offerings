@@ -69,7 +69,7 @@ const RecipeHomePage = () => {
         setKeywords(keywords)
         setCurrentPage(1) // resets to 1st page on new keyword... ?
 
-        
+
         if (debounceTimoutRef.current) {
             clearTimeout(debounceTimoutRef.current)
         }
@@ -103,17 +103,18 @@ const RecipeHomePage = () => {
 
             {/* navigation */}
             <div className='homeNavigation'>
-                <div className='homeNavigationLinks'>
+                <div className='homeNavigationParts'>
                     <Link to={`/createRecipe`} className='homeAddButton'><CiCirclePlus /></Link>
-                    <div className='homeNavButton'>Home</div>
-                    <div className='homeNavButton'>Other</div>
-                    {/* Others... */}
                 </div>
-                <div className='homeStingrayLogo'>Logo</div>
+                <div className='detailLogoParts'>
+                    <div className='homeMomPhoto'></div>
+                    <div className='homeStingrayLogo'>Logo</div>
+                </div>
             </div>
 
             {/* main display */}
             <div className='homeMainDisplay'>
+
                 <div className='homeTopMain'>
                     {/* other element here... */}
                     <div className='homeSearchBar'>
@@ -126,6 +127,8 @@ const RecipeHomePage = () => {
                         />
                     </div>
                 </div>
+
+
                 <div className='bottomMain'>
 
 
@@ -155,8 +158,9 @@ const RecipeHomePage = () => {
                                         <div className='cardDisplay'>
                                             <div className='cardDetails'>
                                                 <p className='homeRecipeTitle'>{recipe.title}</p>
-                                                <p className='homeDetail'><span className='homeIconDetail'><FaInfo /></span> 10</p>
-                                                <p className='homeDetail'><span className='homeIconDetail'><LuAlarmClock /></span> 180m</p>
+                                                {/* // todo if you want ingredients displayed, you have to count them */}
+                                                <p className='homeDetail'><span className='homeIconDetail'><FaInfo /></span>{recipe.servings}</p>
+                                                <p className='homeDetail'><span className='homeIconDetail'><LuAlarmClock /></span>{recipe.prep_time}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -167,20 +171,22 @@ const RecipeHomePage = () => {
                                 <div
                                     className={`homePageNext ${currentPage === 1 ? 'homeNextDeactivate' : ''}`}
                                     onClick={currentPage === 1 ? null : () => handlePageChange(currentPage - 1)}
-                                ><IoIosArrowDropleft /></div>
+                                >
+                                    <IoIosArrowDropleft />
+                                </div>
                                 <div
                                     className={`homePageNext ${currentPage === totalPages ? 'homeNextDeactivate' : ''}`}
                                     onClick={currentPage === totalPages ? null : () => handlePageChange(currentPage + 1)}
-                                ><IoIosArrowDropright /></div>
+                                >
+                                    <IoIosArrowDropright />
+                                </div>
                             </div>
                         </>
                     )}
 
-
                 </div>
 
             </div>
-
 
             {/* sub display */}
             <div className='homeSubDisplay'>

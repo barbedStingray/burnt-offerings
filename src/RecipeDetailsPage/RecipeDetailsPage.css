@@ -1,301 +1,334 @@
+/* DEFAULT 430-425 */
+.detailsPage {
+    /* border: 2px solid red; */
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+    height: 100vh;
+    overflow: scroll;
+}
+.detailsQuarter {
+    width: 80%;
+    height: 50%;
+    background-color: #6ffbf477;
+    border-bottom-right-radius: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -10;
+}
 
-    .recipeDetailsPage {
-        border: 2px solid red;
-        display: flex;
-        flex-flow: column nowrap;
-        justify-content: flex-start;
-        align-items: center;
-        height: 100vh;
-        overflow: scroll;
-    }
+/* navigation */
+.detailNavigation {
+    /* border: 2px solid gold; */
+    background-color: #808080cc;
+    width: 100%;
+    height: 10vh;
+    position: fixed;
+    top: 0;
+    z-index: 10;
+}
 
-    .detailsQuarter {
-        width: 75%;
-        height: 25%;
-        background-color: #eaffd1;
-        border-bottom-right-radius: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: -10;
-    }
-    .detailNavigateBar {
-        border: 2px solid red;
-        background-color: grey;
-        position: fixed;
-        top: 0;
-        height: 10vh;
-        width: 100%;
-    }
-
-    .recipeDetailsContainer {
-        border: 2px solid magenta;
-        padding-left: 5%;
-        padding-right: 5%;
-        display: flex;
-        flex-flow: column nowrap;
-        justify-content: center;
-        align-items: center;
-        width: 90%;
-        margin-top: 12vh;
-        margin-bottom: 12vh;
-        gap: 5vh;
-    }
-
-    .detailsTopDisplay {
-        border: 2px solid lime;
-        display: flex;
-        flex-flow: column nowrap;
-        justify-content: center;
-        align-items: center;
-        gap: 5vh;
-    }
-
-    .detailsTopInfo {
-        border: 2px solid orange;
-        width: 100%;
-        display: flex;
-        flex-flow: column nowrap;
-        justify-content: flex-start;
-        align-items: flex-start;
-        gap: 5vh;
-    }
-
-    .detailsPhoto {
-        border: 3px solid grey;
-        background-color: ghostwhite;
-        width: 120px;
-        height: 120px;
-        border-radius: 50%;
-    }
-
-    .prepServings {
-        /* border: 2px solid magenta; */
-        display: flex;
-        flex-flow: row nowrap;
-        justify-content: center;
-        align-items: center;
-        gap: 5vh;
-    }
-
-    .prepServings p {
-        border: 2px solid black;
-        border-radius: 20px;
-        width: 25vw;
-        height: 4vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 1vh;
-        font-size: 20px;
-    }
-
-    /* slider */
-    .createSubSliderButton {
-        border: 1px solid black;
-        border-radius: 50%;
-        height: 6vh;
-        width: 6vh;
-        font-size: 2vh;
-    }
-
-    .detailsRecipeSubSlider {
-        /* border: 2px solid lime; */
-        height: 7vh;
-        width: 100%;
-        display: flex;
-        flex-flow: row nowrap;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .detailRecipeSlideContainer {
-        /* border: 2px solid red; */
-        width: 210px;
-        height: 100%;
-        display: flex;
-        flex-flow: row nowrap;
-        justify-content: flex-start;
-        align-items: center;
-        overflow: hidden;
-    }
-
-    .detailRecipeSubDisplay {
-        /* border: 2px solid gold; */
-        width: 100%;
-        height: 100%;
-        display: flex;
-        flex-flow: row nowrap;
-        justify-content: flex-start;
-        align-items: center;
-        transition: transform 0.5s ease-in-out;
-    }
-
-    .detailRecipeSubItem {
-        /* border: 1px solid green; */
-        border-radius: 50%;
-        flex-shrink: 0;
-        width: 33%;
-        height: 90%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        transition: transform 0.5s ease-in-out;
-        transform: scale(1);
-    }
-
-    .featureSub {
-        transition: transform 0.5s ease-in-out;
-        transform: scale(1.25);
-    }
-
-    .subFeature {
-        transition: transform 0.5s ease-in-out;
-        transform: scale(0.75);
-    }
+.detailNavigationParts {
+    /* border: 2px solid blue; */
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.detailHomeButton {
+    /* border: 2px solid black; */
+    color: ghostwhite;
+    width: 8vh;
+    height: 8vh;
+    font-size: 8vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 1vh;
+}
+.detailLogoParts {
+    display: none;
+}
+.detailMomPhoto {
+    display: none;
+}
+.detailStingrayLogo {
+    display: none;
+}
 
 
-    .detailsBottomInfo {
-        border: 2px solid yellow;
-        display: flex;
-        flex-flow: column nowrap;
-        justify-content: center;
-        align-items: center;
-        gap: 5vh;
-    }
+.recipeDetailsContainer {
+    border: 2px solid magenta;
+    padding-left: 5%;
+    padding-right: 5%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    margin-top: 12vh;
+    margin-bottom: 12vh;
+    gap: 5vh;
+}
 
-    .detailsTitleDisplay {
-        /* border: 2px solid blue; */
-        width: 100%;
-        font-size: 3.5vh;
-        text-align: center;
-    }
+.detailsTopDisplay {
+    border: 2px solid lime;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 5vh;
+}
 
-    .tagDetails {
-        /* border: 2px solid blue; */
-        width: 100%;
-        display: flex;
-        flex-flow: row wrap;
-        justify-content: center;
-        align-items: center;
-        gap: 0.25vh;
-    }
+.detailsTopInfo {
+    border: 2px solid orange;
+    width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 5vh;
+}
 
-    .tagDetails p {
-        background-color: ghostwhite;
-        border: 2px solid grey;
-        border-radius: 20px;
-        font-size: 12px;
-        padding: 4px;
-    }
+.detailsPhoto {
+    border: 3px solid grey;
+    background-color: ghostwhite;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+}
 
-    .detailsRecipeDetails {
-        /* border: 2px solid gold; */
-        padding: 1vh;
-    }
+.prepServings {
+    /* border: 2px solid magenta; */
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 5vh;
+}
 
-    /* tags and steps */
-    .detailsTagsAndSteps {
-        border: 2px solid blue;
-        width: 100%;
-    }
+.prepServings p {
+    border: 2px solid black;
+    border-radius: 20px;
+    width: 25vw;
+    height: 4vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1vh;
+    font-size: 20px;
+}
 
-    .ingredientInstructionsToggle {
-        /* border: 2px solid red; */
-        width: 100%;
-        height: 5vh;
-        display: flex;
-        flex-flow: row nowrap;
-        justify-content: center;
-        align-items: center;
-    }
+/* slider */
+.createSubSliderButton {
+    border: 1px solid black;
+    border-radius: 50%;
+    height: 6vh;
+    width: 6vh;
+    font-size: 2vh;
+}
 
-    .detailIngredients,
-    .detailSteps {
-        /* border: 2px solid lime; */
-        font-size: 2vh;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+.detailsRecipeSubSlider {
+    /* border: 2px solid lime; */
+    height: 7vh;
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
 
-    .indicateIngredient {
-        background-color: #0000ff33;
-    }
+.detailRecipeSlideContainer {
+    /* border: 2px solid red; */
+    width: 210px;
+    height: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    overflow: hidden;
+}
 
-    /* ! same view without overflow as createRecipe */
-    .displayRecipeIngredients {
-        /* border: 2px solid red; */
-        display: flex;
-        flex-flow: column nowrap;
-        justify-content: flex-start;
-        align-items: center;
-        display: flex;
-        flex-flow: column nowrap;
-        gap: 1.5vh;
-    }
+.detailRecipeSubDisplay {
+    /* border: 2px solid gold; */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    transition: transform 0.5s ease-in-out;
+}
 
-    .displaySingleIngredient {
-        /* border: 2px solid grey; */
-        width: 100%;
-        display: flex;
-        flex-flow: row nowrap;
-        justify-content: flex-start;
-        align-items: flex-start;
-    }
+.detailRecipeSubItem {
+    /* border: 1px solid green; */
+    border-radius: 50%;
+    flex-shrink: 0;
+    width: 33%;
+    height: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.5s ease-in-out;
+    transform: scale(1);
+}
 
-    .displayIngredientQuantity {
-        /* border: 2px solid green; */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 16%;
-    }
+.featureSub {
+    transition: transform 0.5s ease-in-out;
+    transform: scale(1.25);
+}
 
-    .displayIngredientMeasurement {
-        /* border: 2px solid red; */
-        width: 24%;
-    }
-
-    .displayIngredientIngredient {
-        /* border: 2px solid gold; */
-        flex: 1;
-    }
-
-    /* steps */
-    .displayRecipeSteps {
-        /* border: 2px solid black; */
-        width: 100%;
-        padding: 2.5vh;
-        display: flex;
-        flex-flow: column nowrap;
-        justify-content: flex-start;
-        align-items: center;
-        gap: 1.5vh;
-    }
-
-    .displayStepItem {
-        /* border: 2px solid blue; */
-        border-bottom: 1px solid grey;
-        width: 100%;
-        display: flex;
-        flex-flow: row nowrap;
-        justify-content: center;
-        align-items: flex-start;
-    }
-
-    .displayStepNumber {
-        /* border: 2px solid grey; */
-        width: 8%;
-        font-size: 1.5vh;
-    }
-
-    .displayStepStep {
-        /* border: 2px solid red; */
-        flex: 1;
-    }
+.subFeature {
+    transition: transform 0.5s ease-in-out;
+    transform: scale(0.75);
+}
 
 
-    /* END OF 430PX */
+.detailsBottomInfo {
+    border: 2px solid yellow;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 5vh;
+}
+
+.detailsTitleDisplay {
+    /* border: 2px solid blue; */
+    width: 100%;
+    font-size: 3.5vh;
+    text-align: center;
+}
+
+.tagDetails {
+    /* border: 2px solid blue; */
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.25vh;
+}
+
+.tagDetails p {
+    background-color: ghostwhite;
+    border: 2px solid grey;
+    border-radius: 20px;
+    font-size: 12px;
+    padding: 4px;
+}
+
+.detailsRecipeDetails {
+    /* border: 2px solid gold; */
+    padding: 1vh;
+}
+
+/* tags and steps */
+.detailsTagsAndSteps {
+    border: 2px solid blue;
+    width: 100%;
+}
+
+.ingredientInstructionsToggle {
+    /* border: 2px solid red; */
+    width: 100%;
+    height: 5vh;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.detailIngredients,
+.detailSteps {
+    /* border: 2px solid lime; */
+    font-size: 2vh;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.indicateIngredient {
+    background-color: #0000ff33;
+}
+
+/* ! same view without overflow as createRecipe */
+.displayRecipeIngredients {
+    /* border: 2px solid red; */
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 1.5vh;
+}
+
+.displaySingleIngredient {
+    /* border: 2px solid grey; */
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.displayIngredientQuantity {
+    /* border: 2px solid green; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 16%;
+}
+
+.displayIngredientMeasurement {
+    /* border: 2px solid red; */
+    width: 24%;
+}
+
+.displayIngredientIngredient {
+    /* border: 2px solid gold; */
+    flex: 1;
+}
+
+/* steps */
+.displayRecipeSteps {
+    /* border: 2px solid black; */
+    width: 100%;
+    padding: 2.5vh;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1.5vh;
+}
+
+.displayStepItem {
+    /* border: 2px solid blue; */
+    border-bottom: 1px solid grey;
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.displayStepNumber {
+    /* border: 2px solid grey; */
+    width: 8%;
+    font-size: 1.5vh;
+}
+
+.displayStepStep {
+    /* border: 2px solid red; */
+    flex: 1;
+}
+
+
+/* END OF 430PX */

@@ -1,10 +1,12 @@
-.createNewRecipe {
+/* DEFAULT 430-425 */
+.createPage {
     /* border: 3px solid purple; */
     display: flex;
-    height: 100vh;
-    display: flex;
+    flex-flow: row nowrap;
     justify-content: center;
     align-items: center;
+    position: relative;
+    height: 100vh;
 }
 .createQuarter {
     width: 80%;
@@ -17,31 +19,52 @@
     z-index: -10;
 }
 
-.createRecipeHeader {
+
+/* NAVIGATION */
+.createNavigation {
     /* border: 2px solid gold; */
-    background-color: #555555dd;
-    height: 10vh;
+    background-color: #808080cc;
     width: 100%;
+    height: 10vh;
     position: fixed;
     top: 0;
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-    align-items: flex-start;
-
+    z-index: 10;
 }
-.createToHomeLink {
-    /* border: 2px solid green; */
+.createNavigationParts {
+    border: 2px solid blue;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.createHomeButton {
+    /* border: 2px solid black; */
+    color: ghostwhite;
     width: 8vh;
     height: 8vh;
     font-size: 8vh;
-    margin-left: 2vh;
-    color: ghostwhite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 1vh;
 }
+.createLogoParts {
+    display: none;
+}
+.createMomPhoto {
+    display: none;
+}
+.createStingrayLogo {
+    display: none;
+}
+
+
 
 .createDisplay {
     display: none;
 }
+
 
 .createFormSubmission {
     /* border: 2px solid blue; */

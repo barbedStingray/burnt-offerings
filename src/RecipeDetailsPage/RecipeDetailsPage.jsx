@@ -8,6 +8,8 @@ import useRecipeDetails from './detailFunctions/fetchRecipeDetails'
 import { FaInfo } from "react-icons/fa";
 import { LuAlarmClock } from "react-icons/lu";
 import { LiaCookieBiteSolid } from "react-icons/lia";
+import { PiRecycle } from "react-icons/pi";
+import { PiPencilThin } from "react-icons/pi";
 
 
 
@@ -33,13 +35,11 @@ const RecipeDetailsPage = () => {
         setRecipeIndex(recipeIndex - 1)
     }
 
-    // add sweet alert to confirm you want to delete...
-    
     const deleteEntireRecipe = async (id) => {
         try {
             console.log('delete entire recipe', id)
             await axios.delete(`/api/recipes/deleteEntireRecipe/${id}`)
-            
+
             // show module on success.. then navigate and close module
             // navigate('/')
         } catch (error) {
@@ -49,16 +49,25 @@ const RecipeDetailsPage = () => {
     }
 
     return (
-        <div className='recipeDetailsPage'>
+        <div className='detailsPage'>
             <div className='detailsQuarter'></div>
 
-            <div className='detailNavigateBar'>
-                {/* home button... edit button... */}
-                <button onClick={() => deleteEntireRecipe(recipeID)}>Delete Recipe</button>
-                <Link to={`/`} className='homeAddButton'><LiaCookieBiteSolid /></Link>
-                </div>
 
-            {/* // todo footer for home, edit, delete... */}
+
+            {/* navigation */}
+            <div className='detailNavigation'>
+                <div className='detailNavigationParts'>
+                    <Link to={`/`} className='detailHomeButton'><LiaCookieBiteSolid /></Link>
+                    <div className='detailHomeButton'><PiPencilThin /></div>
+                    <div className='detailHomeButton'><PiRecycle /></div>
+                </div>
+                <div className='detailLogoParts'>
+                    <div className='detailMomPhoto'></div>
+                    <div className='detailStingrayLogo'>Logo</div>
+                </div>
+            </div>
+
+
 
             <div className='recipeDetailsContainer'>
                 {detailsStatus === 'loaded' ? (
@@ -70,40 +79,10 @@ const RecipeDetailsPage = () => {
 
                                 <div className='detailsPhoto'></div>
                                 <div className='prepServings'>
-                                    <p><LuAlarmClock /> 30m</p>
+                                    <p><LuAlarmClock />{recipeDisplay[recipeIndex].recipeDetails.prep_time}</p>
                                     <p><FaInfo /> {recipeDisplay[recipeIndex].recipeDetails.servings}</p>
                                 </div>
 
-                                <div className='detailsRecipeSubSlider'>
-                                    <button
-                                        className='createSubSliderButton'
-                                        disabled={recipeIndex === 0}
-                                        onClick={() => displayPreviousRecipe(recipeIndex)}>Pr.</button>
-
-                                    <div className='detailRecipeSlideContainer'>
-                                        <div
-                                            className='detailRecipeSubDisplay'
-                                            style={{
-                                                transform: `translateX(-${recipeIndex * slideDistance}px)`
-                                            }}
-                                        >
-                                            <div className='detailRecipeSubItem'></div>
-                                            {recipeDisplay.map((recipe, i) => (
-                                                <div
-                                                    key={i}
-                                                    className={`detailRecipeSubItem ${i === recipeIndex ? 'featureSub' : 'subFeature'}`}
-
-                                                >
-                                                    <p>{i === 0 ? 'Main' : `Sub${i}`}</p>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-                                    <button
-                                        className='createSubSliderButton'
-                                        disabled={recipeIndex === recipeDisplay.length - 1}
-                                        onClick={() => displayNextRecipe(recipeIndex)}>N.</button>
-                                </div>
                             </div>
 
                             <div className='detailsBottomInfo'>
@@ -125,36 +104,63 @@ const RecipeDetailsPage = () => {
                         </div>
 
                         <div className='detailsTagsAndSteps'>
-                            <div className='ingredientInstructionsToggle'>
-                                <div
-                                    className={`detailIngredients ${isIngredient ? 'indicateIngredient' : ''}`}
-                                    onClick={() => setIsIngredient(true)}><p>Ingredients</p></div>
-                                <div
-                                    className={`detailSteps ${isIngredient ? '' : 'indicateIngredient'}`}
-                                    onClick={() => setIsIngredient(false)}><p>Instructions</p></div>
+
+                            <p>Ingredients</p>
+                            <div className='displayRecipeIngredients'>
+                                {recipeDisplay[recipeIndex].ingredients.map((ingredient) => (
+                                    <div key={ingredient.id} className='displaySingleIngredient'>
+                                        <p className='displayIngredientQuantity' >{ingredient.quantity}</p>
+                                        <p className='displayIngredientMeasurement'>{ingredient.measurement}</p>
+                                        <p className='displayIngredientIngredient'>{ingredient.ingredient}</p>
+                                    </div>
+                                ))}
                             </div>
 
+                            <p>Instructions</p>
 
-                            {isIngredient ? (
-                                <div className='displayRecipeIngredients'>
-                                    {recipeDisplay[recipeIndex].ingredients.map((ingredient) => (
-                                        <div key={ingredient.id} className='displaySingleIngredient'>
-                                            <p className='displayIngredientQuantity' >{ingredient.quantity}</p>
-                                            <p className='displayIngredientMeasurement'>{ingredient.measurement}</p>
-                                            <p className='displayIngredientIngredient'>{ingredient.ingredient}</p>
+                            <div className='displayRecipeSteps'>
+                                {recipeDisplay[recipeIndex].steps.map((step) => (
+                                    <div key={step.step_id} className='displayStepItem'>
+                                        <p className='displayStepNumber'>{step.step_number}</p>
+                                        <p className='displayStepStep'>{step.instructions}</p>
+                                    </div>
+                                ))}
+                            </div>
+
+                        </div>
+
+                        <button onClick={() => deleteEntireRecipe(recipeID)}>Delete Recipe</button>
+
+
+                        <div className='detailsRecipeSubSlider'>
+                            <button
+                                className='createSubSliderButton'
+                                disabled={recipeIndex === 0}
+                                onClick={() => displayPreviousRecipe(recipeIndex)}>Pr.</button>
+
+                            <div className='detailRecipeSlideContainer'>
+                                <div
+                                    className='detailRecipeSubDisplay'
+                                    style={{
+                                        transform: `translateX(-${recipeIndex * slideDistance}px)`
+                                    }}
+                                >
+                                    <div className='detailRecipeSubItem'></div>
+                                    {recipeDisplay.map((recipe, i) => (
+                                        <div
+                                            key={i}
+                                            className={`detailRecipeSubItem ${i === recipeIndex ? 'featureSub' : 'subFeature'}`}
+
+                                        >
+                                            <p>{i === 0 ? 'Main' : `Sub${i}`}</p>
                                         </div>
                                     ))}
                                 </div>
-                            ) : (
-                                <div className='displayRecipeSteps'>
-                                    {recipeDisplay[recipeIndex].steps.map((step) => (
-                                        <div key={step.step_id} className='displayStepItem'>
-                                            <p className='displayStepNumber'>{step.step_number}</p>
-                                            <p className='displayStepStep'>{step.instructions}</p>
-                                        </div>
-                                    ))}
-                                </div>
-                            )}
+                            </div>
+                            <button
+                                className='createSubSliderButton'
+                                disabled={recipeIndex === recipeDisplay.length - 1}
+                                onClick={() => displayNextRecipe(recipeIndex)}>N.</button>
                         </div>
 
                     </>
