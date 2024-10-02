@@ -132,36 +132,6 @@ const RecipeDetailsPage = () => {
                         <button onClick={() => deleteEntireRecipe(recipeID)}>Delete Recipe</button>
 
 
-                        <div className='detailsRecipeSubSlider'>
-                            <button
-                                className='createSubSliderButton'
-                                disabled={recipeIndex === 0}
-                                onClick={() => displayPreviousRecipe(recipeIndex)}>Pr.</button>
-
-                            <div className='detailRecipeSlideContainer'>
-                                <div
-                                    className='detailRecipeSubDisplay'
-                                    style={{
-                                        transform: `translateX(-${recipeIndex * slideDistance}px)`
-                                    }}
-                                >
-                                    <div className='detailRecipeSubItem'></div>
-                                    {recipeDisplay.map((recipe, i) => (
-                                        <div
-                                            key={i}
-                                            className={`detailRecipeSubItem ${i === recipeIndex ? 'featureSub' : 'subFeature'}`}
-
-                                        >
-                                            <p>{i === 0 ? 'Main' : `Sub${i}`}</p>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                            <button
-                                className='createSubSliderButton'
-                                disabled={recipeIndex === recipeDisplay.length - 1}
-                                onClick={() => displayNextRecipe(recipeIndex)}>N.</button>
-                        </div>
 
                     </>
                 ) : (
@@ -169,6 +139,44 @@ const RecipeDetailsPage = () => {
                     <></>
                 )}
             </div>
+
+            <div className='detailsFooter'>
+                <button
+                    className='createSubSliderButton'
+                    disabled={recipeIndex === 0}
+                    onClick={() => displayPreviousRecipe(recipeIndex)}
+                >
+                    Pr.
+                </button>
+
+                <div className='detailRecipeSlideContainer'>
+                    <div
+                        className='detailRecipeSubDisplay'
+                        style={{
+                            transform: `translateX(-${recipeIndex * slideDistance}px)`
+                        }}
+                    >
+                        <div className='detailRecipeSubItem'></div>
+                        {recipeDisplay.map((recipe, i) => (
+                            <div
+                                key={i}
+                                className={`detailRecipeSubItem ${i === recipeIndex ? 'featureSub' : 'subFeature'}`}
+
+                            >
+                                <p>{i === 0 ? 'Main' : `Sub${i}`}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+                <button
+                    className='createSubSliderButton'
+                    disabled={recipeIndex === recipeDisplay.length - 1}
+                    onClick={() => displayNextRecipe(recipeIndex)}
+                >
+                    N.
+                </button>
+            </div>
+
 
 
             <h1>STATUS</h1>
