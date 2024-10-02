@@ -8,6 +8,7 @@
     position: relative;
     height: 100vh;
 }
+
 .createQuarter {
     width: 80%;
     height: 50%;
@@ -30,14 +31,16 @@
     top: 0;
     z-index: 10;
 }
+
 .createNavigationParts {
-    border: 2px solid blue;
+    /* border: 2px solid blue; */
     height: 100%;
     width: 100%;
     display: flex;
     justify-content: flex-start;
     align-items: center;
 }
+
 .createHomeButton {
     /* border: 2px solid black; */
     color: ghostwhite;
@@ -49,12 +52,15 @@
     align-items: center;
     margin-left: 1vh;
 }
+
 .createLogoParts {
     display: none;
 }
+
 .createMomPhoto {
     display: none;
 }
+
 .createStingrayLogo {
     display: none;
 }
@@ -66,11 +72,18 @@
 }
 
 
-.createFormSubmission {
+
+/* footer */
+.createFooter {
     /* border: 2px solid blue; */
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
     height: calc(100vh - 20vh);
     overflow: hidden;
 }
+
 .createForms {
     /* border: 2px solid magenta; */
     height: 100%;
@@ -85,7 +98,6 @@
 .createForms::-webkit-scrollbar {
     display: none;
 }
-
 .createSingleForm {
     /* border: 2px solid lime; */
     width: 100%;
@@ -99,18 +111,22 @@
     scroll-snap-align: center;
 }
 
+
+
 .createFormNavigation {
-    background-color: #555555dd;
+    background-color: #808080cc;
     /* border: 2px solid red; */
     height: 10vh;
     width: 100%;
     position: fixed;
     bottom: 0;
+    z-index: 10;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 15px;
 }
+
 .navigateForm {
     border: 2px solid white;
     width: 5vh;
@@ -121,14 +137,21 @@
     align-items: center;
     color: white;
 }
+
 .lastNavigate {
     border: 2px solid white;
     width: 7vh;
     height: 7vh;
 }
+
 .identifyNavigate {
     box-shadow: 0px 0px 6px 3px white;
 }
+
+
+
+
+
 
 
 
@@ -151,9 +174,11 @@
     justify-content: space-around;
     align-items: center;
 }
+
 .createDetailsTitle {
     font-size: 4.5vh;
 }
+
 .createDetailInputForm {
     /* border: 2px solid orange; */
     width: 100%;
@@ -163,6 +188,7 @@
     justify-content: space-evenly;
     align-items: center;
 }
+
 .createDetailsInput {
     border: none;
     background-color: lavender;
@@ -172,9 +198,11 @@
     font-size: 2.5vh;
     text-align: center;
 }
+
 .prep {
     width: 40%;
 }
+
 .createDetailsTextArea {
     border: none;
     width: 75%;
@@ -184,6 +212,7 @@
     padding: 1.5vh;
     font-size: 1.52vh;
 }
+
 .createAddImageButton {
     border: 1px solid black;
     border-radius: 20px;
@@ -191,6 +220,7 @@
     height: 4vh;
     font-size: 2vh;
 }
+
 /* create details image */
 .createDetailsAddPhotoPage {
     border: none;
@@ -203,19 +233,23 @@
     justify-content: flex-start;
     align-items: center;
 }
+
 .createAddPhotoDisplay {
     border: 2px solid lime;
     width: 25vh;
     height: 25vh;
 }
+
 .imageUpload {
     border: 2px solid green;
     width: 90%;
     height: 4vh;
 }
+
 .originalAddButton {
     display: none;
 }
+
 .createAddImageButton {
     border: 1px solid black;
     background-color: ghostwhite;
@@ -248,9 +282,11 @@
     font-size: 7vh;
     /* background: linear-gradient(135deg, #d4d4d4, #eaeaea, #f6f6f6, #d1d1d1, #a9a9a9, #707070); */
 }
+
 .createSingleIcon svg {
     fill: black;
 }
+
 .iconSelect {
     box-shadow: 0px 0px 6px 3px blue;
 }
@@ -277,17 +313,20 @@
     justify-content: space-around;
     align-items: center;
 }
+
 .createSubRecipesBox {
-        /* border: 2px solid orange; */
-        width: 100%;
-        height: 85%;
-        display: flex;
-        flex-flow: row nowrap;
-        justify-content: center;
+    /* border: 2px solid orange; */
+    width: 100%;
+    height: 85%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
 }
+
 .createSubRecipesTitle {
     font-size: 4.5vh;
 }
+
 .createSubRecipeForm {
     /* border: 2px solid red; */
     width: 90%;
@@ -296,6 +335,7 @@
     justify-content: space-evenly;
     align-items: center;
 }
+
 .addedSubRecipesBox {
     border: 1px solid grey;
     width: 100%;
@@ -306,6 +346,7 @@
     scrollbar-width: none;
     padding: 1.5vh;
 }
+
 .createSubRecipeInput {
     border: none;
     background-color: lavender;
@@ -315,18 +356,21 @@
     font-size: 2.25vh;
     text-align: center;
 }
+
 .filteredSubSearchContainer {
     /* border: 2px solid blue; */
     width: 100%;
     height: 40%;
 }
+
 .filteredListSubRecipes {
     /* border: 2px solid lime; */
-    display: flex; 
+    display: flex;
     flex-flow: row wrap;
     justify-content: center;
     gap: 1vh;
 }
+
 .filteredListSub {
     border: 2px solid grey;
     background-color: ghostwhite;
@@ -358,6 +402,7 @@
     justify-content: space-around;
     align-items: center;
 }
+
 .createIngredientBox {
     /* border: 2px solid orange; */
     width: 100%;
@@ -367,9 +412,11 @@
     justify-content: flex-start;
     align-items: center;
 }
+
 .createIngredientTitle {
     font-size: 4.5vh;
 }
+
 .createIngredientForm {
     /* border: 2px solid gold; */
     display: flex;
@@ -380,6 +427,7 @@
     width: 90%;
     height: 100%;
 }
+
 .createQuantityMeasurement {
     /* border: 2px solid blue; */
     height: 15%;
@@ -389,6 +437,7 @@
     align-items: center;
     gap: 1vh;
 }
+
 .createIngredientInput {
     border: none;
     background-color: lavender;
@@ -398,9 +447,11 @@
     font-size: 2.5vh;
     text-align: center;
 }
+
 .quantity {
     width: 20%;
 }
+
 .createIngredientSelect {
     width: 60%;
     border: none;
@@ -410,6 +461,7 @@
     font-size: 2vh;
     text-align: center;
 }
+
 .createIngredientButton {
     border: 1px solid black;
     border-radius: 20px;
@@ -428,6 +480,7 @@
     align-items: flex-start;
     /* ! eventually only return top X items in .jsx? */
 }
+
 .createFilteredIngredientSearch {
     /* border: 2px solid orange; */
     display: flex;
@@ -435,6 +488,7 @@
     justify-content: center;
     gap: 1vh;
 }
+
 .createIngredientMenuItem {
     border: 1px solid grey;
     background-color: ghostwhite;
@@ -458,6 +512,7 @@
     overflow: auto;
     scrollbar-width: none;
 }
+
 .createIngredientItem {
     /* border: 2px solid blue; */
     border-bottom: 1px solid grey;
@@ -467,14 +522,17 @@
     justify-content: flex-start;
     align-items: flex-start;
 }
+
 .createIngredientQuantity {
     /* border: 2px solid grey; */
     width: 12%;
 }
+
 .createIngredientMeasurement {
     /* border: 2px solid red; */
     width: 24%;
 }
+
 .createIngredientIngredient {
     /* border: 2px solid gold; */
     flex: 1;
@@ -493,7 +551,7 @@
 
 
 
-/* ! all form pages should start at the same height under the title... */
+/* todo all form pages should start at the same height under the title... */
 
 
 
@@ -512,6 +570,7 @@
     justify-content: space-around;
     align-items: center;
 }
+
 .createStepsBox {
     /* border: 2px solid orange; */
     width: 100%;
@@ -521,9 +580,11 @@
     justify-content: space-evenly;
     align-items: center;
 }
+
 .createStepsTitle {
     font-size: 4.5vh;
 }
+
 .createStepsForm {
     /* border: 2px solid blue; */
     height: 35%;
@@ -533,6 +594,7 @@
     justify-content: space-evenly;
     align-items: center;
 }
+
 /* ! Same as createDetailsTextArea... */
 .createStepTextArea {
     width: 80%;
@@ -544,6 +606,7 @@
     padding: 1.5vh;
     font-size: 1.52vh;
 }
+
 /* ! same as create tag button... */
 .createStepButton {
     border: 1px solid black;
@@ -552,6 +615,7 @@
     height: 4vh;
     font-size: 2vh;
 }
+
 .createStepsDisplay {
     border-top: 1px solid grey;
     border-bottom: 1px solid grey;
@@ -568,6 +632,7 @@
     align-items: center;
     gap: 1vh;
 }
+
 /* ! hide scrollbar */
 .createStepItem {
     /* border: 2px solid blue; */
@@ -577,11 +642,13 @@
     justify-content: center;
     align-items: flex-start;
 }
+
 .createStepNumber {
     /* border: 2px solid grey; */
     width: 8%;
     font-size: 1.5vh;
 }
+
 .createStepStep {
     /* border: 2px solid red; */
     flex: 1;
@@ -619,11 +686,13 @@
     justify-content: space-around;
     align-items: center;
 }
+
 /* ! titles should be all the same... */
 .createTagTitle {
     /* border: 2px solid red; */
     font-size: 4.5vh;
 }
+
 .createAddedTagsContainer {
     border: 1px solid grey;
     border-radius: 20px;
@@ -636,6 +705,7 @@
     overflow: scroll;
     scrollbar-width: none;
 }
+
 /* ! hide webkit scroll bar */
 .createAddedTags {
     /* border: 2px solid orange; */
@@ -644,6 +714,7 @@
     justify-content: center;
     gap: 1vh;
 }
+
 .createAddedTag {
     border: 1px solid grey;
     /* font-size: 14px; */
@@ -651,10 +722,12 @@
     border-radius: 20px;
     padding: 6px;
 }
+
 .createTagPrompt {
     /* border: 2px solid pink; */
     font-size: 2.5vh;
 }
+
 .createTagInputForm {
     /* border: 2px solid green; */
     display: flex;
@@ -665,6 +738,7 @@
     align-items: center;
     gap: 3vh;
 }
+
 .createTagInput {
     border: none;
     background-color: lavender;
@@ -674,6 +748,7 @@
     font-size: 2.5vh;
     text-align: center;
 }
+
 .createTagButton {
     border: 1px solid black;
     border-radius: 20px;
@@ -681,6 +756,7 @@
     height: 4vh;
     font-size: 2vh;
 }
+
 .filteredTagSearchContainer {
     /* border: 2px solid red; */
     width: 100%;
@@ -690,6 +766,7 @@
     align-items: flex-start;
     /* ! eventually only return top X items in .jsx? */
 }
+
 .createFilteredTagSearch {
     /* border: 2px solid orange; */
     display: flex;
@@ -698,13 +775,10 @@
     /* align-items: flex-start; */
     gap: 1vh;
 }
+
 .createTagMenuItem {
     border: 1px solid grey;
     background-color: ghostwhite;
     border-radius: 20px;
     padding: 6px;
 }
-
-
-
-

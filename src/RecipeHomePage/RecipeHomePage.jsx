@@ -106,7 +106,7 @@ const RecipeHomePage = () => {
                 <div className='homeNavigationParts'>
                     <Link to={`/createRecipe`} className='homeAddButton'><CiCirclePlus /></Link>
                 </div>
-                <div className='detailLogoParts'>
+                <div className='homeLogoParts'>
                     <div className='homeMomPhoto'></div>
                     <div className='homeStingrayLogo'>Logo</div>
                 </div>

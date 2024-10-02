@@ -52,8 +52,8 @@
     align-items: center;
     margin-left: 1vh;
 }
-.detailLogoParts {
-    display: none
+.homeLogoParts {
+    display: none;
 }
 .homeMomPhoto {
     display: none;
@@ -104,7 +104,7 @@
 
 /* bottom main */
 .bottomMain {
-    border: 2px solid orangered;
+    /* border: 2px solid orangered; */
     margin-top: 10vh;
     display: flex;
     justify-content: center;
@@ -253,7 +253,6 @@
     align-items: flex-end;
     text-align: center;
     perspective: 1000px;
-
 }
 
 .cardDetails {
@@ -297,11 +296,12 @@
     font-size: 16px;
 }
 .paginationBar {
-    /* border: 2px solid yellow; */
+    /* border: 2px solid black; */
     position: fixed;
     bottom: 1vh;
     display: flex;
     gap: calc(100vw - 55vw);
+    z-index: 15;
 }
 .homePageNext {
     /* border: 2px solid blue; */
@@ -326,13 +326,16 @@
 
 /* sub display */
 .homeFooter {
-    border: 2px solid blue;
+    /* border: 2px solid blue; */
     background-color: #808080cc;
     width: 100%;
     height: 10vh;
     position: fixed;
     bottom: 0;
     z-index: 10;
+}
+.homePreview {
+    display: none;
 }
 
 

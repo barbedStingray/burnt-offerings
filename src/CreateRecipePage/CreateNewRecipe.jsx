@@ -147,16 +147,7 @@ const CreateNewRecipe = () => {
 
 
 
-            <div className='createFormSubmission'>
-
-                {/* snap scroll... */}
-                <div className={`createForms`} ref={formContainerRef}>
-                    {createForms.map((formContent, i) => (
-                        <div key={i} className='createSingleForm'>
-                            {formContent}
-                        </div>
-                    ))}
-                </div>
+            <div className='createFooter'>
 
                 <div className='createFormNavigation'>
                     {formShortcuts.map((label, i) => (
@@ -172,7 +163,19 @@ const CreateNewRecipe = () => {
                     ))}
                 </div>
 
+
+                {/* snap scroll... */}
+                <div className={`createForms`} ref={formContainerRef}>
+                    {createForms.map((formContent, i) => (
+                        <div key={i} className='createSingleForm'>
+                            {formContent}
+                        </div>
+                    ))}
+                </div>
+
+
             </div>
+
 
 
         </div >
