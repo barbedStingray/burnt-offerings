@@ -1,6 +1,6 @@
 /* DEFAULT 430-425 */
 .homePage {
-    /* border: 2px solid black; */
+    border: 2px solid lime;
     display: flex;
     flex-flow: column nowrap;
     justify-content: flex-start;
@@ -104,7 +104,7 @@
 
 /* bottom main */
 .bottomMain {
-    /* border: 2px solid orangered; */
+    border: 2px solid orangered;
     margin-top: 10vh;
     display: flex;
     justify-content: center;
