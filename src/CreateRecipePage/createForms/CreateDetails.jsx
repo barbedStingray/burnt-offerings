@@ -11,7 +11,7 @@ const CreateDetails = ({ dataPackage }) => {
     const newRecipeDetailInputs = [
         {
             name: 'newTitle',
-            className: 'createDetailsInput',
+            className: 'createFormInput',
             type: 'text',
             placeholder: 'Recipe Title',
             required: true,
@@ -23,7 +23,7 @@ const CreateDetails = ({ dataPackage }) => {
         },
         {
             name: 'description',
-            className: 'createDetailsTextArea',
+            className: 'createFormTextArea',
             type: 'textarea',
             placeholder: 'The Description of your Recipe!',
             required: false,
@@ -35,7 +35,7 @@ const CreateDetails = ({ dataPackage }) => {
         },
         {
             name: 'prep_time',
-            className: 'createDetailsInput prep',
+            className: 'createFormInput',
             type: 'text',
             placeholder: 'Prep Time',
             required: false,
@@ -47,7 +47,7 @@ const CreateDetails = ({ dataPackage }) => {
         },
         {
             name: 'servings',
-            className: 'createDetailsInput prep',
+            className: 'createFormInput',
             type: 'text',
             placeholder: 'Servings',
             required: false,

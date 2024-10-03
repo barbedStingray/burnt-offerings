@@ -22,7 +22,7 @@ const CreateSteps = ({ dataPackage }) => {
                 <form className='createInputForm' name='instructions' onSubmit={(e) => submitNewObject(e, newStep, setNewStep, allSteps, stepPackage, setStepPackage, initialTagState, setFilteredList)}>
                     <textarea
                         name='instructions'
-                        className='createStepTextArea'
+                        className='createFormTextArea'
                         placeholder='How do I make this?'
                         maxLength={200}
                         minLength={0}
@@ -38,14 +38,14 @@ const CreateSteps = ({ dataPackage }) => {
 
                     >
                     </textarea>
-                    <button className='createStepButton' type='submit'>Add Step</button>
+                    <button className='createAddButton' type='submit'>Add</button>
                 </form>
 
                 <p>Added Instructions</p>
 
-                <div className='createStepsDisplay'>
+                <div className='createRecipeDisplayItems'>
                     {stepPackage.map((step, i) => (
-                        <div className='createStepItem' key={i}>
+                        <div className='createListItem' key={i}>
                             <p className='createStepNumber'>{i + 1}</p>
                             <p className='createStepStep'>{step.instructions}</p>
                         </div>

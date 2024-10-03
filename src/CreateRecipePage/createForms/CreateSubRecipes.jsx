@@ -28,7 +28,7 @@ const CreateSubRecipes = ({ dataPackage }) => {
 
           <input
             name='title'
-            className='createSubRecipeInput'
+            className='createFormInput'
             type='text'
             placeholder='Find Sub Recipe'
             value={newSubRecipe.title}
@@ -43,12 +43,12 @@ const CreateSubRecipes = ({ dataPackage }) => {
             }}
           >
           </input>
-          <div className='filteredSubSearchContainer'>
+          <div className='createFilteredContainer'>
             {filteredList.length > 0 && (
-              <div className='filteredListSubRecipes'>
+              <div className='createFilterSearch'>
                 {filteredList.map((listItem) => (
                   <div
-                    className='filteredListSub'
+                    className='createFilterItem'
                     key={listItem.id}
                     onClick={(e) => submitNewObject(e, listItem, setNewSubRecipe, allowedSubRecipes, subRecipePackage, setSubRecipePackage, initialSubState, setFilteredList)}
                   >
@@ -62,7 +62,7 @@ const CreateSubRecipes = ({ dataPackage }) => {
         </form>
 
         <p>Sub Recipes</p>
-        <div className='addedSubRecipesBox'>
+        <div className='createRecipeDisplayItems'>
           {subRecipePackage.length === 0 ? (
             <p>No Recipes Added</p>
           ) : (

@@ -24,7 +24,7 @@ const CreateIngredients = ({ dataPackage }) => {
     const ingredientDetailsInputs = [
         {
             name: 'quantity',
-            className: 'createIngredientInput',
+            className: 'createFormInput',
             type: 'text',
             placeholder: 'Qty.',
             required: true,
@@ -68,7 +68,7 @@ const CreateIngredients = ({ dataPackage }) => {
                         <div className='createIngredientandAdd'>
                             <input // having this input outside the loop mattered when it came to handling events...
                                 name='ingredient'
-                                className='createIngredientInput'
+                                className='createFormInput'
                                 type='text'
                                 placeholder='Add Ingredient'
                                 required
@@ -88,17 +88,17 @@ const CreateIngredients = ({ dataPackage }) => {
                                 }}
                             >
                             </input>
-                            <button className='createIngredientButton' type='submit'>Add ingredient</button>
+                            <button className='createAddButton' type='submit'>Add</button>
                         </div>
                     </div>
 
 
-                    <div className='filteredIngredientSearchContainer'>
+                    <div className='createFilteredContainer'>
                         {filteredList.length > 0 && (
-                            <div className='createFilteredIngredientSearch'>
+                            <div className='createFilterSearch'>
                                 {filteredList.map((listItem) => (
                                     <div
-                                        className='createIngredientMenuItem'
+                                        className='createFilterItem'
                                         key={listItem.id}
                                         onClick={(e) => {
                                             const mergeIngredient = {
@@ -118,9 +118,9 @@ const CreateIngredients = ({ dataPackage }) => {
 
                 <p>Added Ingredients</p>
 
-                <div className='createIngredientDisplay'>
+                <div className='createRecipeDisplayItems'>
                     {ingredientPackage.map((ingredient) => (
-                        <div className='createIngredientItem'>
+                        <div className='createListItem'>
                             <p className='createIngredientQuantity'>{ingredient.quantity}</p>
                             <p className='createIngredientMeasurement'>{ingredient.measurement}</p>
                             <p className='createIngredientIngredient'>{ingredient.ingredient}</p>

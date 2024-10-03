@@ -56,7 +56,7 @@ const CreateTags = ({ dataPackage }) => {
                 <form className='createInputForm' name='tag' onSubmit={(e) => submitNewObject(e, newTag, setNewTag, allTags, tagPackage, setTagPackage, initialTagState, setFilteredList)}>
 
                     <input
-                        className='createTagInput'
+                        className='createFormInput'
                         name='tag'
                         type='text'
                         placeholder='tag here...'
@@ -81,14 +81,14 @@ const CreateTags = ({ dataPackage }) => {
                         <p>{getTagPrompt()}</p>
                     </div>
 
-                    <button className='createTagButton' type='submit'>Add Tag</button>
+                    <button className='createAddButton' type='submit'>Add</button>
 
-                    <div className='filteredTagSearchContainer' >
+                    <div className='createFilteredContainer' >
                         {filteredList.length > 0 && (
-                            <div className='createFilteredTagSearch'>
+                            <div className='createFilterSearch'>
                                 {filteredList.map((listItem) => (
                                     <div
-                                        className='createTagMenuItem'
+                                        className='createFilterItem'
                                         key={listItem.id}
                                         onClick={(e) => submitNewObject(e, listItem, setNewTag, allTags, tagPackage, setTagPackage, initialTagState, setFilteredList)}
                                     >
@@ -102,12 +102,12 @@ const CreateTags = ({ dataPackage }) => {
 
                 <p>Tags</p>
                 {/* //! 10 tag limit to start? */}
-                <div className='createAddedTagsContainer'>
-                    <div className='createAddedTags'>
+                <div className='createRecipeDisplayItems'>
+                    <div className='createFilterSearch'>
                         {tagPackage.map((tag, i) => (
                             <div
                                 onClick={() => deletePackageItem(i, tagPackage, setTagPackage)}
-                                className='createAddedTag'
+                                className='createFilterItem'
                             >
                                 <p>{tag.tag} X</p>
                             </div>
