@@ -146,13 +146,20 @@ const RecipeHomePage = () => {
 
                                 {allRecipes.map((recipe, i) => (
                                     <div
-                                        // key={i}
                                         key={`${uniqueKey}-${i}`}
                                         onClick={() => seeRecipeDetails(recipe.id)}
                                         className={`recipeContainer`}
                                         style={{ animationDelay: `${i * 100}ms` }}
                                     >
-                                        <div className='recipePhoto'></div>
+                                        <div className='recipeMosaicPhoto'>
+                                            {/* // ! this will change to accept 'no photo' */}
+                                            {recipe.picture !== null ? (
+                                                <img className='mosaicPhoto' src={recipe.picture} />
+                                            ) : (
+                                                <p>No Photo</p>
+                                            )}
+                                        </div>
+
                                         <div className='cardDisplay'>
                                             <div className='cardDetails'>
                                                 <p className='homeRecipeTitle'>{recipe.title}</p>

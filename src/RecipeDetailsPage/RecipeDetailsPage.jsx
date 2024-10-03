@@ -77,7 +77,15 @@ const RecipeDetailsPage = () => {
 
                             <div className='detailsTopInfo'>
 
-                                <div className='detailsPhoto'></div>
+                                <div className='detailsPhotoContainer'>
+                                    {/* // ! this will change to accept 'no photo' */}
+                                    {recipeDisplay[recipeIndex].recipeDetails.picture !== null ? (
+                                        <img className='detailsPhoto' src={recipeDisplay[recipeIndex].recipeDetails.picture} />
+                                    ) : (
+                                        <p>No Photo</p>
+                                    )}
+                                </div>
+                                
                                 <div className='prepServings'>
                                     <p><LuAlarmClock />{recipeDisplay[recipeIndex].recipeDetails.prep_time}</p>
                                     <p><FaInfo /> {recipeDisplay[recipeIndex].recipeDetails.servings}</p>

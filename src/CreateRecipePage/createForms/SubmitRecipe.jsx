@@ -5,6 +5,13 @@ import axios from 'axios'
 import handleValueIsPresent from '../createFunctions/handleValueIsPresent'
 import useAllCategory from '../createFunctions/allOfCategory'
 
+import { GiFishbone } from "react-icons/gi";
+import { GiRawEgg } from "react-icons/gi";
+import { GiSandwich } from "react-icons/gi";
+import { GiFruitBowl } from "react-icons/gi";
+import { GiHotMeal } from "react-icons/gi";
+
+
 const SubmitRecipe = ({ dataPackage }) => {
     const { newRecipeDetails, setNewRecipeDetails, subRecipePackage, ingredientPackage, stepPackage, tagPackage } = dataPackage
 
@@ -112,6 +119,48 @@ const SubmitRecipe = ({ dataPackage }) => {
             setPostModalDisplay('failure')
         }
     }
+
+
+    // generate random icon if no photo...
+    // function generatePhoto(iconString) {
+    //     switch (iconString) {
+    //         case 'dinner':
+    //             return <GiHotMeal />
+    //         case 'egg':
+    //             return <GiRawEgg />
+    //         case 'fish':
+    //             return <GiFishbone />
+    //         case 'lunch':
+    //             return <GiSandwich />
+    //         case 'snack':
+    //             return <GiFruitBowl />
+    //         default:
+    //             return
+    //     }
+    // }
+    // const reactIcons = [
+    //     {
+    //         iconName: 'dinner',
+    //         icon: <GiHotMeal />
+    //     },
+    //     {
+    //         iconName: 'egg',
+    //         icon: <GiRawEgg />
+    //     },
+    //     {
+    //         iconName: 'fish',
+    //         icon: <GiFishbone />
+    //     },
+    //     {
+    //         iconName: 'lunch',
+    //         icon: <GiSandwich />
+    //     },
+    //     {
+    //         iconName: 'snack',
+    //         icon: <GiFruitBowl />
+    //     }
+    // ]
+
 
 
     return (

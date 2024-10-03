@@ -203,9 +203,6 @@
     /* inside form */
     gap: 3dvh;
 }
-.createDetailsForm {
-    height: 70%;
-}
 
 
 /* todo input box combinations */
@@ -234,14 +231,55 @@
 
 
 
-
-
-
-
-
-
-
 /* Details Form */
+/* image */
+.imageUpload {
+    flex: 1;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+.originalAddButton {
+    display: none;
+}
+.createImageLabelDisguise {
+    border: 2px solid black;
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.createPlusPhoto {
+    /* border: 2px solid gold; */
+    width: 10dvh;
+    height: 10dvh;
+    font-size: 10dvh;
+    color: #e8e8e8cc;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+}
+.recipeImageUpload {
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+
+
+
+
+/* details inputs...  */
 .createDetailsInput {
     border: none;
     background-color: lavender;
@@ -251,98 +289,29 @@
     font-size: 2.5dvh;
     text-align: center;
 }
-
 .prep {
     width: 40%;
 }
-
 .createDetailsTextArea {
     border: none;
     width: 75%;
-    height: 30%;
+    height: 15dvh;
     background-color: lavender;
     border-radius: 20px;
     padding: 1.5dvh;
     font-size: 1.52dvh;
 }
 
-.createAddImageButton {
-    border: 1px solid black;
-    border-radius: 20px;
-    width: 40%;
-    height: 4dvh;
-    font-size: 2dvh;
-}
 
 /* create details image */
-.createDetailsAddPhotoPage {
-    border: none;
-    border-radius: 30px;
-    box-shadow: 0px 2px 6px 2px grey;
-    display: flex;
-    height: 95%;
-    width: 90%;
-    flex-flow: column nowrap;
-    justify-content: flex-start;
-    align-items: center;
-}
 
-.createAddPhotoDisplay {
-    border: 2px solid lime;
-    width: 25dvh;
-    height: 25dvh;
-}
 
-.imageUpload {
-    border: 2px solid green;
-    width: 90%;
-    height: 4dvh;
-}
 
-.originalAddButton {
-    display: none;
-}
 
-.createAddImageButton {
-    border: 1px solid black;
-    background-color: ghostwhite;
-    border-radius: 20px;
-    width: 40%;
-    height: 4dvh;
-    font-size: 2dvh;
-}
 
-.createIconSelectors {
-    border: 2px solid red;
-    width: 90%;
-    height: 30%;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    justify-items: center;
-    align-items: center;
-    gap: 1vh;
-}
 
-.createSingleIcon {
-    border: 2px solid blue;
-    border-radius: 50%;
-    width: 90%;
-    height: 90%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 7dvh;
-    /* background: linear-gradient(135deg, #d4d4d4, #eaeaea, #f6f6f6, #d1d1d1, #a9a9a9, #707070); */
-}
 
-.createSingleIcon svg {
-    fill: black;
-}
 
-.iconSelect {
-    box-shadow: 0px 0px 6px 3px blue;
-}
 
 
 
@@ -697,4 +666,3 @@
     height: 4dvh;
     font-size: 2dvh;
 }
-

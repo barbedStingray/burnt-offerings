@@ -2,9 +2,11 @@
 // IMPORTS
 // middleware
 import axios from 'axios';
+import { FaPlus } from "react-icons/fa";
 
 
-function ImageUpload({ photoFunction }) {
+
+function ImageUpload({ photoFunction, recipeImage }) {
 
     const onFileChange = async (event) => {
         // Access the selected file
@@ -51,8 +53,12 @@ function ImageUpload({ photoFunction }) {
                 className='originalAddButton'
                 id='fileInput'
             />
-            <label htmlFor="fileInput" className="createAddImageButton">Custom Photo</label>
-
+            <label htmlFor="fileInput" className="createImageLabelDisguise">
+                <div className='createPlusPhoto'><FaPlus /></div>
+                {recipeImage !== 'no photo' && (
+                    <img className='recipeImageUpload' src={recipeImage} />
+                )}
+            </label>
         </div>
     );
 }

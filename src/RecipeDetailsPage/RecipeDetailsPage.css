@@ -106,13 +106,31 @@
     gap: 10px;
 }
 
-.detailsPhoto {
-    border: 3px solid grey;
-    background-color: ghostwhite;
+.detailsPhotoContainer {
+    border: 2px solid orangered;
     width: 150px;
     height: 150px;
     border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* box-shadow: -6px 11px 10px rgba(0, 0, 0, 0.4); */
+
 }
+/* ! same as homePhoto */
+.detailsPhoto {
+    object-fit: cover;
+    border-radius: 50%;
+    height: 100%;
+    width: 100%;
+}
+
+
+
+
+
+
+
 
 .prepServings {
     /* border: 2px solid magenta; */
