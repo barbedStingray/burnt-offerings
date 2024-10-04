@@ -214,6 +214,7 @@
 /* form add buttons */
 .createAddButton {
     border: 1px solid black;
+    background-color: ghostwhite;
     border-radius: 20px;
     width: 30%;
     height: 4dvh;
@@ -267,6 +268,7 @@
     /* border: 2px solid blue; */
     width: 100%;
     display: flex;
+    justify-content: center;
 }
 .createFilterSearch {
     /* border: 2px solid lime; */
@@ -331,10 +333,17 @@
 
 /* Details Form */
 /* image */
+.inputGroup {
+    /* border: 2px solid gold; */
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 40px;
+}
 .imageUpload {
+    /* border: 2px solid red; */
     flex: 1;
     aspect-ratio: 1 / 1;
-    border-radius: 50%;
+    /* border-radius: 50%; */
     display: flex;
     justify-content: center;
     align-items: center;

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 
 import handleDetailChange from '../createFunctions/handleDetailChange'
 import submitNewObject from '../createFunctions/submitNewObject'
+import deletePackageItem from '../createFunctions/deletePackageItem'
 
 
 const CreateSteps = ({ dataPackage }) => {
@@ -45,7 +46,11 @@ const CreateSteps = ({ dataPackage }) => {
 
                 <div className='createRecipeDisplayItems'>
                     {stepPackage.map((step, i) => (
-                        <div className='createListItem' key={i}>
+                        <div 
+                        className='createListItem' 
+                        key={i}
+                        onClick={() => deletePackageItem(i, stepPackage, setStepPackage)}
+                        >
                             <p className='createStepNumber'>{i + 1}</p>
                             <p className='createStepStep'>{step.instructions}</p>
                         </div>

@@ -74,9 +74,14 @@ const CreateDetails = ({ dataPackage }) => {
             <div className='createFormBox'>
                 <form className='createInputForm createDetailsForm'>
 
-                    {newRecipeDetailInputs.map((input, i) => (
+                    {newRecipeDetailInputs.slice(0, 2).map((input, i) => (
                         <DetailInput key={i} inputDetails={input} />
                     ))}
+                    <div className="inputGroup">
+                        {newRecipeDetailInputs.slice(2, 4).map((input, i) => (
+                            <DetailInput key={i} inputDetails={input} />
+                        ))}
+                    </div>
 
                 </form>
                 <ImageUpload photoFunction={addCustomPhoto} recipeImage={newRecipeDetails.picture} />

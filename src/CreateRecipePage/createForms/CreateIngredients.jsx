@@ -5,6 +5,7 @@ import useAllCategory from '../createFunctions/allOfCategory'
 import handleSearchDetailChange from '../createFunctions/handleSearchDetailChange'
 import handleDetailChange from '../createFunctions/handleDetailChange'
 import submitNewObject from '../createFunctions/submitNewObject'
+import deletePackageItem from '../createFunctions/deletePackageItem'
 
 const CreateIngredients = ({ dataPackage }) => {
     const { ingredientPackage, setIngredientPackage } = dataPackage
@@ -119,8 +120,12 @@ const CreateIngredients = ({ dataPackage }) => {
                 <p>Added Ingredients</p>
 
                 <div className='createRecipeDisplayItems'>
-                    {ingredientPackage.map((ingredient) => (
-                        <div className='createListItem'>
+                    {ingredientPackage.map((ingredient, i) => (
+                        <div 
+                        className='createListItem'
+                        key={i}
+                        onClick={() => deletePackageItem(i, ingredientPackage, setIngredientPackage)}
+                        >
                             <p className='createIngredientQuantity'>{ingredient.quantity}</p>
                             <p className='createIngredientMeasurement'>{ingredient.measurement}</p>
                             <p className='createIngredientIngredient'>{ingredient.ingredient}</p>

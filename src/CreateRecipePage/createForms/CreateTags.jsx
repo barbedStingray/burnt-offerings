@@ -4,6 +4,7 @@ import useAllCategory from '../createFunctions/allOfCategory'
 // important functions
 import submitNewObject from '../createFunctions/submitNewObject'
 import handleSearchDetailChange from '../createFunctions/handleSearchDetailChange'
+import deletePackageItem from '../createFunctions/deletePackageItem'
 
 
 const CreateTags = ({ dataPackage }) => {
