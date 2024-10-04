@@ -1,4 +1,7 @@
 /* DEFAULT 430-425 */
+
+/* todo !!! You have to eliminate css position fixed for the forms to fit */
+
 .detailsPage {
     /* border: 2px solid red; */
     display: flex;
@@ -20,6 +23,20 @@
     left: 0;
     z-index: -10;
 }
+
+/* EDIT VIEWs */
+/* todo ! very similar to .createSingleForm in createnewrecipe.css */
+.detailEditView {
+    border: 2px solid lime;
+    height: calc(100dvh - 20dvh);
+    width: 100%;
+    flex-shrink: 0;
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    justify-content: center;
+}
+
 
 
 /* navigation */
@@ -108,6 +125,7 @@
 
 .detailsPhotoContainer {
     border: 2px solid orangered;
+    background-color: ghostwhite;
     width: 150px;
     height: 150px;
     border-radius: 50%;
@@ -123,6 +141,9 @@
     border-radius: 50%;
     height: 100%;
     width: 100%;
+}
+.detailGeneratedIcon {
+    font-size: 90px;
 }
 
 

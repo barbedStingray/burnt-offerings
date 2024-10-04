@@ -8,6 +8,78 @@ const router = express.Router()
 
 
 
+
+// POST titleDetails only
+router.post('/postOnlyTitle', (req, res) => {
+    const recipeID = req.body.recipeID
+    const { newTitle, description, prep_time, servings, picture } = req.body.newRecipeDetails
+    console.log('NEW TITLES', newTitle, description, prep_time, servings)
+
+    const titleDetailsText = `UPDATE moms_recipes
+    SET title = $1, description = $2, prep_time = $3, servings = $4, picture = $5 WHERE id = $6;`
+
+    pool.query(titleDetailsText, [newTitle, description, prep_time, servings, picture, recipeID])
+        .then((result) => {
+            console.log('major success in posting new details')
+            res.sendStatus(201)
+        }).catch((error) => {
+            console.log('major errror in uppdating titles')
+            res.sendStatus(500)
+        })
+})
+
+// POST only tags
+router.post('/postOnlyTags', async (req, res) => {
+    const recipeID = req.body.recipeID
+    const tagPackage = req.body.tagPackage
+    // console.log('THE PACKAGE', recipeID, tagPackage)
+
+    const tagText = `INSERT INTO "moms_tags" ("tag") VALUES ($1) RETURNING id;`
+    const postTagText = `INSERT INTO "recipe_tags" ("recipe_id", "tags_id") VALUES ($1, $2);`
+
+    try {
+        // todo consolidate, same function for tags in master
+        // ! moms_tags post new tags, return id's
+        // ! recipe_tags post specified tags recipe_id tags_id
+        const tagPromises = tagPackage.map(async (tagObject) => {
+            if (tagObject.id === 'zero') {
+                const result = await pool.query(tagText, [tagObject.tag])
+                const newId = result.rows[0].id
+                // todo ! Do I need to put this in the object, or can I just use it as the id? 
+                tagObject.id = newId
+                const { id } = tagObject
+                await pool.query(postTagText, [recipeID, id])
+            } else {
+                const { id } = tagObject
+                await pool.query(postTagText, [recipeID, id])
+            }
+        })
+        await Promise.all(tagPromises)
+        console.log('success in posting new tags!')
+        res.sendStatus(201)
+    } catch (error) {
+        console.log('error in posting new tags!')
+        res.sendStatus(500)
+    }
+})
+
+
+
+// DELETE solo recipe Tag
+router.delete('/deleteRecipeTag/:id', (req, res) => {
+    console.log('req.params.id', req.params.id)
+    const queryText = 'DELETE FROM "recipe_tags" WHERE "id" = $1;'
+
+    pool.query(queryText, [req.params.id]).then((result) => {
+        console.log('deleted individual tag')
+        res.sendStatus(201)
+    }).catch((error) => {
+        console.log('error in deleting tag', error)
+        res.sendStatus(500)
+    })
+})
+
+
 // DELETE ENTIRE
 router.delete('/deleteEntireRecipe/:id', async (req, res) => {
     console.log('params', req.params)
@@ -464,7 +536,7 @@ ORDER BY rh.title, i.ingredient;
   JOIN recipe_hierarchy rh ON rr.parent_id = rh.id
 )
 -- Retrieve all tags for the main recipe and its sub-recipes
-SELECT rh.id AS recipe_id, rh.title AS recipe_name, t.tag, t.id AS tag_id
+SELECT rh.id AS recipe_id, rh.title AS recipe_name, t.tag, t.id AS tag_id, rt.id AS delete_id
 FROM recipe_hierarchy rh
 JOIN recipe_tags rt ON rh.id = rt.recipe_id
 JOIN moms_tags t ON rt.tags_id = t.id

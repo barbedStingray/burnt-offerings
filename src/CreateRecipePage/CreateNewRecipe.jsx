@@ -14,7 +14,6 @@ import SubmitRecipe from './createForms/SubmitRecipe'
 import { LiaCookieBiteSolid } from "react-icons/lia";
 
 
-
 // TODO REFACTOR single responsibilites
 
 const CreateNewRecipe = () => {
@@ -62,17 +61,10 @@ const CreateNewRecipe = () => {
         }
     }, [])
 
-    // deletePackageItem
-    function deleteTag(i, dataPackage, setDataPackage) { // needs to be modular
-        console.log('tagindex', i)
-        const newPackage = dataPackage.filter((_, index) => index !== i)
-        console.log('newPackage', newPackage)
-        setDataPackage(newPackage)
-    }
 
+    
 
     useEffect((e) => {
-        console.log('checking if parent')
         if (subRecipePackage.length === 0) {
             setNewRecipeDetails({ ...newRecipeDetails, is_parent_recipe: false })
         } else {

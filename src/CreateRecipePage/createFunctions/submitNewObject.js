@@ -14,10 +14,11 @@ export default function submitNewObject(e, newObject, setNewObject, searchList, 
     // todo duplicate tag check
     // todo duplicate ingredient check
     // todo ? Two-word tags?
-    const checkValueArray = Object.values(newObject)
-    console.log('checkValueArray', checkValueArray)
-    const isValue = handleValueIsPresent(...checkValueArray)
-    if (!isValue) return alert('please check your inputs!')
+
+    // const checkValueArray = Object.values(newObject)
+    // console.log('checkValueArray', checkValueArray)
+    const isValue = handleValueIsPresent(newObject)
+    if (!isValue) return
 
     // ! Bundler - own function
     let tagKeywordFormat
@@ -26,10 +27,10 @@ export default function submitNewObject(e, newObject, setNewObject, searchList, 
     } else {
         tagKeywordFormat = tagKeyword
     }
-    console.log('keywordFormat', tagKeywordFormat)
-    console.log('searchList', searchList)
+    // console.log('keywordFormat', tagKeywordFormat)
+    // console.log('searchList', searchList)
     let matchedTag = searchList.find((item) => item[formName] === tagKeywordFormat)
-    console.log('matchedTag', matchedTag) 
+    // console.log('matchedTag', matchedTag) 
 
     let finalObject
     if (!matchedTag) {
@@ -37,16 +38,6 @@ export default function submitNewObject(e, newObject, setNewObject, searchList, 
     } else {
         finalObject = { ...newObject, id: matchedTag.id, [formName]: matchedTag[formName] }
     }
-
-    // // ! Bundler - own function
-    // const tagKeywordFormat = tagKeyword.trim().charAt(0).toUpperCase() + tagKeyword.trim().slice(1).toLowerCase();
-    // console.log('keywordFormat', tagKeywordFormat)
-    // console.log('searchList', searchList)
-    // let matchedTag = searchList.find((item) => item[formName] === tagKeywordFormat)
-    // console.log('matchedTag', matchedTag)
-    // if (!matchedTag) {
-    //     matchedTag = { ...newObject, [formName]: tagKeywordFormat, id: 'zero' }
-    // }
 
     // ! Update newTagData
     setDataPackage([...dataPackage, finalObject])

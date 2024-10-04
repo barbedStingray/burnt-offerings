@@ -3,18 +3,17 @@ import axios from 'axios'
 
 // todo REFACTOR
 
-export default function useRecipeDetails(recipeID) {
-    console.log('in useRecipeDetails', recipeID)
+export default function useRecipeDetails(recipeID, refresh) {
     const [theMainRecipe, setTheMainRecipe] = useState([])
     const [theSubRecipes, setTheSubRecipes] = useState([])
     const [detailsStatus, setDetailsStatus] = useState('unloaded')
 
     useEffect(() => {
         fetchRecipeDetails(recipeID)
-    }, [recipeID])
+    }, [recipeID, refresh])
 
     async function fetchRecipeDetails(recipeID) {
-        console.log('fetching details for', recipeID)
+        // console.log('fetching details for', recipeID)
 
         try {
             const results = await axios.get(`/api/recipes/details/${recipeID}`)

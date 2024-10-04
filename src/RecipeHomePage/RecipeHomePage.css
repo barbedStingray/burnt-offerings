@@ -221,6 +221,7 @@
 /* ! same as details page except for height/width */
 .recipeMosaicPhoto {
     border: 2px solid orangered;
+    background-color: ghostwhite;
     border-radius: 50%;
     position: absolute;
     top: 0;
@@ -237,6 +238,9 @@
     border-radius: 50%;
     height: 100%;
     width: 100%;
+}
+.homeGeneratedIcon {
+    font-size: 60px;
 }
 
 .cardDisplay {

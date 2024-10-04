@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import useAllCategory from '../createFunctions/allOfCategory'
+import axios from 'axios'
 
 // important functions
 import submitNewObject from '../createFunctions/submitNewObject'
@@ -7,8 +8,17 @@ import handleSearchDetailChange from '../createFunctions/handleSearchDetailChang
 import deletePackageItem from '../createFunctions/deletePackageItem'
 
 
-const CreateTags = ({ dataPackage }) => {
+const CreateTags = ({
+    dataPackage,
+    // below - used in recipe edits
+    editPackage = { tagModal: false, setTagModal: () => { } },
+    detailsPackage = { recipeID: null, refresh: false, setRefresh: () => { } }
+}) => {
+
     const { tagPackage, setTagPackage } = dataPackage
+    const { tagModal, setTagModal } = editPackage
+    const { recipeID, refresh, setRefresh } = detailsPackage
+
 
     const [allTags, allTagsStatus] = useAllCategory('/api/recipes/tags')
     const [filteredList, setFilteredList] = useState([]) // dropdown logic
@@ -38,12 +48,22 @@ const CreateTags = ({ dataPackage }) => {
         }
     }
 
-    // deletePackageItem
-    function deletePackageItem(i, dataPackage, setDataPackage) { // needs to be modular
-        console.log('tagindex', i)
-        const newPackage = dataPackage.filter((_, index) => index !== i)
-        console.log('newPackage', newPackage)
-        setDataPackage(newPackage)
+    async function postOnlyTags() {
+
+        if (tagPackage.length === 0) {
+            alert('You have not added any tags!')
+            return
+        }
+        try {
+            await axios.post(`/api/recipes/postOnlyTags`, { recipeID, tagPackage })
+            // todo !! loading screen? error handling of duplicates?
+            setTagPackage([])
+            setRefresh(!refresh)
+            setTagModal(false)
+        } catch (error) {
+            console.log('error client side postOnlyTags', error)
+            alert('something went wrong posting only tags!')
+        }
     }
 
 
@@ -101,12 +121,22 @@ const CreateTags = ({ dataPackage }) => {
                     </div>
                 </form>
 
+
+                {tagModal && (
+                    <div>
+                        <button onClick={() => postOnlyTags()}>Submit Tags</button>
+                        <button onClick={() => setTagModal(false)}>Cancel</button>
+                    </div>
+                )}
+
+
                 <p>Tags</p>
                 {/* //! 10 tag limit to start? */}
                 <div className='createRecipeDisplayItems'>
                     <div className='createFilterSearch'>
                         {tagPackage.map((tag, i) => (
                             <div
+                                key={i}
                                 onClick={() => deletePackageItem(i, tagPackage, setTagPackage)}
                                 className='createFilterItem'
                             >

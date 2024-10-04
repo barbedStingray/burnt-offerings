@@ -14,6 +14,12 @@ import { LiaCookieBiteSolid } from "react-icons/lia";
 import { GiPumpkinLantern } from "react-icons/gi";
 
 
+import { GiFishbone } from "react-icons/gi";
+import { GiRawEgg } from "react-icons/gi";
+import { GiSandwich } from "react-icons/gi";
+import { GiFruitBowl } from "react-icons/gi";
+import { GiHotMeal } from "react-icons/gi";
+
 
 
 const RecipeHomePage = () => {
@@ -28,7 +34,7 @@ const RecipeHomePage = () => {
     const [allRecipes, setAllRecipes] = useState([])
     // console.log('allRecipes', allRecipes)
     const [loadingStatus, setLoadingStatus] = useState('unloaded')
-    console.log('allRecipes', allRecipes.length)
+    // console.log('allRecipes', allRecipes.length)
     // pagination
     const [currentPage, setCurrentPage] = useState(1)
     const [totalPages, setTotalPages] = useState(1)
@@ -92,6 +98,23 @@ const RecipeHomePage = () => {
     }
 
 
+        function generatePhoto(iconString) {
+        switch (iconString) {
+            case 'dinner':
+                return <GiHotMeal />
+            case 'egg':
+                return <GiRawEgg />
+            case 'fish':
+                return <GiFishbone />
+            case 'lunch':
+                return <GiSandwich />
+            case 'snack':
+                return <GiFruitBowl />
+            default:
+                return null
+        }
+    }
+
 
 
 
@@ -153,10 +176,10 @@ const RecipeHomePage = () => {
                                     >
                                         <div className='recipeMosaicPhoto'>
                                             {/* // ! this will change to accept 'no photo' */}
-                                            {recipe.picture !== null ? (
+                                            {recipe.picture?.startsWith('http') ? (
                                                 <img className='mosaicPhoto' src={recipe.picture} />
                                             ) : (
-                                                <p>No Photo</p>
+                                                <p className='homeGeneratedIcon'>{generatePhoto(recipe.picture)}</p>
                                             )}
                                         </div>
 

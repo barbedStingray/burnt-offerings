@@ -4,12 +4,10 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import handleValueIsPresent from '../createFunctions/handleValueIsPresent'
 import useAllCategory from '../createFunctions/allOfCategory'
+import checkDuplicateTitles from '../createFunctions/checkDuplicateTitles'
 
-import { GiFishbone } from "react-icons/gi";
-import { GiRawEgg } from "react-icons/gi";
-import { GiSandwich } from "react-icons/gi";
-import { GiFruitBowl } from "react-icons/gi";
-import { GiHotMeal } from "react-icons/gi";
+
+
 
 
 const SubmitRecipe = ({ dataPackage }) => {
@@ -22,81 +20,33 @@ const SubmitRecipe = ({ dataPackage }) => {
     const [postModalDisplay, setPostModalDisplay] = useState('failure')
     const [navigateNewId, setNavigateNewId] = useState(0)
 
+    function randomIconNumber() {
+        return Math.floor(Math.random() * 5)
+    }
+    console.log('random', randomIconNumber())
+    const iconStrings = ['dinner', 'fish', 'lunch', 'snack', 'egg']
 
 
-
-    function letsCheckValues(newObject) {
-        const checkValueArray = Object.values(newObject)
-        const isValue = handleValueIsPresent(...checkValueArray)
-        if (!isValue) {
-            alert('Check your Main Recipe Inputs')
-            return false
-        }
-
-        // format trimming
-        Object.entries(newObject).forEach(([key, value]) => {
+    const handleCreateRecipe = async () => {
+        // pass checks of first section
+        const isValuePresent = handleValueIsPresent(newRecipeDetails)
+        if (!isValuePresent) return
+        Object.entries(newRecipeDetails).forEach(([key, value]) => {
             if (typeof value === 'string') {
-                newObject[key] = value.trim();
+                newRecipeDetails[key] = value.trim();
             }
         })
-        setNewRecipeDetails(newObject)
 
-        // ! check for duplicate name
-        const isDuplicate = allRecipes.map((recipe) => recipe.title.toLowerCase()).includes(newObject.newTitle.toLowerCase())
-        console.log('isDuplicate', isDuplicate)
-        if (isDuplicate) {
-            alert('Your title is a duplicate!')
-            return false
+        const isDuplicate = checkDuplicateTitles(newRecipeDetails, allRecipes)
+        if (!isDuplicate) return
+        
+        if(newRecipeDetails.picture === 'no photo') {
+            // give it a string
+            newRecipeDetails.picture = `${iconStrings[randomIconNumber()]}`
         }
-        return true
-    }
+        console.log('PHOTO STRING', newRecipeDetails.picture)
 
-    const handleCreateRecipe = () => {
-        const detailsAreValid = letsCheckValues(newRecipeDetails)
-        if (detailsAreValid) {
-            submitNewRecipe()
-        }
-    }
-
-
-
-    function generatePostModal(activeString) {
-        switch (activeString) {
-            case 'loading':
-                return <div>
-                    <h1>recipe is loading</h1>
-                </div>
-            case 'success':
-                return <div>
-                    <h1>recipe success!</h1>
-                </div>
-            case 'failure':
-                return <div>
-                    <h1>recipe failure</h1>
-                </div>
-            default:
-                return ''
-        }
-    }
-
-
-    function goToNewRecipe(id) {
-        console.log('going to new recipe', id)
-        navigate(`/recipeDetails/${id}`)
-    }
-    function goHome() {
-        navigate('/')
-    }
-
-
-
-
-
-
-
-    const submitNewRecipe = async () => {
-
-        // activate modal to loading
+        // ! activate trying to post entire recipe
         setPostModal(true)
         setPostModalDisplay('loading')
 
@@ -121,45 +71,41 @@ const SubmitRecipe = ({ dataPackage }) => {
     }
 
 
-    // generate random icon if no photo...
-    // function generatePhoto(iconString) {
-    //     switch (iconString) {
-    //         case 'dinner':
-    //             return <GiHotMeal />
-    //         case 'egg':
-    //             return <GiRawEgg />
-    //         case 'fish':
-    //             return <GiFishbone />
-    //         case 'lunch':
-    //             return <GiSandwich />
-    //         case 'snack':
-    //             return <GiFruitBowl />
-    //         default:
-    //             return
-    //     }
-    // }
-    // const reactIcons = [
-    //     {
-    //         iconName: 'dinner',
-    //         icon: <GiHotMeal />
-    //     },
-    //     {
-    //         iconName: 'egg',
-    //         icon: <GiRawEgg />
-    //     },
-    //     {
-    //         iconName: 'fish',
-    //         icon: <GiFishbone />
-    //     },
-    //     {
-    //         iconName: 'lunch',
-    //         icon: <GiSandwich />
-    //     },
-    //     {
-    //         iconName: 'snack',
-    //         icon: <GiFruitBowl />
-    //     }
-    // ]
+    // todo generate random image when 'no photo' is used
+
+
+    function generatePostModal(activeString) {
+        switch (activeString) {
+            case 'loading':
+                return <div>
+                    <h1>recipe is loading</h1>
+                </div>
+            case 'success':
+                return <div>
+                    <h1>recipe success!</h1>
+                </div>
+            case 'failure':
+                return <div>
+                    <h1>recipe failure</h1>
+                </div>
+            default:
+                return ''
+        }
+    }
+
+
+
+    function goToNewRecipe(id) {
+        console.log('going to new recipe', id)
+        navigate(`/recipeDetails/${id}`)
+    }
+    function goHome() {
+        navigate('/')
+    }
+
+
+
+
 
 
 
