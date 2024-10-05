@@ -104,10 +104,8 @@ const RecipeDetailsPage = () => {
 
     // todo edit ingredients modal
     const [ingredientModal, setIngredientModal] = useState(false)
-
     // add an ingredient
     const [ingredientPackage, setIngredientPackage] = useState([])
-
     // delete an ingredient
     async function deleteIndividualIngredient(id) {
         console.log('deleting individual ingredient', id)
@@ -120,26 +118,7 @@ const RecipeDetailsPage = () => {
             // return some form of user error.
         }
     }
-
     // todo edit an ingredient
-    const [selectedIngredient, setSelectedIngredient] = useState({
-        edit_id: '',
-        ingredient: '',
-        quantity: '',
-        measurement: ''
-    })
-    function letsEditIngredient(target_id, ingredient, quantity, measurement) {
-        // console.log('editing a single ingredient', target_id, ingredient, measurement, quantity)
-        setSelectedIngredient({
-            target_id: target_id,
-            ingredient: ingredient,
-            quantity: quantity,
-            measurement: measurement
-        })
-        // console.log('selectedIngredient', selectedIngredient)
-        setIngredientModal(true)
-    }
-
 
 
 
@@ -218,7 +197,6 @@ const RecipeDetailsPage = () => {
                         dataPackage={{ ingredientPackage, setIngredientPackage }}
                         editPackage={{ ingredientModal, setIngredientModal }}
                         detailsPackage={{ recipeID, refresh, setRefresh }}
-                        editIngredient={selectedIngredient}
                     />,
                 </div>
             )}
@@ -296,19 +274,19 @@ const RecipeDetailsPage = () => {
                             <p className='detailsDescriptionTitle'>Ingredients</p>
 
                             <div className='displayRecipeIngredients'>
-                                {recipeDisplay[recipeIndex].ingredients.map((ingredient) => (
+                                {recipeDisplay[recipeIndex].ingredients.map((ingredient, i) => (
                                     <div
-                                        key={ingredient.id}
+                                        key={i}
                                         className='displaySingleIngredient'
                                     >
                                         {/* {letsEdit && <button onClick={() => letsEditIngredient(ingredient.target_id, ingredient.ingredient, ingredient.quantity, ingredient.measurement)}>EDIT ME</button>} */}
                                         {letsEdit && <button onClick={letsEdit ? () => deleteIndividualIngredient(ingredient.target_id) : null}>DELETE ME</button>}
 
-                                        <IngredientEdit ingredient={ingredient.ingredient} target_id={ingredient.target_id} />
 
                                         <p className='displayIngredientQuantity' >{ingredient.quantity}</p>
                                         <p className='displayIngredientMeasurement'>{ingredient.measurement}</p>
-                                        <p className='displayIngredientIngredient'>{ingredient.ingredient}</p>
+                                        <IngredientEdit ingredient={ingredient.ingredient} target_id={ingredient.target_id} letsEdit={letsEdit} />
+                                        {/* <p className='displayIngredientIngredient'>{ingredient.ingredient}</p> */}
                                         {letsEdit ? <p className='displayIngredientIngredient'>{ingredient.target_id}</p> : null}
                                     </div>
                                 ))}
@@ -317,8 +295,8 @@ const RecipeDetailsPage = () => {
                             <p className='detailsDescriptionTitle'>Instructions</p>
 
                             <div className='displayRecipeSteps'>
-                                {recipeDisplay[recipeIndex].steps.map((step) => (
-                                    <div key={step.step_id} className='displayStepItem'>
+                                {recipeDisplay[recipeIndex].steps.map((step, i) => (
+                                    <div key={i} className='displayStepItem'>
                                         <p className='displayStepNumber'>{step.step_number}</p>
                                         <p className='displayStepStep'>{step.instructions}</p>
                                     </div>

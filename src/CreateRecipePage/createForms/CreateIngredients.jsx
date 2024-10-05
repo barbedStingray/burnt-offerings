@@ -7,19 +7,17 @@ import handleSearchDetailChange from '../createFunctions/handleSearchDetailChang
 import handleDetailChange from '../createFunctions/handleDetailChange'
 import submitNewObject from '../createFunctions/submitNewObject'
 import deletePackageItem from '../createFunctions/deletePackageItem'
-import handleValueIsPresent from '../createFunctions/handleValueIsPresent'
+
 
 const CreateIngredients = ({
     dataPackage,
     editPackage = { ingredientModal: false, setIngredientModal: () => { } },
     detailsPackage = { recipeID: null, refresh: false, setRefresh: () => { } },
-    editIngredient = { target_id: null, ingredient: '', quantity: '', measurement: '' }
 }) => {
 
     const { ingredientPackage, setIngredientPackage } = dataPackage
     const { ingredientModal, setIngredientModal} = editPackage
     const { recipeID, refresh, setRefresh } = detailsPackage
-    const { target_id, ingredient, quantity, measurement } = editIngredient
 
     const [allIngredients, allIngredientsStatus] = useAllCategory('/api/recipes/ingredients')
     const [filteredList, setFilteredList] = useState([])
@@ -32,16 +30,6 @@ const CreateIngredients = ({
         measurement: '',
     })
     const initialIngredientState = { id: null, ingredient: '', quantity: '', measurement: '' }
-
-    useEffect(() => {
-        if (editIngredient.target_id !== null) {
-            setNewIngredient({
-                ingredient: editIngredient.ingredient || '',
-                quantity: editIngredient.quantity || '',
-                measurement: editIngredient.measurement || '',
-            })
-        }
-    }, [editIngredient])
 
 
     const ingredientDetailsInputs = [
@@ -85,24 +73,6 @@ const CreateIngredients = ({
         }
     }
 
-
-
-    async function putEditIngredients(target_id, newIngredient) {
-        console.log('editing ingredient', target_id, newIngredient)
-
-        // check if it's a value
-        const isValue = handleValueIsPresent(newIngredient)
-        console.log('isValue', isValue)
-        if (!isValue) return
-
-        const tagKeyword = newIngredient['ingredient']
-        console.log('tagKeyword', tagKeyword)
-    
-        // todo format your object
-        // todo format the id is there a matched tag?
-        // todo update in db
-
-    }
 
 
 
@@ -179,9 +149,6 @@ const CreateIngredients = ({
                         <button onClick={() => setIngredientModal(false)}>Cancel</button>
                     </div>
                 )}
-                {editIngredient.target_id !== null && (
-                    <button onClick={() => putEditIngredients(target_id, newIngredient)}>Submit Your Edits</button>
-                )}
 
 
                 <p>Added Ingredients</p>
@@ -211,6 +178,3 @@ const CreateIngredients = ({
 
 export default CreateIngredients
 
-
-// const ingredientToSubmit = filteredList.length > 0 ? { ...filteredList[0], quantity: newIngredient.quantity, measurement: newIngredient.measurement } : newIngredient;
-// console.log('submitting', ingredientToSubmit)
