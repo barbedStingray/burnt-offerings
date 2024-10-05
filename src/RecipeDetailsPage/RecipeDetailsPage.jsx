@@ -9,7 +9,7 @@ import CreateTags from '../CreateRecipePage/createForms/CreateTags'
 import CreateDetails from '../CreateRecipePage/createForms/CreateDetails'
 import CreateIngredients from '../CreateRecipePage/createForms/CreateIngredients'
 
-
+import IngredientEdit from '../components/IngredientEdit'
 
 import generatePhoto from '../components/generatePhoto'
 
@@ -304,7 +304,7 @@ const RecipeDetailsPage = () => {
                                         {/* {letsEdit && <button onClick={() => letsEditIngredient(ingredient.target_id, ingredient.ingredient, ingredient.quantity, ingredient.measurement)}>EDIT ME</button>} */}
                                         {letsEdit && <button onClick={letsEdit ? () => deleteIndividualIngredient(ingredient.target_id) : null}>DELETE ME</button>}
 
-                                        <EditIngredient />
+                                        <IngredientEdit ingredient={ingredient.ingredient} target_id={ingredient.target_id} />
 
                                         <p className='displayIngredientQuantity' >{ingredient.quantity}</p>
                                         <p className='displayIngredientMeasurement'>{ingredient.measurement}</p>
