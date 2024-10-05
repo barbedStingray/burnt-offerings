@@ -7,6 +7,11 @@ import useRecipeDetails from './detailFunctions/fetchRecipeDetails'
 
 import CreateTags from '../CreateRecipePage/createForms/CreateTags'
 import CreateDetails from '../CreateRecipePage/createForms/CreateDetails'
+import CreateIngredients from '../CreateRecipePage/createForms/CreateIngredients'
+
+
+
+import generatePhoto from '../components/generatePhoto'
 
 import { FaInfo } from "react-icons/fa";
 import { LuAlarmClock } from "react-icons/lu";
@@ -15,11 +20,6 @@ import { PiRecycle } from "react-icons/pi";
 import { PiPencilThin } from "react-icons/pi";
 
 
-import { GiFishbone } from "react-icons/gi";
-import { GiRawEgg } from "react-icons/gi";
-import { GiSandwich } from "react-icons/gi";
-import { GiFruitBowl } from "react-icons/gi";
-import { GiHotMeal } from "react-icons/gi";
 
 
 
@@ -65,20 +65,24 @@ const RecipeDetailsPage = () => {
 
 
 
-    // begin edit functionalities
+
+
+
+
+    //  ! TODO begin edit functionalities
     const [letsEdit, setLetsEdit] = useState(false)
     console.log('letsEdit', letsEdit)
 
 
 
-    // edit - details modal
+    // ** edit - details modal
     const [newRecipeDetails, setNewRecipeDetails] = useState({
         newTitle: '',
         description: '',
         prep_time: '',
         servings: '',
         picture: ''
-    }) // ! Values have to reflect the current setup
+    })
     const [detailsModal, setDetailsModal] = useState(false)
 
     function letsEditTitleDetails() {
@@ -94,46 +98,74 @@ const RecipeDetailsPage = () => {
     }
 
 
-
-    // edit - tag modal
-    const [tagPackage, setTagPackage] = useState([])
-    const [tagModal, setTagModal] = useState(false)
-    console.log('tag Package', tagPackage)
+    // todo edit - sub recipe modal
 
 
 
-    async function deleteIndividualTag(id) {
-        console.log('deleting individual tag', id)
+    // todo edit ingredients modal
+    const [ingredientModal, setIngredientModal] = useState(false)
 
+    // add an ingredient
+    const [ingredientPackage, setIngredientPackage] = useState([])
+
+    // delete an ingredient
+    async function deleteIndividualIngredient(id) {
+        console.log('deleting individual ingredient', id)
         try {
-            console.log('delete entire recipe', id)
-            await axios.delete(`/api/recipes/deleteRecipeTag/${id}`)
-
-            // todo refresh page? - call the hook refresh again? 
+            console.log('delete ingredient', id)
+            await axios.delete(`/api/recipes/deleteRecipeIngredient/${id}`)
             setRefresh(!refresh)
         } catch (error) {
-            console.log('ERROR delete entire recipe', id)
+            console.log('ERROR delete ind. ingredient', error)
+            // return some form of user error.
+        }
+    }
+
+    // todo edit an ingredient
+    const [selectedIngredient, setSelectedIngredient] = useState({
+        edit_id: '',
+        ingredient: '',
+        quantity: '',
+        measurement: ''
+    })
+    function letsEditIngredient(target_id, ingredient, quantity, measurement) {
+        // console.log('editing a single ingredient', target_id, ingredient, measurement, quantity)
+        setSelectedIngredient({
+            target_id: target_id,
+            ingredient: ingredient,
+            quantity: quantity,
+            measurement: measurement
+        })
+        // console.log('selectedIngredient', selectedIngredient)
+        setIngredientModal(true)
+    }
+
+
+
+
+    // todo edit - steps modal
+    // todo add a step
+    // todo delete a step
+    // todo edit a step
+    // todo reorder steps
+
+
+
+    // ** edit - tag modal
+    const [tagPackage, setTagPackage] = useState([])
+    const [tagModal, setTagModal] = useState(false)
+
+    async function deleteIndividualTag(id) {
+        try {
+            await axios.delete(`/api/recipes/deleteRecipeTag/${id}`)
+            setRefresh(!refresh)
+        } catch (error) {
+            console.log('ERROR delete ind. tag', error)
             // return some form of user error.
         }
     }
 
 
-    function generatePhoto(iconString) {
-        switch (iconString) {
-            case 'dinner':
-                return <GiHotMeal />
-            case 'egg':
-                return <GiRawEgg />
-            case 'fish':
-                return <GiFishbone />
-            case 'lunch':
-                return <GiSandwich />
-            case 'snack':
-                return <GiFruitBowl />
-            default:
-                return null
-        }
-    }
 
 
 
@@ -176,6 +208,17 @@ const RecipeDetailsPage = () => {
                         dataPackage={{ tagPackage, setTagPackage }}
                         editPackage={{ tagModal, setTagModal }}
                         detailsPackage={{ recipeID, refresh, setRefresh }}
+                    />,
+                </div>
+            )}
+
+            {ingredientModal && (
+                <div className='createSingleForm'>
+                    <CreateIngredients
+                        dataPackage={{ ingredientPackage, setIngredientPackage }}
+                        editPackage={{ ingredientModal, setIngredientModal }}
+                        detailsPackage={{ recipeID, refresh, setRefresh }}
+                        editIngredient={selectedIngredient}
                     />,
                 </div>
             )}
@@ -235,6 +278,7 @@ const RecipeDetailsPage = () => {
                                 {letsEdit && (
                                     <>
                                         <button onClick={() => letsEditTitleDetails()}>Edit Details</button>
+                                        <button onClick={() => setIngredientModal(!ingredientModal)}>Add Ingredient</button>
                                         <button onClick={() => setTagModal(!tagModal)}>Add Tag</button>
                                     </>
                                 )}
@@ -253,10 +297,19 @@ const RecipeDetailsPage = () => {
 
                             <div className='displayRecipeIngredients'>
                                 {recipeDisplay[recipeIndex].ingredients.map((ingredient) => (
-                                    <div key={ingredient.id} className='displaySingleIngredient'>
+                                    <div
+                                        key={ingredient.id}
+                                        className='displaySingleIngredient'
+                                    >
+                                        {/* {letsEdit && <button onClick={() => letsEditIngredient(ingredient.target_id, ingredient.ingredient, ingredient.quantity, ingredient.measurement)}>EDIT ME</button>} */}
+                                        {letsEdit && <button onClick={letsEdit ? () => deleteIndividualIngredient(ingredient.target_id) : null}>DELETE ME</button>}
+
+                                        <EditIngredient />
+
                                         <p className='displayIngredientQuantity' >{ingredient.quantity}</p>
                                         <p className='displayIngredientMeasurement'>{ingredient.measurement}</p>
                                         <p className='displayIngredientIngredient'>{ingredient.ingredient}</p>
+                                        {letsEdit ? <p className='displayIngredientIngredient'>{ingredient.target_id}</p> : null}
                                     </div>
                                 ))}
                             </div>

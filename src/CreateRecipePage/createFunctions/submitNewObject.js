@@ -3,6 +3,8 @@ import handleValueIsPresent from "./handleValueIsPresent"
 // ! push your OBJECT to the dataArray for DB
 export default function submitNewObject(e, newObject, setNewObject, searchList, dataPackage, setDataPackage, initialState, setFilteredList) {
     e.preventDefault()
+
+    // ! probably part of the bunder/format function
     const formName = e.currentTarget.closest('form').name
     console.log('formName', formName)
     console.log('submitNewObject', newObject)

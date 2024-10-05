@@ -8,6 +8,52 @@ const router = express.Router()
 
 
 
+// DELETE single Ingredient
+router.delete('/deleteRecipeIngredient/:id', (req, res) => {
+    console.log('req.params.id', req.params.id)
+    const queryText = 'DELETE FROM "recipe_ingredients" WHERE "id" = $1;'
+
+    pool.query(queryText, [req.params.id]).then((result) => {
+        console.log('deleted individual ingredient')
+        res.sendStatus(201)
+    }).catch((error) => {
+        console.log('error in deleting ingredient', error)
+        res.sendStatus(500)
+    })
+})
+
+
+// POST ingredients only
+router.post('/postOnlyIngredients', async (req, res) => {
+    const recipeID = req.body.recipeID
+    const ingredientPackage = req.body.ingredientPackage
+    console.log('ingredients only', recipeID, ingredientPackage)
+    const ingredientText = `INSERT INTO "moms_ingredients" ("ingredient") VALUES ($1) RETURNING id;`
+    const postIngredientText = `INSERT INTO "recipe_ingredients" ("recipe_id", "ingredient_id", "quantity", "measurement") VALUES ($1, $2, $3, $4);`
+
+    // ! SAME
+    // ! moms_ingredients post new ingredients, return id's 
+    // ! recipe_ingredients post specified ingredients recipe_id (newRecipe ID), ingredient_id
+    try {
+        const ingredientPromises = ingredientPackage.map(async (ingredientObject) => {
+            if (ingredientObject.id === 'zero') {
+                const result = await pool.query(ingredientText, [ingredientObject.ingredient])
+                const newId = result.rows[0].id
+                ingredientObject.id = newId
+                const { id, measurement, quantity } = ingredientObject
+                await pool.query(postIngredientText, [recipeID, id, quantity, measurement])
+            } else {
+                const { id, measurement, quantity } = ingredientObject
+                await pool.query(postIngredientText, [recipeID, id, quantity, measurement])
+            }
+        })
+        await Promise.all(ingredientPromises)
+        res.sendStatus(201)
+    } catch (error) {
+        console.log('error in adding ingredients only', error)
+        res.sendStatus(500)
+    }
+})
 
 // POST titleDetails only
 router.post('/postOnlyTitle', (req, res) => {
@@ -140,7 +186,7 @@ router.post('/newRecipe', async (req, res) => {
     const subRecipeText = `INSERT INTO "recipe_relationship" ("parent_id", "sub_id") VALUES ($1, $2);`
     const isSubRecipeText = `UPDATE moms_recipes SET is_sub_recipe = true WHERE id = $1;`
     const ingredientText = `INSERT INTO "moms_ingredients" ("ingredient") VALUES ($1) RETURNING id;`
-    const postIngredientText = `INSERT INTO "recipe_ingredients" ("recipe_id", "ingredient_id", "quantity", "measurement") VALUES ($1, $2, $3, $4);`   
+    const postIngredientText = `INSERT INTO "recipe_ingredients" ("recipe_id", "ingredient_id", "quantity", "measurement") VALUES ($1, $2, $3, $4);`
     const tagText = `INSERT INTO "moms_tags" ("tag") VALUES ($1) RETURNING id;`
     const postTagText = `INSERT INTO "recipe_tags" ("recipe_id", "tags_id") VALUES ($1, $2);`
 
@@ -157,13 +203,13 @@ router.post('/newRecipe', async (req, res) => {
         const detailResults = await pool.query(detailsText, [newTitle, description, prep_time, servings, is_parent_recipe, picture])
         const newRecipeId = detailResults.rows[0].id
 
-        
+
         // ! moms_steps post Steps w/ need: new Recipe ID
         // ! generate step#
         const stepPromises = newSteps.map((step, i) => {
             const stepNumber = i + 1
             pool.query(stepText, [newRecipeId, stepNumber, step.instructions])
-            return 
+            return
         })
         await Promise.all(stepPromises)
 
@@ -225,7 +271,7 @@ router.post('/newRecipe', async (req, res) => {
 })
 
 
-// fetches all used ingredients
+
 router.get('/titleCheck', (req, res) => {
 
     const queryText = `SELECT title FROM "moms_recipes";`
@@ -251,7 +297,7 @@ router.get('/notParents', (req, res) => {
         res.sendStatus(500)
     })
 })
-
+// fetches all used ingredients
 router.get('/ingredients', (req, res) => {
 
     const queryText = `SELECT * FROM "moms_ingredients";`
@@ -514,7 +560,7 @@ ORDER BY rh.title;
   JOIN recipe_hierarchy rh ON rr.parent_id = rh.id
 )
 -- Retrieve all ingredients for the main recipe and its sub-recipes
-SELECT rh.id AS recipe_id, rh.title AS recipe_name, ri.id, i.ingredient, i.id AS ingredient_id, ri.quantity, ri.measurement
+SELECT rh.id AS recipe_id, rh.title AS recipe_name, ri.id AS target_id, i.ingredient, i.id AS ingredient_id, ri.quantity, ri.measurement
 FROM recipe_hierarchy rh
 JOIN recipe_ingredients ri ON rh.id = ri.recipe_id
 JOIN moms_ingredients i ON ri.ingredient_id = i.id

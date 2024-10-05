@@ -1,7 +1,6 @@
 
 // ensures that values are present in all fields...
 
-// const handleValueIsPresent = (...checkValues) => {
 const handleValueIsPresent = (checkValues) => {
 
     const checkValueArray = Object.values(checkValues)

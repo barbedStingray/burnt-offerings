@@ -20,11 +20,12 @@ const SubmitRecipe = ({ dataPackage }) => {
     const [postModalDisplay, setPostModalDisplay] = useState('failure')
     const [navigateNewId, setNavigateNewId] = useState(0)
 
+
     function randomIconNumber() {
         return Math.floor(Math.random() * 5)
     }
-    console.log('random', randomIconNumber())
     const iconStrings = ['dinner', 'fish', 'lunch', 'snack', 'egg']
+
 
 
     const handleCreateRecipe = async () => {
@@ -70,8 +71,6 @@ const SubmitRecipe = ({ dataPackage }) => {
         }
     }
 
-
-    // todo generate random image when 'no photo' is used
 
 
     function generatePostModal(activeString) {

@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import useAllCategory from '../createFunctions/allOfCategory'
 import handleSearchDetailChange from '../createFunctions/handleSearchDetailChange'
 import submitNewObject from '../createFunctions/submitNewObject'
+import deletePackageItem from '../createFunctions/deletePackageItem'
 
 
 const CreateSubRecipes = ({ dataPackage }) => {
@@ -67,8 +68,8 @@ const CreateSubRecipes = ({ dataPackage }) => {
             <p>No Recipes Added</p>
           ) : (
             <>
-              {subRecipePackage.map((recipe) => (
-                <p>{recipe.title}</p>
+              {subRecipePackage.map((recipe, i) => (
+                <p key={i} onClick={() => deletePackageItem(i, subRecipePackage, setSubRecipePackage)}>{recipe.title}</p>
               ))}
             </>
           )}
