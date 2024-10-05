@@ -1,26 +1,15 @@
 import React from 'react'
-import axios from 'axios'
 
 import DetailInput from '../../components/DetailInput'
 import handleDetailChange from '../createFunctions/handleDetailChange'
 import ImageUpload from '../../components/ImageUpload'
-import checkDuplicateTitles from '../createFunctions/checkDuplicateTitles'
-import useAllCategory from '../createFunctions/allOfCategory'
-import handleValueIsPresent from '../createFunctions/handleValueIsPresent'
 
 
-const CreateDetails = ({
-    dataPackage,
-    editPackage = { detailsModal: false, setDetailsModal: () => { } },
-    detailsPackage = { recipeID: null, refresh: false, setRefresh: () => { } }
-}) => {
+const CreateDetails = ({ dataPackage }) => {
 
 
-    const [allRecipes, allRecipesStatus] = useAllCategory('/api/recipes/titleCheck')
-    console.log('allRecipes', allRecipes)
     const { newRecipeDetails, setNewRecipeDetails } = dataPackage
-    const { detailsModal, setDetailsModal } = editPackage
-    const { recipeID, refresh, setRefresh } = detailsPackage
+
     const newRecipeDetailInputs = [
         {
             name: 'newTitle',
@@ -78,39 +67,6 @@ const CreateDetails = ({
     }
 
 
-
-
-    async function postTitleDetails(recipeID, newRecipeDetails, allRecipes) {
-        console.log('posting title details', recipeID, newRecipeDetails)
-
-
-        // check for values
-        const isValuePresent = handleValueIsPresent(newRecipeDetails)
-        if (!isValuePresent) return
-        // trimming
-        Object.entries(newRecipeDetails).forEach(([key, value]) => {
-            if (typeof value === 'string') {
-                newRecipeDetails[key] = value.trim();
-            }
-        })
-        // check for duplicate titles, but filter the original in case it doesnt change
-        const filterTitleRecipes = allRecipes.filter((recipe) => recipe.title !== newRecipeDetails.newTitle)
-        const isDuplicate = checkDuplicateTitles(newRecipeDetails, filterTitleRecipes)
-        if (!isDuplicate) return
-
-        try {
-            // post new
-            await axios.post(`/api/recipes/postOnlyTitle`, { recipeID, newRecipeDetails })
-            // todo !! loading screen?
-            // ? I dont think you'll have to clear...
-            setRefresh(!refresh)
-            setDetailsModal(false)
-        } catch (error) {
-            console.log('error client side postOnlyTags', error)
-            alert('something went wrong posting only tags!')
-        }
-    }
-
     return (
 
         <div className='createFormPage'>
@@ -130,13 +86,6 @@ const CreateDetails = ({
                     </div>
 
                 </form>
-
-                {detailsModal && (
-                    <div>
-                        <button onClick={() => postTitleDetails(recipeID, newRecipeDetails, allRecipes)}>Submit Tags</button>
-                        <button onClick={() => setDetailsModal(false)}>Cancel</button>
-                    </div>
-                )}
 
                 <ImageUpload photoFunction={addCustomPhoto} recipeImage={newRecipeDetails.picture} />
             </div>

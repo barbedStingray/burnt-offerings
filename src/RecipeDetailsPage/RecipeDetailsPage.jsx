@@ -9,7 +9,7 @@ import CreateTags from '../CreateRecipePage/createForms/CreateTags'
 import CreateDetails from '../CreateRecipePage/createForms/CreateDetails'
 import CreateIngredients from '../CreateRecipePage/createForms/CreateIngredients'
 
-import IngredientEdit from '../components/IngredientEdit'
+import EditTheDetail from '../components/EditTheDetail'
 
 import generatePhoto from '../components/generatePhoto'
 
@@ -32,7 +32,7 @@ const RecipeDetailsPage = () => {
 
     // todo return just an array of recipes with the main first...
     const { theMainRecipe, theSubRecipes, detailsStatus } = useRecipeDetails(recipeID, refresh)
-    console.log('theMainRecipe', theMainRecipe)
+    // console.log('theMainRecipe', theMainRecipe)
     // todo this can then be obsolete...
     const recipeDisplay = [theMainRecipe].concat(theSubRecipes)
 
@@ -74,28 +74,6 @@ const RecipeDetailsPage = () => {
     console.log('letsEdit', letsEdit)
 
 
-
-    // ** edit - details modal
-    const [newRecipeDetails, setNewRecipeDetails] = useState({
-        newTitle: '',
-        description: '',
-        prep_time: '',
-        servings: '',
-        picture: ''
-    })
-    const [detailsModal, setDetailsModal] = useState(false)
-
-    function letsEditTitleDetails() {
-        console.log('editing title details')
-        setNewRecipeDetails({
-            newTitle: theMainRecipe.recipeDetails.title,
-            description: theMainRecipe.recipeDetails.description,
-            prep_time: theMainRecipe.recipeDetails.prep_time,
-            servings: theMainRecipe.recipeDetails.servings,
-            picture: theMainRecipe.recipeDetails.picture,
-        })
-        setDetailsModal(true)
-    }
 
 
     // todo edit - sub recipe modal
@@ -170,17 +148,6 @@ const RecipeDetailsPage = () => {
 
 
 
-            {/* EDIT MODALS HERE */}
-            {detailsModal && (
-                <div className='createSingleForm'>
-                    <CreateDetails
-                        dataPackage={{ newRecipeDetails, setNewRecipeDetails }}
-                        editPackage={{ detailsModal, setDetailsModal }}
-                        detailsPackage={{ recipeID, refresh, setRefresh }}
-                    />
-                </div>
-            )}
-
             {tagModal && (
                 <div className='createSingleForm'>
                     <CreateTags
@@ -212,14 +179,6 @@ const RecipeDetailsPage = () => {
                             <div className='detailsTopInfo'>
 
                                 <div className='detailsPhotoContainer'>
-                                    {/* // ! this will change to accept 'no photo' */}
-
-                                    {/* {recipe.picture?.startsWith('http') ? (
-                                                <img className='mosaicPhoto' src={recipe.picture} />
-                                            ) : (
-                                                <p className='homeGeneratedIcon'>{generatePhoto(recipe.picture)}</p>
-                                            )} */}
-
                                     {recipeDisplay[recipeIndex].recipeDetails.picture.startsWith('http') ? (
                                         <img className='detailsPhoto' src={recipeDisplay[recipeIndex].recipeDetails.picture} />
                                     ) : (
@@ -228,15 +187,18 @@ const RecipeDetailsPage = () => {
                                 </div>
 
                                 <div className='prepServings'>
-                                    <p><LuAlarmClock />{recipeDisplay[recipeIndex].recipeDetails.prep_time}</p>
+                                    <p><LuAlarmClock /></p>
+                                    <EditTheDetail category={'prep_time'} detail={recipeDisplay[0].recipeDetails.prep_time} target_id={recipeID} letsEdit={letsEdit} refresh={refresh} setRefresh={setRefresh} />
                                     <p><FaInfo /> {recipeDisplay[recipeIndex].recipeDetails.servings}</p>
+                                    <EditTheDetail category={'servings'} detail={recipeDisplay[0].recipeDetails.servings} target_id={recipeID} letsEdit={letsEdit} refresh={refresh} setRefresh={setRefresh} />
                                 </div>
 
                             </div>
 
                             <div className='detailsBottomInfo'>
                                 <div className='detailsTitleDisplay'>
-                                    <p>{recipeDisplay[recipeIndex].recipeDetails.title}</p>
+                                    <EditTheDetail category={'title'} detail={recipeDisplay[0].recipeDetails.title} target_id={recipeID} letsEdit={letsEdit} refresh={refresh} setRefresh={setRefresh} />
+                                    {/* <p>{recipeDisplay[recipeIndex].recipeDetails.title}</p> */}
                                 </div>
 
 
@@ -255,7 +217,6 @@ const RecipeDetailsPage = () => {
 
                                 {letsEdit && (
                                     <>
-                                        <button onClick={() => letsEditTitleDetails()}>Edit Details</button>
                                         <button onClick={() => setIngredientModal(!ingredientModal)}>Add Ingredient</button>
                                         <button onClick={() => setTagModal(!tagModal)}>Add Tag</button>
                                     </>
@@ -266,7 +227,8 @@ const RecipeDetailsPage = () => {
 
                         <div className='detailsDescriptionParts'>
                             <p className='detailsDescriptionTitle'>Description</p>
-                            <p className='detailsDescription'>{recipeDisplay[recipeIndex].recipeDetails.description}</p>
+                            <EditTheDetail category={'description'} detail={recipeDisplay[0].recipeDetails.description} target_id={recipeID} letsEdit={letsEdit} refresh={refresh} setRefresh={setRefresh} />
+                            {/* <p className='detailsDescription'>{recipeDisplay[recipeIndex].recipeDetails.description}</p> */}
                         </div>
 
                         <div className='detailsTagsAndSteps'>
@@ -279,14 +241,11 @@ const RecipeDetailsPage = () => {
                                         key={i}
                                         className='displaySingleIngredient'
                                     >
-                                        {/* {letsEdit && <button onClick={() => letsEditIngredient(ingredient.target_id, ingredient.ingredient, ingredient.quantity, ingredient.measurement)}>EDIT ME</button>} */}
                                         {letsEdit && <button onClick={letsEdit ? () => deleteIndividualIngredient(ingredient.target_id) : null}>DELETE ME</button>}
 
-
-                                        <p className='displayIngredientQuantity' >{ingredient.quantity}</p>
+                                        <EditTheDetail category={'quantity'} detail={ingredient.quantity} target_id={ingredient.target_id} letsEdit={letsEdit} refresh={refresh} setRefresh={setRefresh} />
                                         <p className='displayIngredientMeasurement'>{ingredient.measurement}</p>
-                                        <IngredientEdit ingredient={ingredient.ingredient} target_id={ingredient.target_id} letsEdit={letsEdit} />
-                                        {/* <p className='displayIngredientIngredient'>{ingredient.ingredient}</p> */}
+                                        <EditTheDetail category={'ingredient'} detail={ingredient.ingredient} target_id={ingredient.target_id} letsEdit={letsEdit} refresh={refresh} setRefresh={setRefresh} />
                                         {letsEdit ? <p className='displayIngredientIngredient'>{ingredient.target_id}</p> : null}
                                     </div>
                                 ))}

@@ -7,6 +7,49 @@ const router = express.Router()
 // todo /details NEEDS REFACTOR
 
 
+// PUT single text box edits
+router.put('/putDetail/:id', async (req, res) => {
+    const target_id = req.params.id
+    const { category } = req.body
+    let { formatDetail } = req.body
+    console.log('putDetails', target_id, category, formatDetail)
+
+    const queryEditTexts = {
+        title: `UPDATE moms_recipes SET title = $1 WHERE id = $2;`,
+        prep_time: `UPDATE moms_recipes SET prep_time = $1 WHERE id = $2;`,
+        servings: `UPDATE moms_recipes SET servings = $1 WHERE id = $2;`,
+        description: `UPDATE moms_recipes SET description = $1 WHERE id = $2;`,
+        ingredient: `UPDATE recipe_ingredients SET ingredient_id = $1 WHERE id = $2`,
+        quantity: `UPDATE recipe_ingredients SET quantity = $1 WHERE id = $2`
+    }
+    const postIngredientText = `INSERT INTO "moms_ingredients" ("ingredient") VALUES ($1) RETURNING id;`
+
+    const ingredientExists = !isNaN(Number(formatDetail))
+    console.log('ingredientExists', ingredientExists)
+
+    const queryText = queryEditTexts[category]
+
+    try {
+
+        if (!ingredientExists) {
+            // console.log('ingredient does not exist', formatDetail)
+            const results = await pool.query(postIngredientText, [formatDetail])
+            formatDetail = results.rows[0].id
+            // console.log('formatDetails returned id', formatDetail)
+        }
+        // final put
+        console.log('right before PUT')
+        await pool.query(queryText, [formatDetail, target_id])
+        
+        
+        console.log('SUCCESS PUT new')
+        res.sendStatus(201)
+    } catch (error) {
+        console.log('PUT new error', error)
+        res.sendStatus(500)
+    }
+})
+
 
 // DELETE single Ingredient
 router.delete('/deleteRecipeIngredient/:id', (req, res) => {
@@ -21,8 +64,6 @@ router.delete('/deleteRecipeIngredient/:id', (req, res) => {
         res.sendStatus(500)
     })
 })
-
-
 // POST ingredients only
 router.post('/postOnlyIngredients', async (req, res) => {
     const recipeID = req.body.recipeID
@@ -55,24 +96,7 @@ router.post('/postOnlyIngredients', async (req, res) => {
     }
 })
 
-// POST titleDetails only
-router.post('/postOnlyTitle', (req, res) => {
-    const recipeID = req.body.recipeID
-    const { newTitle, description, prep_time, servings, picture } = req.body.newRecipeDetails
-    console.log('NEW TITLES', newTitle, description, prep_time, servings)
 
-    const titleDetailsText = `UPDATE moms_recipes
-    SET title = $1, description = $2, prep_time = $3, servings = $4, picture = $5 WHERE id = $6;`
-
-    pool.query(titleDetailsText, [newTitle, description, prep_time, servings, picture, recipeID])
-        .then((result) => {
-            console.log('major success in posting new details')
-            res.sendStatus(201)
-        }).catch((error) => {
-            console.log('major errror in uppdating titles')
-            res.sendStatus(500)
-        })
-})
 
 // POST only tags
 router.post('/postOnlyTags', async (req, res) => {
@@ -108,9 +132,6 @@ router.post('/postOnlyTags', async (req, res) => {
         res.sendStatus(500)
     }
 })
-
-
-
 // DELETE solo recipe Tag
 router.delete('/deleteRecipeTag/:id', (req, res) => {
     console.log('req.params.id', req.params.id)
@@ -126,7 +147,7 @@ router.delete('/deleteRecipeTag/:id', (req, res) => {
 })
 
 
-// DELETE ENTIRE
+// DELETE ENTIRE RECIPE
 router.delete('/deleteEntireRecipe/:id', async (req, res) => {
     console.log('params', req.params)
 
@@ -170,8 +191,7 @@ router.delete('/deleteEntireRecipe/:id', async (req, res) => {
         res.sendStatus(500)
     }
 })
-
-// POST new recipe / async
+// POST new ENTIRE recipe
 router.post('/newRecipe', async (req, res) => {
     const newRecipeDetails = req.body.newRecipeDetails
     const newSteps = req.body.stepPackage
@@ -271,7 +291,7 @@ router.post('/newRecipe', async (req, res) => {
 })
 
 
-
+// fetch all of categories
 router.get('/titleCheck', (req, res) => {
 
     const queryText = `SELECT title FROM "moms_recipes";`
@@ -284,7 +304,6 @@ router.get('/titleCheck', (req, res) => {
         res.sendStatus(500)
     })
 })
-
 router.get('/notParents', (req, res) => {
 
     const queryText = `SELECT id, title FROM "moms_recipes" WHERE is_parent_recipe = false;`
@@ -297,7 +316,6 @@ router.get('/notParents', (req, res) => {
         res.sendStatus(500)
     })
 })
-// fetches all used ingredients
 router.get('/ingredients', (req, res) => {
 
     const queryText = `SELECT * FROM "moms_ingredients";`
@@ -310,8 +328,6 @@ router.get('/ingredients', (req, res) => {
         res.sendStatus(500)
     })
 })
-
-// fetches all used tags
 router.get('/tags', (req, res) => {
 
     const queryText = `SELECT * FROM "moms_tags";`
@@ -324,6 +340,7 @@ router.get('/tags', (req, res) => {
         res.sendStatus(500)
     })
 })
+
 
 
 // all recipes route
@@ -506,8 +523,6 @@ FROM (
         })
 
 })
-
-
 // recipe details route
 router.get('/details/:id', async (req, res) => {
     console.log('inside the router for', req.params.id)
