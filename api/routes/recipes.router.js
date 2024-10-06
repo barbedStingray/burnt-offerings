@@ -19,25 +19,26 @@ router.put('/putDetail/:id', async (req, res) => {
         prep_time: `UPDATE moms_recipes SET prep_time = $1 WHERE id = $2;`,
         servings: `UPDATE moms_recipes SET servings = $1 WHERE id = $2;`,
         description: `UPDATE moms_recipes SET description = $1 WHERE id = $2;`,
-        ingredient: `UPDATE recipe_ingredients SET ingredient_id = $1 WHERE id = $2`,
-        quantity: `UPDATE recipe_ingredients SET quantity = $1 WHERE id = $2`
+        ingredient: `UPDATE recipe_ingredients SET ingredient_id = $1 WHERE id = $2;`,
+        quantity: `UPDATE recipe_ingredients SET quantity = $1 WHERE id = $2;`
     }
     const postIngredientText = `INSERT INTO "moms_ingredients" ("ingredient") VALUES ($1) RETURNING id;`
 
-    const ingredientExists = !isNaN(Number(formatDetail))
-    console.log('ingredientExists', ingredientExists)
+    const isNumber = !isNaN(Number(formatDetail)) // why do I need this - oh, checking if it's already a number...
+    // 2 1/3 is not a number, need to distinguish
 
     const queryText = queryEditTexts[category]
 
     try {
 
-        if (!ingredientExists) {
+        if (!isNumber && category === 'ingredient') {
             // console.log('ingredient does not exist', formatDetail)
             const results = await pool.query(postIngredientText, [formatDetail])
             formatDetail = results.rows[0].id
             // console.log('formatDetails returned id', formatDetail)
         }
         // final put
+        console.log(typeof formatDetail)
         console.log('right before PUT')
         await pool.query(queryText, [formatDetail, target_id])
         
