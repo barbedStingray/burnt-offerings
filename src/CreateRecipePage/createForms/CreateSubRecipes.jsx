@@ -10,7 +10,7 @@ const CreateSubRecipes = ({
   dataPackage,
   editPackage = { editView: '', setEditView: () => { }, refresh: false, setRefresh: () => { } },
 }) => {
-  const { recipeID = null, subRecipePackage, setSubRecipePackage } = dataPackage
+  const { displayId = null, subRecipePackage, setSubRecipePackage } = dataPackage
   const { editView, setEditView, refresh, setRefresh } = editPackage
 
 
@@ -69,7 +69,7 @@ const CreateSubRecipes = ({
 
         {editView?.length > 0 && (
           <div>
-            <button onClick={() => postOnlyType('subRecipes', recipeID, subRecipePackage, setSubRecipePackage, refresh, setRefresh, setEditView)}>Submit subrecipes</button>
+            <button onClick={() => postOnlyType('subRecipes', displayId, subRecipePackage, setSubRecipePackage, refresh, setRefresh, setEditView)}>Submit subrecipes</button>
             <button onClick={() => setEditView('')}>Cancel</button>
           </div>
         )}

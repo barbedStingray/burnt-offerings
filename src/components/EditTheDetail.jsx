@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import useAllCategory from '../CreateRecipePage/createFunctions/allOfCategory'
 import axios from 'axios'
 
+import ImageUpload from './ImageUpload'
+
 import measurementOptions from './measurements'
 
 
@@ -28,7 +30,7 @@ const EditTheDetail = ({ category, detail, target_id, letsEdit, refresh, setRefr
     async function putNewEdit(e, category, target_id, newEdit) {
         e.preventDefault()
         // console.log('putting edit', category, target_id)
-        
+
         // check for value
         const isValue = newEdit !== ''
         // console.log('isValue', isValue)
@@ -79,7 +81,9 @@ const EditTheDetail = ({ category, detail, target_id, letsEdit, refresh, setRefr
     }
 
 
-    
+
+
+
     const renderInputField = (category) => {
         switch (category) {
             case 'steps':
@@ -109,7 +113,7 @@ const EditTheDetail = ({ category, detail, target_id, letsEdit, refresh, setRefr
                 )
         }
     }
-    
+
 
     return (
         <div>

@@ -15,7 +15,7 @@ const CreateIngredients = ({
     editPackage = { editView: '', setEditView: () => { }, refresh: false, setRefresh: () => { } },
 }) => {
 
-    const { recipeID = null, ingredientPackage, setIngredientPackage } = dataPackage
+    const { displayId = null, ingredientPackage, setIngredientPackage } = dataPackage
     const { editView, setEditView, refresh, setRefresh } = editPackage
 
     const [allIngredients, allIngredientsStatus] = useAllCategory('/api/recipes/ingredients')
@@ -56,7 +56,7 @@ const CreateIngredients = ({
     ]
 
 
-    
+
     return (
         <div className='createFormPage'>
             <p className='createFormTitle'>Add Ingredients</p>
@@ -126,7 +126,7 @@ const CreateIngredients = ({
 
                 {editView?.length > 0 && (
                     <div>
-                        <button onClick={() => postOnlyType('ingredients', recipeID, ingredientPackage, setIngredientPackage, refresh, setRefresh, setEditView)}>Submit Tags</button>
+                        <button onClick={() => postOnlyType('ingredients', displayId, ingredientPackage, setIngredientPackage, refresh, setRefresh, setEditView)}>Submit Tags</button>
                         <button onClick={() => setEditView('')}>Cancel</button>
                     </div>
                 )}

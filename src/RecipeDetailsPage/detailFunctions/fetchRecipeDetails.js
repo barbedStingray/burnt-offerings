@@ -6,6 +6,7 @@ import axios from 'axios'
 export default function useRecipeDetails(recipeID, refresh) {
     const [theMainRecipe, setTheMainRecipe] = useState([])
     const [theSubRecipes, setTheSubRecipes] = useState([])
+    const [theParentRecipes, setTheParentRecipes] = useState([])
     const [detailsStatus, setDetailsStatus] = useState('unloaded')
 
     useEffect(() => {
@@ -13,18 +14,17 @@ export default function useRecipeDetails(recipeID, refresh) {
     }, [recipeID, refresh])
 
     async function fetchRecipeDetails(recipeID) {
-        // console.log('fetching details for', recipeID)
 
         try {
             const results = await axios.get(`/api/recipes/details/${recipeID}`)
-            const { mainRecipe, subRecipes } = results.data
-            // console.log('mainRecipe', mainRecipe)
+            const { mainRecipe, subRecipes, parentRecipes } = results.data
+            console.log('parentRecipes', parentRecipes)
 
             // todo if recipe is does not exist, must return unloaded or error
 
-            // console.log('subRecipes', subRecipes)
             setTheMainRecipe(mainRecipe)
             setTheSubRecipes(subRecipes)
+            setTheParentRecipes(parentRecipes)
             setDetailsStatus('loaded')
 
         } catch (error) {
@@ -34,6 +34,6 @@ export default function useRecipeDetails(recipeID, refresh) {
         }
     }
 
-
-    return { theMainRecipe, theSubRecipes, detailsStatus }
+    
+    return { theMainRecipe, theSubRecipes, theParentRecipes, detailsStatus }
 }

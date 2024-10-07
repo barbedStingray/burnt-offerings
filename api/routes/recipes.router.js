@@ -7,6 +7,7 @@ const router = express.Router()
 // todo /details NEEDS REFACTOR
 
 
+
 // PUT single text box edits
 router.put('/putDetail/:id', async (req, res) => {
     const target_id = req.params.id
@@ -54,10 +55,42 @@ router.put('/putDetail/:id', async (req, res) => {
 })
 
 
-// todo REMOVE/Delete sub recipe
+// REMOVE/Delete sub recipe
+router.delete('/removeSubRecipe/:id', async (req, res) => {
+    const subId = req.params.id
+    const parentId = req.body.parentId
+    console.log('parentId', req.body.parentId)
+    console.log('removing sub', subId, 'from', parentId)
+
+    const deleteRelationsText = `DELETE FROM "recipe_relationship" WHERE "parent_id" = $1 AND "sub_id" = $2;`
+    const isParentText = `SELECT * FROM "recipe_relationship" WHERE "parent_id" = $1;`
+    const isSubText = `SELECT * FROM "recipe_relationship" WHERE "sub_id" = $1;`
+    const notParentText = `UPDATE "moms_recipes" SET "is_parent_recipe" = false WHERE "id" = $1;`
+    const notSubRecipe = `UPDATE "moms_recipes" SET "is_sub_recipe" = false WHERE "id" = $1;`
+
+    try {
+        // remove subId from parent
+        await pool.query(deleteRelationsText, [parentId, subId])
+
+        // check if parentId is still a parent
+        const parentResults = await pool.query(isParentText, [parentId])
+        if (parentResults.rows.length === 0) {
+            await pool.query(notParentText, [parentId])
+        }
+
+        // check if subId is still a subId
+        const stillSubResults = await pool.query(isSubText, [subId])
+        if (stillSubResults.rows.length === 0) {
+            await pool.query(notSubRecipe, [subId])
+        }
 
 
-
+        res.sendStatus(201)
+    } catch (error) {
+        console.log('error in removing the sub recipe', error)
+        res.sendStatus(500)
+    }
+})
 // POST sub recipes only
 router.post('/postOnlySubRecipes', async (req, res) => {
     const recipeID = req.body.recipeID
@@ -66,10 +99,26 @@ router.post('/postOnlySubRecipes', async (req, res) => {
     const subRecipeText = `INSERT INTO "recipe_relationship" ("parent_id", "sub_id") VALUES ($1, $2);`
     const isSubRecipeText = `UPDATE moms_recipes SET is_sub_recipe = true WHERE id = $1;`
     const isParentRecipeText = `UPDATE moms_recipes SET is_parent_recipe = true WHERE id = $1;`
+    const hasSubRecipesText = `SELECT sub_id FROM "recipe_relationship" WHERE parent_id = $1;`
+    // todo block posting if a sub recipe is already there...
+
     try {
         // ! recipe_relationship post sub recipes need: new Recipe ID (parent) // you have the sub recipe ID's
         // ! switch any sub recipes is_sub_recipe = true
+        const alreadyHasSub = await pool.query(hasSubRecipesText, [recipeID])
+        console.log('alreadyHasSub', alreadyHasSub.rows)
+        const previousSubRecipes = alreadyHasSub.rows.map((sub) => sub.sub_id)
+        console.log('previousSubRecipes', previousSubRecipes)
+
+
         const subPromises = subRecipePackage.map(async (sub) => {
+            if (recipeID === sub.id) {
+                console.log('cannot have self relationship')
+                return
+            } else if (previousSubRecipes.includes(sub.id)) {
+                console.log('already a sub recipe - duplicate')
+                return
+            }
             await pool.query(subRecipeText, [recipeID, sub.id]) // post relationship
             await pool.query(isParentRecipeText, [recipeID]) // change is parent recipe
             await pool.query(isSubRecipeText, [sub.id]) // change is_sub_recipe
@@ -82,6 +131,7 @@ router.post('/postOnlySubRecipes', async (req, res) => {
         res.sendStatus(500)
     }
 })
+
 
 // DELETE step solo
 router.delete('/deleteRecipeStep/:id', (req, res) => {
@@ -96,7 +146,6 @@ router.delete('/deleteRecipeStep/:id', (req, res) => {
         res.sendStatus(500)
     })
 })
-
 // POST steps only
 router.post('/postOnlySteps', async (req, res) => {
     const recipeID = req.body.recipeID
@@ -314,7 +363,6 @@ router.post('/newRecipe', async (req, res) => {
         // ! recipe_relationship post sub recipes need: new Recipe ID (parent) // you have the sub recipe ID's
         // ! switch any sub recipes is_sub_recipe = true
         if (newSubRecipes.length > 0) {
-
             await pool.query(isParentRecipeText, [newRecipeId])
             const subPromises = newSubRecipes.map(async (sub) => {
                 await pool.query(subRecipeText, [newRecipeId, sub.id]) // post relationship
@@ -618,7 +666,9 @@ router.get('/details/:id', async (req, res) => {
     }
     const subRecipes = []
 
-
+    const parentRecipeText = `SELECT mr.id, mr.title FROM "recipe_relationship" AS rr
+JOIN "moms_recipes" AS mr ON rr.parent_id = mr.id
+WHERE rr.sub_id = $1;`
 
     const queryTextDetails = `
 WITH RECURSIVE recipe_hierarchy AS (
@@ -754,10 +804,17 @@ ORDER BY rh.title, s.step_number;
             // push it to the subRecipes array
             subRecipes.push(subRecipe)
         })
-        console.log('mainRecipe', mainRecipe)
-        console.log('subRecipes', subRecipes)
+        // console.log('mainRecipe', mainRecipe)
+        // console.log('subRecipes', subRecipes)
 
-        res.send({ mainRecipe, subRecipes })
+
+        // parent recipes
+        const parentResults = await pool.query(parentRecipeText, [recipeId])
+        const parentRecipes = parentResults.rows
+        console.log('parentRecipes', parentRecipes)
+
+        
+        res.status(200).send({ mainRecipe, subRecipes, parentRecipes })
 
     } catch (error) {
         console.log('router DETAILS failure', error)

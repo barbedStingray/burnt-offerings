@@ -14,8 +14,8 @@ const CreateTags = ({
     editPackage = { editView: '', setEditView: () => { }, refresh: false, setRefresh: () => { } },
 }) => {
 
-    const { recipeID = null, tagPackage, setTagPackage } = dataPackage
-    console.log('recipeID', recipeID)
+    const { displayId = null, tagPackage, setTagPackage } = dataPackage
+    console.log('recipeID', displayId)
     const { editView, setEditView, refresh, setRefresh } = editPackage
 
     const [allTags, allTagsStatus] = useAllCategory('/api/recipes/tags')
@@ -105,7 +105,7 @@ const CreateTags = ({
 
                 {editView?.length > 0 && (
                     <div>
-                        <button onClick={() => postOnlyType('tags', recipeID, tagPackage, setTagPackage, refresh, setRefresh, setEditView)}>Submit Tags</button>
+                        <button onClick={() => postOnlyType('tags', displayId, tagPackage, setTagPackage, refresh, setRefresh, setEditView)}>Submit Tags</button>
                         <button onClick={() => setEditView('')}>Cancel</button>
                     </div>
                 )}

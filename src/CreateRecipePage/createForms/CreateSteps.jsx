@@ -13,7 +13,7 @@ const CreateSteps = ({
     editPackage = { editView: '', setEditView: () => { }, refresh: false, setRefresh: () => { } },
 }) => {
     
-    const { recipeID = null, stepPackage, setStepPackage } = dataPackage
+    const { displayId = null, stepPackage, setStepPackage } = dataPackage
     const { editView, setEditView, refresh, setRefresh } = editPackage
 
 
@@ -73,7 +73,7 @@ const CreateSteps = ({
 
                 {editView?.length > 0 && (
                     <div>
-                        <button onClick={() => postOnlyType('steps', recipeID, stepPackage, setStepPackage, refresh, setRefresh, setEditView)}>Submit Tags</button>
+                        <button onClick={() => postOnlyType('steps', displayId, stepPackage, setStepPackage, refresh, setRefresh, setEditView)}>Submit Tags</button>
                         <button onClick={() => setEditView('')}>Cancel</button>
                     </div>
                 )}
