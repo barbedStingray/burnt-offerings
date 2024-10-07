@@ -20,18 +20,20 @@ router.put('/putDetail/:id', async (req, res) => {
         servings: `UPDATE moms_recipes SET servings = $1 WHERE id = $2;`,
         description: `UPDATE moms_recipes SET description = $1 WHERE id = $2;`,
         ingredient: `UPDATE recipe_ingredients SET ingredient_id = $1 WHERE id = $2;`,
-        quantity: `UPDATE recipe_ingredients SET quantity = $1 WHERE id = $2;`
+        quantity: `UPDATE recipe_ingredients SET quantity = $1 WHERE id = $2;`,
+        measurement: `UPDATE recipe_ingredients SET measurement = $1 WHERE id = $2;`,
+        step_number: `UPDATE moms_steps SET step_number = $1 WHERE id = $2;`,
+        instructions: `UPDATE moms_steps SET instructions = $1 WHERE id = $2;`,
     }
     const postIngredientText = `INSERT INTO "moms_ingredients" ("ingredient") VALUES ($1) RETURNING id;`
 
-    const isNumber = !isNaN(Number(formatDetail)) // why do I need this - oh, checking if it's already a number...
-    // 2 1/3 is not a number, need to distinguish
+    const isNumber = !isNaN(Number(formatDetail))
 
     const queryText = queryEditTexts[category]
 
     try {
 
-        if (!isNumber && category === 'ingredient') {
+        if (category === 'ingredient' && !isNumber) {
             // console.log('ingredient does not exist', formatDetail)
             const results = await pool.query(postIngredientText, [formatDetail])
             formatDetail = results.rows[0].id
@@ -41,12 +43,84 @@ router.put('/putDetail/:id', async (req, res) => {
         console.log(typeof formatDetail)
         console.log('right before PUT')
         await pool.query(queryText, [formatDetail, target_id])
-        
-        
+
+
         console.log('SUCCESS PUT new')
         res.sendStatus(201)
     } catch (error) {
         console.log('PUT new error', error)
+        res.sendStatus(500)
+    }
+})
+
+
+// todo REMOVE/Delete sub recipe
+
+
+
+// POST sub recipes only
+router.post('/postOnlySubRecipes', async (req, res) => {
+    const recipeID = req.body.recipeID
+    const subRecipePackage = req.body.typePackage
+    console.log('backend sub recipe package', recipeID, subRecipePackage)
+    const subRecipeText = `INSERT INTO "recipe_relationship" ("parent_id", "sub_id") VALUES ($1, $2);`
+    const isSubRecipeText = `UPDATE moms_recipes SET is_sub_recipe = true WHERE id = $1;`
+    const isParentRecipeText = `UPDATE moms_recipes SET is_parent_recipe = true WHERE id = $1;`
+    try {
+        // ! recipe_relationship post sub recipes need: new Recipe ID (parent) // you have the sub recipe ID's
+        // ! switch any sub recipes is_sub_recipe = true
+        const subPromises = subRecipePackage.map(async (sub) => {
+            await pool.query(subRecipeText, [recipeID, sub.id]) // post relationship
+            await pool.query(isParentRecipeText, [recipeID]) // change is parent recipe
+            await pool.query(isSubRecipeText, [sub.id]) // change is_sub_recipe
+            return
+        })
+        await Promise.all(subPromises)
+        res.sendStatus(201)
+    } catch (error) {
+        console.log('error in posting sub recipes only', error)
+        res.sendStatus(500)
+    }
+})
+
+// DELETE step solo
+router.delete('/deleteRecipeStep/:id', (req, res) => {
+    console.log('req.params.id', req.params.id)
+    const queryText = 'DELETE FROM "moms_steps" WHERE "id" = $1;'
+
+    pool.query(queryText, [req.params.id]).then((result) => {
+        console.log('deleted individual step')
+        res.sendStatus(201)
+    }).catch((error) => {
+        console.log('error in deleting step', error)
+        res.sendStatus(500)
+    })
+})
+
+// POST steps only
+router.post('/postOnlySteps', async (req, res) => {
+    const recipeID = req.body.recipeID
+    const stepPackage = req.body.typePackage
+
+    console.log('stepPackage', stepPackage)
+
+    const highestStepQuery = `SELECT MAX(step_number) FROM moms_steps WHERE recipe_id = $1;`
+    const stepText = `INSERT INTO "moms_steps" ("recipe_id", "step_number", "instructions") VALUES ($1, $2, $3);`
+
+    try {
+        const lastStepResult = await pool.query(highestStepQuery, [recipeID])
+        let lastStep = lastStepResult.rows[0].max
+
+        const stepPromises = stepPackage.map((step, i) => {
+            console.log('STEP', step.instructions)
+            const stepNumber = (lastStep ?? 0) + i + 1
+            return pool.query(stepText, [recipeID, stepNumber, step.instructions])
+        })
+        await Promise.all(stepPromises)
+
+        res.sendStatus(200)
+    } catch (error) {
+        console.log('error in postOnlySteps', error)
         res.sendStatus(500)
     }
 })
@@ -68,7 +142,7 @@ router.delete('/deleteRecipeIngredient/:id', (req, res) => {
 // POST ingredients only
 router.post('/postOnlyIngredients', async (req, res) => {
     const recipeID = req.body.recipeID
-    const ingredientPackage = req.body.ingredientPackage
+    const ingredientPackage = req.body.typePackage
     console.log('ingredients only', recipeID, ingredientPackage)
     const ingredientText = `INSERT INTO "moms_ingredients" ("ingredient") VALUES ($1) RETURNING id;`
     const postIngredientText = `INSERT INTO "recipe_ingredients" ("recipe_id", "ingredient_id", "quantity", "measurement") VALUES ($1, $2, $3, $4);`
@@ -102,8 +176,8 @@ router.post('/postOnlyIngredients', async (req, res) => {
 // POST only tags
 router.post('/postOnlyTags', async (req, res) => {
     const recipeID = req.body.recipeID
-    const tagPackage = req.body.tagPackage
-    // console.log('THE PACKAGE', recipeID, tagPackage)
+    const tagPackage = req.body.typePackage
+    console.log('THE PACKAGE', recipeID, tagPackage)
 
     const tagText = `INSERT INTO "moms_tags" ("tag") VALUES ($1) RETURNING id;`
     const postTagText = `INSERT INTO "recipe_tags" ("recipe_id", "tags_id") VALUES ($1, $2);`
@@ -129,7 +203,7 @@ router.post('/postOnlyTags', async (req, res) => {
         console.log('success in posting new tags!')
         res.sendStatus(201)
     } catch (error) {
-        console.log('error in posting new tags!')
+        console.log('error in posting new tags!', error)
         res.sendStatus(500)
     }
 })
@@ -206,10 +280,12 @@ router.post('/newRecipe', async (req, res) => {
     const stepText = `INSERT INTO "moms_steps" ("recipe_id", "step_number", "instructions") VALUES ($1, $2, $3);`
     const subRecipeText = `INSERT INTO "recipe_relationship" ("parent_id", "sub_id") VALUES ($1, $2);`
     const isSubRecipeText = `UPDATE moms_recipes SET is_sub_recipe = true WHERE id = $1;`
+    const isParentRecipeText = `UPDATE moms_recipes SET is_parent_recipe = true WHERE id = $1;`
     const ingredientText = `INSERT INTO "moms_ingredients" ("ingredient") VALUES ($1) RETURNING id;`
     const postIngredientText = `INSERT INTO "recipe_ingredients" ("recipe_id", "ingredient_id", "quantity", "measurement") VALUES ($1, $2, $3, $4);`
     const tagText = `INSERT INTO "moms_tags" ("tag") VALUES ($1) RETURNING id;`
     const postTagText = `INSERT INTO "recipe_tags" ("recipe_id", "tags_id") VALUES ($1, $2);`
+
 
     try {
         // ** FILTERing is all done client side...
@@ -237,12 +313,16 @@ router.post('/newRecipe', async (req, res) => {
 
         // ! recipe_relationship post sub recipes need: new Recipe ID (parent) // you have the sub recipe ID's
         // ! switch any sub recipes is_sub_recipe = true
-        const subPromises = newSubRecipes.map(async (sub) => {
-            await pool.query(subRecipeText, [newRecipeId, sub.id]) // post relationship
-            await pool.query(isSubRecipeText, [sub.id]) // change is_sub_recipe
-            return
-        })
-        await Promise.all(subPromises)
+        if (newSubRecipes.length > 0) {
+
+            await pool.query(isParentRecipeText, [newRecipeId])
+            const subPromises = newSubRecipes.map(async (sub) => {
+                await pool.query(subRecipeText, [newRecipeId, sub.id]) // post relationship
+                await pool.query(isSubRecipeText, [sub.id]) // change is_sub_recipe
+                return
+            })
+            await Promise.all(subPromises)
+        }
 
         // ! moms_ingredients post new ingredients, return id's 
         // ! recipe_ingredients post specified ingredients recipe_id (newRecipe ID), ingredient_id

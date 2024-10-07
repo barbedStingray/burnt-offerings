@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import useAllCategory from '../CreateRecipePage/createFunctions/allOfCategory'
 import axios from 'axios'
 
+import measurementOptions from './measurements'
+
 
 
 const EditTheDetail = ({ category, detail, target_id, letsEdit, refresh, setRefresh }) => {
@@ -9,7 +11,6 @@ const EditTheDetail = ({ category, detail, target_id, letsEdit, refresh, setRefr
     const [newEdit, setNewEdit] = useState(detail)
     const [allRecipes, allRecipesStatus] = useAllCategory('/api/recipes/titleCheck')
     const [allIngredients, allIngredientsStatus] = useAllCategory('/api/recipes/ingredients')
-
 
 
 
@@ -23,12 +24,11 @@ const EditTheDetail = ({ category, detail, target_id, letsEdit, refresh, setRefr
 
 
 
-
     // put function
     async function putNewEdit(e, category, target_id, newEdit) {
         e.preventDefault()
         // console.log('putting edit', category, target_id)
-
+        
         // check for value
         const isValue = newEdit !== ''
         // console.log('isValue', isValue)
@@ -37,7 +37,6 @@ const EditTheDetail = ({ category, detail, target_id, letsEdit, refresh, setRefr
         // format if necessary Trim all? 
         let formatDetail = newEdit.trim()
         // console.log('formatDetail', formatDetail)
-
 
         // check for duplicate
         if (category === 'title') {
@@ -62,10 +61,6 @@ const EditTheDetail = ({ category, detail, target_id, letsEdit, refresh, setRefr
             console.log('formatDetail', formatDetail)
         }
 
-        // todo send whole or decimals to the DB function 
-        // todo finish quantity to db.
-
-
         // send to db
         try {
             // put new
@@ -84,6 +79,7 @@ const EditTheDetail = ({ category, detail, target_id, letsEdit, refresh, setRefr
     }
 
 
+    
     const renderInputField = (category) => {
         switch (category) {
             case 'steps':
@@ -98,12 +94,9 @@ const EditTheDetail = ({ category, detail, target_id, letsEdit, refresh, setRefr
             case 'measurement':
                 return (
                     <select value={newEdit} onChange={(e) => setNewEdit(e.target.value)}>
-                        {/* Replace these options with your actual quantity options */}
-                        <option value="">Select quantity</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        {/* Add more options as needed */}
+                        {measurementOptions.map((measure, i) => (
+                            <option key={i} value={measure}>{measure}</option>
+                        ))}
                     </select>
                 )
             default:

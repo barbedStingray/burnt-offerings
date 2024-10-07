@@ -1,4 +1,5 @@
 import React from 'react'
+import measurementOptions from './measurements'
 
 // React.memo - wraps a functional component to memorize output
 // if props stay the same between rerenders, the component wont rerender
@@ -14,7 +15,6 @@ const DetailInput = ({ inputDetails }) => {
   // could add pattern for acceptable characters/numbers/symbols
   // todo what select doesnt use returns undefined
 
-  const measurementOptions = ['Tsp', 'Tbsp', 'Cup', 'whole', 'Pinch', 'floz', 'ml', 'oz', 'g', 'lbs', 'Qrt', 'Pint', 'Gal']
 
 
   if (type === 'select') {

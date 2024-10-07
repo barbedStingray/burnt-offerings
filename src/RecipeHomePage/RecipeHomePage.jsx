@@ -175,7 +175,6 @@ const RecipeHomePage = () => {
                                         style={{ animationDelay: `${i * 100}ms` }}
                                     >
                                         <div className='recipeMosaicPhoto'>
-                                            {/* // ! this will change to accept 'no photo' */}
                                             {recipe.picture?.startsWith('http') ? (
                                                 <img className='mosaicPhoto' src={recipe.picture} />
                                             ) : (

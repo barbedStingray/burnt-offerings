@@ -6,25 +6,22 @@ import axios from 'axios'
 import submitNewObject from '../createFunctions/submitNewObject'
 import handleSearchDetailChange from '../createFunctions/handleSearchDetailChange'
 import deletePackageItem from '../createFunctions/deletePackageItem'
+import postOnlyType from '../../components/postOnlyType'
 
 
 const CreateTags = ({
-    dataPackage,
-    // below - used in recipe edits
-    editPackage = { tagModal: false, setTagModal: () => { } },
-    detailsPackage = { recipeID: null, refresh: false, setRefresh: () => { } }
+    dataPackage, // ? is recipeID undefined error?
+    editPackage = { editView: '', setEditView: () => { }, refresh: false, setRefresh: () => { } },
 }) => {
 
-    const { tagPackage, setTagPackage } = dataPackage
-    const { tagModal, setTagModal } = editPackage
-    const { recipeID, refresh, setRefresh } = detailsPackage
-
+    const { recipeID = null, tagPackage, setTagPackage } = dataPackage
+    console.log('recipeID', recipeID)
+    const { editView, setEditView, refresh, setRefresh } = editPackage
 
     const [allTags, allTagsStatus] = useAllCategory('/api/recipes/tags')
     const [filteredList, setFilteredList] = useState([]) // dropdown logic
     const [searchAttribute, setSearchAttribute] = useState('') // dropdown logic
 
-    // const [newTagData, setNewTagData] = useState([])
     const [newTag, setNewTag] = useState({ id: null, tag: '' })
     const initialTagState = { id: null, tag: '' }
 
@@ -48,23 +45,7 @@ const CreateTags = ({
         }
     }
 
-    async function postOnlyTags() {
 
-        if (tagPackage.length === 0) {
-            alert('You have not added any tags!')
-            return
-        }
-        try {
-            await axios.post(`/api/recipes/postOnlyTags`, { recipeID, tagPackage })
-            // todo !! loading screen? error handling of duplicates?
-            setTagPackage([])
-            setRefresh(!refresh)
-            setTagModal(false)
-        } catch (error) {
-            console.log('error client side postOnlyTags', error)
-            alert('something went wrong posting only tags!')
-        }
-    }
 
 
     return (
@@ -122,10 +103,10 @@ const CreateTags = ({
                 </form>
 
 
-                {tagModal && (
+                {editView?.length > 0 && (
                     <div>
-                        <button onClick={() => postOnlyTags()}>Submit Tags</button>
-                        <button onClick={() => setTagModal(false)}>Cancel</button>
+                        <button onClick={() => postOnlyType('tags', recipeID, tagPackage, setTagPackage, refresh, setRefresh, setEditView)}>Submit Tags</button>
+                        <button onClick={() => setEditView('')}>Cancel</button>
                     </div>
                 )}
 

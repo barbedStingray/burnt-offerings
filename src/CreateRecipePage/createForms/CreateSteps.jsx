@@ -1,17 +1,46 @@
 import React, { useState } from 'react'
+import axios from 'axios'
 
 import handleDetailChange from '../createFunctions/handleDetailChange'
 import submitNewObject from '../createFunctions/submitNewObject'
 import deletePackageItem from '../createFunctions/deletePackageItem'
 
+import postOnlyType from '../../components/postOnlyType'
 
-const CreateSteps = ({ dataPackage }) => {
-    const { stepPackage, setStepPackage } = dataPackage
+
+const CreateSteps = ({ 
+    dataPackage,
+    editPackage = { editView: '', setEditView: () => { }, refresh: false, setRefresh: () => { } },
+}) => {
+    
+    const { recipeID = null, stepPackage, setStepPackage } = dataPackage
+    const { editView, setEditView, refresh, setRefresh } = editPackage
+
 
     const [newStep, setNewStep] = useState({ id: null, instructions: '' })
     const initialTagState = { id: null, instructions: '' }
-    const [filteredList, setFilteredList] = useState([]) // dropdown logic
+    const [_, setFilteredList] = useState([]) // dropdown logic
     const allSteps = [] // todo empty array to fulfill function -- replace a default in function
+
+
+    // async function postOnlySteps() {
+    //     console.log('posting steps')
+    //     if (stepPackage.length === 0) {
+    //         alert('You have not added any steps!')
+    //         return
+    //     }
+    //     try {
+    //         await axios.post(`/api/recipes/postOnlySteps`, { recipeID, stepPackage })
+    //         // todo !! loading screen? error handling of duplicates?
+    //         setStepPackage([])
+    //         setRefresh(!refresh)
+    //         setEditView('')
+    //     } catch (error) {
+    //         console.log('error client side postOnlyTags', error)
+    //         alert('something went wrong posting only tags!')
+    //     }
+    // }
+
 
 
     return (
@@ -41,6 +70,14 @@ const CreateSteps = ({ dataPackage }) => {
                     </textarea>
                     <button className='createAddButton' type='submit'>Add</button>
                 </form>
+
+                {editView?.length > 0 && (
+                    <div>
+                        <button onClick={() => postOnlyType('steps', recipeID, stepPackage, setStepPackage, refresh, setRefresh, setEditView)}>Submit Tags</button>
+                        <button onClick={() => setEditView('')}>Cancel</button>
+                    </div>
+                )}
+
 
                 <p>Added Instructions</p>
 

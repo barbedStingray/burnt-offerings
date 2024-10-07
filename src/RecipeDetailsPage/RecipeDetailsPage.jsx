@@ -6,10 +6,12 @@ import axios from 'axios'
 import useRecipeDetails from './detailFunctions/fetchRecipeDetails'
 
 import CreateTags from '../CreateRecipePage/createForms/CreateTags'
-import CreateDetails from '../CreateRecipePage/createForms/CreateDetails'
 import CreateIngredients from '../CreateRecipePage/createForms/CreateIngredients'
+import CreateSteps from '../CreateRecipePage/createForms/CreateSteps'
+import CreateSubRecipes from '../CreateRecipePage/createForms/CreateSubRecipes'
 
 import EditTheDetail from '../components/EditTheDetail'
+import deleteSoloDetail from '../components/deleteSoloDetail'
 
 import generatePhoto from '../components/generatePhoto'
 
@@ -59,11 +61,9 @@ const RecipeDetailsPage = () => {
 
         } catch (error) {
             console.log('ERROR delete entire recipe', id)
-            // return some form of user error.
+            alert('sorry, your recipe was not deleted')
         }
     }
-
-
 
 
 
@@ -72,55 +72,63 @@ const RecipeDetailsPage = () => {
     //  ! TODO begin edit functionalities
     const [letsEdit, setLetsEdit] = useState(false)
     console.log('letsEdit', letsEdit)
+    const [editView, setEditView] = useState('')
+    console.log('editView', editView)
+
+    function generateEditModalType(editModalType) {
+        switch (editModalType) {
+            case 'subRecipe':
+                return (
+                    <div className='createSingleForm'>
+                        <CreateSubRecipes
+                            dataPackage={{ recipeID, subRecipePackage, setSubRecipePackage }}
+                            editPackage={{ editView, setEditView, refresh, setRefresh }}
+                        />
+                    </div>
+                )
+            case 'ingredient':
+                return (
+                    <div className='createSingleForm'>
+                        <CreateIngredients
+                            dataPackage={{ recipeID, ingredientPackage, setIngredientPackage }}
+                            editPackage={{ editView, setEditView, refresh, setRefresh }}
+                        />
+                    </div>
+                )
+            case 'tag':
+                return (
+                    <div className='createSingleForm'>
+                        <CreateTags
+                            dataPackage={{ recipeID, tagPackage, setTagPackage }}
+                            editPackage={{ editView, setEditView, refresh, setRefresh }}
+                        />
+                    </div>
+                )
+            case 'step':
+                return (
+                    <div className='createSingleForm'>
+                        <CreateSteps
+                            dataPackage={{ recipeID, stepPackage, setStepPackage }}
+                            editPackage={{ editView, setEditView, refresh, setRefresh }}
+                        />
+                    </div>
+                )
+            default:
+                return null
+        }
+    }
 
 
 
 
     // todo edit - sub recipe modal
-
-
-
-    // todo edit ingredients modal
-    const [ingredientModal, setIngredientModal] = useState(false)
+    const [subRecipePackage, setSubRecipePackage] = useState([])
     // add an ingredient
     const [ingredientPackage, setIngredientPackage] = useState([])
-    // delete an ingredient
-    async function deleteIndividualIngredient(id) {
-        console.log('deleting individual ingredient', id)
-        try {
-            console.log('delete ingredient', id)
-            await axios.delete(`/api/recipes/deleteRecipeIngredient/${id}`)
-            setRefresh(!refresh)
-        } catch (error) {
-            console.log('ERROR delete ind. ingredient', error)
-            // return some form of user error.
-        }
-    }
-    // todo edit an ingredient
-
-
-
-    // todo edit - steps modal
-    // todo add a step
-    // todo delete a step
-    // todo edit a step
-    // todo reorder steps
-
-
-
+    // edit steps modal
+    const [stepPackage, setStepPackage] = useState([])
     // ** edit - tag modal
     const [tagPackage, setTagPackage] = useState([])
-    const [tagModal, setTagModal] = useState(false)
-
-    async function deleteIndividualTag(id) {
-        try {
-            await axios.delete(`/api/recipes/deleteRecipeTag/${id}`)
-            setRefresh(!refresh)
-        } catch (error) {
-            console.log('ERROR delete ind. tag', error)
-            // return some form of user error.
-        }
-    }
 
 
 
@@ -148,25 +156,12 @@ const RecipeDetailsPage = () => {
 
 
 
-            {tagModal && (
-                <div className='createSingleForm'>
-                    <CreateTags
-                        dataPackage={{ tagPackage, setTagPackage }}
-                        editPackage={{ tagModal, setTagModal }}
-                        detailsPackage={{ recipeID, refresh, setRefresh }}
-                    />,
-                </div>
+            {editView.length > 0 && (
+                <>
+                    {generateEditModalType(editView)}
+                </>
             )}
 
-            {ingredientModal && (
-                <div className='createSingleForm'>
-                    <CreateIngredients
-                        dataPackage={{ ingredientPackage, setIngredientPackage }}
-                        editPackage={{ ingredientModal, setIngredientModal }}
-                        detailsPackage={{ recipeID, refresh, setRefresh }}
-                    />,
-                </div>
-            )}
 
 
 
@@ -198,7 +193,6 @@ const RecipeDetailsPage = () => {
                             <div className='detailsBottomInfo'>
                                 <div className='detailsTitleDisplay'>
                                     <EditTheDetail category={'title'} detail={recipeDisplay[0].recipeDetails.title} target_id={recipeID} letsEdit={letsEdit} refresh={refresh} setRefresh={setRefresh} />
-                                    {/* <p>{recipeDisplay[recipeIndex].recipeDetails.title}</p> */}
                                 </div>
 
 
@@ -206,7 +200,7 @@ const RecipeDetailsPage = () => {
                                     {recipeDisplay[recipeIndex].tags.map((tag, i) => (
                                         <p
                                             key={i}
-                                            onClick={letsEdit ? (() => deleteIndividualTag(tag.delete_id)) : null}
+                                            onClick={letsEdit ? (() => deleteSoloDetail('tag', tag.delete_id, refresh, setRefresh)) : null}
                                         >
                                             {tag.tag}{letsEdit && ' X'}
                                         </p>
@@ -217,8 +211,9 @@ const RecipeDetailsPage = () => {
 
                                 {letsEdit && (
                                     <>
-                                        <button onClick={() => setIngredientModal(!ingredientModal)}>Add Ingredient</button>
-                                        <button onClick={() => setTagModal(!tagModal)}>Add Tag</button>
+                                        <button onClick={() => setEditView('ingredient')}>View Ingredient</button>
+                                        <button onClick={() => setEditView('tag')}>View Tag</button>
+                                        <button onClick={() => setEditView('step')}>View Step</button>
                                     </>
                                 )}
 
@@ -228,7 +223,6 @@ const RecipeDetailsPage = () => {
                         <div className='detailsDescriptionParts'>
                             <p className='detailsDescriptionTitle'>Description</p>
                             <EditTheDetail category={'description'} detail={recipeDisplay[0].recipeDetails.description} target_id={recipeID} letsEdit={letsEdit} refresh={refresh} setRefresh={setRefresh} />
-                            {/* <p className='detailsDescription'>{recipeDisplay[recipeIndex].recipeDetails.description}</p> */}
                         </div>
 
                         <div className='detailsTagsAndSteps'>
@@ -241,12 +235,10 @@ const RecipeDetailsPage = () => {
                                         key={i}
                                         className='displaySingleIngredient'
                                     >
-                                        {letsEdit && <button onClick={letsEdit ? () => deleteIndividualIngredient(ingredient.target_id) : null}>DELETE ME</button>}
-
+                                        {letsEdit && <button onClick={letsEdit ? () => deleteSoloDetail('ingredient', ingredient.target_id, refresh, setRefresh) : null}>DELETE ME</button>}
                                         <EditTheDetail category={'quantity'} detail={ingredient.quantity} target_id={ingredient.target_id} letsEdit={letsEdit} refresh={refresh} setRefresh={setRefresh} />
-                                        <p className='displayIngredientMeasurement'>{ingredient.measurement}</p>
+                                        <EditTheDetail category={'measurement'} detail={ingredient.measurement} target_id={ingredient.target_id} letsEdit={letsEdit} refresh={refresh} setRefresh={setRefresh} />
                                         <EditTheDetail category={'ingredient'} detail={ingredient.ingredient} target_id={ingredient.target_id} letsEdit={letsEdit} refresh={refresh} setRefresh={setRefresh} />
-                                        {letsEdit ? <p className='displayIngredientIngredient'>{ingredient.target_id}</p> : null}
                                     </div>
                                 ))}
                             </div>
@@ -256,15 +248,25 @@ const RecipeDetailsPage = () => {
                             <div className='displayRecipeSteps'>
                                 {recipeDisplay[recipeIndex].steps.map((step, i) => (
                                     <div key={i} className='displayStepItem'>
-                                        <p className='displayStepNumber'>{step.step_number}</p>
-                                        <p className='displayStepStep'>{step.instructions}</p>
+                                        {letsEdit && <button onClick={() => deleteSoloDetail('step', step.step_id, refresh, setRefresh)}>DELETE ME</button>}
+                                        <EditTheDetail category={'step_number'} detail={step.step_number} target_id={step.step_id} letsEdit={letsEdit} refresh={refresh} setRefresh={setRefresh} />
+                                        <EditTheDetail category={'instructions'} detail={step.instructions} target_id={step.step_id} letsEdit={letsEdit} refresh={refresh} setRefresh={setRefresh} />
+                                        {/* <p className='displayStepNumber'>{step.step_number}</p>
+                                        <p className='displayStepStep'>{step.instructions}</p> */}
                                     </div>
                                 ))}
                             </div>
 
                         </div>
 
-                        <button onClick={() => deleteEntireRecipe(recipeID)}>Delete Recipe</button>
+                        {recipeIndex > 0 ? (
+                            <button>Remove Sub Recipe</button>
+                        ) : (
+                            <>
+                                <button onClick={() => setEditView('subRecipe')}>Add SubRecipes</button>
+                                <button onClick={() => deleteEntireRecipe(recipeID)}>Delete Recipe</button>
+                            </>
+                        )}
 
 
 
@@ -276,7 +278,8 @@ const RecipeDetailsPage = () => {
             </div>
 
 
-            {recipeDisplay > 1 && (
+            {/* // ! greater than 0 ?? */}
+            {recipeDisplay.length > 1 && (
                 <div className='detailsFooter'>
                     <button
                         className='createSubSliderButton'
@@ -317,7 +320,7 @@ const RecipeDetailsPage = () => {
 
 
 
-            {/* {JSON.stringify(detailsStatus)} */}
+            {/* // todo {JSON.stringify(detailsStatus)} */}
 
         </div>
     )

@@ -4,10 +4,15 @@ import useAllCategory from '../createFunctions/allOfCategory'
 import handleSearchDetailChange from '../createFunctions/handleSearchDetailChange'
 import submitNewObject from '../createFunctions/submitNewObject'
 import deletePackageItem from '../createFunctions/deletePackageItem'
+import postOnlyType from '../../components/postOnlyType'
 
+const CreateSubRecipes = ({
+  dataPackage,
+  editPackage = { editView: '', setEditView: () => { }, refresh: false, setRefresh: () => { } },
+}) => {
+  const { recipeID = null, subRecipePackage, setSubRecipePackage } = dataPackage
+  const { editView, setEditView, refresh, setRefresh } = editPackage
 
-const CreateSubRecipes = ({ dataPackage }) => {
-  const { subRecipePackage, setSubRecipePackage } = dataPackage
 
   const [allowedSubRecipes, allowedSubRecipesStatus] = useAllCategory('/api/recipes/notParents')
   const [filteredList, setFilteredList] = useState([]) // dropdown logic
@@ -61,6 +66,13 @@ const CreateSubRecipes = ({ dataPackage }) => {
           </div>
 
         </form>
+
+        {editView?.length > 0 && (
+          <div>
+            <button onClick={() => postOnlyType('subRecipes', recipeID, subRecipePackage, setSubRecipePackage, refresh, setRefresh, setEditView)}>Submit subrecipes</button>
+            <button onClick={() => setEditView('')}>Cancel</button>
+          </div>
+        )}
 
         <p>Sub Recipes</p>
         <div className='createRecipeDisplayItems'>

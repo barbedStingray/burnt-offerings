@@ -7,17 +7,16 @@ import handleSearchDetailChange from '../createFunctions/handleSearchDetailChang
 import handleDetailChange from '../createFunctions/handleDetailChange'
 import submitNewObject from '../createFunctions/submitNewObject'
 import deletePackageItem from '../createFunctions/deletePackageItem'
+import postOnlyType from '../../components/postOnlyType'
 
 
 const CreateIngredients = ({
     dataPackage,
-    editPackage = { ingredientModal: false, setIngredientModal: () => { } },
-    detailsPackage = { recipeID: null, refresh: false, setRefresh: () => { } },
+    editPackage = { editView: '', setEditView: () => { }, refresh: false, setRefresh: () => { } },
 }) => {
 
-    const { ingredientPackage, setIngredientPackage } = dataPackage
-    const { ingredientModal, setIngredientModal} = editPackage
-    const { recipeID, refresh, setRefresh } = detailsPackage
+    const { recipeID = null, ingredientPackage, setIngredientPackage } = dataPackage
+    const { editView, setEditView, refresh, setRefresh } = editPackage
 
     const [allIngredients, allIngredientsStatus] = useAllCategory('/api/recipes/ingredients')
     const [filteredList, setFilteredList] = useState([])
@@ -57,25 +56,7 @@ const CreateIngredients = ({
     ]
 
 
-    async function postOnlyIngredients() {
-        if (ingredientPackage.length === 0) {
-            alert('you havent added any ingredients')
-            return
-        }
-        try {
-            await axios.post(`/api/recipes/postOnlyIngredients`, { recipeID, ingredientPackage })
-            setIngredientPackage([])
-            setRefresh(!refresh)
-            setIngredientModal(false)
-        } catch (error) {
-            console.log('error client side postOnlyIngredients', error)
-            alert('sorry! Something went wrong posting only ingredients')
-        }
-    }
-
-
-
-
+    
     return (
         <div className='createFormPage'>
             <p className='createFormTitle'>Add Ingredients</p>
@@ -143,10 +124,10 @@ const CreateIngredients = ({
 
                 </form>
 
-                {ingredientModal && (
+                {editView?.length > 0 && (
                     <div>
-                        <button onClick={() => postOnlyIngredients()}>Submit Tags</button>
-                        <button onClick={() => setIngredientModal(false)}>Cancel</button>
+                        <button onClick={() => postOnlyType('ingredients', recipeID, ingredientPackage, setIngredientPackage, refresh, setRefresh, setEditView)}>Submit Tags</button>
+                        <button onClick={() => setEditView('')}>Cancel</button>
                     </div>
                 )}
 
@@ -169,9 +150,6 @@ const CreateIngredients = ({
 
 
             </div>
-
-
-
         </div>
     )
 }
