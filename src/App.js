@@ -10,15 +10,6 @@ const localCache = {}
 
 function App() {
 
-  // clearing the cache
-  function clearCache() {
-    for (let key in localCache) {
-      delete localCache[key]
-    }
-    console.log('cacheCleared')
-  }
-
-
 
   return (
     <div className="burnt-offerings">

@@ -6,11 +6,12 @@ const recipesPerPage = 8
 
 const useFilteredRecipes = (keywords, page = 1) => {
     const [allRecipes, setAllRecipes] = useState([])
-    const [loadingStatus, setLoadingStatus] = useState('unloaded')
     const [totalPages, setTotalPages] = useState(1)
     const [totalRecipes, setTotalRecipes] = useState(0)
+    const [recipeStatus, setRecipeStatus] = useState('unloaded')
+    const [apiSearching, setApiSearching] = useState('resting')
 
-    
+
     useEffect(() => {
 
         if (!keywords) {
@@ -18,7 +19,8 @@ const useFilteredRecipes = (keywords, page = 1) => {
             setAllRecipes([])
             setTotalPages(1)
             setTotalRecipes(0)
-            setLoadingStatus('loaded')
+            setRecipeStatus('unloaded')
+            // setApiSearching('error') // error testing
             return // do not call api if no keywords exist
         }
 
@@ -28,7 +30,7 @@ const useFilteredRecipes = (keywords, page = 1) => {
             setAllRecipes(cachedData.recipes)
             setTotalPages(cachedData.totalPages)
             setTotalRecipes(cachedData.totalRecipes)
-            setLoadingStatus('loaded')
+            setRecipeStatus('loaded')
         } else {
             requestAllRecipes(keywords, page)
         }
@@ -37,7 +39,8 @@ const useFilteredRecipes = (keywords, page = 1) => {
 
     async function requestAllRecipes(keywords, page) {
         console.log('did not find a cache, going to api')
-        setLoadingStatus('loading')
+        // setLoadingStatus('loading')
+        setApiSearching('working')
 
         try {
             const response = await axios.get('/api/recipes/all', {
@@ -51,7 +54,8 @@ const useFilteredRecipes = (keywords, page = 1) => {
             setAllRecipes(requestedRecipes)
             setTotalPages(requestedTotalPages)
             setTotalRecipes(requestedTotalRecipes)
-            setLoadingStatus('loaded')
+            setRecipeStatus('loaded')
+            setApiSearching('resting')
 
             // cache the results
             if (!localCache[keywords]) {
@@ -65,11 +69,12 @@ const useFilteredRecipes = (keywords, page = 1) => {
 
         } catch (error) {
             console.log('error in loading all recipes', error)
-            setLoadingStatus('error') // todo alert user to an error
+            setRecipeStatus('unloaded')
+            setApiSearching('error')
         }
     }
 
-    return { allRecipes, totalPages, totalRecipes, loadingStatus }
+    return { allRecipes, totalPages, totalRecipes, recipeStatus, apiSearching }
 }
 
 

@@ -27,7 +27,10 @@ const RecipeHomePage = () => {
     const [bouncedKeywords, setBouncedKeywords] = useState('')
     const [currentPage, setCurrentPage] = useState(1)
 
-    const { allRecipes, totalPages, totalRecipes, loadingStatus } = useFilteredRecipes(bouncedKeywords, currentPage)
+    const { allRecipes, totalPages, totalRecipes, recipeStatus, apiSearching } = useFilteredRecipes(bouncedKeywords, currentPage)
+
+    // todo debounce custom hook
+    // const debouncedKeywords = useDebounce(keywords, 1000)
 
 
     const keywordChange = (keywords) => {
@@ -42,6 +45,10 @@ const RecipeHomePage = () => {
             setUniqueKey(uniqueKey + 1)
         }, 1000)
     }
+
+
+
+    // todo clean this up, get rid of it. buttons only
     const handlePageChange = (newPage) => {
         setCurrentPage(newPage)
         setUniqueKey(uniqueKey + 1)
@@ -57,9 +64,11 @@ const RecipeHomePage = () => {
 
     return (
         <div className='homePage'>
+
             <div className='homeQuarter'></div>
 
-            {/* navigation */}
+
+            {/* // todo component navigation */}
             <div className='homeNavigation'>
                 <div className='homeNavigationParts'>
                     <Link to={`/createRecipe`} className='homeAddButton'><CiCirclePlus /></Link>
@@ -74,7 +83,7 @@ const RecipeHomePage = () => {
             <div className='homeMainDisplay'>
 
                 <div className='homeTopMain'>
-                    {/* other element here... */}
+                    <div><p>Mom's Kitchen</p></div>
                     <div className='homeSearchBar'>
                         <input
                             className='homeKeywordSearch'
@@ -89,9 +98,14 @@ const RecipeHomePage = () => {
 
                 <div className='bottomMain'>
 
-
-                    {loadingStatus === 'loaded' ? (
+                    {recipeStatus === 'loaded' ? (
                         <>
+                            {apiSearching === 'working' && (
+                                <div>
+                                    <p>API SEARCHING</p>
+                                </div>
+                            )}
+
                             <div className='recipeMosaic'>
                                 <div className='homeSearchReturn'>
                                     <div className="homeRecipeTotal">{totalRecipes}</div>
@@ -99,6 +113,7 @@ const RecipeHomePage = () => {
                                 </div>
 
                                 {allRecipes.map((recipe, i) => (
+                                    // todo this is a component
                                     <div
                                         key={`${uniqueKey}-${i}`}
                                         onClick={() => seeRecipeDetails(recipe.id)}
@@ -143,11 +158,14 @@ const RecipeHomePage = () => {
                         </>
 
                     ) : (
-
                         <div className='homeNoRecipes'>
                             <p className='homeNoRecipeText'>Search Recipes!</p>
                             {/* <div className='homeNoCookieMan'><TbCookieMan /></div> */}
                             <div className='homeNoCookieMan'><GiPumpkinLantern /></div>
+                            {apiSearching === 'error' && (
+                                <p>API SEARCHING</p>
+                            )}
+
                         </div>
                     )}
 
@@ -155,7 +173,7 @@ const RecipeHomePage = () => {
 
             </div>
 
-            {loadingStatus && (
+            {recipeStatus && (
                 <div className='homeFooter'>
                     <div className='homePreview'></div>
                 </div>
