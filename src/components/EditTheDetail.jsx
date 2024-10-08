@@ -16,7 +16,6 @@ const EditTheDetail = ({ category, detail, target_id, letsEdit, refresh, setRefr
 
 
 
-
     // sync my newEdit values so leftovers are not displayed
     useEffect(() => {
         if (editStatus) {

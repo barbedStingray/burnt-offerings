@@ -55,6 +55,22 @@ router.put('/putDetail/:id', async (req, res) => {
 })
 
 
+// PUT new photo url
+router.put('/putNewPhoto/:id', (req, res) => {
+    const recipeId = req.params.id
+    const newPhoto = req.body.data.properties
+    console.log('putNewPhoto', recipeId, newPhoto)
+
+    const newPhotoText = `UPDATE moms_recipes SET picture = $1 WHERE id = $2;`
+    pool.query(newPhotoText, [newPhoto, recipeId]).then((result) => {
+        console.log('new photo success')
+        res.sendStatus(201)
+    }).catch((error) => {
+        console.log('error in new photo', error)
+        res.sendStatus(500)
+    })
+})
+
 // REMOVE/Delete sub recipe
 router.delete('/removeSubRecipe/:id', async (req, res) => {
     const subId = req.params.id

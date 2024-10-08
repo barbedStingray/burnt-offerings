@@ -135,6 +135,19 @@ const RecipeDetailsPage = () => {
     const [tagPackage, setTagPackage] = useState([])
 
 
+    const addCustomPhoto = async (properties) => {
+        console.log('adding new photo properties:', properties)
+        // setNewRecipeDetails({ ...newRecipeDetails, picture: properties })
+        // todo post to the router
+        try {
+            await axios.put(`/api/recipes/putNewPhoto/${displayId}`, { data: { properties }})
+            setRefresh(!refresh)
+
+        } catch (error) {
+            console.log('error in changing photo', error)
+            alert('Sorry, your photo didnt make it!')
+        }        
+    }
 
 
 
@@ -178,14 +191,21 @@ const RecipeDetailsPage = () => {
 
                                 <div className='detailsPhotoContainer'>
 
-
-                                    {/* <EditTheDetail category={'picture'} detail={recipeDisplay[recipeIndex].recipeDetails.picture} target_id={displayId} letsEdit={letsEdit} refresh={refresh} setRefresh={setRefresh} /> */}
-
-                                    {recipeDisplay[recipeIndex].recipeDetails.picture.startsWith('http') ? (
-                                        <img className='detailsPhoto' src={recipeDisplay[recipeIndex].recipeDetails.picture} />
+                                    {letsEdit ? (
+                                        <ImageUpload photoFunction={addCustomPhoto} recipeImage={recipeDisplay[recipeIndex].recipeDetails.picture} />
                                     ) : (
-                                        <p className='detailGeneratedIcon'>{generatePhoto(recipeDisplay[recipeIndex].recipeDetails.picture)}</p>
+                                        <>
+                                        {
+                                            recipeDisplay[recipeIndex].recipeDetails.picture.startsWith('http') ? (
+                                                <img className='detailsPhoto' src={recipeDisplay[recipeIndex].recipeDetails.picture} />
+                                            ) : (
+                                                <p className='detailGeneratedIcon'>{generatePhoto(recipeDisplay[recipeIndex].recipeDetails.picture)}</p>
+                                            )
+                                        }
+                                        </>
                                     )}
+
+
 
 
                                 </div>
