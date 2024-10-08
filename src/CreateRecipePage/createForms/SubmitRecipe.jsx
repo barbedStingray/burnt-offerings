@@ -58,7 +58,10 @@ const SubmitRecipe = ({ dataPackage }) => {
             if (postResponse.data.success) {
                 console.log('success in recipe POST')
                 setPostModalDisplay('success')
+
+                // todo invalidate your caches
             }
+
 
             // set your new recipe id
             setNavigateNewId(postResponse.data.newRecipeId)

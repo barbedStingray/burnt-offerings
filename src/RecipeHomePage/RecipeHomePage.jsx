@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios'
 import './RecipeHomePage.css'
@@ -32,14 +32,21 @@ const RecipeHomePage = () => {
 
     const [keywords, setKeywords] = useState('')
     const [allRecipes, setAllRecipes] = useState([])
-    // console.log('allRecipes', allRecipes)
     const [loadingStatus, setLoadingStatus] = useState('unloaded')
-    // console.log('allRecipes', allRecipes.length)
     // pagination
     const [currentPage, setCurrentPage] = useState(1)
     const [totalPages, setTotalPages] = useState(1)
     const [totalRecipes, setTotalRecipes] = useState(0)
-    const recipesPerPage = 5
+    const recipesPerPage = 8
+
+
+    useEffect(() => {
+        const savedKeywords = localStorage.getItem('searchKeywords')
+        if (savedKeywords) {
+            setKeywords(savedKeywords)
+            fetchFilteredRecipes(savedKeywords, 1)
+        }
+    }, [])
 
 
 
@@ -69,9 +76,13 @@ const RecipeHomePage = () => {
         }
     }
 
+
     const keywordChange = (keywords) => {
         setKeywords(keywords)
         setCurrentPage(1) // resets to 1st page on new keyword... ?
+
+        // save keywords to localStorage
+        localStorage.setItem('searchKeywords', keywords)
 
 
         if (debounceTimoutRef.current) {

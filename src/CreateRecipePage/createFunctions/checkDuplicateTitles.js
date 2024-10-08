@@ -1,7 +1,4 @@
 
-import handleValueIsPresent from "./handleValueIsPresent"
-import useAllCategory from "./allOfCategory"
-
 export default function checkDuplicateTitles(newObject, allRecipes) {
    console.log('newObject', newObject)
 

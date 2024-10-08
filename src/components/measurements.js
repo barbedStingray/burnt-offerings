@@ -3,6 +3,7 @@ const measurementOptions = [
     'Tsp',
     'Tbsp',
     'Cup',
+    'Pound',
     'whole',
     'Pinch',
     'floz',
