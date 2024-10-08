@@ -3,7 +3,7 @@ import useAllCategory from '../CreateRecipePage/createFunctions/allOfCategory'
 import axios from 'axios'
 
 import numberToMixed from '../RecipeDetailsPage/detailFunctions/conversions/numberToMixed'
-
+import mixedToNumber from '../RecipeDetailsPage/detailFunctions/conversions/mixedToNumber'
 
 import measurementOptions from './measurements'
 
@@ -26,7 +26,6 @@ const EditTheDetail = ({ category, editPackage }) => {
             setNewEdit(detail)
         }
     }, [editStatus, detail])
-
 
 
     // put function
@@ -83,63 +82,19 @@ const EditTheDetail = ({ category, editPackage }) => {
         }
     }
 
-    // ! steps to multiply the recipe
-    // identify the quantity str
-    // turn the quantity into a number - identify number
-    // todo multiply the recipe accordingly...
-    // turn the number back into quantity stirng
-    // todo display new string
-
-
-
-    // turns string quantity into whole number
-    function mixedToNumber(qtyString) {
-        // console.log('identifying number', qtyString)
-
-        qtyString = qtyString.trim()
-        const mixedNumberPattern = /(\d+)\s+(\d+)\/(\d+)/; // e.g., 2 1/3 Mixed number
-        const fractionPattern = /(\d+)\/(\d+)/; // e.g., 1/3 Proper fractions
-
-        function sortProperFraction(fractionString) {
-            const [numerator, denominator] = fractionString.split('/').map(Number)
-            return numerator / denominator
-        }
-
-        function sortMixedNumber(mixedString) {
-            const parts = mixedString.split(' ')
-            const wholePart = Number(parts[0])
-            const fractionPart = parts[1]
-
-            if (fractionPart) {
-                const [numerator, denominator] = fractionPart.split('/').map(Number)
-                return wholePart + (numerator / denominator)
-            }
-        }
-
-        if (mixedNumberPattern.test(qtyString)) {
-            return sortMixedNumber(qtyString)
-        } else if (fractionPattern.test(qtyString)) {
-            return sortProperFraction(qtyString)
-        }
-
-        const wholeNumber = Number(qtyString)
-        return isNaN(wholeNumber) ? null : wholeNumber
-    }
-
-
+    // ! steps to convert the recipe
+    // todo activate convert button
+    // todo transform measurement into select box
+    // todo pick new measurement
+    // todo display new qty based on switched measurement
 
 
     function displayQuantity(details, multiplier) {
-
         // convert string to number
         const numericValue = mixedToNumber(details)
-        console.log('numericValue', numericValue)
         if (numericValue === null) return details // if conversion fails, return og string
-
-        console.log(multiplier)
         // multiply recipe
         const multiplyQuantity = numericValue * multiplier
-
         // convert back to mixed number string
         const mixedNumberString = numberToMixed(multiplyQuantity)
         return mixedNumberString
@@ -147,17 +102,10 @@ const EditTheDetail = ({ category, editPackage }) => {
 
 
 
-    if (type === 'quantity') {
-        // console.log('mixedToNumber', mixedToNumber('2 1/4'))
-        // console.log('numberToMixed', numberToMixed('2.25'))
-        // console.log('displayQuantity', displayQuantity('2.33', 1))
-    }
 
 
 
-    function multiplyRecipe() {
-        console.log('multiplying recipe')
-    }
+
 
 
 
@@ -193,26 +141,37 @@ const EditTheDetail = ({ category, editPackage }) => {
     }
 
 
+    // different displays...
+
+    // normal mode
+    // an edit mode
+    // a convert mode
+
 
 
 
     return (
         <div>
             {editStatus ? (
+                // shown after item is clicked in edit mode
                 <form onSubmit={(e) => putNewEdit(e, type, target_id, newEdit)}>
-                    {renderInputField(category)}
+                    {renderInputField(type)}
                     <button type='submit'>Save</button>
                     <button onClick={() => setEditStatus(false)}>Cancel</button>
                 </form>
             ) : (
+                // shown if not in edit mode && not clicked
                 <>
                     {type === 'quantity' ? (
+                        // this is shown if quantity is the type
                         <p onClick={letsEdit ? () => setEditStatus(true) : null}>{displayQuantity(detail, multiplier)}</p>
                     ) : (
+                        // quantity not the type
                         <p onClick={letsEdit ? () => setEditStatus(true) : null}>{detail}</p>
                     )}
                 </>
             )}
+
 
         </div>
     )

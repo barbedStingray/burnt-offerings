@@ -154,8 +154,8 @@ const RecipeDetailsPage = () => {
             <div className='detailNavigation'>
                 <div className='detailNavigationParts'>
                     <Link to={`/`} className='detailHomeButton'><LiaCookieBiteSolid /></Link>
-                    <div className='detailHomeButton' onClick={() => setLetsEdit(!letsEdit)}><PiPencilThin /></div>
-                    <div className='detailHomeButton'><PiRecycle /></div>
+                    <div className={`detailHomeButton ${letsEdit && 'activeMode'}`} onClick={() => setLetsEdit(!letsEdit)}><PiPencilThin /></div>
+                    <div className={`detailHomeButton ${letsConvert && 'activeMode'}`} onClick={() => setLetsConvert(!letsConvert)}><PiRecycle /></div>
                 </div>
                 <div className='detailLogoParts'>
                     <div className='detailMomPhoto'></div>
