@@ -2,13 +2,16 @@ import React, { useState, useEffect } from 'react'
 import useAllCategory from '../CreateRecipePage/createFunctions/allOfCategory'
 import axios from 'axios'
 
-import ImageUpload from './ImageUpload'
 
 import measurementOptions from './measurements'
 
 
 
-const EditTheDetail = ({ category, detail, target_id, letsEdit, refresh, setRefresh }) => {
+const EditTheDetail = ({ category, editPackage }) => {
+    const { type, detail, target_id } = category
+    const { letsEdit, refresh, setRefresh, letsConvert } = editPackage
+    
+    
     const [editStatus, setEditStatus] = useState(false)
     const [newEdit, setNewEdit] = useState(detail)
     const [allRecipes, allRecipesStatus] = useAllCategory('/api/recipes/titleCheck')
@@ -114,15 +117,18 @@ const EditTheDetail = ({ category, detail, target_id, letsEdit, refresh, setRefr
     }
 
 
+
+
     return (
         <div>
             {editStatus ? (
-                <form onSubmit={(e) => putNewEdit(e, category, target_id, newEdit)}>
+                <form onSubmit={(e) => putNewEdit(e, type, target_id, newEdit)}>
                     {renderInputField(category)}
                     <button type='submit'>Save</button>
                     <button onClick={() => setEditStatus(false)}>Cancel</button>
                 </form>
             ) : (
+                // todo lets adjust quantities here...
                 <p onClick={letsEdit ? () => setEditStatus(true) : null}>{detail}</p>
             )}
 

@@ -3,9 +3,6 @@ const pool = require('../modules/pool')
 const router = express.Router()
 
 // TODO REFACTOR
-// todo /all NEEDS REFACTOR
-// todo /details NEEDS REFACTOR
-
 
 
 // PUT single text box edits
@@ -838,6 +835,10 @@ ORDER BY rh.title, s.step_number;
     }
 
 })
+
+
+
+
 
 
 module.exports = router

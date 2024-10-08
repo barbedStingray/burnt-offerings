@@ -16,11 +16,11 @@ export default async function deleteSoloDetail(type, id, refresh, setRefresh, pa
     try {
         if (type === 'subRecipe') {
             await axios.delete(deleteText, { data: { parentId }})
+            setRecipeIndex(0)
         } else {
             await axios.delete(deleteText)
         }
         setRefresh(!refresh)
-        setRecipeIndex(0)
     } catch (error) {
         console.log(`ERROR removing ${type}`, error)
         // return some form of user error.
