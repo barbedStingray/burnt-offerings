@@ -6,7 +6,17 @@ import RecipeHomePage from './RecipeHomePage/RecipeHomePage'
 import RecipeDetailsPage from './RecipeDetailsPage/RecipeDetailsPage'
 import CreateNewRecipe from './CreateRecipePage/CreateNewRecipe'
 
+const localCache = {}
+
 function App() {
+
+  // clearing the cache
+  function clearCache() {
+    for (let key in localCache) {
+      delete localCache[key]
+    }
+    console.log('cacheCleared')
+  }
 
 
 

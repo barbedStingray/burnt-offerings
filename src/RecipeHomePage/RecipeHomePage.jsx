@@ -1,6 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef } from 'react'
 import { useNavigate, Link } from 'react-router-dom';
-import axios from 'axios'
 import './RecipeHomePage.css'
 
 
@@ -14,12 +13,8 @@ import { LiaCookieBiteSolid } from "react-icons/lia";
 import { GiPumpkinLantern } from "react-icons/gi";
 
 
-import { GiFishbone } from "react-icons/gi";
-import { GiRawEgg } from "react-icons/gi";
-import { GiSandwich } from "react-icons/gi";
-import { GiFruitBowl } from "react-icons/gi";
-import { GiHotMeal } from "react-icons/gi";
-
+import useFilteredRecipes from './homeFunctions/useFilteredRecipes';
+import noIconPhoto from '../components/noIconPhoto';
 
 
 const RecipeHomePage = () => {
@@ -28,105 +23,36 @@ const RecipeHomePage = () => {
     const debounceTimoutRef = useRef(null) // delay in db request
     const [uniqueKey, setUniqueKey] = useState(0) // forced re-render for animation
 
-
-
     const [keywords, setKeywords] = useState('')
-    const [allRecipes, setAllRecipes] = useState([])
-    const [loadingStatus, setLoadingStatus] = useState('unloaded')
-    // pagination
+    const [bouncedKeywords, setBouncedKeywords] = useState('')
     const [currentPage, setCurrentPage] = useState(1)
-    const [totalPages, setTotalPages] = useState(1)
-    const [totalRecipes, setTotalRecipes] = useState(0)
-    const recipesPerPage = 8
 
-
-    useEffect(() => {
-        const savedKeywords = localStorage.getItem('searchKeywords')
-        if (savedKeywords) {
-            setKeywords(savedKeywords)
-            fetchFilteredRecipes(savedKeywords, 1)
-        }
-    }, [])
-
-
-
-    // todo make this it's own utility function eventually
-    const fetchFilteredRecipes = async (keywords, page = 1) => {
-        setLoadingStatus('loading')
-
-        if (!keywords) {
-            console.log('no keywords!', keywords)
-            setAllRecipes([])
-            setTotalPages(1)
-            setTotalRecipes(0)
-            setLoadingStatus('loaded')
-            return // do not call api if no keywords exist
-        }
-        try {
-            const response = await axios.get('/api/recipes/all', {
-                params: { keywords, offset: (page - 1) * recipesPerPage, limit: recipesPerPage },
-            })
-            setAllRecipes(response.data.recipes)
-            setTotalPages(response.data.totalPages)
-            setTotalRecipes(response.data.totalRecipes)
-            setLoadingStatus('loaded')
-        } catch (error) {
-            console.log('error in loading api recipes', error)
-            setLoadingStatus('error') // todo alert user to an error
-        }
-    }
+    const { allRecipes, totalPages, totalRecipes, loadingStatus } = useFilteredRecipes(bouncedKeywords, currentPage)
 
 
     const keywordChange = (keywords) => {
         setKeywords(keywords)
-        setCurrentPage(1) // resets to 1st page on new keyword... ?
-
-        // save keywords to localStorage
-        localStorage.setItem('searchKeywords', keywords)
-
-
         if (debounceTimoutRef.current) {
             clearTimeout(debounceTimoutRef.current)
         }
         debounceTimoutRef.current = setTimeout(() => {
-            fetchFilteredRecipes(keywords, 1) // always fetch from page 1 with new keyword
+            setBouncedKeywords(keywords)
+            setCurrentPage(1)
             // trigger animation
             setUniqueKey(uniqueKey + 1)
         }, 1000)
     }
-
-
     const handlePageChange = (newPage) => {
         setCurrentPage(newPage)
-        fetchFilteredRecipes(keywords, newPage) // fetch the recipes for the new page
         setUniqueKey(uniqueKey + 1)
     }
 
-    // todo refactor buttons for singular button...
+
+
+    // ? make each one a link with the id? 
     function seeRecipeDetails(recipeID) {
-        // console.log('viewing details of', recipeID)
         navigate(`/recipeDetails/${recipeID}`)
     }
-
-
-        function generatePhoto(iconString) {
-        switch (iconString) {
-            case 'dinner':
-                return <GiHotMeal />
-            case 'egg':
-                return <GiRawEgg />
-            case 'fish':
-                return <GiFishbone />
-            case 'lunch':
-                return <GiSandwich />
-            case 'snack':
-                return <GiFruitBowl />
-            default:
-                return null
-        }
-    }
-
-
 
 
     return (
@@ -164,13 +90,7 @@ const RecipeHomePage = () => {
                 <div className='bottomMain'>
 
 
-                    {allRecipes.length === 0 ? (
-                        <div className='homeNoRecipes'>
-                            <p className='homeNoRecipeText'>Search Recipes!</p>
-                            {/* <div className='homeNoCookieMan'><TbCookieMan /></div> */}
-                            <div className='homeNoCookieMan'><GiPumpkinLantern /></div>
-                        </div>
-                    ) : (
+                    {loadingStatus === 'loaded' ? (
                         <>
                             <div className='recipeMosaic'>
                                 <div className='homeSearchReturn'>
@@ -189,7 +109,7 @@ const RecipeHomePage = () => {
                                             {recipe.picture?.startsWith('http') ? (
                                                 <img className='mosaicPhoto' src={recipe.picture} />
                                             ) : (
-                                                <p className='homeGeneratedIcon'>{generatePhoto(recipe.picture)}</p>
+                                                <p className='homeGeneratedIcon'>{noIconPhoto(recipe.picture)}</p>
                                             )}
                                         </div>
 
@@ -204,6 +124,7 @@ const RecipeHomePage = () => {
                                     </div>
                                 ))}
                             </div>
+
 
                             <div className='paginationBar'>
                                 <div
@@ -220,23 +141,27 @@ const RecipeHomePage = () => {
                                 </div>
                             </div>
                         </>
+
+                    ) : (
+
+                        <div className='homeNoRecipes'>
+                            <p className='homeNoRecipeText'>Search Recipes!</p>
+                            {/* <div className='homeNoCookieMan'><TbCookieMan /></div> */}
+                            <div className='homeNoCookieMan'><GiPumpkinLantern /></div>
+                        </div>
                     )}
 
                 </div>
 
             </div>
 
-            {allRecipes.length > 0 && (
+            {loadingStatus && (
                 <div className='homeFooter'>
                     <div className='homePreview'></div>
                 </div>
             )}
 
-
-
-
         </div>
     )
 }
-
 export default RecipeHomePage

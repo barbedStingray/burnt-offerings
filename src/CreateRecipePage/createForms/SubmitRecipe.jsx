@@ -55,13 +55,13 @@ const SubmitRecipe = ({ dataPackage }) => {
             console.log('submitting new recipe', newRecipeDetails, subRecipePackage, ingredientPackage, stepPackage, tagPackage)
             const postResponse = await axios.post(`/api/recipes/newRecipe`, { newRecipeDetails, subRecipePackage, ingredientPackage, stepPackage, tagPackage })
 
+            // ? Does this need to be in an if statement?
             if (postResponse.data.success) {
                 console.log('success in recipe POST')
                 setPostModalDisplay('success')
 
-                // todo invalidate your caches
+                // todo invalidate your caches here
             }
-
 
             // set your new recipe id
             setNavigateNewId(postResponse.data.newRecipeId)
