@@ -18,7 +18,6 @@ export default function useRecipeDetails(recipeID, refresh) {
         try {
             const results = await axios.get(`/api/recipes/details/${recipeID}`)
             const { mainRecipe, subRecipes, parentRecipes } = results.data
-            console.log('parentRecipes', parentRecipes)
 
             // todo if recipe is does not exist, must return unloaded or error
 

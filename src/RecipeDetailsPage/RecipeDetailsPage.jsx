@@ -33,12 +33,7 @@ const RecipeDetailsPage = () => {
 
     const [refresh, setRefresh] = useState(true)
 
-    // todo return just an array of recipes with the main first...
     const { theMainRecipe, theSubRecipes, theParentRecipes, detailsStatus } = useRecipeDetails(recipeID, refresh)
-    console.log('theMainRecipe', theMainRecipe)
-    console.log('theSubRecipes', theSubRecipes)
-    console.log('theParentRecipes', theParentRecipes)
-    // todo this can then be obsolete...
     const recipeDisplay = [theMainRecipe].concat(theSubRecipes)
 
     const [recipeIndex, setRecipeIndex] = useState(0)
@@ -46,7 +41,6 @@ const RecipeDetailsPage = () => {
 
 
     const displayId = detailsStatus === 'loaded' ? recipeDisplay[recipeIndex].recipeDetails.recipe_id : recipeID
-    // console.log('displayId', displayId)
 
 
     function displayNextRecipe(recipeIndex) {
@@ -80,6 +74,8 @@ const RecipeDetailsPage = () => {
     const [letsEdit, setLetsEdit] = useState(false)
     const [editView, setEditView] = useState('')
     const [letsConvert, setLetsConvert] = useState(false)
+    const [multiplier, setMultiplier] = useState(1)
+    
 
     function generateEditModalType(editModalType) {
         switch (editModalType) {
@@ -217,7 +213,7 @@ const RecipeDetailsPage = () => {
                                     />
 
                                     {/* <EditTheDetail category={'prep_time'} detail={recipeDisplay[recipeIndex].recipeDetails.prep_time} target_id={displayId} letsEdit={letsEdit} refresh={refresh} setRefresh={setRefresh} /> */}
-                                    <p><FaInfo /> {recipeDisplay[recipeIndex].recipeDetails.servings}</p>
+                                    <p><FaInfo /></p>
 
 
                                     <EditTheDetail
@@ -275,6 +271,12 @@ const RecipeDetailsPage = () => {
                             {/* <EditTheDetail category={'description'} detail={recipeDisplay[recipeIndex].recipeDetails.description} target_id={displayId} letsEdit={letsEdit} refresh={refresh} setRefresh={setRefresh} /> */}
 
                         </div>
+                        <div>
+                            <p>Multiply Your Recipe</p>
+                            <div onClick={() => setMultiplier(0.5)}>0.5x</div>
+                            <div onClick={() => setMultiplier(1)}>1x</div>
+                            <div onClick={() => setMultiplier(2)}>2x</div>
+                        </div>
 
                         <div className='detailsTagsAndSteps'>
                             <p className='detailsDescriptionTitle'>Ingredients</p>
@@ -288,7 +290,7 @@ const RecipeDetailsPage = () => {
 
                                         <EditTheDetail
                                             category={{ type: 'quantity', detail: ingredient.quantity, target_id: ingredient.target_id }}
-                                            editPackage={{ letsEdit, refresh, setRefresh, letsConvert }}
+                                            editPackage={{ letsEdit, refresh, setRefresh, letsConvert, multiplier }}
                                         />
                                         <EditTheDetail
                                             category={{ type: 'measurement', detail: ingredient.measurement, target_id: ingredient.target_id }}
