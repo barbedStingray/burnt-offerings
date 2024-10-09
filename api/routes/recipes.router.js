@@ -773,6 +773,7 @@ ORDER BY rh.title, s.step_number;
         // todo this will need to return the id of the respected ingredient/tag/step linked
         // this is for editing purposes...?
 
+
         const detailsResult = await pool.query(queryTextDetails, [recipeId])
         // console.log('detailsResult', detailsResult.rows)
         const ingredientResult = await pool.query(queryTextIngredients, [recipeId])
@@ -781,6 +782,11 @@ ORDER BY rh.title, s.step_number;
         // console.log('stepResult', stepResult.rows)
         const tagResult = await pool.query(queryTextTags, [recipeId]) // pulls directly from main recipe
         // console.log('tagResult', tagResult.rows)
+
+        if (detailsResult.rows.length === 0) {
+            console.log('recipe not found')
+            return res.sendStatus(404)
+        }
 
         const mainDetails = detailsResult.rows.filter((details) => details.recipe_id === Number(recipeId))[0]
         const mainSteps = stepResult.rows.filter((step) => step.recipe_id === Number(recipeId)) // recipeId comes in as a string

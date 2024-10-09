@@ -14,6 +14,9 @@ import DisplayIngredients from './detailComponents/DisplayIngredients'
 import DisplayDescription from './detailComponents/DisplayDescription'
 import DisplaySteps from './detailComponents/DisplaySteps'
 import DisplayTags from './detailComponents/DisplayTags'
+import DisplayErrorDetail from './detailComponents/DisplayErrorDetail'
+
+
 import deleteEntireRecipe from './detailFunctions/deleteEntireRecipe'
 import DeleteModal from './detailComponents/DeleteModal'
 import DisplayMultiplier from './detailComponents/DisplayMultiplier'
@@ -27,11 +30,12 @@ const RecipeDetailsPage = () => {
 
     const { recipeID } = useParams()
     const [refresh, setRefresh] = useState(true)
-    const { theMainRecipe, theSubRecipes, theParentRecipes, detailsStatus } = useRecipeDetails(recipeID, refresh)
+    const { theMainRecipe, theSubRecipes, theParentRecipes, isLoaded, detailStatus } = useRecipeDetails(recipeID, refresh)
     const recipeDisplay = [theMainRecipe].concat(theSubRecipes)
+    console.log('recipeDisplay', recipeDisplay)
     const [recipeIndex, setRecipeIndex] = useState(0)
     const slideDistance = 67;
-    const displayId = detailsStatus === 'loaded' ? recipeDisplay[recipeIndex].recipeDetails.recipe_id : recipeID
+    const displayId = isLoaded ? recipeDisplay[recipeIndex].recipeDetails.recipe_id : recipeID
     const [deleteModal, setDeleteModal] = useState(false)
     const [deleteStatus, setDeleteStatus] = useState('resting')
 
@@ -97,7 +101,6 @@ const RecipeDetailsPage = () => {
     }
 
 
-
     return (
         <div className='detailsPage'>
             <div className='detailsQuarter'></div>
@@ -115,8 +118,19 @@ const RecipeDetailsPage = () => {
             )}
 
             <div className='recipeDetailsContainer'>
-                {detailsStatus === 'loaded' ? (
+                {isLoaded ? (
                     <>
+
+                        {/* {recipeDisplay.map((recipe) => (
+                            <>
+                                <p>{recipe.recipeDetails.title}</p>
+                                <DisplayPhoto
+                                    editPackage={{ letsEdit, refresh, setRefresh }}
+                                    detailPackage={{ displayId, picture: recipeDisplay[recipeIndex].recipeDetails.picture }}
+                                />
+                            </>
+                        ))}
+ */}
                         <div className='detailsTopDisplay'>
 
                             <div className='detailsTopInfo'>
@@ -208,13 +222,11 @@ const RecipeDetailsPage = () => {
                         <button onClick={() => deleteEntireRecipe(displayId, setDeleteModal, setDeleteStatus)}>Delete This Recipe</button>
                     </>
                 ) : (
-                    // todo RECIPEs NOT LOADED
-                    <></>
+                    <DisplayErrorDetail detailStatus={detailStatus} />
                 )}
             </div>
 
 
-            {/* // ! greater than 0 ?? */}
             {recipeDisplay.length > 1 && (
                 <div className='detailsFooter'>
                     <button
