@@ -1,5 +1,5 @@
-import React, { useState, useRef } from 'react'
-import { useNavigate, Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom';
 import './RecipeHomePage.css'
 
 
@@ -15,53 +15,32 @@ import { GiPumpkinLantern } from "react-icons/gi";
 
 import useFilteredRecipes from './homeFunctions/useFilteredRecipes';
 import noIconPhoto from '../components/noIconPhoto';
+import useDebounce from './homeFunctions/useDebounce';
 
 
 const RecipeHomePage = () => {
 
-    const navigate = useNavigate()
-    const debounceTimoutRef = useRef(null) // delay in db request
-    const [uniqueKey, setUniqueKey] = useState(0) // forced re-render for animation
-
     const [keywords, setKeywords] = useState('')
-    const [bouncedKeywords, setBouncedKeywords] = useState('')
     const [currentPage, setCurrentPage] = useState(1)
-
+    const bouncedKeywords = useDebounce(keywords, setCurrentPage)
     const { allRecipes, totalPages, totalRecipes, recipeStatus, apiSearching } = useFilteredRecipes(bouncedKeywords, currentPage)
 
-    // todo debounce custom hook
-    // const debouncedKeywords = useDebounce(keywords, 1000)
-
-
-    const keywordChange = (keywords) => {
-        setKeywords(keywords)
-        if (debounceTimoutRef.current) {
-            clearTimeout(debounceTimoutRef.current)
+    // local storage for my keywords
+    useEffect(() => {
+        const storedKeywords = localStorage.getItem('bouncedKeywords')
+        if (storedKeywords) {
+            setKeywords(storedKeywords)
         }
-        debounceTimoutRef.current = setTimeout(() => {
-            setBouncedKeywords(keywords)
-            setCurrentPage(1)
-            // trigger animation
-            setUniqueKey(uniqueKey + 1)
-        }, 1000)
-    }
+    }, [])
+    useEffect(() => {
+        if (bouncedKeywords) {
+            localStorage.setItem('bouncedKeywords', bouncedKeywords)
+        }
+    }, [bouncedKeywords])
 
 
 
-    // todo clean this up, get rid of it. buttons only
-    const handlePageChange = (newPage) => {
-        setCurrentPage(newPage)
-        setUniqueKey(uniqueKey + 1)
-    }
-
-
-
-    // ? make each one a link with the id? 
-    function seeRecipeDetails(recipeID) {
-        navigate(`/recipeDetails/${recipeID}`)
-    }
-
-
+    
     return (
         <div className='homePage'>
 
@@ -90,7 +69,8 @@ const RecipeHomePage = () => {
                             type='text'
                             placeholder='Search Keywords...'
                             value={keywords}
-                            onChange={(e) => keywordChange(e.target.value)}
+                            // onChange={(e) => keywordChange(e.target.value)}
+                            onChange={(e) => setKeywords(e.target.value)}
                         />
                     </div>
                 </div>
@@ -108,15 +88,16 @@ const RecipeHomePage = () => {
 
                             <div className='recipeMosaic'>
                                 <div className='homeSearchReturn'>
-                                    <div className="homeRecipeTotal">{totalRecipes}</div>
-                                    <div className="homeRecipeLabel">Recipes</div>
+                                    <div className="homeRecipeTotal"><p>{totalRecipes}</p></div>
+                                    <div className="homeRecipeLabel"><p>Recipes</p></div>
                                 </div>
 
                                 {allRecipes.map((recipe, i) => (
                                     // todo this is a component
-                                    <div
-                                        key={`${uniqueKey}-${i}`}
-                                        onClick={() => seeRecipeDetails(recipe.id)}
+                                    <Link
+                                        key={i}
+                                        to={`/recipeDetails/${recipe.id}`}
+                                        // onClick={() => seeRecipeDetails(recipe.id)}
                                         className={`recipeContainer`}
                                         style={{ animationDelay: `${i * 100}ms` }}
                                     >
@@ -136,7 +117,7 @@ const RecipeHomePage = () => {
                                                 <p className='homeDetail'><span className='homeIconDetail'><LuAlarmClock /></span>{recipe.prep_time}</p>
                                             </div>
                                         </div>
-                                    </div>
+                                    </Link>
                                 ))}
                             </div>
 
@@ -144,13 +125,13 @@ const RecipeHomePage = () => {
                             <div className='paginationBar'>
                                 <div
                                     className={`homePageNext ${currentPage === 1 ? 'homeNextDeactivate' : ''}`}
-                                    onClick={currentPage === 1 ? null : () => handlePageChange(currentPage - 1)}
+                                    onClick={currentPage === 1 ? null : () => setCurrentPage(currentPage - 1)}
                                 >
                                     <IoIosArrowDropleft />
                                 </div>
                                 <div
                                     className={`homePageNext ${currentPage === totalPages ? 'homeNextDeactivate' : ''}`}
-                                    onClick={currentPage === totalPages ? null : () => handlePageChange(currentPage + 1)}
+                                    onClick={currentPage === totalPages ? null : () => setCurrentPage(currentPage + 1)}
                                 >
                                     <IoIosArrowDropright />
                                 </div>
