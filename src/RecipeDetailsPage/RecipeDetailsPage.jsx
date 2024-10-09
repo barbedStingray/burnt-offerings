@@ -1,28 +1,25 @@
 import React, { useState } from 'react'
-import { useParams, useNavigate, Link } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import './RecipeDetailsPage.css'
-import axios from 'axios'
 
 import useRecipeDetails from './detailFunctions/fetchRecipeDetails'
-
 import CreateTags from '../CreateRecipePage/createForms/CreateTags'
 import CreateIngredients from '../CreateRecipePage/createForms/CreateIngredients'
 import CreateSteps from '../CreateRecipePage/createForms/CreateSteps'
 import CreateSubRecipes from '../CreateRecipePage/createForms/CreateSubRecipes'
-import ImageUpload from '../components/ImageUpload'
-
 import EditTheDetail from '../components/EditTheDetail'
 import deleteSoloDetail from '../components/deleteSoloDetail'
-
-import generatePhoto from '../components/generatePhoto'
-
+import DisplayPhoto from './detailComponents/DisplayPhoto'
+import DisplayIngredients from './detailComponents/DisplayIngredients'
+import DisplayDescription from './detailComponents/DisplayDescription'
+import DisplaySteps from './detailComponents/DisplaySteps'
+import DisplayTags from './detailComponents/DisplayTags'
+import deleteEntireRecipe from './detailFunctions/deleteEntireRecipe'
+import DeleteModal from './detailComponents/DeleteModal'
+import DisplayMultiplier from './detailComponents/DisplayMultiplier'
+import DetailNav from './detailComponents/DetailNav'
 import { FaInfo } from "react-icons/fa";
 import { LuAlarmClock } from "react-icons/lu";
-import { LiaCookieBiteSolid } from "react-icons/lia";
-import { PiRecycle } from "react-icons/pi";
-import { PiPencilThin } from "react-icons/pi";
-
-
 
 
 
@@ -35,6 +32,17 @@ const RecipeDetailsPage = () => {
     const [recipeIndex, setRecipeIndex] = useState(0)
     const slideDistance = 67;
     const displayId = detailsStatus === 'loaded' ? recipeDisplay[recipeIndex].recipeDetails.recipe_id : recipeID
+    const [deleteModal, setDeleteModal] = useState(false)
+    const [deleteStatus, setDeleteStatus] = useState('resting')
+
+    // edit properties
+    const [letsEdit, setLetsEdit] = useState(false)
+    const [editView, setEditView] = useState('')
+    const [multiplier, setMultiplier] = useState(1)
+    const [subRecipePackage, setSubRecipePackage] = useState([])
+    const [ingredientPackage, setIngredientPackage] = useState([])
+    const [stepPackage, setStepPackage] = useState([])
+    const [tagPackage, setTagPackage] = useState([])
 
 
     function displayNextRecipe(recipeIndex) {
@@ -44,33 +52,9 @@ const RecipeDetailsPage = () => {
         setRecipeIndex(recipeIndex - 1)
     }
 
-    const deleteEntireRecipe = async (id) => {
-        try {
-            console.log('delete entire recipe', id)
-            await axios.delete(`/api/recipes/deleteEntireRecipe/${id}`)
 
-            // todo show module on success.. then navigate and close module
-            // todo navigate('/')
-
-        } catch (error) {
-            console.log('ERROR delete entire recipe', id)
-            alert('sorry, your recipe was not deleted')
-        }
-    }
-
-
-
-
-
-    //  ! TODO begin edit functionalities
-    const [letsEdit, setLetsEdit] = useState(false)
-    const [editView, setEditView] = useState('')
-    const [letsConvert, setLetsConvert] = useState(false)
-    const [multiplier, setMultiplier] = useState(1)
-    
-
-    function generateEditModalType(editModalType) {
-        switch (editModalType) {
+    function generateAddModalType(addModalType) {
+        switch (addModalType) {
             case 'subRecipe':
                 return (
                     <div className='createSingleForm'>
@@ -114,225 +98,90 @@ const RecipeDetailsPage = () => {
 
 
 
-
-    // todo edit - sub recipe modal
-    const [subRecipePackage, setSubRecipePackage] = useState([])
-    const [ingredientPackage, setIngredientPackage] = useState([])
-    const [stepPackage, setStepPackage] = useState([])
-    const [tagPackage, setTagPackage] = useState([])
-
-
-    const addCustomPhoto = async (properties) => {
-        console.log('adding new photo properties:', properties)
-        // todo post to the router
-        try {
-            await axios.put(`/api/recipes/putNewPhoto/${displayId}`, { data: { properties } })
-            setRefresh(!refresh)
-
-        } catch (error) {
-            console.log('error in changing photo', error)
-            alert('Sorry, your photo didnt make it!')
-        }
-    }
-
-
-
     return (
         <div className='detailsPage'>
             <div className='detailsQuarter'></div>
 
+            <DetailNav editPackage={{ letsEdit, setLetsEdit }} />
 
-            {/* navigation */}
-            <div className='detailNavigation'>
-                <div className='detailNavigationParts'>
-                    <Link to={`/`} className='detailHomeButton'><LiaCookieBiteSolid /></Link>
-                    <div className={`detailHomeButton ${letsEdit && 'activeMode'}`} onClick={() => setLetsEdit(!letsEdit)}><PiPencilThin /></div>
-                    <div className={`detailHomeButton ${letsConvert && 'activeMode'}`} onClick={() => setLetsConvert(!letsConvert)}><PiRecycle /></div>
-                </div>
-                <div className='detailLogoParts'>
-                    <div className='detailMomPhoto'></div>
-                    <div className='detailStingrayLogo'>Logo</div>
-                </div>
-            </div>
+            <DeleteModal editPackage={{ deleteModal, setDeleteModal, deleteStatus }} />
 
 
-
-
+            {/* This is generating your add forms */}
             {editView.length > 0 && (
                 <>
-                    {generateEditModalType(editView)}
+                    {generateAddModalType(editView)}
                 </>
             )}
 
-
-
-
             <div className='recipeDetailsContainer'>
                 {detailsStatus === 'loaded' ? (
-                    // LOADED
                     <>
                         <div className='detailsTopDisplay'>
 
                             <div className='detailsTopInfo'>
 
-                                <div className='detailsPhotoContainer'>
+                                <DisplayPhoto
+                                    editPackage={{ letsEdit, refresh, setRefresh }}
+                                    detailPackage={{ displayId, picture: recipeDisplay[recipeIndex].recipeDetails.picture }}
+                                />
 
-                                    {letsEdit ? (
-                                        <ImageUpload photoFunction={addCustomPhoto} recipeImage={recipeDisplay[recipeIndex].recipeDetails.picture} />
-                                    ) : (
-                                        <>
-                                            {
-                                                recipeDisplay[recipeIndex].recipeDetails.picture.startsWith('http') ? (
-                                                    <img className='detailsPhoto' src={recipeDisplay[recipeIndex].recipeDetails.picture} />
-                                                ) : (
-                                                    <p className='detailGeneratedIcon'>{generatePhoto(recipeDisplay[recipeIndex].recipeDetails.picture)}</p>
-                                                )
-                                            }
-                                        </>
-                                    )}
-
-
-
-
-                                </div>
-
+                                {/* // ? What do you want these to look like? */}
                                 <div className='prepServings'>
-                                    <p><LuAlarmClock /></p>
-
-                                    <EditTheDetail
-                                        category={{ type: 'prep_time', detail: recipeDisplay[recipeIndex].recipeDetails.prep_time, target_id: displayId }}
-                                        editPackage={{ letsEdit, refresh, setRefresh, letsConvert }}
-                                    />
-
-                                    {/* <EditTheDetail category={'prep_time'} detail={recipeDisplay[recipeIndex].recipeDetails.prep_time} target_id={displayId} letsEdit={letsEdit} refresh={refresh} setRefresh={setRefresh} /> */}
-                                    <p><FaInfo /></p>
-
-
-                                    <EditTheDetail
-                                        category={{ type: 'servings', detail: recipeDisplay[recipeIndex].recipeDetails.servings, target_id: displayId }}
-                                        editPackage={{ letsEdit, refresh, setRefresh, letsConvert }}
-                                    />
-
-                                    {/* <EditTheDetail category={'servings'} detail={recipeDisplay[recipeIndex].recipeDetails.servings} target_id={displayId} letsEdit={letsEdit} refresh={refresh} setRefresh={setRefresh} /> */}
+                                    <div>
+                                        <LuAlarmClock />
+                                        <EditTheDetail
+                                            category={{ type: 'prep_time', detail: recipeDisplay[recipeIndex].recipeDetails.prep_time, target_id: displayId }}
+                                            editPackage={{ letsEdit, refresh, setRefresh }}
+                                        />
+                                    </div>
+                                    <div>
+                                        <p><FaInfo /></p>
+                                        <EditTheDetail
+                                            category={{ type: 'servings', detail: recipeDisplay[recipeIndex].recipeDetails.servings, target_id: displayId }}
+                                            editPackage={{ letsEdit, refresh, setRefresh }}
+                                        />
+                                    </div>
                                 </div>
-
                             </div>
 
                             <div className='detailsBottomInfo'>
+
                                 <div className='detailsTitleDisplay'>
                                     <EditTheDetail
                                         category={{ type: 'title', detail: recipeDisplay[recipeIndex].recipeDetails.title, target_id: displayId }}
-                                        editPackage={{ letsEdit, refresh, setRefresh, letsConvert }}
+                                        editPackage={{ letsEdit, refresh, setRefresh }}
                                     />
-
-                                    {/* <EditTheDetail category={'title'} detail={recipeDisplay[recipeIndex].recipeDetails.title} target_id={displayId} letsEdit={letsEdit} refresh={refresh} setRefresh={setRefresh} /> */}
                                 </div>
 
-
-                                <div className='tagDetails'>
-                                    {recipeDisplay[recipeIndex].tags.map((tag, i) => (
-                                        <p
-                                            key={i}
-                                            onClick={letsEdit ? (() => deleteSoloDetail('tag', tag.delete_id, refresh, setRefresh)) : null}
-                                        >
-                                            {tag.tag}{letsEdit && ' X'}
-                                        </p>
-                                    ))}
-                                </div>
-
-
-
-                                {letsEdit && (
-                                    <>
-                                        <button onClick={() => setEditView('ingredient')}>View Ingredient</button>
-                                        <button onClick={() => setEditView('tag')}>View Tag</button>
-                                        <button onClick={() => setEditView('step')}>View Step</button>
-                                    </>
-                                )}
-
+                                <DisplayTags
+                                    editPackage={{ letsEdit, refresh, setRefresh }}
+                                    detailPackage={{ tags: recipeDisplay[recipeIndex].tags, setEditView }}
+                                />
                             </div>
                         </div>
 
-                        <div className='detailsDescriptionParts'>
-                            <p className='detailsDescriptionTitle'>Description</p>
-                            <EditTheDetail
-                                category={{ type: 'description', detail: recipeDisplay[recipeIndex].recipeDetails.description, target_id: displayId }}
-                                editPackage={{ letsEdit, refresh, setRefresh, letsConvert }}
-                            />
+                        <DisplayDescription
+                            editPackage={{ letsEdit, refresh, setRefresh }}
+                            detailPackage={{ displayId, description: recipeDisplay[recipeIndex].recipeDetails.description }}
+                        />
 
-                            {/* <EditTheDetail category={'description'} detail={recipeDisplay[recipeIndex].recipeDetails.description} target_id={displayId} letsEdit={letsEdit} refresh={refresh} setRefresh={setRefresh} /> */}
-
-                        </div>
-                        <div>
-                            <p>Multiply Your Recipe</p>
-                            <div onClick={() => setMultiplier(0.5)}>0.5x</div>
-                            <div onClick={() => setMultiplier(1)}>1x</div>
-                            <div onClick={() => setMultiplier(2)}>2x</div>
-                        </div>
+                        <DisplayMultiplier setMultiplier={setMultiplier} />
 
                         <div className='detailsTagsAndSteps'>
-                            <p className='detailsDescriptionTitle'>Ingredients</p>
-                            <div className='displayRecipeIngredients'>
-                                {recipeDisplay[recipeIndex].ingredients.map((ingredient, i) => (
-                                    <div
-                                        key={i}
-                                        className='displaySingleIngredient'
-                                    >
-                                        {letsEdit && <button onClick={letsEdit ? () => deleteSoloDetail('ingredient', ingredient.target_id, refresh, setRefresh) : null}>DELETE ME</button>}
-
-                                        <EditTheDetail
-                                            category={{ type: 'quantity', detail: ingredient.quantity, target_id: ingredient.target_id }}
-                                            editPackage={{ letsEdit, refresh, setRefresh, letsConvert, multiplier }}
-                                        />
-                                        <EditTheDetail
-                                            category={{ type: 'measurement', detail: ingredient.measurement, target_id: ingredient.target_id }}
-                                            editPackage={{ letsEdit, refresh, setRefresh, letsConvert }}
-                                        />
-                                        <EditTheDetail
-                                            category={{ type: 'ingredient', detail: ingredient.ingredient, target_id: ingredient.target_id }}
-                                            editPackage={{ letsEdit, refresh, setRefresh, letsConvert }}
-                                        />
-
-                                        {/* THIS IS BEFORE THE RECKONING BIG CHANGES>...... */}
-                                        {/* <EditTheDetail category={'quantity'} detail={ingredient.quantity} target_id={ingredient.target_id} letsEdit={letsEdit} refresh={refresh} setRefresh={setRefresh} />
-                                        <EditTheDetail category={'measurement'} detail={ingredient.measurement} target_id={ingredient.target_id} letsEdit={letsEdit} refresh={refresh} setRefresh={setRefresh} />
-                                        <EditTheDetail category={'ingredient'} detail={ingredient.ingredient} target_id={ingredient.target_id} letsEdit={letsEdit} refresh={refresh} setRefresh={setRefresh} /> */}
-                                    </div>
-                                ))}
-                            </div>
-
-                            <p className='detailsDescriptionTitle'>Instructions</p>
-
-                            <div className='displayRecipeSteps'>
-                                {recipeDisplay[recipeIndex].steps.map((step, i) => (
-                                    <div key={i} className='displayStepItem'>
-                                        {letsEdit && <button onClick={() => deleteSoloDetail('step', step.step_id, refresh, setRefresh)}>DELETE ME</button>}
-
-                                        <EditTheDetail
-                                            category={{ type: 'step_number', detail: step.step_number, target_id: step.step_id }}
-                                            editPackage={{ letsEdit, refresh, setRefresh, letsConvert }}
-                                        />
-                                        <EditTheDetail
-                                            category={{ type: 'instructions', detail: step.instructions, target_id: step.step_id }}
-                                            editPackage={{ letsEdit, refresh, setRefresh, letsConvert }}
-                                        />
-
-
-                                        {/* <EditTheDetail category={'step_number'} detail={step.step_number} target_id={step.step_id} letsEdit={letsEdit} refresh={refresh} setRefresh={setRefresh} /> */}
-                                        {/* <EditTheDetail category={'instructions'} detail={step.instructions} target_id={step.step_id} letsEdit={letsEdit} refresh={refresh} setRefresh={setRefresh} /> */}
-                                        {/* <p className='displayStepNumber'>{step.step_number}</p>
-                                        <p className='displayStepStep'>{step.instructions}</p> */}
-                                    </div>
-                                ))}
-                            </div>
-
+                            <DisplayIngredients
+                                editPackage={{ letsEdit, refresh, setRefresh, multiplier }}
+                                detailPackage={{ ingredients: recipeDisplay[recipeIndex].ingredients, setEditView }}
+                            />
+                            <DisplaySteps
+                                editPackage={{ letsEdit, refresh, setRefresh }}
+                                detailPackage={{ instructions: recipeDisplay[recipeIndex].steps, recipeIndex, setEditView }}
+                            />
                         </div>
 
 
-
-                        {/* // ! only way you can get duplicates is if there's a duplicate on the from */}
-
                         <div>
+                            {/* // ! only way you can get duplicates is if there's a duplicate on the from */}
                             {recipeIndex > 0 ? (
                                 <button onClick={() => deleteSoloDetail('subRecipe', displayId, refresh, setRefresh, recipeID, setRecipeIndex)}>Remove Sub Recipe</button>
                             ) : (
@@ -349,22 +198,18 @@ const RecipeDetailsPage = () => {
                             )}
                         </div>
 
+
                         <p>Parents:</p>
                         {theParentRecipes.map((parent, i) => (
                             <p key={i}>{parent.title}{parent.id}</p>
                         ))}
 
 
-
-                        <button onClick={() => deleteEntireRecipe(displayId)}>Delete This Recipe</button>
-
-
+                        <button onClick={() => deleteEntireRecipe(displayId, setDeleteModal, setDeleteStatus)}>Delete This Recipe</button>
                     </>
                 ) : (
-
                     // todo RECIPEs NOT LOADED
                     <></>
-
                 )}
             </div>
 
@@ -409,12 +254,8 @@ const RecipeDetailsPage = () => {
                 </div>
             )}
 
-
-
             {/* // todo {JSON.stringify(detailsStatus)} */}
-
         </div>
     )
 }
-
 export default RecipeDetailsPage

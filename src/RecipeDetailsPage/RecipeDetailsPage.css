@@ -390,6 +390,14 @@
 
 
 
+/* used for reference, need to change */
+.deleteModal {
+    position: fixed;
+    left: 200px;
+    bottom: 200px;
+}
+
+
 
 
 

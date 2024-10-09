@@ -31,8 +31,9 @@ const SubmitRecipe = ({ dataPackage }) => {
                 newRecipeDetails[key] = value.trim();
             }
         })
-        const isDuplicate = checkDuplicateTitles(newRecipeDetails, allRecipes)
-        if (!isDuplicate) return
+        const titleCheck = newRecipeDetails.newTitle
+        const isDuplicate = checkDuplicateTitles(titleCheck, allRecipes)
+        if (isDuplicate) return
         
         if(newRecipeDetails.picture === 'no photo') {
             newRecipeDetails.picture = generateNewIcon()

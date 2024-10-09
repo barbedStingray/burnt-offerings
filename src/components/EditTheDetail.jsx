@@ -2,16 +2,15 @@ import React, { useState, useEffect } from 'react'
 import useAllCategory from '../CreateRecipePage/createFunctions/allOfCategory'
 import axios from 'axios'
 
-import numberToMixed from '../RecipeDetailsPage/detailFunctions/conversions/numberToMixed'
-import mixedToNumber from '../RecipeDetailsPage/detailFunctions/conversions/mixedToNumber'
-
+import checkDuplicateTitles from '../CreateRecipePage/createFunctions/checkDuplicateTitles'
+import displayQuantity from '../RecipeDetailsPage/detailFunctions/conversions/displayQuantity'
 import measurementOptions from './measurements'
 
 
 
 const EditTheDetail = ({ category, editPackage }) => {
     const { type, detail, target_id } = category
-    const { letsEdit, refresh, setRefresh, letsConvert, multiplier = 1 } = editPackage
+    const { letsEdit, refresh, setRefresh, multiplier = 1 } = editPackage
 
 
     const [editStatus, setEditStatus] = useState(false)
@@ -26,55 +25,42 @@ const EditTheDetail = ({ category, editPackage }) => {
             setNewEdit(detail)
         }
     }, [editStatus, detail])
+    // close edits when not in edit mode
+    useEffect(() => {
+        if (letsEdit === false) {
+            setEditStatus(false)
+        }
+    }, [letsEdit])
 
 
     // put function
     async function putNewEdit(e, category, target_id, newEdit) {
         e.preventDefault()
-        // console.log('putting edit', category, target_id)
 
         // check for value
         const isValue = newEdit !== ''
-        // console.log('isValue', isValue)
         if (!isValue) return alert('No empty boxes, please')
-
         // format if necessary Trim all? 
         let formatDetail = newEdit.trim()
-        // console.log('formatDetail', formatDetail)
-
-        // check for duplicate
+        // check for duplicate title
         if (category === 'title') {
-            const filterTitleRecipes = allRecipes.filter((recipe) => recipe.title !== formatDetail)
-            // console.log('filterTitleRecipes', filterTitleRecipes)
-            const isDuplicate = filterTitleRecipes.map((recipe) => recipe.title.toLowerCase()).includes(formatDetail.toLowerCase())
-            // console.log('isDuplicate', isDuplicate)
-            if (isDuplicate) return alert('your title is a duplicate')
+            if (checkDuplicateTitles(formatDetail, allRecipes)) return
         }
 
-        if (category === 'ingredient') {
-            console.log('this is an ingredient', formatDetail)
+        if (type === 'ingredient') {
             // format
             formatDetail = formatDetail.trim().charAt(0).toUpperCase() + formatDetail.trim().slice(1).toLowerCase()
-            console.log('formatDetail after ingredient', formatDetail)
-            // check to see if it exists... if it does, set formatDetail to a number, if not leave it as a string
             let matchedId = allIngredients.find((item) => item['ingredient'] === formatDetail)
-            console.log('matchedId', matchedId)
             if (matchedId) {
                 formatDetail = matchedId.id
             }
-            console.log('formatDetail', formatDetail)
         }
+        console.log('formatDetail', formatDetail)
 
         // send to db
         try {
-            // put new
-            console.log('formatDetail', formatDetail, category, target_id)
             await axios.put(`/api/recipes/putDetail/${target_id}`, { category, formatDetail })
-
-            // refresh
             setEditStatus(false)
-            // ? I dont think this is needed...
-            // setNewEdit(formatDetail)
             setRefresh(!refresh)
         } catch (error) {
             console.log('error client side PUT new', error)
@@ -82,37 +68,11 @@ const EditTheDetail = ({ category, editPackage }) => {
         }
     }
 
-    // ! steps to convert the recipe
-    // todo activate convert button
-    // todo transform measurement into select box
-    // todo pick new measurement
-    // todo display new qty based on switched measurement
-
-
-    function displayQuantity(details, multiplier) {
-        // convert string to number
-        const numericValue = mixedToNumber(details)
-        if (numericValue === null) return details // if conversion fails, return og string
-        // multiply recipe
-        const multiplyQuantity = numericValue * multiplier
-        // convert back to mixed number string
-        const mixedNumberString = numberToMixed(multiplyQuantity)
-        return mixedNumberString
-    }
-
-
-
-
-
-
-
-
-
 
 
     const renderInputField = (category) => {
         switch (category) {
-            case 'steps':
+            case 'instructions':
             case 'description':
                 return (
                     <textarea
@@ -141,14 +101,6 @@ const EditTheDetail = ({ category, editPackage }) => {
     }
 
 
-    // different displays...
-
-    // normal mode
-    // an edit mode
-    // a convert mode
-
-
-
 
     return (
         <div>
@@ -166,7 +118,7 @@ const EditTheDetail = ({ category, editPackage }) => {
                         // this is shown if quantity is the type
                         <p onClick={letsEdit ? () => setEditStatus(true) : null}>{displayQuantity(detail, multiplier)}</p>
                     ) : (
-                        // quantity not the type
+                        // normal display
                         <p onClick={letsEdit ? () => setEditStatus(true) : null}>{detail}</p>
                     )}
                 </>
