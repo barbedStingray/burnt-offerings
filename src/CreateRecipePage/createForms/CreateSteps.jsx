@@ -23,25 +23,6 @@ const CreateSteps = ({
     const allSteps = [] // todo empty array to fulfill function -- replace a default in function
 
 
-    // async function postOnlySteps() {
-    //     console.log('posting steps')
-    //     if (stepPackage.length === 0) {
-    //         alert('You have not added any steps!')
-    //         return
-    //     }
-    //     try {
-    //         await axios.post(`/api/recipes/postOnlySteps`, { recipeID, stepPackage })
-    //         // todo !! loading screen? error handling of duplicates?
-    //         setStepPackage([])
-    //         setRefresh(!refresh)
-    //         setEditView('')
-    //     } catch (error) {
-    //         console.log('error client side postOnlyTags', error)
-    //         alert('something went wrong posting only tags!')
-    //     }
-    // }
-
-
 
     return (
         <div className='createFormPage'>

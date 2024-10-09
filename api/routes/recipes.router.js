@@ -376,7 +376,7 @@ router.post('/newRecipe', async (req, res) => {
         // ! recipe_relationship post sub recipes need: new Recipe ID (parent) // you have the sub recipe ID's
         // ! switch any sub recipes is_sub_recipe = true
         if (newSubRecipes.length > 0) {
-            await pool.query(isParentRecipeText, [newRecipeId])
+            await pool.query(isParentRecipeText, [newRecipeId]) // make a parent
             const subPromises = newSubRecipes.map(async (sub) => {
                 await pool.query(subRecipeText, [newRecipeId, sub.id]) // post relationship
                 await pool.query(isSubRecipeText, [sub.id]) // change is_sub_recipe

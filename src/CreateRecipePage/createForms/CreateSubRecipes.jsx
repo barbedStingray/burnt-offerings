@@ -10,15 +10,12 @@ const CreateSubRecipes = ({
   dataPackage,
   editPackage = { editView: '', setEditView: () => { }, refresh: false, setRefresh: () => { } },
 }) => {
+
   const { displayId = null, subRecipePackage, setSubRecipePackage } = dataPackage
   const { editView, setEditView, refresh, setRefresh } = editPackage
-
-
   const [allowedSubRecipes, allowedSubRecipesStatus] = useAllCategory('/api/recipes/notParents')
   const [filteredList, setFilteredList] = useState([]) // dropdown logic
   const [searchAttribute, setSearchAttribute] = useState('') // dropdown logic
-
-  // const [newTagData, setNewTagData] = useState([])
   const [newSubRecipe, setNewSubRecipe] = useState({ id: null, title: '' })
   const initialSubState = { id: null, title: '' }
 
@@ -49,6 +46,7 @@ const CreateSubRecipes = ({
             }}
           >
           </input>
+
           <div className='createFilteredContainer'>
             {filteredList.length > 0 && (
               <div className='createFilterSearch'>
@@ -64,8 +62,8 @@ const CreateSubRecipes = ({
               </div>
             )}
           </div>
-
         </form>
+
 
         {editView?.length > 0 && (
           <div>
@@ -73,6 +71,7 @@ const CreateSubRecipes = ({
             <button onClick={() => setEditView('')}>Cancel</button>
           </div>
         )}
+
 
         <p>Sub Recipes</p>
         <div className='createRecipeDisplayItems'>
@@ -86,7 +85,6 @@ const CreateSubRecipes = ({
             </>
           )}
         </div>
-
       </div>
 
     </div>

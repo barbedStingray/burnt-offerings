@@ -7,6 +7,7 @@ import submitNewObject from '../createFunctions/submitNewObject'
 import handleSearchDetailChange from '../createFunctions/handleSearchDetailChange'
 import deletePackageItem from '../createFunctions/deletePackageItem'
 import postOnlyType from '../../components/postOnlyType'
+import getTagPrompt from '../createFunctions/getTagPrompt'
 
 
 const CreateTags = ({
@@ -15,36 +16,12 @@ const CreateTags = ({
 }) => {
 
     const { displayId = null, tagPackage, setTagPackage } = dataPackage
-    console.log('recipeID', displayId)
     const { editView, setEditView, refresh, setRefresh } = editPackage
-
     const [allTags, allTagsStatus] = useAllCategory('/api/recipes/tags')
     const [filteredList, setFilteredList] = useState([]) // dropdown logic
     const [searchAttribute, setSearchAttribute] = useState('') // dropdown logic
-
     const [newTag, setNewTag] = useState({ id: null, tag: '' })
     const initialTagState = { id: null, tag: '' }
-
-
-    const tagPrompt = [
-        'What kind of food is this?',
-        'What Type of Cuisine is it?',
-        'What Season would you make it for?',
-        'Add any other Tags you like!'
-    ]
-    const getTagPrompt = () => {
-        if (tagPackage.length === 0) {
-            return tagPrompt[0]
-        } else if (tagPackage.length === 1) {
-            return tagPrompt[1]
-        } else if (tagPackage.length === 2) {
-            return tagPrompt[2]
-        }
-        else {
-            return tagPrompt[3]
-        }
-    }
-
 
 
 
@@ -54,7 +31,6 @@ const CreateTags = ({
             <p className='createFormTitle'>Add Your Tags</p>
 
             <div className='createFormBox'>
-
                 <form className='createInputForm' name='tag' onSubmit={(e) => submitNewObject(e, newTag, setNewTag, allTags, tagPackage, setTagPackage, initialTagState, setFilteredList)}>
 
                     <input
@@ -80,7 +56,7 @@ const CreateTags = ({
                     </input>
 
                     <div className='createTagPrompt'>
-                        <p>{getTagPrompt()}</p>
+                        <p>{getTagPrompt(tagPackage)}</p>
                     </div>
 
                     <button className='createAddButton' type='submit'>Add</button>
@@ -112,7 +88,6 @@ const CreateTags = ({
 
 
                 <p>Tags</p>
-                {/* //! 10 tag limit to start? */}
                 <div className='createRecipeDisplayItems'>
                     <div className='createFilterSearch'>
                         {tagPackage.map((tag, i) => (

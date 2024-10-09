@@ -65,7 +65,6 @@ const CreateIngredients = ({
 
                 <form className='createInputForm' name='ingredient' onSubmit={(e) => submitNewObject(e, newIngredient, setNewIngredient, allIngredients, ingredientPackage, setIngredientPackage, initialIngredientState, setFilteredList)}>
 
-
                     <div className='inputIngredients'>
                         <div className='createQuantityMeasurement'>
                             {ingredientDetailsInputs.map((input, i) => (
@@ -84,7 +83,6 @@ const CreateIngredients = ({
                                 minLength={1}
                                 autoComplete='off'
                                 value={newIngredient.ingredient}
-                                // autoFocus
                                 onChange={(e) => handleSearchDetailChange(e, newIngredient, setNewIngredient, allIngredients, setSearchAttribute, setFilteredList)}
                                 onKeyDown={(e) => {
                                     if (e.key === 'Enter') {
@@ -124,6 +122,7 @@ const CreateIngredients = ({
 
                 </form>
 
+
                 {editView?.length > 0 && (
                     <div>
                         <button onClick={() => postOnlyType('ingredients', displayId, ingredientPackage, setIngredientPackage, refresh, setRefresh, setEditView)}>Submit Tags</button>
@@ -147,7 +146,6 @@ const CreateIngredients = ({
                         </div>
                     ))}
                 </div>
-
 
             </div>
         </div>

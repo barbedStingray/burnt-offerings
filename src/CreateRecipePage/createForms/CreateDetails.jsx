@@ -61,11 +61,9 @@ const CreateDetails = ({ dataPackage }) => {
         },
     ]
 
-    // handle photo solo
     const addCustomPhoto = (properties) => {
         setNewRecipeDetails({ ...newRecipeDetails, picture: properties })
     }
-
 
     return (
 
@@ -75,7 +73,6 @@ const CreateDetails = ({ dataPackage }) => {
 
             <div className='createFormBox'>
                 <form className='createInputForm createDetailsForm'>
-
                     {newRecipeDetailInputs.slice(0, 2).map((input, i) => (
                         <DetailInput key={i} inputDetails={input} />
                     ))}
@@ -84,15 +81,10 @@ const CreateDetails = ({ dataPackage }) => {
                             <DetailInput key={i} inputDetails={input} />
                         ))}
                     </div>
-
                 </form>
-
                 <ImageUpload photoFunction={addCustomPhoto} recipeImage={newRecipeDetails.picture} />
             </div>
-
         </div >
-
     )
 }
-
 export default CreateDetails

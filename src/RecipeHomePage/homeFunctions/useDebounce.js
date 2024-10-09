@@ -1,6 +1,9 @@
+// * ONE FUNCTION: 
+    // Handle Debounce
+    // setPage(1)
+
+
 import { useState, useEffect, useRef } from 'react';
-
-
 
 const useDebounce = (keywords, setCurrentPage) => {
     const debounceTimoutRef = useRef(null) // delay in db request
@@ -13,9 +16,7 @@ const useDebounce = (keywords, setCurrentPage) => {
         }
         debounceTimoutRef.current = setTimeout(() => {
             setBouncedKeywords(keywords)
-            console.log('bounce')
             setCurrentPage(1)
-            // trigger animation
         }, 1000)
 
         return () => {

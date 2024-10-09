@@ -5,31 +5,25 @@ import axios from 'axios'
 import handleValueIsPresent from '../createFunctions/handleValueIsPresent'
 import useAllCategory from '../createFunctions/allOfCategory'
 import checkDuplicateTitles from '../createFunctions/checkDuplicateTitles'
-
-
+import generateNewIcon from '../createFunctions/generateNewIcon'
+import generatePostModal from '../createFunctions/generatePostModal'
 
 
 
 const SubmitRecipe = ({ dataPackage }) => {
-    const { newRecipeDetails, setNewRecipeDetails, subRecipePackage, ingredientPackage, stepPackage, tagPackage } = dataPackage
+    const { newRecipeDetails, subRecipePackage, ingredientPackage, stepPackage, tagPackage } = dataPackage
 
     const navigate = useNavigate()
 
     const [allRecipes, allRecipesStatus] = useAllCategory('/api/recipes/titleCheck')
     const [postModal, setPostModal] = useState(false) // modal toggle
-    const [postModalDisplay, setPostModalDisplay] = useState('failure')
+    const [postModalDisplay, setPostModalDisplay] = useState('')
     const [navigateNewId, setNavigateNewId] = useState(0)
-
-
-    function randomIconNumber() {
-        return Math.floor(Math.random() * 5)
-    }
-    const iconStrings = ['dinner', 'fish', 'lunch', 'snack', 'egg']
 
 
 
     const handleCreateRecipe = async () => {
-        // pass checks of first section
+
         const isValuePresent = handleValueIsPresent(newRecipeDetails)
         if (!isValuePresent) return
         Object.entries(newRecipeDetails).forEach(([key, value]) => {
@@ -37,66 +31,29 @@ const SubmitRecipe = ({ dataPackage }) => {
                 newRecipeDetails[key] = value.trim();
             }
         })
-
         const isDuplicate = checkDuplicateTitles(newRecipeDetails, allRecipes)
         if (!isDuplicate) return
         
         if(newRecipeDetails.picture === 'no photo') {
-            // give it a string
-            newRecipeDetails.picture = `${iconStrings[randomIconNumber()]}`
+            newRecipeDetails.picture = generateNewIcon()
         }
-        console.log('PHOTO STRING', newRecipeDetails.picture)
 
-        // ! activate trying to post entire recipe
         setPostModal(true)
         setPostModalDisplay('loading')
 
         try {
             console.log('submitting new recipe', newRecipeDetails, subRecipePackage, ingredientPackage, stepPackage, tagPackage)
             const postResponse = await axios.post(`/api/recipes/newRecipe`, { newRecipeDetails, subRecipePackage, ingredientPackage, stepPackage, tagPackage })
-
-            // ? Does this need to be in an if statement?
-            if (postResponse.data.success) {
-                console.log('success in recipe POST')
-                setPostModalDisplay('success')
-
-                // todo invalidate your caches here
-            }
-
-            // set your new recipe id
+            // you return a response of success from db... tie up the loose end.
+            setPostModalDisplay('success')
             setNavigateNewId(postResponse.data.newRecipeId)
-
-            // todo RESET variables ? seems like it's resetting already
-
         } catch (error) {
             console.log('error in recipe POST')
-            setPostModalDisplay('failure')
+            setPostModalDisplay('error')
         }
     }
 
-
-
-    function generatePostModal(activeString) {
-        switch (activeString) {
-            case 'loading':
-                return <div>
-                    <h1>recipe is loading</h1>
-                </div>
-            case 'success':
-                return <div>
-                    <h1>recipe success!</h1>
-                </div>
-            case 'failure':
-                return <div>
-                    <h1>recipe failure</h1>
-                </div>
-            default:
-                return ''
-        }
-    }
-
-
-
+    // todo these can be LINKs
     function goToNewRecipe(id) {
         console.log('going to new recipe', id)
         navigate(`/recipeDetails/${id}`)
@@ -106,14 +63,15 @@ const SubmitRecipe = ({ dataPackage }) => {
     }
 
 
-
-
-
-
-
     return (
         <div>
 
+            <h3>Please Review Your Recipe!</h3>
+
+            <p>When you're ready, hit submit!</p>
+
+            <button onClick={() => handleCreateRecipe()}>Create Your Recipe</button>
+            
             {postModal && (
                 <div>
                     {generatePostModal(postModalDisplay)}
@@ -123,11 +81,6 @@ const SubmitRecipe = ({ dataPackage }) => {
             )}
 
 
-            <h3>Please Review Your Recipe!</h3>
-
-            <p>When you're ready, hit submit!</p>
-
-            <button onClick={() => handleCreateRecipe()}>Create Your Recipe</button>
 
         </div>
     )
