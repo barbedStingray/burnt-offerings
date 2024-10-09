@@ -1,5 +1,4 @@
 
-
 export default function generatePostModal(activeString) {
     switch (activeString) {
         case 'loading':

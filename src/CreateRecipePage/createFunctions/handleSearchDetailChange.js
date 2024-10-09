@@ -1,17 +1,17 @@
     import handleDetailChange from "./handleDetailChange"
     
 
-    // ! creates the dropdown menu of options
+    // creates the dropdown menu of options
     const handleSearchDetailChange = (e, object, setObjectFunction, searchList, setSearchAttribute, setFilteredTags) => {
         const { name, value } = e.target
-        console.log('handleSearchDetailChange', name, value)
+        const maxItemReturn = 6
         setSearchAttribute(name)
         const searchQuery = value.toLowerCase()
 
-        // ! Set the new Object
+        // Set the new Object
         handleDetailChange(e, object, setObjectFunction)
 
-        // ! search and filter results
+        // search and filter results
         if (searchQuery.length === 0) {
             setFilteredTags([])
         } else {
@@ -23,8 +23,7 @@
                 if (!startsWithQueryA && startsWithQueryB) return 1
                 return 0
             })
-            // return max of 6
-            const limitedFilter = sortedFiltered.slice(0, 6)
+            const limitedFilter = sortedFiltered.slice(0, maxItemReturn)
             setFilteredTags(limitedFilter)
         }
     }

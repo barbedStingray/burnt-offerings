@@ -1,5 +1,5 @@
 import React from 'react'
-import scrollToForm from '../createFunctions/scrollToForm'
+import scrollToForm from '../createFunctions/scrollFunctions/scrollToForm'
 
 
 const FormShortcuts = ({ formIndex, formContainerRef }) => {

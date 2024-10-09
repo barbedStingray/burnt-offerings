@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useRef } from 'react'
 import './createRecipePage.css'
 
 import CreateDetails from './createForms/CreateDetails'
@@ -9,7 +9,7 @@ import CreateTags from './createForms/CreateTags'
 import SubmitRecipe from './createForms/SubmitRecipe'
 import CreateNav from './createComponents/CreateNav'
 import FormShortcuts from './createComponents/FormShortcuts'
-import useScrollTracking from './createFunctions/useScrollTracking'
+import useScrollTracking from './createFunctions/scrollFunctions/useScrollTracking'
 
 const CreateNewRecipe = () => {
 
@@ -71,9 +71,8 @@ const CreateNewRecipe = () => {
                         </div>
                     ))}
                 </div>
-
-
             </div>
+            
         </div >
     )
 }

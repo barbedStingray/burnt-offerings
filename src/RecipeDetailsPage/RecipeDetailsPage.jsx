@@ -29,17 +29,11 @@ import { PiPencilThin } from "react-icons/pi";
 const RecipeDetailsPage = () => {
 
     const { recipeID } = useParams()
-    const navigate = useNavigate()
-
     const [refresh, setRefresh] = useState(true)
-
     const { theMainRecipe, theSubRecipes, theParentRecipes, detailsStatus } = useRecipeDetails(recipeID, refresh)
     const recipeDisplay = [theMainRecipe].concat(theSubRecipes)
-
     const [recipeIndex, setRecipeIndex] = useState(0)
     const slideDistance = 67;
-
-
     const displayId = detailsStatus === 'loaded' ? recipeDisplay[recipeIndex].recipeDetails.recipe_id : recipeID
 
 
@@ -49,8 +43,6 @@ const RecipeDetailsPage = () => {
     function displayPreviousRecipe(recipeIndex) {
         setRecipeIndex(recipeIndex - 1)
     }
-
-
 
     const deleteEntireRecipe = async (id) => {
         try {

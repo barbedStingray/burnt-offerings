@@ -25,21 +25,21 @@ export default useScrollTracking
 
 
 
-    // SCROLL effects... OLD from CreateNewRecipe.jsx
-    // useEffect(() => {
-    //     // picking up my formIndex for scroll
-    //     const handleScroll = () => {
-    //         const formWidth = formContainerRef.current.clientWidth
-    //         const currentScroll = formContainerRef.current.scrollLeft
-    //         const newIndex = Math.round(currentScroll / formWidth)
-    //         setFormIndex(newIndex)
-    //     }
-    //     formContainerRef.current.addEventListener('scroll', handleScroll)
-    //     // cleanup function
-    //     return () => {
-    //         if (formContainerRef.current) {
-    //             formContainerRef.current.removeEventListener('scroll', handleScroll)
-    //         }
-    //     }
-    // }, [])
+// SCROLL effects... OLD from CreateNewRecipe.jsx
+// useEffect(() => {
+//     // picking up my formIndex for scroll
+//     const handleScroll = () => {
+//         const formWidth = formContainerRef.current.clientWidth
+//         const currentScroll = formContainerRef.current.scrollLeft
+//         const newIndex = Math.round(currentScroll / formWidth)
+//         setFormIndex(newIndex)
+//     }
+//     formContainerRef.current.addEventListener('scroll', handleScroll)
+//     // cleanup function
+//     return () => {
+//         if (formContainerRef.current) {
+//             formContainerRef.current.removeEventListener('scroll', handleScroll)
+//         }
+//     }
+// }, [])
 
