@@ -4,9 +4,19 @@
  box-sizing: border-box;
 }
 
-/* .burnt-offerings {
-    border: 2px solid pink;
-    position: relative;
-    width: 100vw;
-    height: 100vh;
-} */
+
+
+
+
+
+.quarterCircle {
+    width: 80%;
+    height: 50%;
+    background-color: #6fdffb77;
+    border-bottom-right-radius: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -10;
+
+}

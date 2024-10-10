@@ -27,7 +27,7 @@ const CreateNewRecipe = () => {
     const [stepPackage, setStepPackage] = useState([])
     const [tagPackage, setTagPackage] = useState([])
     const formContainerRef = useRef(null)
-    const formIndex = useScrollTracking(formContainerRef)
+    const scrollIndex = useScrollTracking(formContainerRef)
     const createForms = [
         <CreateDetails dataPackage={{ newRecipeDetails, setNewRecipeDetails }} />,
         <CreateSubRecipes dataPackage={{ subRecipePackage, setSubRecipePackage }} />,
@@ -37,11 +37,8 @@ const CreateNewRecipe = () => {
         <SubmitRecipe dataPackage={{ newRecipeDetails, subRecipePackage, ingredientPackage, stepPackage, tagPackage }} />
     ]
 
-
-
     return (
         <div className='createPage'>
-            <div className='createQuarter'></div>
 
             <CreateNav />
 
@@ -61,7 +58,7 @@ const CreateNewRecipe = () => {
 
             <div className='createFooter'>
 
-                <FormShortcuts formIndex={formIndex} formContainerRef={formContainerRef} />
+                <FormShortcuts scrollIndex={scrollIndex} formContainerRef={formContainerRef} />
 
                 {/* snap forms */}
                 <div className={`createForms`} ref={formContainerRef}>

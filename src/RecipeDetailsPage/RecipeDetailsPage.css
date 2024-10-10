@@ -2,30 +2,12 @@
 
 /* todo !!! You have to eliminate css position fixed for the forms to fit */
 
-.detailsPage {
-    /* border: 2px solid red; */
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: flex-start;
-    align-items: center;
-    position: relative;
-    height: 100dvh;
-    overflow: scroll;
-}
 
-.detailsQuarter {
-    width: 80%;
-    height: 50%;
-    background-color: #6ffbf477;
-    border-bottom-right-radius: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -10;
-}
+
 
 /* EDIT VIEWs */
 /* todo ! very similar to .createSingleForm in createnewrecipe.css */
+/* What is this? lol */
 .detailEditView {
     border: 2px solid lime;
     height: calc(100dvh - 20dvh);
@@ -39,15 +21,13 @@
 
 
 
+
 /* navigation */
 .detailNavigation {
-    /* border: 2px solid gold; */
+    border: 2px solid gold;
     background-color: #808080cc;
     width: 100%;
     height: 10dvh;
-    position: fixed;
-    top: 0;
-    z-index: 10;
 }
 
 .detailNavigationParts {
@@ -92,21 +72,60 @@
 
 
 
-.recipeDetailsContainer {
-    /* border: 2px solid magenta; */
+.detailsPage {
+    border: 2px solid red;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
     height: 100dvh;
-    width: 90dvw;
-    padding: 14dvh 0dvh 12dvh 0dvh;
-    ;
+    width: 100dvw;
+    position: relative;
+}
+
+
+
+
+.detailSliderContainer {
+    border: 2px solid lime;
+    flex: 1;
+    width: 100%;
+    overflow: scroll;
+    scrollbar-width: none;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    scroll-snap-type: x mandatory;
+}
+/* ! hide scroll bar */
+
+.recipeDetailsScrollContainer {
+    border: 2px solid magenta;
+    height: 100%;
+    flex: 1 0 100%;
     display: flex;
     flex-flow: column nowrap;
     justify-content: flex-start;
     align-items: center;
-    gap: 5dvh;
-    overflow: scroll;
+    overflow-y: scroll;
     scrollbar-width: none;
+    scroll-snap-align: start;
+    padding: 20px;
 }
-/* ! hide scroll bar */
+
+.recipeDetailContainer {
+    border: 2px solid black;
+    display: flex;
+    width: 100%;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 5vh;
+}
+
+
+
 .detailsTopDisplay {
     /* border: 2px solid lime; */
     display: flex;
@@ -319,71 +338,13 @@
 /* footer */
 .detailsFooter {
     border: 2px solid gold;
-    background-color: #808080;
+    background-color: #808080cc;
     width: 100%;
     height: 10dvh;
-    /* position: fixed; */
-    bottom: 0;
-    z-index: 10;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: center;
-    align-items: center;
+    display: none;
 }
 
-.createSubSliderButton {
-    border: 1px solid black;
-    border-radius: 50%;
-    height: 7.5dvh;
-    width: 7.5dvh;
-    font-size: 2dvh;
-    margin: 0 3dvh 0 3dvh;
-}
 
-.detailRecipeSlideContainer {
-    /* border: 2px solid red; */
-    width: 210px;
-    height: 100%;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: flex-start;
-    align-items: center;
-    overflow: hidden;
-}
-
-.detailRecipeSubDisplay {
-    /* border: 2px solid gold; */
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: flex-start;
-    align-items: center;
-    transition: transform 0.5s ease-in-out;
-}
-
-.detailRecipeSubItem {
-    /* border: 1px solid green; */
-    border-radius: 50%;
-    flex-shrink: 0;
-    width: 33%;
-    height: 90%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: transform 0.5s ease-in-out;
-    transform: scale(1);
-}
-
-.featureSub {
-    transition: transform 0.5s ease-in-out;
-    transform: scale(1.25);
-}
-
-.subFeature {
-    transition: transform 0.5s ease-in-out;
-    transform: scale(0.75);
-}
 
 
 

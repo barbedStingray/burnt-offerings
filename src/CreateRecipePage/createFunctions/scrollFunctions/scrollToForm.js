@@ -1,9 +1,9 @@
 
-const scrollToForm = (formIndex, formContainerRef) => {
-    console.log('scrolling to', formIndex)
+const scrollToForm = (scrollIndex, formContainerRef) => {
+    console.log('scrolling to', scrollIndex)
     const formWidth = formContainerRef.current.clientWidth // set width
     formContainerRef.current.scrollTo({
-        left: formWidth * formIndex, // scroll to correct position
+        left: formWidth * scrollIndex, // scroll to correct position
         behavior: 'smooth'
     })
 }

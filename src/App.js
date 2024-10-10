@@ -13,6 +13,7 @@ function App() {
 
   return (
     <div className="burnt-offerings">
+      <div className='quarterCircle'></div>
       <Routes>
         <Route path='/' element={<RecipeHomePage /> } />
         <Route path='/recipeDetails/:recipeID' element={<RecipeDetailsPage /> } />

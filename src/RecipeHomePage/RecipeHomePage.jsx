@@ -36,9 +36,6 @@ const RecipeHomePage = () => {
     return (
         <div className='homePage'>
 
-            <div className='homeQuarter'></div>
-
-            {/* // todo component navigation */}
             <HomeNav />
 
             {/* main display */}

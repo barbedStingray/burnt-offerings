@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 
-export default async function deleteSoloDetail(type, id, refresh, setRefresh, parentId, setRecipeIndex) {
+export default async function deleteSoloDetail(type, id, refresh, setRefresh, parentId) {
     console.log('delete solo detail', type, id, parentId)
 
     const apiCalls = {
@@ -16,7 +16,6 @@ export default async function deleteSoloDetail(type, id, refresh, setRefresh, pa
     try {
         if (type === 'subRecipe') {
             await axios.delete(deleteText, { data: { parentId }})
-            setRecipeIndex(0)
         } else {
             await axios.delete(deleteText)
         }
