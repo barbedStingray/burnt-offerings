@@ -25,7 +25,7 @@
 }
 
 .burnt-offerings {
-    background-color: var(--blueThree);
+    background-color: var(--blueTwo);
     color: var(--black)
 }
 a {
@@ -37,7 +37,7 @@ a {
 .quarterCircle {
     width: 60%;
     height: 50%;
-    background-color: var(--blueTwo);
+    background-color: var(--blueOne);
     border-bottom-right-radius: 100%;
     position: absolute;
     top: 0;
