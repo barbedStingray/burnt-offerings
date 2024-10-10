@@ -5,18 +5,41 @@
 }
 
 
+:root {
+    --blueOne: #90abb3;
+    --blueTwo: #7e97a1;
+    /* --blueThree: #637679; */
+    --blueThree: #5e7d82;
+    --blueFour: #3c4b54;
 
+    --featherGrey: #c9d8d2;
+    --steelGrey: #80766d;
+    --darkGrey: #505857dd;
+    --black: #0c1210;
 
+    --darkRed: #622a19;
+    --brickRed: #412112;
+    --orange: #dd8231;
+    --yellow: #fae35e;
+
+}
+
+.burnt-offerings {
+    background-color: var(--blueThree);
+    color: var(--black)
+}
+a {
+    text-decoration: none;
+    /* color: inherit */
+}
 
 
 .quarterCircle {
-    width: 80%;
+    width: 60%;
     height: 50%;
-    background-color: #6fdffb77;
+    background-color: var(--blueTwo);
     border-bottom-right-radius: 100%;
     position: absolute;
     top: 0;
     left: 0;
-    z-index: -10;
-
 }

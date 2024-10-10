@@ -13,6 +13,8 @@ const DisplaySubRecipes = ({ editPackage, detailPackage }) => {
     const isParentRecipe = recipe.recipeDetails.is_parent_recipe
     console.log('isParentRecipe', recipe.recipeDetails.is_parent_recipe)
 
+
+    
     return (
         <div className='detailSubRecipes'>
             <div className='detailSectionHeader'>

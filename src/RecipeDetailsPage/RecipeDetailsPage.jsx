@@ -110,9 +110,9 @@ const RecipeDetailsPage = () => {
             <DeleteModal editPackage={{ deleteModal, setDeleteModal, deleteStatus }} />
             {/* This is generating your add forms */}
             {editView.length > 0 && (
-                <>
+                <div className='addViewContainer'>
                     {generateAddModalType(editView)}
-                </>
+                </div>
             )}
 
 
@@ -178,7 +178,6 @@ const RecipeDetailsPage = () => {
                                     editPackage={{ letsEdit, refresh, setRefresh }}
                                     detailPackage={{ instructions: recipe.steps, setEditView }}
                                 />
-
 
                                 <DisplaySubRecipes
                                     editPackage={{ displayId, recipeID, refresh, letsEdit, setRefresh, setEditView }}

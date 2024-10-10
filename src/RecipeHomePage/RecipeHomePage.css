@@ -16,7 +16,7 @@
 /* navigation */
 .homeNavigation {
     /* border: 2px solid orange; */
-    background-color: #808080cc;
+    background-color: var(--darkGrey);
     width: 100%;
     height: 10dvh;
     position: fixed;
@@ -33,7 +33,7 @@
 }
 .homeAddButton {
     /* border: 2px solid black; */
-    color: ghostwhite;
+    color: var(--orange);
     width: 8vh;
     height: 8vh;
     font-size: 8vh;
@@ -71,6 +71,7 @@
     /* border: 2px solid green; */
     /* background-color: #555555dd; */
     /* height: 10vh; */
+    /* display: none; */
 }
 .homeSearchBar {
     /* border: 2px solid black; */
@@ -83,8 +84,9 @@
 }
 .homeKeywordSearch {
     border: none;
-    /* border: 2px solid orange; */
-    background-color: #afafaf;
+    outline: none;
+    border: 2px solid var(--darkRed);
+    background-color: var(--featherGrey);
     width: 100%;
     height: 100%;
     border-radius: 30px;
@@ -100,8 +102,6 @@
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    /* CALC for fixed heights... ftw. */
-    /* height: calc(100dvh - 20dvh); */
     height: 100dvh;
     overflow: auto;
     scrollbar-width: none;
@@ -128,6 +128,7 @@
 .homeNoCookieMan {
     /* border: 2px solid magenta; */
     font-size: 22vh;
+
 }
 
 .recipeMosaic {
@@ -177,47 +178,18 @@
     grid-row: span 2;
     perspective: 1000px;
     transform-style: preserve-3d;
-    /* starts at 0, but kinda cool at 1 */
-    opacity: 0;
-}
-.recipeContainer:nth-child(even) {
-    animation: recipeEnterRight 0.5s ease-in-out forwards;
-}
-.recipeContainer:nth-child(odd) {
-    animation: recipeEnterLeft 0.5s ease-in-out forwards;
-}
-
-@keyframes recipeEnterRight {
-    0% {
-        opacity: 0;
-        transform: translateX(25px)
-    }
-    100% {
-        opacity: 1;
-        transform: translateX(0)
-    }
-}
-@keyframes recipeEnterLeft {
-    0% {
-        opacity: 0;
-        transform: translateX(-25px)
-    }
-    100% {
-        opacity: 1;
-        transform: translateX(0)
-    }
 }
 
 /* ! same as details page except for height/width */
 .recipeMosaicPhoto {
-    border: 2px solid orangered;
-    background-color: ghostwhite;
+    border: 2px solid var(--orange);
+    background-color: var(--blueFour);
     border-radius: 50%;
     position: absolute;
     top: 0;
     width: 110px;
     height: 110px;
-    box-shadow: -6px 11px 10px rgba(0, 0, 0, 0.4);
+    box-shadow: -6px 9px 8px var(--darkRed);
     z-index: 10;
     display: flex;
     justify-content: center;
@@ -231,18 +203,20 @@
 }
 .homeGeneratedIcon {
     font-size: 60px;
+    color: var(--yellow);
 }
 
 .cardDisplay {
-    border: 2px solid #848484;
-    background-color: #dcdcdc;
+    border: 1px solid var(--darkRed);
+    background-color: var(--blueOne);
+    color: var(--black);
     height: 95%;
     width: 100%;
     border-radius: 20px;
     transform: rotateX(20deg);
     transform-origin: bottom center;
     transform-style: preserve-3d;
-    box-shadow: 0px 9px 7px rgba(0, 0, 0, 0.4);
+    box-shadow: 0px 7px 9px var(--brickRed);
     transition: transform 0.3s ease;
     display: flex;
     justify-content: center;
@@ -262,13 +236,11 @@
 }
 .homeRecipeTitle {
     /* border: 2px solid blue; */
+    color: var(--black);
     width: 90%;
     height: 50%;
-    font-size: 18px;
+    font-size: 20px;
     margin-bottom: 10px;
-    /* display: flex;
-    justify-content: center;
-    align-items: center; */
 }
 .homeDetail {
     /* border: 2px solid green; */
@@ -307,7 +279,7 @@
     justify-content: center;
     align-items: center;
     font-size: 8dvh;
-    color: white;
+    color: var(--orange);
 }
 .homeNextDeactivate {
     /* border: 2px solid red; */
@@ -323,7 +295,7 @@
 /* sub display */
 .homeFooter {
     /* border: 2px solid blue; */
-    background-color: #808080cc;
+    background-color: var(--darkGrey);
     width: 100%;
     height: 10dvh;
     position: fixed;
@@ -635,107 +607,3 @@
 
     /* END 1366 magenta*/
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* .keywordSearch {
-        border: none;
-        border-bottom: 2px solid blue;
-        width: 65%;
-        height: 85%;
-        outline: none;
-        font-size: 1.25em;
-        padding-left: 10px;
-    } */
-
-/* .displayMosaic {
-        border: 2px solid black;
-        display: grid;
-        margin: 6vw;
-        grid-template-columns: repeat(2, 1fr); */
-/* This is half the height of each recipeContainer */
-/* grid-template-rows: repeat(auto-fill, minmax(120px, auto));
-        padding: 3vh 0 3vh 0;
-    } */
-
-/* .searchReturn {
-        border: 2px solid red;
-        grid-column: span 1;
-        grid-row: span 1;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    } */
-
-/* .lastSquareDiv {
-        border: 2px solid red;
-        grid-column: span 1;
-        grid-row: span 2;
-    } */
-
-/* .recipeContainer {
-        border: 1px solid black;
-        height: 240px;
-        position: relative;
-        display: flex;
-        flex-flow: row nowrap;
-        justify-content: flex-end;
-        align-items: center;
-        grid-column: span 1;
-        grid-row: span 2;
-        overflow: hidden;
-    } */
-
-/* alternating columns */
-/* .recipeContainer:nth-child(odd) {
-        flex-direction: row-reverse;
-
-        .recipePhoto {
-            position: absolute;
-            left: -35px;
-        }
-
-        .cardDisplay {
-            align-items: flex-end;
-        }
-
-    }
-
-    .recipeContainer:nth-child(even) {
-        flex-direction: row;
-
-        .recipePhoto {
-            position: absolute;
-            right: -35px;
-        }
-
-        .cardDisplay {
-            align-items: flex-start;
-        }
-    } */
-
-/* END 1024px */
