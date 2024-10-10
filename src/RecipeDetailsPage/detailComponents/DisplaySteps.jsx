@@ -8,24 +8,32 @@ const DisplaySteps = ({ editPackage, detailPackage }) => {
     const { instructions, setEditView } = detailPackage
 
     return (
-        <div>
-            <p className='detailsDescriptionTitle'>Instructions</p>
-            <div className='displayRecipeSteps'>
+        <div className='detailSteps'>
+            <div className='detailSectionHeader'>
+                <p>Instructions</p>
                 {letsEdit && (
                     <button onClick={() => setEditView('step')}>Add Step</button>
                 )}
+            </div>
+            <div className='displayRecipeSteps'>
                 {instructions.map((step, i) => (
-                    <div key={i} className='displayStepItem'>
+                    <div key={i} className='displaySingleStep'>
                         {letsEdit && <button onClick={() => deleteSoloDetail('step', step.step_id, refresh, setRefresh)}>DELETE ME</button>}
 
-                        <EditTheDetail
-                            category={{ type: 'step_number', detail: step.step_number, target_id: step.step_id }}
-                            editPackage={{ letsEdit, refresh, setRefresh }}
-                        />
-                        <EditTheDetail
-                            category={{ type: 'instructions', detail: step.instructions, target_id: step.step_id }}
-                            editPackage={{ letsEdit, refresh, setRefresh }}
-                        />
+
+                        <div className='displayStepNumber'>
+                            <EditTheDetail
+                                category={{ type: 'step_number', detail: step.step_number, target_id: step.step_id }}
+                                editPackage={{ letsEdit, refresh, setRefresh }}
+                            />
+                        </div>
+                        <div className='displayStepStep'>
+                            <EditTheDetail
+                                category={{ type: 'instructions', detail: step.instructions, target_id: step.step_id }}
+                                editPackage={{ letsEdit, refresh, setRefresh }}
+                            />
+                        </div>
+
                     </div>
                 ))}
             </div>

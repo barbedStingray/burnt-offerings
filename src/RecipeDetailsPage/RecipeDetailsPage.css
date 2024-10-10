@@ -8,7 +8,7 @@
     background-color: #808080cc;
     width: 100%;
     /* height: 10dvh; */
-    height: 18dvw;
+    height: 16dvw;
     position: fixed;
     top: 0;
     z-index: 10;
@@ -26,8 +26,8 @@
 .detailHomeButton {
     /* border: 2px solid black; */
     color: ghostwhite;
-    width: 18dvw;
-    height: 18dvw;
+    width: 16dvw;
+    height: 16dvw;
     font-size: 16dvw;
     display: flex;
     justify-content: center;
@@ -59,7 +59,7 @@
 
 
 .detailsPage {
-    border: 2px solid red;
+    /* border: 2px solid red; */
     height: 100dvh;
     width: 100dvw;
     display: flex;
@@ -98,8 +98,8 @@
 .recipeDetailContainer {
     /* border: 2px solid black; */
     border: none;
-    margin: 22dvw 0dvw;
-    padding: 2.5%;
+    margin: 20dvw 0dvw;
+    padding: 5%;
     width: 95%;
     display: flex;
     flex-flow: column nowrap;
@@ -119,7 +119,7 @@
 
 
 .detailsTopDisplay {
-    border: 2px solid lime;
+    /* border: 2px solid lime; */
     display: flex;
     flex-flow: row nowrap;
     justify-content: flex-start;
@@ -129,7 +129,7 @@
 }
 
 .detailsTopInfo {
-    border: 2px solid orange;
+    /* border: 2px solid orange; */
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
@@ -162,7 +162,7 @@
 }
 
 .prepServings {
-    border: 2px solid magenta;
+    /* border: 2px solid magenta; */
     width: 100%;
     height: 5dvh;
     display: flex;
@@ -174,7 +174,7 @@
 
 .detailsPrep,
 .detailsServings {
-    border: black 2px solid;
+    border: black 1px solid;
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-evenly;
@@ -186,6 +186,7 @@
     padding: 5px;
     width: 35%;
 }
+
 .detailsPrep {
     width: 50%;
 }
@@ -194,7 +195,7 @@
 
 
 .detailsBottomInfo {
-    border: 2px solid yellow;
+    /* border: 2px solid yellow; */
     flex: 1;
     display: flex;
     flex-flow: column nowrap;
@@ -204,13 +205,13 @@
 }
 
 .detailsTitleDisplay {
-    border: 2px solid blue;
+    /* border: 2px solid blue; */
     width: 100%;
     font-size: 3.75dvh;
 }
 
 .editModal {
-    border: 2px solid black;
+    /* border: 2px solid black; */
     width: 100%;
     height: 100%;
     position: fixed;
@@ -223,8 +224,9 @@
     align-items: center;
     /* z-index: 5; */
 }
+
 .editDisplayModal {
-    border: 2px solid yellow;
+    /* border: 2px solid yellow; */
     background-color: grey;
     border-radius: 20px;
     width: 80dvw;
@@ -235,15 +237,17 @@
     padding: 2vh 0vh;
     gap: 2vh;
 }
+
 .editHeader {
-    border: 2px solid green;
+    /* border: 2px solid green; */
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
 }
+
 .editForm {
-    border: 2px solid magenta;
+    /* border: 2px solid magenta; */
     width: 90%;
     display: flex;
     flex-flow: column nowrap;
@@ -251,14 +255,16 @@
     align-items: center;
     gap: 2vh;
 }
+
 .detailEditInput {
-    border: 2px solid blue;
+    /* border: 2px solid blue; */
     width: 90%;
     font-size: 16px;
     text-align: center;
 }
+
 .editModalButtons {
-    border: 2px solid brown;
+    /* border: 2px solid brown; */
     width: 100%;
     display: flex;
     flex-flow: row nowrap;
@@ -270,24 +276,27 @@
 
 
 .tagDetails {
-    border: 2px solid red;
+    /* border: 2px solid red; */
     width: 100%;
     display: flex;
     flex-flow: column nowrap;
     justify-content: flex-start;
     align-items: center;
 }
+
 .addDetailButton {
-    border: 2px solid green;
+    /* border: 2px solid green; */
 }
+
 .viewTags {
-    border: 2px solid gold;
+    /* border: 2px solid gold; */
     width: 100%;
     display: flex;
     flex-flow: row wrap;
     justify-content: flex-start;
     align-items: flex-start;
 }
+
 .viewTags p {
     background-color: ghostwhite;
     border: 1px solid grey;
@@ -297,14 +306,15 @@
 }
 
 .detailsDescriptionParts {
-    border: 2px solid red;
+    /* border: 2px solid red; */
     width: 100%;
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
-    align-items: flex-start;
-
+    align-items: center;
+    text-align: center;
 }
+
 
 
 .detailsMultiplier {
@@ -332,45 +342,46 @@
 }
 
 
-.detailsDescriptionTitle {
-    /* border: 2px solid blue; */
-    border-bottom: grey 1px solid;
-    font-size: 22px;
-}
-
 .detailsDescription {
     /* border: 2px solid gold; */
     padding: 10px;
 }
 
-
-/* tags and steps */
-.detailsTagsAndSteps {
+.detailIngredients,
+.detailSteps {
     /* border: 2px solid blue; */
     width: 100%;
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
-    align-items: flex-start;
-    gap: 2dvh;
+    align-items: flex-end;
+    gap: 3dvw;
 }
 
+.detailSectionHeader {
+    /* border: 2px solid blue; */
+    border-bottom: grey 1px solid;
+    width: 100%;
+    font-size: 22px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
 
-/* ! same view without overflow as createRecipe */
 .displayRecipeIngredients,
 .displayRecipeSteps {
     /* border: 2px solid red; */
-    width: 100%;
+    width: 95%;
     display: flex;
     flex-flow: column nowrap;
     justify-content: flex-start;
     align-items: center;
-    gap: 1.25dvh;
-    font-size: 2dvh;
-    padding-left: 15px;
+    gap: 1dvw;
 }
 
-.displaySingleIngredient {
+.displaySingleIngredient,
+.displaySingleStep {
     /* border: 2px solid grey; */
     width: 100%;
     display: flex;
@@ -379,44 +390,43 @@
     align-items: flex-start;
 }
 
-.displayIngredientQuantity {
+.displayIngredientQuantity,
+.displayIngredientMeasurement,
+.displayIngredientIngredient {
     /* border: 2px solid green; */
+    font-size: 18px;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+    height: 9dvw;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.displayIngredientQuantity {
     width: 16%;
 }
 
 .displayIngredientMeasurement {
-    /* border: 2px solid red; */
-    width: 24%;
+    width: 18%;
 }
 
 .displayIngredientIngredient {
-    /* border: 2px solid gold; */
     flex: 1;
-}
-
-/* steps */
-.displayStepItem {
-    /* border: 2px solid blue; */
-    /* border-bottom: 1px solid grey; */
-    width: 100%;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: center;
-    align-items: flex-start;
+    overflow: hidden;
 }
 
 .displayStepNumber {
     /* border: 2px solid grey; */
     width: 8%;
-    font-size: 1.5dvh;
+    font-size: 14px;
 }
 
 .displayStepStep {
     /* border: 2px solid red; */
     flex: 1;
+    font-size: 18px;
 }
 
 

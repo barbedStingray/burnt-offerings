@@ -170,16 +170,14 @@ const RecipeDetailsPage = () => {
                                 <DisplayMultiplier multiplier={multiplier} setMultiplier={setMultiplier} />
 
 
-                                <div className='detailsTagsAndSteps'>
-                                    <DisplayIngredients
-                                        editPackage={{ letsEdit, refresh, setRefresh, multiplier }}
-                                        detailPackage={{ ingredients: recipe.ingredients, setEditView }}
-                                    />
-                                    <DisplaySteps
-                                        editPackage={{ letsEdit, refresh, setRefresh }}
-                                        detailPackage={{ instructions: recipe.steps, setEditView }}
-                                    />
-                                </div>
+                                <DisplayIngredients
+                                    editPackage={{ letsEdit, refresh, setRefresh, multiplier }}
+                                    detailPackage={{ ingredients: recipe.ingredients, setEditView }}
+                                />
+                                <DisplaySteps
+                                    editPackage={{ letsEdit, refresh, setRefresh }}
+                                    detailPackage={{ instructions: recipe.steps, setEditView }}
+                                />
 
 
                                 <div>

@@ -9,7 +9,6 @@ const DisplayDescription = ({ editPackage, detailPackage }) => {
 
     return (
         <div className='detailsDescriptionParts'>
-            <p className='detailsDescriptionTitle'>Description</p>
             <EditTheDetail
                 category={{ type: 'description', detail: description, target_id: displayId }}
                 editPackage={{ letsEdit, refresh, setRefresh }}

@@ -79,7 +79,7 @@ const EditTheDetail = ({ category, editPackage }) => {
                         className='detailEditInput'
                         value={newEdit}
                         onChange={(e) => setNewEdit(e.target.value)}
-                        rows={4} // You can adjust the number of rows as needed
+                        rows={6} // You can adjust the number of rows as needed
                     />
                 )
             case 'measurement':
