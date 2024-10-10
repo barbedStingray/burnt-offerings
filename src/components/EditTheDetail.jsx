@@ -17,7 +17,7 @@ const EditTheDetail = ({ category, editPackage }) => {
     const [newEdit, setNewEdit] = useState(detail)
     const [allRecipes, allRecipesStatus] = useAllCategory('/api/recipes/titleCheck')
     const [allIngredients, allIngredientsStatus] = useAllCategory('/api/recipes/ingredients')
-
+    const [crossedOff, setCrossedOff] = useState(false)
 
     // sync my newEdit values so leftovers are not displayed
     useEffect(() => {
@@ -142,8 +142,23 @@ const EditTheDetail = ({ category, editPackage }) => {
                         // this is shown if quantity is the type
                         <p onClick={letsEdit ? () => setEditStatus(true) : null}>{displayQuantity(detail, multiplier)}</p>
                     ) : (
-                        // normal display
-                        <p onClick={letsEdit ? () => setEditStatus(true) : null}>{detail}</p>
+                        <>
+                            {/* // crossed off */}
+                            {type === 'ingredient' || type === 'instructions' ? (
+                                <>
+                                    <p
+                                        className={crossedOff ? 'crossedOff' : ''}
+                                        onClick={letsEdit ? () => setEditStatus(true) : () => setCrossedOff(!crossedOff)}
+                                    >
+                                        {detail}
+                                    </p>
+                                </>
+                            ) : (
+                                // normal element
+                                <p onClick={letsEdit ? () => setEditStatus(true) : null}>{detail}</p>
+                            )}
+
+                        </>
                     )}
                 </>
             )}

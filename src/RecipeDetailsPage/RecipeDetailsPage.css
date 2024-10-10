@@ -26,9 +26,9 @@
 .detailHomeButton {
     /* border: 2px solid black; */
     color: ghostwhite;
-    width: 16dvw;
-    height: 16dvw;
-    font-size: 16dvw;
+    width: 14dvw;
+    height: 14dvw;
+    font-size: 14dvw;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -97,7 +97,6 @@
 
 .recipeDetailContainer {
     /* border: 2px solid black; */
-    border: none;
     margin: 20dvw 0dvw;
     padding: 5%;
     width: 95%;
@@ -222,7 +221,7 @@
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
-    /* z-index: 5; */
+    z-index: 10;
 }
 
 .editDisplayModal {
@@ -318,12 +317,21 @@
 
 
 .detailsMultiplier {
-    border-top: 1px solid black;
+    /* border-top: 1px solid black; */
     width: 100%;
     display: flex;
     flex-flow: row nowrap;
     justify-content: flex-end;
-    align-items: center;
+    align-items: center;    
+    position: relative;
+    z-index: 0;
+}
+.lineThrough {
+    border: 0.5px solid grey;
+    position: absolute;
+    width: 100%;
+    z-index: 0;
+
 }
 
 .multiplyBtn {
@@ -334,11 +342,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 0;
+
 }
 
 .activateMultiply {
     /* border: 2px solid gold; */
     background-color: #ff4400cc;
+    z-index: 0;
+
 }
 
 
@@ -348,7 +360,8 @@
 }
 
 .detailIngredients,
-.detailSteps {
+.detailSteps,
+.detailSubRecipes {
     /* border: 2px solid blue; */
     width: 100%;
     display: flex;
@@ -370,31 +383,33 @@
 }
 
 .displayRecipeIngredients,
-.displayRecipeSteps {
+.displayRecipeSteps,
+.detailSubView {
     /* border: 2px solid red; */
     width: 95%;
     display: flex;
     flex-flow: column nowrap;
     justify-content: flex-start;
-    align-items: center;
+    align-items: flex-start;
     gap: 1dvw;
 }
 
 .displaySingleIngredient,
-.displaySingleStep {
+.displaySingleStep,
+.displaySingleSub {
     /* border: 2px solid grey; */
     width: 100%;
     display: flex;
     flex-flow: row nowrap;
     justify-content: flex-start;
     align-items: flex-start;
+    font-size: 18px;
 }
 
 .displayIngredientQuantity,
 .displayIngredientMeasurement,
 .displayIngredientIngredient {
     /* border: 2px solid green; */
-    font-size: 18px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -427,6 +442,19 @@
     /* border: 2px solid red; */
     flex: 1;
     font-size: 18px;
+}
+.crossedOff {
+    text-decoration: line-through;
+}
+
+.viewingSubRecipe {
+    /* border: 2px solid green; */
+    width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 2vh;
 }
 
 

@@ -8,15 +8,14 @@ import CreateIngredients from '../CreateRecipePage/createForms/CreateIngredients
 import CreateSteps from '../CreateRecipePage/createForms/CreateSteps'
 import CreateSubRecipes from '../CreateRecipePage/createForms/CreateSubRecipes'
 import EditTheDetail from '../components/EditTheDetail'
-import deleteSoloDetail from '../components/deleteSoloDetail'
 import DisplayPhoto from './detailComponents/DisplayPhoto'
 import DisplayIngredients from './detailComponents/DisplayIngredients'
 import DisplayDescription from './detailComponents/DisplayDescription'
 import DisplaySteps from './detailComponents/DisplaySteps'
 import DisplayTags from './detailComponents/DisplayTags'
+import DisplaySubRecipes from './detailComponents/DisplaySubRecipes'
 import DisplayErrorDetail from './detailComponents/DisplayErrorDetail'
 import useScrollTracking from '../CreateRecipePage/createFunctions/scrollFunctions/useScrollTracking'
-
 
 import deleteEntireRecipe from './detailFunctions/deleteEntireRecipe'
 import DeleteModal from './detailComponents/DeleteModal'
@@ -29,15 +28,17 @@ import { LuAlarmClock } from "react-icons/lu";
 const RecipeDetailsPage = () => {
 
     const { recipeID } = useParams()
-    const detailScrollRef = useRef(null)
+    const horizontalScrollRef = useRef(null)
     const [refresh, setRefresh] = useState(true)
 
     const { theMainRecipe, theSubRecipes, theParentRecipes, isLoaded, detailStatus } = useRecipeDetails(recipeID, refresh)
     const recipeDisplay = [theMainRecipe].concat(theSubRecipes)
-    const scrollIndex = useScrollTracking(detailScrollRef, isLoaded)
+    const scrollIndex = useScrollTracking(horizontalScrollRef, isLoaded)
     const [displayId, setDisplayId] = useState(recipeID)
     const [deleteModal, setDeleteModal] = useState(false)
     const [deleteStatus, setDeleteStatus] = useState('resting')
+    // console.log('scrollIndex', scrollIndex)
+    // console.log('displayId', displayId)
 
     // edit properties
     const [letsEdit, setLetsEdit] = useState(false)
@@ -48,12 +49,13 @@ const RecipeDetailsPage = () => {
     const [stepPackage, setStepPackage] = useState([])
     const [tagPackage, setTagPackage] = useState([])
 
-    // updates your 
+    // updates your scroll sync
     useEffect(() => {
         if (isLoaded) {
             setDisplayId(recipeDisplay[scrollIndex].recipeDetails.recipe_id)
         }
     }, [scrollIndex, isLoaded])
+
 
 
     function generateAddModalType(addModalType) {
@@ -103,7 +105,7 @@ const RecipeDetailsPage = () => {
     return (
         <div className='detailsPage'>
 
-            <DetailNav editPackage={{ letsEdit, setLetsEdit }} />
+            <DetailNav editPackage={{ letsEdit, setLetsEdit, horizontalScrollRef }} />
 
             <DeleteModal editPackage={{ deleteModal, setDeleteModal, deleteStatus }} />
             {/* This is generating your add forms */}
@@ -115,10 +117,10 @@ const RecipeDetailsPage = () => {
 
 
             {isLoaded ? (
-                <div className='detailSliderContainer' ref={detailScrollRef}>
+                <div className='detailSliderContainer' ref={horizontalScrollRef}>
                     {recipeDisplay.map((recipe, i) => (
                         <div key={i} className='recipeDetailsScrollContainer'>
-                            <div className='recipeDetailContainer'>
+                            <div className='recipeDetailContainer' >
                                 <div className='detailsTopDisplay'>
 
                                     <div className='detailsTopInfo'>
@@ -147,7 +149,6 @@ const RecipeDetailsPage = () => {
                                     </div>
 
                                     <div className='detailsBottomInfo'>
-
                                         <div className='detailsTitleDisplay'>
                                             <EditTheDetail
                                                 category={{ type: 'title', detail: recipe.recipeDetails.title, target_id: displayId }}
@@ -169,7 +170,6 @@ const RecipeDetailsPage = () => {
 
                                 <DisplayMultiplier multiplier={multiplier} setMultiplier={setMultiplier} />
 
-
                                 <DisplayIngredients
                                     editPackage={{ letsEdit, refresh, setRefresh, multiplier }}
                                     detailPackage={{ ingredients: recipe.ingredients, setEditView }}
@@ -180,34 +180,15 @@ const RecipeDetailsPage = () => {
                                 />
 
 
-                                <div>
-                                    {scrollIndex > 0 ? (
-                                        <button onClick={() => deleteSoloDetail('subRecipe', displayId, refresh, setRefresh, recipeID)}>Remove Sub Recipe</button>
-                                    ) : (
-                                        <>
-                                            <h5>Sub Recipe Management</h5>
-                                            {recipe.recipeDetails.is_sub_recipe ? (
-                                                <>
-                                                    <p>No sub recipes on an existing sub recipe</p>
-                                                </>
-                                            ) : (
-                                                <button onClick={() => setEditView('subRecipe')}>Sub Recipe Allowed</button>
-                                            )}
-                                        </>
-                                    )}
-                                </div>
-
+                                <DisplaySubRecipes
+                                    editPackage={{ displayId, recipeID, refresh, letsEdit, setRefresh, setEditView }}
+                                    detailPackage={{ scrollIndex, recipe, theSubRecipes, theParentRecipes, horizontalScrollRef }}
+                                />
 
                                 {scrollIndex === 0 && (
-                                    <>
-                                        <p>Parents:</p>
-                                        {theParentRecipes.map((parent, i) => (
-                                            <p key={i}>{parent.title}{parent.id}</p>
-                                        ))}
-                                    </>
+                                    <button onClick={() => deleteEntireRecipe(displayId, setDeleteModal, setDeleteStatus)}>Delete This Recipe</button>
                                 )}
 
-                                <button onClick={() => deleteEntireRecipe(displayId, setDeleteModal, setDeleteStatus)}>Delete This Recipe</button>
                             </div>
                         </div>
                     ))}
