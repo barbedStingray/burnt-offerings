@@ -1,15 +1,15 @@
 import React from 'react'
 
 
-const DisplayMultiplier = ({ setMultiplier }) => {
+const DisplayMultiplier = ({ multiplier, setMultiplier }) => {
 
-    
+
+    console.log('multiplier', multiplier)
     return (
-        <div>
-            <p>Multiply Your Recipe</p>
-            <div onClick={() => setMultiplier(0.5)}>0.5x</div>
-            <div onClick={() => setMultiplier(1)}>1x</div>
-            <div onClick={() => setMultiplier(2)}>2x</div>
+        <div className='detailsMultiplier'>
+            <div className={`multiplyBtn ${multiplier == 0.5 ? 'activateMultiply' : ''}`} onClick={() => setMultiplier(0.5)}>1/2x</div>
+            <div className={`multiplyBtn ${multiplier == 1 ? 'activateMultiply' : ''}`} onClick={() => setMultiplier(1)}>1x</div>
+            <div className={`multiplyBtn ${multiplier == 2 ? 'activateMultiply' : ''}`} onClick={() => setMultiplier(2)}>2x</div>
         </div>
     )
 }

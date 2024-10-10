@@ -129,14 +129,14 @@ const RecipeDetailsPage = () => {
                                         />
 
                                         <div className='prepServings'>
-                                            <div>
+                                            <div className='detailsPrep'>
                                                 <LuAlarmClock />
                                                 <EditTheDetail
                                                     category={{ type: 'prep_time', detail: recipe.recipeDetails.prep_time, target_id: displayId }}
                                                     editPackage={{ letsEdit, refresh, setRefresh }}
                                                 />
                                             </div>
-                                            <div>
+                                            <div className='detailsServings'>
                                                 <p><FaInfo /></p>
                                                 <EditTheDetail
                                                     category={{ type: 'servings', detail: recipe.recipeDetails.servings, target_id: displayId }}
@@ -167,7 +167,8 @@ const RecipeDetailsPage = () => {
                                     detailPackage={{ displayId, description: recipe.recipeDetails.description }}
                                 />
 
-                                <DisplayMultiplier setMultiplier={setMultiplier} />
+                                <DisplayMultiplier multiplier={multiplier} setMultiplier={setMultiplier} />
+
 
                                 <div className='detailsTagsAndSteps'>
                                     <DisplayIngredients
@@ -182,7 +183,6 @@ const RecipeDetailsPage = () => {
 
 
                                 <div>
-                                    {/* // ! only way you can get duplicates is if there's a duplicate on the from */}
                                     {scrollIndex > 0 ? (
                                         <button onClick={() => deleteSoloDetail('subRecipe', displayId, refresh, setRefresh, recipeID)}>Remove Sub Recipe</button>
                                     ) : (

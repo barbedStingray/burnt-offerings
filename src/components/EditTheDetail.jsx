@@ -76,6 +76,7 @@ const EditTheDetail = ({ category, editPackage }) => {
             case 'description':
                 return (
                     <textarea
+                        className='detailEditInput'
                         value={newEdit}
                         onChange={(e) => setNewEdit(e.target.value)}
                         rows={4} // You can adjust the number of rows as needed
@@ -83,7 +84,11 @@ const EditTheDetail = ({ category, editPackage }) => {
                 )
             case 'measurement':
                 return (
-                    <select value={newEdit} onChange={(e) => setNewEdit(e.target.value)}>
+                    <select
+                        className='detailEditInput'
+                        value={newEdit}
+                        onChange={(e) => setNewEdit(e.target.value)}
+                    >
                         {measurementOptions.map((measure, i) => (
                             <option key={i} value={measure}>{measure}</option>
                         ))}
@@ -92,6 +97,7 @@ const EditTheDetail = ({ category, editPackage }) => {
             default:
                 return (
                     <input
+                        className='detailEditInput'
                         type="text"
                         value={newEdit}
                         onChange={(e) => setNewEdit(e.target.value)}
@@ -105,12 +111,30 @@ const EditTheDetail = ({ category, editPackage }) => {
     return (
         <div>
             {editStatus ? (
-                // shown after item is clicked in edit mode
-                <form onSubmit={(e) => putNewEdit(e, type, target_id, newEdit)}>
-                    {renderInputField(type)}
-                    <button type='submit'>Save</button>
-                    <button onClick={() => setEditStatus(false)}>Cancel</button>
-                </form>
+                <div
+                    className='editModal'
+                    onClick={() => setEditStatus(false)}
+                >
+                    <div className='editDisplayModal'
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <div className='editHeader'>
+                            <p>{type.toUpperCase()}</p>
+                            <p>Edit</p>
+                        </div>
+                        <form
+                            className={`editForm`}
+                            onClick={(e) => e.stopPropagation()}
+                            onSubmit={(e) => putNewEdit(e, type, target_id, newEdit)}
+                        >
+                            {renderInputField(type)}
+                            <button type='submit'>Save</button>
+                            {/* <div className='editModalButtons'>
+                                <button onClick={() => setEditStatus(false)}>Cancel</button>
+                            </div> */}
+                        </form>
+                    </div>
+                </div>
             ) : (
                 // shown if not in edit mode && not clicked
                 <>

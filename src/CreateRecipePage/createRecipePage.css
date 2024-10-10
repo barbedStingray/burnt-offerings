@@ -101,6 +101,7 @@
 
 
 
+
 /* ! ************     forms begin */
 .createFooter {
     /* border: 2px solid blue; */
@@ -134,7 +135,6 @@
     flex-flow: column wrap;
     align-items: center;
     justify-content: center;
-    
     /* snaps to the center */
     scroll-snap-align: center;
 }

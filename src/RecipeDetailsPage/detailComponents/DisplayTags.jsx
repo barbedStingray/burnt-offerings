@@ -9,17 +9,22 @@ const DisplayTags = ({ editPackage, detailPackage }) => {
 
     return (
         <div className='tagDetails'>
-            {tags.map((tag, i) => (
-                <p
-                    key={i}
-                    onClick={letsEdit ? (() => deleteSoloDetail('tag', tag.delete_id, refresh, setRefresh)) : null}
-                >
-                    {tag.tag}{letsEdit && ' X'}
-                </p>
-            ))}
-            {letsEdit && (
-                <button onClick={() => setEditView('tag')}>Add Tags</button>
-            )}
+
+            <div className='addDetailButton'>
+                {letsEdit && (
+                    <button onClick={() => setEditView('tag')}>Add Tags</button>
+                )}
+            </div>
+            <div className='viewTags'>
+                {tags.map((tag, i) => (
+                    <p
+                        key={i}
+                        onClick={letsEdit ? (() => deleteSoloDetail('tag', tag.delete_id, refresh, setRefresh)) : null}
+                    >
+                        {tag.tag}{letsEdit && ' X'}
+                    </p>
+                ))}
+            </div>
         </div>
     )
 }

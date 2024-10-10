@@ -1,33 +1,17 @@
 /* DEFAULT 430-425 */
 
-/* todo !!! You have to eliminate css position fixed for the forms to fit */
-
-
-
-
-/* EDIT VIEWs */
-/* todo ! very similar to .createSingleForm in createnewrecipe.css */
-/* What is this? lol */
-.detailEditView {
-    border: 2px solid lime;
-    height: calc(100dvh - 20dvh);
-    width: 100%;
-    flex-shrink: 0;
-    display: flex;
-    flex-flow: column wrap;
-    align-items: center;
-    justify-content: center;
-}
-
-
 
 
 /* navigation */
 .detailNavigation {
-    border: 2px solid gold;
+    /* border: 2px solid gold; */
     background-color: #808080cc;
     width: 100%;
-    height: 10dvh;
+    /* height: 10dvh; */
+    height: 18dvw;
+    position: fixed;
+    top: 0;
+    z-index: 10;
 }
 
 .detailNavigationParts {
@@ -42,14 +26,15 @@
 .detailHomeButton {
     /* border: 2px solid black; */
     color: ghostwhite;
-    width: 8dvh;
-    height: 8dvh;
-    font-size: 8dvh;
+    width: 18dvw;
+    height: 18dvw;
+    font-size: 16dvw;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 1dvh;
+    margin-left: 1dvw;
 }
+
 .activeMode {
     color: orangered;
 }
@@ -66,6 +51,7 @@
     display: none;
 }
 
+/* delete modal here... */
 
 
 
@@ -74,34 +60,30 @@
 
 .detailsPage {
     border: 2px solid red;
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: flex-start;
-    align-items: flex-start;
     height: 100dvh;
     width: 100dvw;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-end;
+    align-items: center;
     position: relative;
 }
 
-
-
-
 .detailSliderContainer {
-    border: 2px solid lime;
-    flex: 1;
+    /* border: 2px solid lime; */
+    height: 100dvh;
     width: 100%;
-    overflow: scroll;
-    scrollbar-width: none;
     display: flex;
     flex-flow: row nowrap;
     justify-content: flex-start;
     align-items: center;
+    overflow: scroll;
+    scrollbar-width: none;
     scroll-snap-type: x mandatory;
 }
-/* ! hide scroll bar */
 
 .recipeDetailsScrollContainer {
-    border: 2px solid magenta;
+    /* border: 2px solid magenta; */
     height: 100%;
     flex: 1 0 100%;
     display: flex;
@@ -111,23 +93,33 @@
     overflow-y: scroll;
     scrollbar-width: none;
     scroll-snap-align: start;
-    padding: 20px;
 }
 
 .recipeDetailContainer {
-    border: 2px solid black;
+    /* border: 2px solid black; */
+    border: none;
+    margin: 22dvw 0dvw;
+    padding: 2.5%;
+    width: 95%;
     display: flex;
-    width: 100%;
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
-    gap: 5vh;
+    border-radius: 30px;
+    box-shadow: 0px 2px 6px 2px grey;
+    /* !GAP OF PARTS */
+    gap: 4vh;
+}
+
+.detailSliderContainer::-webkit-scrollbar,
+.recipeDetailsScrollContainer::-webkit-scrollbar {
+    display: none;
 }
 
 
 
 .detailsTopDisplay {
-    /* border: 2px solid lime; */
+    border: 2px solid lime;
     display: flex;
     flex-flow: row nowrap;
     justify-content: flex-start;
@@ -137,7 +129,7 @@
 }
 
 .detailsTopInfo {
-    /* border: 2px solid orange; */
+    border: 2px solid orange;
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
@@ -148,15 +140,15 @@
 .detailsPhotoContainer {
     border: 2px solid orangered;
     background-color: ghostwhite;
-    width: 150px;
-    height: 150px;
+    width: 160px;
+    height: 160px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    /* box-shadow: -6px 11px 10px rgba(0, 0, 0, 0.4); */
-
+    box-shadow: -6px 10px 10px rgba(0, 0, 0, 0.4);
 }
+
 /* ! same as homePhoto */
 .detailsPhoto {
     object-fit: cover;
@@ -164,43 +156,45 @@
     height: 100%;
     width: 100%;
 }
+
 .detailGeneratedIcon {
     font-size: 90px;
 }
 
-
-
-
-
-
-
-
 .prepServings {
-    /* border: 2px solid magenta; */
+    border: 2px solid magenta;
     width: 100%;
+    height: 5dvh;
     display: flex;
-    flex-flow: column nowrap;
+    flex-flow: row nowrap;
     justify-content: center;
     align-items: center;
     gap: 10px;
 }
 
-.prepServings p {
-    border: 1px solid black;
+.detailsPrep,
+.detailsServings {
+    border: black 2px solid;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-evenly;
+    align-items: center;
     background-color: ghostwhite;
     border-radius: 20px;
-    width: 50%;
-    height: 3.25vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    font-size: 14px;
+    font-size: 16px;
+    height: 3.5vh;
+    padding: 5px;
+    width: 35%;
 }
+.detailsPrep {
+    width: 50%;
+}
+
+
 
 
 .detailsBottomInfo {
-    /* border: 2px solid yellow; */
+    border: 2px solid yellow;
     flex: 1;
     display: flex;
     flex-flow: column nowrap;
@@ -210,22 +204,91 @@
 }
 
 .detailsTitleDisplay {
-    /* border: 2px solid blue; */
+    border: 2px solid blue;
     width: 100%;
     font-size: 3.75dvh;
 }
 
+.editModal {
+    border: 2px solid black;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    /* z-index: 5; */
+}
+.editDisplayModal {
+    border: 2px solid yellow;
+    background-color: grey;
+    border-radius: 20px;
+    width: 80dvw;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 2vh 0vh;
+    gap: 2vh;
+}
+.editHeader {
+    border: 2px solid green;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+}
+.editForm {
+    border: 2px solid magenta;
+    width: 90%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 2vh;
+}
+.detailEditInput {
+    border: 2px solid blue;
+    width: 90%;
+    font-size: 16px;
+    text-align: center;
+}
+.editModalButtons {
+    border: 2px solid brown;
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 2vh;
+}
+
+
+
 .tagDetails {
-    /* border: 2px solid red; */
+    border: 2px solid red;
+    width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: center;
+}
+.addDetailButton {
+    border: 2px solid green;
+}
+.viewTags {
+    border: 2px solid gold;
     width: 100%;
     display: flex;
     flex-flow: row wrap;
     justify-content: flex-start;
-    align-items: center;
-    gap: 0.25vh;
+    align-items: flex-start;
 }
-
-.tagDetails p {
+.viewTags p {
     background-color: ghostwhite;
     border: 1px solid grey;
     border-radius: 5px;
@@ -234,13 +297,40 @@
 }
 
 .detailsDescriptionParts {
-    /* border: 2px solid red; */
+    border: 2px solid red;
     width: 100%;
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
     align-items: flex-start;
+
 }
+
+
+.detailsMultiplier {
+    border-top: 1px solid black;
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.multiplyBtn {
+    /* border: 2px solid black; */
+    width: 15%;
+    height: 5dvh;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.activateMultiply {
+    /* border: 2px solid gold; */
+    background-color: #ff4400cc;
+}
+
 
 .detailsDescriptionTitle {
     /* border: 2px solid blue; */
