@@ -38,23 +38,30 @@
 
 
     /* trial colors */
-    --blueOne: #90abb3;
-    --blueTwo: #7e97a1;
+    /* --yellow: #dcd11d; */
+    /* --orange: #87aee1; */
+
+    --blueOne: #bcbea1;
+    --blueTwo: #aaab78;
     --blueThree: #82861a;
-    --blueFour: #423711;
-    --darkRed: #622a19;
-    --brickRed: #544617;
-    --orange: #dd8231;
-    --yellow: #ede327;
+    --blueFour: #4c500e;
+
+    --darkRed: #473c15;
+    --brickRed: #48390c;
+
+    --blue: #3978c1;
+    --orange: #98bef0;
+    --yellow: #efe51d;
     --featherGrey: #d9dcd7;
-    --darkGrey: #505857dd;
+    --darkGrey: #363406dd;
+
     --steelGrey: #80766d;
     --black: #000;
 
     /* bg trial colors */
-    --background-blue-one: #bcbea1;
-    --background-blue-two: #aaab78;
-    --background-blue-three: #d0d0b8;
+    --background-blue-one: #e2e6b5;
+    --background-blue-two: #d7d79f;
+    --background-blue-three: #b9ba7c;
 
 
 
