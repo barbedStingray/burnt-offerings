@@ -16,18 +16,36 @@
     --brickRed: #412112;
     --orange: #dd8231;
     --yellow: #fae35e;
-    --featherGrey: #c9d8d2;
+    /* --featherGrey: #c9d8d2; */
     --steelGrey: #80766d;
-    --darkGrey: #505857dd;
+    /* --darkGrey: #505857dd; */
     --black: #0c1210;
+    
 
-/* colors I Like */
+    /* ** used colors */
+    /* nav bars */
+    --darkGrey: #505857dd;
+    /* input boxes */
+    --featherGrey: #c9d8d2;
+
+
+    /* bg colors */
     --background-blue-one: #bee5f1;
     --background-blue-two: #b4d8e3;
-    
-    --background-blue-one: #c7eaf4;
-    --background-blue-two: #bddbe4;
+    --background-blue-three: #7d9599;
 
+    /* fireGate progression */
+    --fireGate0: #ffff00;
+    --fireGate1: #ffd500;
+    --fireGate2: #ffae00;
+    --fireGate3: #ff8400;
+    --fireGate4: #ff5900;
+    --fireGate5: #ff3c00;
+
+
+    
+    /* --background-blue-one: #c7eaf4;
+    --background-blue-two: #bddbe4; */
 
 
 

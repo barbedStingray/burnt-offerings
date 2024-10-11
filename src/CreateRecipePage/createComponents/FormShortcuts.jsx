@@ -11,7 +11,7 @@ const FormShortcuts = ({ scrollIndex, formContainerRef }) => {
                 <div
                     className={`
                 navigateForm
-                ${scrollIndex === i ? 'identifyNavigate' : ''}
+                ${scrollIndex === i ? `fireGate${i}` : ''}
                 ${i === formShortcuts.length - 1 ? 'lastNavigate' : ''}
                 `}
                     key={i}
