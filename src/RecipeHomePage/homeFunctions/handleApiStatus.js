@@ -1,14 +1,26 @@
 // * ONE FUNCTION: Display apiStatus
+import { GiGingerbreadMan } from "react-icons/gi";
+import { FaSnowboarding } from "react-icons/fa";
+
+// ! todo change icon spinners based on the season
 
 export default function handleApiStatus(apiString) {
     switch (apiString) {
-        case 'working':
+        case 'loading':
             return (
-                <p>Api is loading</p>
+                <div className="homeApiStatus">
+                    <GiGingerbreadMan />
+                </div>
             )
         case 'error':
             return (
-                <p>Api ERROR</p>
+                <div className="homeApiError">
+                    <FaSnowboarding />
+                    <div className="homeApiErrorMessage">
+                        <p>Check your Connection!</p>
+                        <p>Hang Tight! </p>
+                    </div>
+                </div>
             )
         default:
             return null

@@ -20,7 +20,7 @@ import useScrollTracking from '../CreateRecipePage/createFunctions/scrollFunctio
 import deleteEntireRecipe from './detailFunctions/deleteEntireRecipe'
 import DeleteModal from './detailComponents/DeleteModal'
 import DisplayMultiplier from './detailComponents/DisplayMultiplier'
-import DetailNav from './detailComponents/DetailNav'
+import NavBar from '../components/NavBar'
 import { FaInfo } from "react-icons/fa";
 import { LuAlarmClock } from "react-icons/lu";
 
@@ -105,7 +105,7 @@ const RecipeDetailsPage = () => {
     return (
         <div className='detailsPage'>
 
-            <DetailNav editPackage={{ letsEdit, setLetsEdit, setEditView, horizontalScrollRef }} />
+            <NavBar navPackage={{ section: 'details', letsEdit, setLetsEdit, setEditView, horizontalScrollRef }} />
 
             <DeleteModal editPackage={{ deleteModal, setDeleteModal, deleteStatus }} />
             {/* This is generating your add forms */}

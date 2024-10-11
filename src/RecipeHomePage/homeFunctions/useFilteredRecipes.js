@@ -11,7 +11,7 @@ const useFilteredRecipes = (keywords, page = 1) => {
     const [totalRecipes, setTotalRecipes] = useState(0)
     const [recipeStatus, setRecipeStatus] = useState(false)
     const [apiSearching, setApiSearching] = useState('')
-    const recipesPerPage = 8
+    const recipesPerPage = 10
 
 
     useEffect(() => {
@@ -44,7 +44,7 @@ const useFilteredRecipes = (keywords, page = 1) => {
     async function requestAllRecipes(keywords, page) {
         console.log('did not find a cache, going to api')
         // setLoadingStatus('loading')
-        setApiSearching('working')
+        setApiSearching('loading')
 
         try {
             const response = await axios.get('/api/recipes/all', {

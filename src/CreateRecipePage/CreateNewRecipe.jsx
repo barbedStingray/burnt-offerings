@@ -7,9 +7,9 @@ import CreateIngredients from './createForms/CreateIngredients'
 import CreateSteps from './createForms/CreateSteps'
 import CreateTags from './createForms/CreateTags'
 import SubmitRecipe from './createForms/SubmitRecipe'
-import CreateNav from './createComponents/CreateNav'
 import FormShortcuts from './createComponents/FormShortcuts'
 import useScrollTracking from './createFunctions/scrollFunctions/useScrollTracking'
+import NavBar from '../components/NavBar'
 
 const CreateNewRecipe = () => {
 
@@ -40,7 +40,7 @@ const CreateNewRecipe = () => {
     return (
         <div className='createPage'>
 
-            <CreateNav />
+            <NavBar navPackage={{ section: 'create' }} />
 
             <div className='createDisplay'>
                 <h1>CREATE RECIPE</h1>
@@ -69,7 +69,7 @@ const CreateNewRecipe = () => {
                     ))}
                 </div>
             </div>
-            
+
         </div >
     )
 }

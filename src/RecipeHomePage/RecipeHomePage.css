@@ -1,6 +1,6 @@
 /* DEFAULT 430-425 */
 .homePage {
-    /* border: 2px solid lime; */
+    border: 2px solid lime;
     display: flex;
     flex-flow: column nowrap;
     justify-content: flex-start;
@@ -9,51 +9,60 @@
     height: 100dvh;
 }
 
-
-
-
-
-/* navigation */
-.homeNavigation {
-    /* border: 2px solid orange; */
-    background-color: var(--darkGrey);
-    width: 100%;
-    height: 10dvh;
+/* api ERror handling */
+.homeApiStatus {
+    /* border: 2px solid magenta; */
+    background-color: #808080ee;
+    border-radius: 50%;
     position: fixed;
-    top: 0;
-    z-index: 10;
-}
-.homeNavigationParts {
-    /* border: 2px solid blue; */
-    height: 100%;
-    width: 100%;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-}
-.homeAddButton {
-    /* border: 2px solid black; */
-    color: var(--orange);
-    width: 8vh;
-    height: 8vh;
-    font-size: 8vh;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 30dvh;
+    width: 30dvh;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 1vh;
-}
-.homeLogoParts {
-    display: none;
-}
-.homeMomPhoto {
-    display: none;
-}
-.homeStingrayLogo {
-    display: none;
+    color: white;
+    font-size: 20dvh;
+    animation: foreverSpin 1s linear infinite;
 }
 
+@keyframes foreverSpin {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg)
+    }
 
+    to {
+        transform: translate(-50%, -50%) rotate(360deg)
+    }
+}
 
+.homeApiError {
+    /* border: 2px solid magenta; */
+    background-color: #930a0aee;
+    border-radius: 50%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 30dvh;
+    width: 30dvh;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1dvh;
+    color: white;
+}
+
+.homeApiError svg {
+    font-size: 12dvh;
+}
+
+.homeApiErrorMessage {
+    text-align: center;
+}
 
 
 
@@ -62,17 +71,23 @@
 /* MAIN recipe display */
 /* top main */
 .homeMainDisplay {
-    /* border: 2px solid blue; */
+    border: 2px solid blue;
     display: flex;
     flex-flow: column nowrap;
     width: 100%;
 }
+
 .homeTopMain {
     /* border: 2px solid green; */
     /* background-color: #555555dd; */
     /* height: 10vh; */
     /* display: none; */
 }
+
+.homeTitleDisplay {
+    display: none;
+}
+
 .homeSearchBar {
     /* border: 2px solid black; */
     width: 75%;
@@ -82,6 +97,7 @@
     right: 15px;
     z-index: 15;
 }
+
 .homeKeywordSearch {
     border: none;
     outline: none;
@@ -106,6 +122,7 @@
     overflow: auto;
     scrollbar-width: none;
 }
+
 .bottomMain::-webkit-scrollbar {
     display: none;
 }
@@ -120,11 +137,13 @@
     justify-content: space-between;
     align-items: center;
 }
+
 .homeNoRecipeText {
     /* border: 2px solid yellow; */
     font-size: 60px;
     text-align: center;
 }
+
 .homeNoCookieMan {
     /* border: 2px solid magenta; */
     font-size: 22vh;
@@ -143,6 +162,7 @@
     padding: 5vh 0 3vh 0;
     justify-items: center;
 }
+
 .homeSearchReturn {
     /* border: 1px solid grey; */
     border-radius: 20px;
@@ -154,9 +174,11 @@
     font-size: 30px;
     gap: 10px;
 }
+
 .homeRecipeTotal {
     border: none;
 }
+
 .homeRecipeLabel {
     border-top: 1px solid black;
 }
@@ -194,12 +216,14 @@
     justify-content: center;
     align-items: center;
 }
+
 .mosaicPhoto {
     object-fit: cover;
     border-radius: 50%;
     height: 100%;
     width: 100%;
 }
+
 .homeGeneratedIcon {
     font-size: 60px;
     color: var(--yellow);
@@ -207,7 +231,7 @@
 
 .cardDisplay {
     border: 1px solid var(--darkRed);
-    background-color: var(--background-blue-three);
+    background-color: var(--background-three);
     color: var(--black);
     height: 95%;
     width: 100%;
@@ -233,6 +257,7 @@
     justify-content: flex-start;
     align-items: center;
 }
+
 .homeRecipeTitle {
     /* border: 2px solid blue; */
     color: var(--black);
@@ -241,6 +266,7 @@
     font-size: 20px;
     margin-bottom: 10px;
 }
+
 .homeDetail {
     /* border: 2px solid green; */
     background-color: #e6f7fc;
@@ -254,6 +280,7 @@
     padding: 0 10px 0 10px;
     margin-bottom: 15px;
 }
+
 .homeIconDetail {
     /* border: 2px solid yellow; */
     height: 100%;
@@ -262,6 +289,7 @@
     align-items: center;
     font-size: 16px;
 }
+
 .paginationBar {
     /* border: 2px solid black; */
     position: fixed;
@@ -270,6 +298,7 @@
     gap: calc(100dvw - 55dvw);
     z-index: 15;
 }
+
 .homePageNext {
     /* border: 2px solid blue; */
     height: 8dvh;
@@ -278,8 +307,9 @@
     justify-content: center;
     align-items: center;
     font-size: 8dvh;
-    color: var(--orange);
+    color: var(--accent-blue);
 }
+
 .homeNextDeactivate {
     /* border: 2px solid red; */
     color: #aeaeae;
@@ -301,6 +331,7 @@
     bottom: 0;
     z-index: 10;
 }
+
 .homePreview {
     display: none;
 }

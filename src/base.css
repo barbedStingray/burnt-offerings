@@ -4,20 +4,15 @@
     box-sizing: border-box;
 }
 
+a {
+    text-decoration: none;
+}
+
 
 :root {
 
-    /* fireGate progression */
-    --fireGate0: #ffff00;
-    --fireGate1: #ffd500;
-    --fireGate2: #ffae00;
-    --fireGate3: #ff8400;
-    --fireGate4: #ff5900;
-    --fireGate5: #ff3c00;
-
-
     /* originals */
-    --blueOne: #90abb3;
+    /* --blueOne: #90abb3;
     --blueTwo: #7e97a1;
     --blueThree: #637679;
     --blueFour: #3c4b54;
@@ -28,42 +23,41 @@
     --featherGrey: #c9d8d2;
     --darkGrey: #505857dd;
     --steelGrey: #80766d;
-    --black: #0c1210;
-
+    --black: #0c1210; */
     /* bg colors */
-    --background-blue-one: #bee5f1;
+    /* --background-blue-one: #bee5f1;
     --background-blue-two: #b4d8e3;
-    --background-blue-three: #7d9599;
+    --background-blue-three: #7d9599;  */
 
 
 
-    /* trial colors */
-    /* --yellow: #dcd11d; */
-    /* --orange: #87aee1; */
+    /* THE NEW HOTNESS */
+    --background-one: #e2e6b5;
+    --background-two: #d7d79f;
+    --background-three: #b9ba7c;
+    --yellow: #efe51d;
+    --accent-blue: #98bef0;
+    --black: #000;
 
+
+/* needs to be renamed and swapped in the css */
     --blueOne: #bcbea1;
     --blueTwo: #aaab78;
     --blueThree: #82861a;
     --blueFour: #4c500e;
-
     --darkRed: #473c15;
     --brickRed: #48390c;
-
     --blue: #3978c1;
-    --orange: #98bef0;
-    --yellow: #efe51d;
     --featherGrey: #d9dcd7;
     --darkGrey: #363406dd;
-
     --steelGrey: #80766d;
-    --black: #000;
 
-    /* bg trial colors */
-    --background-blue-one: #e2e6b5;
-    --background-blue-two: #d7d79f;
-    --background-blue-three: #b9ba7c;
-
-
-
-
+        /* fireGate progression */
+        --fireGate0: #ffff00;
+        --fireGate1: #ffd500;
+        --fireGate2: #ffae00;
+        --fireGate3: #ff8400;
+        --fireGate4: #ff5900;
+        --fireGate5: #ff3c00;
+    
 }

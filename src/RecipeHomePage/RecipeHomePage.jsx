@@ -6,8 +6,8 @@ import useDebounce from './homeFunctions/useDebounce';
 import HomeScreen from './homeComponents/HomeScreen';
 import RecipeLink from './homeComponents/RecipeLink';
 import handleApiStatus from './homeFunctions/handleApiStatus';
-import HomeNav from './homeComponents/HomeNav';
 import PageBar from './homeComponents/PageBar';
+import NavBar from '../components/NavBar'
 
 
 const RecipeHomePage = () => {
@@ -36,14 +36,14 @@ const RecipeHomePage = () => {
     return (
         <div className='homePage'>
 
-            <HomeNav />
+            <NavBar navPackage={{ section: 'home' }} />
+
+            {handleApiStatus(apiSearching)}
 
             {/* main display */}
             <div className='homeMainDisplay'>
-
-
                 <div className='homeTopMain'>
-                    <div><p>Mom's Kitchen</p></div>
+                    <div className='homeTitleDisplay'><p>Mom's Kitchen</p></div>
                     <div className='homeSearchBar'>
                         <input
                             className='homeKeywordSearch'
@@ -59,8 +59,6 @@ const RecipeHomePage = () => {
 
                     {recipeStatus ? (
                         <>
-                            <div>{handleApiStatus(apiSearching)}</div>
-
                             <div className='recipeMosaic'>
                                 <div className='homeSearchReturn'>
                                     <div className="homeRecipeTotal"><p>{totalRecipes}</p></div>
