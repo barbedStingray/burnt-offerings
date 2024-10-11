@@ -128,10 +128,7 @@ const EditTheDetail = ({ category, editPackage }) => {
                             onSubmit={(e) => putNewEdit(e, type, target_id, newEdit)}
                         >
                             {renderInputField(type)}
-                            <button type='submit'>Save</button>
-                            {/* <div className='editModalButtons'>
-                                <button onClick={() => setEditStatus(false)}>Cancel</button>
-                            </div> */}
+                            <button className='fireButton medFire' type='submit'>Save</button>
                         </form>
                     </div>
                 </div>

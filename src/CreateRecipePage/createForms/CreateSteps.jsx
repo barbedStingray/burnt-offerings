@@ -52,14 +52,6 @@ const CreateSteps = ({
                     <button className='createAddButton' type='submit'>Add</button>
                 </form>
 
-                {editView?.length > 0 && (
-                    <div>
-                        <button onClick={() => postOnlyType('steps', displayId, stepPackage, setStepPackage, refresh, setRefresh, setEditView)}>Submit Tags</button>
-                        <button onClick={() => setEditView('')}>Cancel</button>
-                    </div>
-                )}
-
-
                 <p>Added Instructions</p>
 
                 <div className='createRecipeDisplayItems'>
@@ -75,9 +67,15 @@ const CreateSteps = ({
                     ))}
                 </div>
 
+                {editView?.length > 0 && (
+                    <div className='addBtnGroup'>
+                        <button className='addBackButton' onClick={() => setEditView('')}>Back</button>
+                        <button className='fireButton medFire' onClick={() => postOnlyType('steps', displayId, stepPackage, setStepPackage, refresh, setRefresh, setEditView)}>Submit Tags</button>
+                    </div>
+                )}
+
+
             </div>
-
-
         </div>
     )
 }

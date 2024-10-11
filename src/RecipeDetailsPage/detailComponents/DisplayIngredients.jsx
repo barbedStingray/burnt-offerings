@@ -12,7 +12,7 @@ const DisplayIngredients = ({ editPackage, detailPackage }) => {
             <div className='detailSectionHeader'>
             <p>Ingredients</p>
             {letsEdit && (
-                <button onClick={() => setEditView('ingredient')}>Add Ingredients</button>
+                <button className='fireButton addFire' onClick={() => setEditView('ingredient')}></button>
             )}
             </div>
             <div className='displayRecipeIngredients'>
@@ -21,7 +21,7 @@ const DisplayIngredients = ({ editPackage, detailPackage }) => {
                         key={i}
                         className='displaySingleIngredient'
                     >
-                        {letsEdit && <button onClick={letsEdit ? () => deleteSoloDetail('ingredient', ingredient.target_id, refresh, setRefresh) : null}>DELETE ME</button>}
+                        {letsEdit && <button className='deleteButton' onClick={letsEdit ? () => deleteSoloDetail('ingredient', ingredient.target_id, refresh, setRefresh) : null}>X</button>}
 
                         <div className='displayIngredientQuantity'>
                             <EditTheDetail

@@ -1,53 +1,99 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+@import url(./base.css);
+
+/* default 430px */
+
+
+/* ! BUTTONS */
+
+/* FIRE BUTTONS */
+.fireButton {
+    position: relative;
+    border: none;
+    border-radius: 50%;
+    height: 15vh;
+    aspect-ratio: 1 / 1;
+    z-index: 2;
+    background: conic-gradient(
+        from var(--gradient-angle),
+        var(--fireGate0),
+        var(--fireGate1),
+        var(--fireGate2),
+        var(--fireGate3),
+        var(--fireGate4),
+        var(--fireGate5),
+        var(--fireGate4),
+        var(--fireGate3),
+        var(--fireGate2),
+        var(--fireGate1),
+        var(--fireGate0));
+animation: rotation 5s linear infinite;
+}
+.medFire {
+    border-radius: 10px;
+    height: 10.5dvw;
+    aspect-ratio: 2 / 1;
+}
+.addFire {
+    border-radius: 5px;
+    height: 7dvw;
+    aspect-ratio: 2 / 1;
+}
+.fireButton::after {
+    content: "Create!";
+    color: var(--featherGrey);
+    font-size: 26px;
+    position: absolute;
+    inset: 0.3rem;
+    z-index: 1;
+    border-radius: inherit;
+    background-color: var(--blueFour);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.medFire::after {
+    content: "Save!";
+    font-size: 20px;
+    inset: 3px;    
+}
+.addFire::after {
+    content: "Add";
+    font-size: 18px;
+    inset: 2px;
+}
+
+@property --gradient-angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+/* have to register your animated custom value */
+@keyframes rotation {
+    0% {
+        --gradient-angle: 0deg;
+    }
+
+    100% {
+        --gradient-angle: 360deg;
+    }
+}
+
+.deleteButton {
+    border: 2px solid var(--yellow);
+    background-color: var(--blueFour);
+    color: var(--featherGrey);
+    width: 6dvw;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 
-:root {
-    /* originals */
-    --blueOne: #90abb3;
-    --blueTwo: #7e97a1;
-    --blueThree: #637679;
-    --blueFour: #3c4b54;
-    --darkRed: #622a19;
-    --brickRed: #412112;
-    --orange: #dd8231;
-    --yellow: #fae35e;
-    --steelGrey: #80766d;
-    --black: #0c1210;
-    
-
-    /* ** used colors */
-    /* nav bars */
-    --darkGrey: #505857dd;
-    /* input boxes */
-    --featherGrey: #c9d8d2;
-
-
-    /* bg colors */
-    --background-blue-one: #bee5f1;
-    --background-blue-two: #b4d8e3;
-    --background-blue-three: #7d9599;
-
-    /* fireGate progression */
-    --fireGate0: #ffff00;
-    --fireGate1: #ffd500;
-    --fireGate2: #ffae00;
-    --fireGate3: #ff8400;
-    --fireGate4: #ff5900;
-    --fireGate5: #ff3c00;
-
-
-    
-    /* --background-blue-one: #c7eaf4;
-    --background-blue-two: #bddbe4; */
 
 
 
-
-}
 
 .burnt-offerings {
     background-color: var(--background-blue-two);

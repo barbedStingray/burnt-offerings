@@ -1,4 +1,5 @@
 /* DEFAULT 430-425 */
+
 .createPage {
     /* border: 3px solid purple; */
     display: flex;
@@ -424,52 +425,4 @@
 }
 
 
-.submitFireButton {
-    position: relative;
-    border: none;
-    height: 15vh;
-    aspect-ratio: 1 / 1;
-    border-radius: 50%;
-    z-index: 2;
-    background: conic-gradient(
-        from var(--gradient-angle),
-        var(--fireGate0),
-        var(--fireGate1),
-        var(--fireGate2),
-        var(--fireGate3),
-        var(--fireGate4),
-        var(--fireGate5),
-        var(--fireGate0));
-animation: rotation 6s linear infinite;
-
-}
-
-.submitFireButton::after {
-    content: "Create!";
-    color: var(--featherGrey);
-    font-size: 26px;
-    position: absolute;
-    inset: 0.3rem;
-    z-index: 1;
-    border-radius: inherit;
-    background-color: var(--blueFour);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-@property --gradient-angle {
-    syntax: "<angle>";
-    initial-value: 0deg;
-    inherits: false;
-}
-/* have to register your animated custom value */
-@keyframes rotation {
-    0% {
-        --gradient-angle: 0deg;
-    }
-
-    100% {
-        --gradient-angle: 360deg;
-    }
-}
 

@@ -12,13 +12,13 @@ const DisplaySteps = ({ editPackage, detailPackage }) => {
             <div className='detailSectionHeader'>
                 <p>Instructions</p>
                 {letsEdit && (
-                    <button onClick={() => setEditView('step')}>Add Step</button>
+                    <button className='fireButton addFire' onClick={() => setEditView('step')}></button>
                 )}
             </div>
             <div className='displayRecipeSteps'>
                 {instructions.map((step, i) => (
                     <div key={i} className='displaySingleStep'>
-                        {letsEdit && <button onClick={() => deleteSoloDetail('step', step.step_id, refresh, setRefresh)}>DELETE ME</button>}
+                        {letsEdit && <button className='deleteButton' onClick={() => deleteSoloDetail('step', step.step_id, refresh, setRefresh)}>X</button>}
 
 
                         <div className='displayStepNumber'>

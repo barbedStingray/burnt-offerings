@@ -10,13 +10,19 @@ import scrollToForm from '../../CreateRecipePage/createFunctions/scrollFunctions
 
 
 const DetailNav = ({ editPackage }) => {
-    const { letsEdit, setLetsEdit, horizontalScrollRef } = editPackage
+    const { letsEdit, setLetsEdit, setEditView, horizontalScrollRef } = editPackage
 
     return (
         <div className='detailNavigation'>
             <div className='detailNavigationParts'>
                 <Link to={`/`} className='detailHomeButton'><LiaCookieBiteSolid /></Link>
-                <div className={`detailHomeButton ${letsEdit && 'activeMode'}`} onClick={() => setLetsEdit(!letsEdit)}><PiPencilThin /></div>
+                <div
+                    className={`detailHomeButton ${letsEdit && 'activeMode'}`}
+                    onClick={() => {
+                        setLetsEdit(!letsEdit)
+                        setEditView('')
+                    }
+                    }><PiPencilThin /></div>
                 <div className='detailHomeButton' onClick={() => scrollToForm(0, horizontalScrollRef)}><IoIosArrowDropleft /></div>
 
             </div>

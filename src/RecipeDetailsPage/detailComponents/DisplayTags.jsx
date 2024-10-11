@@ -12,7 +12,7 @@ const DisplayTags = ({ editPackage, detailPackage }) => {
 
             <div className='addDetailButton'>
                 {letsEdit && (
-                    <button onClick={() => setEditView('tag')}>Add Tags</button>
+                    <button className='fireButton addFire' onClick={() => setEditView('tag')}></button>
                 )}
             </div>
             <div className='viewTags'>

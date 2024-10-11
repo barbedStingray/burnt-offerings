@@ -69,7 +69,7 @@ const SubmitRecipe = ({ dataPackage }) => {
                 return (
                     <>
                         <h1>Create that Recipe!</h1>
-                        <button className='submitFireButton' onClick={() => handleCreateRecipe()}>Create Your Recipe</button>
+                        <button className='fireButton' onClick={() => handleCreateRecipe()}>Create Your Recipe</button>
                     </>
                 )
             case 'loading':

@@ -1,11 +1,9 @@
 /* DEFAULT 430-425 */
 
-
-
 /* navigation */
 .detailNavigation {
     /* border: 2px solid gold; */
-    background-color: #808080cc;
+    background-color: var(--darkGrey);
     width: 100%;
     /* height: 10dvh; */
     height: 16dvw;
@@ -25,7 +23,7 @@
 
 .detailHomeButton {
     /* border: 2px solid black; */
-    color: ghostwhite;
+    color: var(--orange);
     width: 14dvw;
     height: 14dvw;
     font-size: 14dvw;
@@ -36,7 +34,7 @@
 }
 
 .activeMode {
-    color: orangered;
+    color: var(--yellow);
 }
 
 .detailLogoParts {
@@ -105,8 +103,7 @@
     justify-content: center;
     align-items: center;
     border-radius: 30px;
-    box-shadow: 0px 2px 6px 2px grey;
-    /* !GAP OF PARTS */
+    box-shadow: 0px 2px 6px 2px var(--blueFour);
     gap: 4vh;
 }
 
@@ -137,15 +134,15 @@
 }
 
 .detailsPhotoContainer {
-    border: 2px solid orangered;
-    background-color: ghostwhite;
+    background-color: var(--blueFour);
     width: 160px;
     height: 160px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: -6px 10px 10px rgba(0, 0, 0, 0.4);
+    box-shadow: -4px 11px 7px var(--brickRed);
+
 }
 
 /* ! same as homePhoto */
@@ -173,12 +170,14 @@
 
 .detailsPrep,
 .detailsServings {
-    border: black 1px solid;
+    /* border: black 1px solid; */
+    background-color: var(--blueFour);
+    color: var(--featherGrey);
+    box-shadow: -2px 4px 3px var(--brickRed);
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-evenly;
     align-items: center;
-    background-color: ghostwhite;
     border-radius: 20px;
     font-size: 16px;
     height: 3.5vh;
@@ -226,7 +225,7 @@
 
 .editDisplayModal {
     /* border: 2px solid yellow; */
-    background-color: grey;
+    background-color: var(--blueFour);
     border-radius: 20px;
     width: 80dvw;
     display: flex;
@@ -239,6 +238,7 @@
 
 .editHeader {
     /* border: 2px solid green; */
+    color: var(--featherGrey);
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
@@ -257,21 +257,14 @@
 
 .detailEditInput {
     /* border: 2px solid blue; */
+    background-color: var(--featherGrey);
+    border-radius: 10px;
+    padding: 2dvw;
     width: 90%;
     font-size: 16px;
     text-align: center;
+    font-family: inherit;
 }
-
-.editModalButtons {
-    /* border: 2px solid brown; */
-    width: 100%;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: center;
-    align-items: center;
-    gap: 2vh;
-}
-
 
 
 .tagDetails {
@@ -297,8 +290,8 @@
 }
 
 .viewTags p {
-    background-color: ghostwhite;
-    border: 1px solid grey;
+    background-color: var(--blueFour);
+    color: var(--featherGrey);
     border-radius: 5px;
     font-size: 12px;
     padding: 4px;
@@ -327,11 +320,10 @@
     z-index: 0;
 }
 .lineThrough {
-    border: 0.5px solid grey;
+    border: 0.5px solid var(--blueFour);
     position: absolute;
     width: 100%;
     z-index: 0;
-
 }
 
 .multiplyBtn {
@@ -348,7 +340,8 @@
 
 .activateMultiply {
     /* border: 2px solid gold; */
-    background-color: #ff4400cc;
+    background: linear-gradient(to right, var(--yellow), rgba(255, 0, 0, 0)); /* Adjust the color as needed */
+    border-radius: 10px;
     z-index: 0;
 
 }
@@ -373,7 +366,7 @@
 
 .detailSectionHeader {
     /* border: 2px solid blue; */
-    border-bottom: grey 1px solid;
+    border-bottom: 1px solid var(--blueFour);
     width: 100%;
     font-size: 22px;
     display: flex;
@@ -459,11 +452,9 @@
 
 
 
-
-
+/* Add details section */
 .addViewContainer {
-    border: 2px solid blue;
-    background-color: #f8f8ff;
+    background-color: var(--background-blue-two);
     position: fixed;
     top: 50%;
     left: 50%;
@@ -473,6 +464,37 @@
     z-index: 8;
     padding: 18dvw 0px;
 }
+.quarterCircleAddView {
+    width: 60%;
+    height: 50%;
+    background-color: var(--background-blue-one);
+    border-bottom-right-radius: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+.addBtnGroup {
+    /* border: 2px solid gold; */
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    width: 60%;
+}
+.addBackButton {
+    background-color: var(--blueOne);
+    border: 1px solid var(--blueFour);
+    height: 10dvw;
+    aspect-ratio: 2 / 1;
+    border-radius: 10px;
+    font-size: 20px;
+}
+
+
+
+
+
 
 
 

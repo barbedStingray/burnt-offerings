@@ -105,13 +105,14 @@ const RecipeDetailsPage = () => {
     return (
         <div className='detailsPage'>
 
-            <DetailNav editPackage={{ letsEdit, setLetsEdit, horizontalScrollRef }} />
+            <DetailNav editPackage={{ letsEdit, setLetsEdit, setEditView, horizontalScrollRef }} />
 
             <DeleteModal editPackage={{ deleteModal, setDeleteModal, deleteStatus }} />
             {/* This is generating your add forms */}
             {editView.length > 0 && (
                 <div className='addViewContainer'>
                     {generateAddModalType(editView)}
+                    <div className='quarterCircleAddView'></div>
                 </div>
             )}
 

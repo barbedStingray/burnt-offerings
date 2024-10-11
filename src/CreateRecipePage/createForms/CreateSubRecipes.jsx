@@ -64,15 +64,6 @@ const CreateSubRecipes = ({
           </div>
         </form>
 
-
-        {editView?.length > 0 && (
-          <div>
-            <button onClick={() => postOnlyType('subRecipes', displayId, subRecipePackage, setSubRecipePackage, refresh, setRefresh, setEditView)}>Submit subrecipes</button>
-            <button onClick={() => setEditView('')}>Cancel</button>
-          </div>
-        )}
-
-
         <p>Sub Recipes</p>
         <div className='createRecipeDisplayItems'>
           {subRecipePackage.length === 0 ? (
@@ -85,8 +76,15 @@ const CreateSubRecipes = ({
             </>
           )}
         </div>
-      </div>
 
+        {editView?.length > 0 && (
+          <div className='addBtnGroup'>
+            <button className='addBackButton' onClick={() => setEditView('')}>Back</button>
+            <button className='fireButton medFire'  onClick={() => postOnlyType('subRecipes', displayId, subRecipePackage, setSubRecipePackage, refresh, setRefresh, setEditView)}>Submit subrecipes</button>
+          </div>
+        )}
+
+      </div>
     </div>
   )
 }

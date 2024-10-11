@@ -79,14 +79,6 @@ const CreateTags = ({
                 </form>
 
 
-                {editView?.length > 0 && (
-                    <div>
-                        <button onClick={() => postOnlyType('tags', displayId, tagPackage, setTagPackage, refresh, setRefresh, setEditView)}>Submit Tags</button>
-                        <button onClick={() => setEditView('')}>Cancel</button>
-                    </div>
-                )}
-
-
                 <p>Tags</p>
                 <div className='createRecipeDisplayItems'>
                     <div className='createFilterSearch'>
@@ -101,6 +93,13 @@ const CreateTags = ({
                         ))}
                     </div>
                 </div>
+
+                {editView?.length > 0 && (
+                    <div className='addBtnGroup'>
+                        <button className='addBackButton' onClick={() => setEditView('')}>Back</button>
+                        <button className='fireButton medFire' onClick={() => postOnlyType('tags', displayId, tagPackage, setTagPackage, refresh, setRefresh, setEditView)}>Submit Tags</button>
+                    </div>
+                )}
 
             </div>
         </div>

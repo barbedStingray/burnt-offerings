@@ -29,7 +29,7 @@ const DisplaySubRecipes = ({ editPackage, detailPackage }) => {
                     <p>Sub Recipes</p>
                 )}
                 {letsEdit && !isSubRecipe && (
-                    <button onClick={() => setEditView('subRecipe')}>Add Sub Recipe</button>
+                    <button className='fireButton addFire' onClick={() => setEditView('subRecipe')}></button>
                 )}
             </div>
             {scrollIndex > 0 ? (
