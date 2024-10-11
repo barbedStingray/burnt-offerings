@@ -207,8 +207,8 @@
 }
 
 .cardDisplay {
-    border: 1px solid var(--darkRed);
-    background-color: var(--blueZero);
+    border: 2px solid var(--darkRed);
+    background-color: var(--blueThree);
     color: var(--black);
     height: 95%;
     width: 100%;

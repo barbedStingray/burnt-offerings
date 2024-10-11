@@ -1,34 +1,42 @@
 * {
- margin: 0;
- padding: 0;
- box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 
 :root {
-    --blueZero: #a0c0ca;
+    /* originals */
+    /* --blueThree: #5e7d82; */
     --blueOne: #90abb3;
     --blueTwo: #7e97a1;
-    /* --blueThree: #637679; */
-    --blueThree: #5e7d82;
+    --blueThree: #637679;
     --blueFour: #3c4b54;
-
+    --darkRed: #622a19;
+    --brickRed: #412112;
+    --orange: #dd8231;
+    --yellow: #fae35e;
     --featherGrey: #c9d8d2;
     --steelGrey: #80766d;
     --darkGrey: #505857dd;
     --black: #0c1210;
 
-    --darkRed: #622a19;
-    --brickRed: #412112;
-    --orange: #dd8231;
-    --yellow: #fae35e;
+/* colors I Like */
+    --background-blue-one: #bee5f1;
+    --background-blue-two: #b4d8e3;
+
+
+    --blueThree: #a5c1c5;
+
+
 
 }
 
 .burnt-offerings {
-    background-color: var(--blueTwo);
+    background-color: var(--background-blue-two);
     color: var(--black)
 }
+
 a {
     text-decoration: none;
     /* color: inherit */
@@ -38,7 +46,7 @@ a {
 .quarterCircle {
     width: 60%;
     height: 50%;
-    background-color: var(--blueOne);
+    background-color: var(--background-blue-one);
     border-bottom-right-radius: 100%;
     position: absolute;
     top: 0;
