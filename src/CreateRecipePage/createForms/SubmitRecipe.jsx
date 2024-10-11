@@ -6,7 +6,6 @@ import handleValueIsPresent from '../createFunctions/handleValueIsPresent'
 import useAllCategory from '../createFunctions/allOfCategory'
 import checkDuplicateTitles from '../createFunctions/checkDuplicateTitles'
 import generateNewIcon from '../createFunctions/generateNewIcon'
-import generatePostModal from '../createFunctions/generatePostModal'
 
 
 
@@ -16,8 +15,8 @@ const SubmitRecipe = ({ dataPackage }) => {
     const navigate = useNavigate()
 
     const [allRecipes, allRecipesStatus] = useAllCategory('/api/recipes/titleCheck')
-    const [postModal, setPostModal] = useState(false) // modal toggle
-    const [postModalDisplay, setPostModalDisplay] = useState('')
+    // const [postModal, setPostModal] = useState(false) // modal toggle
+    const [postModalDisplay, setPostModalDisplay] = useState('ready')
     const [navigateNewId, setNavigateNewId] = useState(0)
 
 
@@ -34,18 +33,18 @@ const SubmitRecipe = ({ dataPackage }) => {
         const titleCheck = newRecipeDetails.newTitle
         const isDuplicate = checkDuplicateTitles(titleCheck, allRecipes)
         if (isDuplicate) return
-        
-        if(newRecipeDetails.picture === 'no photo') {
+
+        if (newRecipeDetails.picture === 'no photo') {
             newRecipeDetails.picture = generateNewIcon()
         }
 
-        setPostModal(true)
+        // setPostModal(true)
         setPostModalDisplay('loading')
 
         try {
             console.log('submitting new recipe', newRecipeDetails, subRecipePackage, ingredientPackage, stepPackage, tagPackage)
             const postResponse = await axios.post(`/api/recipes/newRecipe`, { newRecipeDetails, subRecipePackage, ingredientPackage, stepPackage, tagPackage })
-            // you return a response of success from db... tie up the loose end.
+            // todo you return a response of success from db... tie up the loose end.
             setPostModalDisplay('success')
             setNavigateNewId(postResponse.data.newRecipeId)
         } catch (error) {
@@ -64,25 +63,60 @@ const SubmitRecipe = ({ dataPackage }) => {
     }
 
 
-    return (
-        <div>
-
-            <h3>Please Review Your Recipe!</h3>
-
-            <p>When you're ready, hit submit!</p>
-
-            <button onClick={() => handleCreateRecipe()}>Create Your Recipe</button>
-            
-            {postModal && (
-                <div>
-                    {generatePostModal(postModalDisplay)}
-                    <button onClick={() => goToNewRecipe(navigateNewId)}>Go To Recipe</button>
-                    <button onClick={() => goHome()}>Home</button>
+    function generatePostModal(activeString) {
+        switch (activeString) {
+            case 'ready':
+                return (
+                    <>
+                        <h1>Create that Recipe!</h1>
+                        <button className='submitFireButton' onClick={() => handleCreateRecipe()}>Create Your Recipe</button>
+                    </>
+                )
+            case 'loading':
+                return <div>
+                    <h1>Loading Your Recipe!</h1>
                 </div>
-            )}
+            case 'success':
+                return (
+                    <div>
+                        <h1>Recipe Success!</h1>
+                        <button onClick={() => goToNewRecipe(navigateNewId)}>Go To Recipe</button>
+                        <button onClick={() => goHome()}>Home</button>
+                    </div>
+                )
+            case 'error':
+                return <div>
+                    <h1>recipe error</h1>
+                    <button onClick={() => setPostModalDisplay('ready')}>Womp Womp...</button>
+                </div>
+            default:
+                return ''
+        }
+    }
 
 
+    return (
+        <div className='createFormPage'>
 
+            <div >
+                <p className='createFormTitle'>Review Your Recipe!</p>
+            </div>
+
+            <div className='createFormBox'>
+                <div className='createInputForm'>
+                    <p>When you're ready, hit submit!</p>
+                </div>
+
+                {generatePostModal(postModalDisplay)}
+
+                <div className='submitRequirements'>
+                    <p>Recipe Details (R): Required</p>
+                    <p>Sub Recipes (sR): Not Required</p>
+                    <p>Ingredients (IN): Not Required</p>
+                    <p>Instructions (ST): Not Required</p>
+                    <p>Instructions (TA): Not Required</p>
+                </div>
+            </div>
         </div>
     )
 }
