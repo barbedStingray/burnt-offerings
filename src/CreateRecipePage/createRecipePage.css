@@ -205,54 +205,48 @@
 
 
 
-
 /* form inputs...  */
+.createFormInput,
+.createAddButton,
+.createFormTextArea,
+.createIngredientSelect {
+    border: 1px solid var(--blueThree);
+    background-color: var(--featherGrey);
+    border-radius: 10px;
+    font-size: 18px;
+    outline: none;
+}
 .createFormInput {
-    border: none;
-    background-color: lavender;
-    border-radius: 20px;
     width: 100%;
     height: 4dvh;
-    font-size: 2.5dvh;
     text-align: center;
 }
 /* form add buttons */
 .createAddButton {
-    border: 1px solid black;
-    background-color: ghostwhite;
-    border-radius: 20px;
     width: 30%;
     height: 4dvh;
-    font-size: 2dvh;
+    background-color: var(--blueOne);
 }
 /* form text areas */
 .createFormTextArea {
-    border: none;
+    font-family: inherit;
     width: 100%;
     height: 15dvh;
-    background-color: lavender;
-    border-radius: 20px;
     padding: 1.5dvh;
-    font-size: 1.52dvh;
 }
 /* form select */
 .createIngredientSelect {
-    /* border: none; */
     width: 100%;
-    background-color: lavender;
-    border-radius: 20px;
     height: 4dvh;
-    font-size: 2dvh;
     text-align: center;
 }
 
 
 /* recipe display items on form pages */
 .createRecipeDisplayItems {
-    border-top: 1px solid grey;
-    border-bottom: 1px solid grey;
-    /* border: 1px solid grey; */
-    border-radius: 30px;
+    border-top: 1px solid var(--blueThree);
+    border-bottom: 1px solid var(--blueThree);
+    border-radius: 20px;
     width: 90%;
     flex: 1;
     padding: 2.5dvh;
@@ -263,6 +257,9 @@
     gap: 1.5dvh;
     overflow: auto;
     scrollbar-width: none;
+}
+.createRecipeDisplayItems::-webkit-scrollbar {
+    display: none;
 }
 /* ! hide webkit scroll bar */
 
@@ -284,15 +281,11 @@
 }
 
 .createFilterItem {
-    border: 1px solid grey;
-    background-color: ghostwhite;
+    background-color: var(--blueFour);
+    color: var(--featherGrey);
     border-radius: 20px;
     padding: 6px;
 }
-
-
-
-
 
 /* form recipe list items STEPS AND INGREDIENT */
 .createListItem {
@@ -310,12 +303,10 @@
     width: 20%;
     text-align: center;
 }
-
 .createIngredientMeasurement {
     /* border: 2px solid red; */
     width: 20%;
 }
-
 .createIngredientIngredient {
     /* border: 2px solid gold; */
     flex: 1;
@@ -358,7 +349,7 @@
     display: none;
 }
 .createImageLabelDisguise {
-    border: 2px solid black;
+    border: 2px solid var(--blueThree);
     border-radius: 50%;
     width: 100%;
     height: 100%;
@@ -372,7 +363,7 @@
     width: 10dvh;
     height: 10dvh;
     font-size: 10dvh;
-    color: #e8e8e8cc;
+    color: #e8e8e866;
     position: absolute;
     top: 50%;
     left: 50%;
