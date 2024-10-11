@@ -37,21 +37,45 @@ a {
     --background-three: #b9ba7c;
     --yellow: #efe51d;
     --accent-blue: #98bef0;
+    --featherGrey: #d9dcd7;
     --black: #000;
 
 
 /* needs to be renamed and swapped in the css */
+
+    --greenOne: #bcbea1;
     --blueOne: #bcbea1;
+
+
+    --greenTwo: #aaab78;
     --blueTwo: #aaab78;
+
+
+    --greenThree: #82861a;
     --blueThree: #82861a;
+
+
+    --greenFour: #4c500e;
     --blueFour: #4c500e;
+
+
+    --shadeOne: #473c15;
     --darkRed: #473c15;
+
+
+    --shadeTwo: #48390c;
     --brickRed: #48390c;
+
+
+    --accent-darkBlue: #3978c1;
     --blue: #3978c1;
-    --featherGrey: #d9dcd7;
+
+
+/* ? Do I still want darkGrey and steelGrey? */
     --darkGrey: #363406dd;
     --steelGrey: #80766d;
 
+    
         /* fireGate progression */
         --fireGate0: #ffff00;
         --fireGate1: #ffd500;

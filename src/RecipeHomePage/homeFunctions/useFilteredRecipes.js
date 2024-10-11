@@ -42,8 +42,6 @@ const useFilteredRecipes = (keywords, page = 1) => {
 
 
     async function requestAllRecipes(keywords, page) {
-        console.log('did not find a cache, going to api')
-        // setLoadingStatus('loading')
         setApiSearching('loading')
 
         try {
@@ -60,7 +58,6 @@ const useFilteredRecipes = (keywords, page = 1) => {
             setTotalRecipes(requestedTotalRecipes)
             setRecipeStatus(true)
             setApiSearching('')
-            // setApiSearching('working')
 
             // // cache the results
             // if (!localCache[keywords]) {

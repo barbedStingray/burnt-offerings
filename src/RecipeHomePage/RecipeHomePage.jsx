@@ -42,6 +42,7 @@ const RecipeHomePage = () => {
 
             {/* main display */}
             <div className='homeMainDisplay'>
+
                 <div className='homeTopMain'>
                     <div className='homeTitleDisplay'><p>Mom's Kitchen</p></div>
                     <div className='homeSearchBar'>
@@ -56,7 +57,6 @@ const RecipeHomePage = () => {
                 </div>
 
                 <div className='bottomMain'>
-
                     {recipeStatus ? (
                         <>
                             <div className='recipeMosaic'>
@@ -72,7 +72,6 @@ const RecipeHomePage = () => {
 
                             <PageBar pageStatus={{ currentPage, setCurrentPage, totalPages }} />
                         </>
-
                     ) : (
                         <HomeScreen />
                     )}

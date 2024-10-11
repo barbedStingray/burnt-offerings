@@ -9,7 +9,6 @@ import { PiPencilThin } from "react-icons/pi";
 import { IoIosArrowDropleft } from "react-icons/io";
 
 
-
 const HomeNav = ({ navPackage }) => {
     const {
         section,
@@ -31,7 +30,6 @@ const HomeNav = ({ navPackage }) => {
     }
     const navPath = navigationLinks[section]
     const noNav = section !== 'details' ? 'noNav' : ''
-
 
 
     return (
