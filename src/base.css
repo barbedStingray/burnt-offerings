@@ -6,6 +6,16 @@
 
 
 :root {
+
+    /* fireGate progression */
+    --fireGate0: #ffff00;
+    --fireGate1: #ffd500;
+    --fireGate2: #ffae00;
+    --fireGate3: #ff8400;
+    --fireGate4: #ff5900;
+    --fireGate5: #ff3c00;
+
+
     /* originals */
     --blueOne: #90abb3;
     --blueTwo: #7e97a1;
@@ -15,32 +25,38 @@
     --brickRed: #412112;
     --orange: #dd8231;
     --yellow: #fae35e;
+    --featherGrey: #c9d8d2;
+    --darkGrey: #505857dd;
     --steelGrey: #80766d;
     --black: #0c1210;
-    
-
-    /* ** used colors */
-    /* nav bars */
-    --darkGrey: #505857dd;
-    /* input boxes */
-    --featherGrey: #c9d8d2;
-
 
     /* bg colors */
     --background-blue-one: #bee5f1;
     --background-blue-two: #b4d8e3;
     --background-blue-three: #7d9599;
 
-    /* fireGate progression */
-    --fireGate0: #ffff00;
-    --fireGate1: #ffd500;
-    --fireGate2: #ffae00;
-    --fireGate3: #ff8400;
-    --fireGate4: #ff5900;
-    --fireGate5: #ff3c00;
+
+
+    /* trial colors */
+    --blueOne: #90abb3;
+    --blueTwo: #7e97a1;
+    --blueThree: #82861a;
+    --blueFour: #423711;
+    --darkRed: #622a19;
+    --brickRed: #544617;
+    --orange: #dd8231;
+    --yellow: #ede327;
+    --featherGrey: #d9dcd7;
+    --darkGrey: #505857dd;
+    --steelGrey: #80766d;
+    --black: #000;
+
+    /* bg trial colors */
+    --background-blue-one: #bcbea1;
+    --background-blue-two: #aaab78;
+    --background-blue-three: #d0d0b8;
+
+
+
+
 }
-
-
-
-
-
