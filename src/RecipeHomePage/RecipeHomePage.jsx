@@ -72,7 +72,7 @@ const RecipeHomePage = () => {
                                 ))}
                             </div>
 
-                            <PageBar pageStatus={{ currentPage, setCurrentPage, totalPages, scrollToTopRef }} />
+                            <PageBar pageStatus={{ currentPage, setCurrentPage, totalPages, scrollToTopRef, apiSearching }} />
                         </div>
                     ) : (
                         <HomeScreen />

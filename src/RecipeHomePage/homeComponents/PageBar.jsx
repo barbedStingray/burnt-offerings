@@ -4,17 +4,47 @@ import { IoIosArrowDropleft } from "react-icons/io";
 
 
 const PageBar = ({ pageStatus }) => {
-    const { currentPage, setCurrentPage, totalPages, scrollToTopRef } = pageStatus
+    const { currentPage, setCurrentPage, totalPages, scrollToTopRef, apiSearching } = pageStatus
 
-    const handlePageChange = (newPage) => {
-            setCurrentPage(newPage)
+    const [isLoading, setIsLoading] = useState(false)
 
-            setTimeout(() => {
-                if (scrollToTopRef.current) {
-                    scrollToTopRef.current.scrollTo({ top: 0, behavior: 'smooth' })
+    
+    // const handlePageChange = (newPage) => {
+    //         setCurrentPage(newPage)
+
+    //         setTimeout(() => {
+    //             if (scrollToTopRef.current) {
+    //                 scrollToTopRef.current.scrollTo({ top: 0, behavior: 'smooth' })
+    //             }
+    //         }, 200)
+    // }
+
+
+    const handlePageChange = async (newPage) => {
+        setIsLoading(true); // Start loading
+    
+        // Set the new current page
+        setCurrentPage(newPage);
+    
+        // Wait for the new content to load
+        await new Promise((resolve) => {
+            const checkLoading = setInterval(() => {
+                if (apiSearching !== 'loading') { // Wait until not loading
+                    clearInterval(checkLoading);
+                    resolve();
                 }
-            }, 200)
-    }
+            }, 100); // Check every 100ms
+        });
+    
+        // After new content loads, scroll to the top
+        if (scrollToTopRef.current) {
+            scrollToTopRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    
+        setIsLoading(false); // End loading
+    };
+
+
 
 
     return (
