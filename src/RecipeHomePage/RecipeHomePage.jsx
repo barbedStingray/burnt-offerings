@@ -33,6 +33,12 @@ const RecipeHomePage = () => {
     }, [bouncedKeywords])
 
 
+    // Scroll to top whenever recipeStatus changes (when new content is loaded)
+    useEffect(() => {
+        if (scrollToTopRef.current) {
+            scrollToTopRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    }, [recipeStatus]);
 
 
     return (
