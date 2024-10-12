@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import './RecipeHomePage.css'
 
 import useFilteredRecipes from './homeFunctions/useFilteredRecipes';
@@ -12,6 +12,7 @@ import NavBar from '../components/NavBar'
 
 const RecipeHomePage = () => {
 
+    const scrollToTopRef = useRef()
     const [keywords, setKeywords] = useState('')
     const [currentPage, setCurrentPage] = useState(1)
     const bouncedKeywords = useDebounce(keywords, setCurrentPage)
@@ -30,6 +31,7 @@ const RecipeHomePage = () => {
             sessionStorage.setItem('bouncedKeywords', bouncedKeywords)
         }
     }, [bouncedKeywords])
+
 
 
 
@@ -58,7 +60,7 @@ const RecipeHomePage = () => {
 
                 <div className='bottomMain'>
                     {recipeStatus ? (
-                        <div className='recipeDisplay'>
+                        <div className='recipeDisplay' ref={scrollToTopRef}>
                             <div className='recipeMosaic'>
                                 <div className='homeSearchReturn'>
                                     <p>{totalRecipes}</p>
@@ -70,7 +72,7 @@ const RecipeHomePage = () => {
                                 ))}
                             </div>
 
-                            <PageBar pageStatus={{ currentPage, setCurrentPage, totalPages }} />
+                            <PageBar pageStatus={{ currentPage, setCurrentPage, totalPages, scrollToTopRef }} />
                         </div>
                     ) : (
                         <HomeScreen />

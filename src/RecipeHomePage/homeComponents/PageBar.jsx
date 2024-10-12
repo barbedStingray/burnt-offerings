@@ -4,15 +4,18 @@ import { IoIosArrowDropleft } from "react-icons/io";
 
 
 const PageBar = ({ pageStatus }) => {
-    const { currentPage, setCurrentPage, totalPages } = pageStatus
+    const { currentPage, setCurrentPage, totalPages, scrollToTopRef } = pageStatus
 
-    function handlePageChange(newPage) {
-        setCurrentPage(newPage)
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        })
+
+    const handlePageChange = (newPage) => {
+            setCurrentPage(newPage)
+            setTimeout(() => {
+                if (scrollToTopRef.current) {
+                    scrollToTopRef.current.scrollTo({ top: 0, behavior: 'smooth' })
+                }
+            }, 200)
     }
+
 
     return (
         <div className='paginationBar'>
