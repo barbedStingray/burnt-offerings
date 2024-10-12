@@ -9,9 +9,14 @@ const PageBar = ({ pageStatus }) => {
 
     const handlePageChange = (newPage) => {
             setCurrentPage(newPage)
+
             setTimeout(() => {
                 if (scrollToTopRef.current) {
-                    scrollToTopRef.current.scrollTo({ top: 0, behavior: 'smooth' })
+                    const scrollHeight = scrollToTopRef.current.scrollHeight
+                    const clientHeight = scrollToTopRef.current.clientHeight
+                    if (scrollHeight > clientHeight) {
+                        scrollToTopRef.current.scrollTo({ top: 0, behavior: 'smooth' })
+                    }
                 }
             }, 200)
     }

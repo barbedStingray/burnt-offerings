@@ -1,6 +1,4 @@
 // * ONE FUNCTION: 
-    // Handle Debounce
-    // setPage(1)
 
 
 import { useState, useEffect, useRef } from 'react';
