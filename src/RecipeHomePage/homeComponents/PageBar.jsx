@@ -18,7 +18,7 @@ const PageBar = ({ pageStatus }) => {
                         scrollToTopRef.current.scrollTo({ top: 0, behavior: 'smooth' })
                     }
                 }
-            }, 200)
+            }, 500)
     }
 
 

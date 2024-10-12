@@ -144,6 +144,7 @@
     justify-content: flex-start;
     align-items: center;
     overflow: auto;
+    overflow-y: scroll;
     scrollbar-width: none;
     /* scroll-behavior: smooth; */
     /* transition: all 3s ease; */
