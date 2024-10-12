@@ -156,9 +156,8 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     /* This is half the height of each recipeContainer */
-    /* grid-template-rows: repeat(auto-fill, minmax(135px, auto)); */
     gap: 15px;
-    grid-auto-rows: minmax(100px, auto);
+    grid-auto-rows: minmax(105px, auto);
     justify-items: center;
 }
 
@@ -177,7 +176,7 @@
 }
 
 .recipeContainer {
-    /* border: 2px solid black; */
+    /* border: 1px solid black; */
     /* sum of your gap and 2x row height */
     /* use calc, specify constants */
     height: 230px;
@@ -242,7 +241,7 @@
     /* border: 2px solid red; */
     height: 50%;
     width: 90%;
-    font-size: 2.75dvh;
+    font-size: 22px;
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -253,29 +252,28 @@
     background-color: var(--trans-color);
     position: fixed;
     bottom: 0;
+    height: 10dvh;
     width: 100%;
-    z-index: 15;
+    z-index: 10;
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
     align-items: center;
     gap: 20dvh
 }
-
 .homePageNext {
     /* border: 2px solid blue; */
     height: 8dvh;
     width: 8dvh;
+    font-size: 8dvh;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 8dvh;
     color: var(--accent-second);
 }
 
 .homeNextDeactivate {
-    /* border: 2px solid red; */
-    color: #aeaeae;
+    color: var(--inactive);
 }
 
 
