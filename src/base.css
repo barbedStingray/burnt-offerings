@@ -11,77 +11,30 @@ a {
 
 :root {
 
-    /* originals */
-    /* --blueOne: #90abb3;
-    --blueTwo: #7e97a1;
-    --blueThree: #637679;
-    --blueFour: #3c4b54;
-    --darkRed: #622a19;
-    --brickRed: #412112;
-    --orange: #dd8231;
-    --yellow: #fae35e;
-    --featherGrey: #c9d8d2;
-    --darkGrey: #505857dd;
-    --steelGrey: #80766d;
-    --black: #0c1210; */
-    /* bg colors */
-    /* --background-blue-one: #bee5f1;
-    --background-blue-two: #b4d8e3;
-    --background-blue-three: #7d9599;  */
-
-
-
-    /* THE NEW HOTNESS */
     --background-one: #e2e6b5;
     --background-two: #d7d79f;
     --background-three: #b9ba7c;
-    --yellow: #efe51d;
-    --accent-blue: #98bef0;
+    --accent-prime: #efe51d;
+    --accent-second: #98bef0;
+    --trans-color: #363406dd;
+    
+    --prime-one: #bcbea1;
+    --prime-two: #aaab78;
+    --prime-three: #82861a;
+    --prime-four: #4c500e;
+    
+    --shadow-one: #473c15;
+    --shadow-two: #48390c;
+    
     --featherGrey: #d9dcd7;
     --black: #000;
 
-
-/* needs to be renamed and swapped in the css */
-
-    --greenOne: #bcbea1;
-    --blueOne: #bcbea1;
-
-
-    --greenTwo: #aaab78;
-    --blueTwo: #aaab78;
-
-
-    --greenThree: #82861a;
-    --blueThree: #82861a;
-
-
-    --greenFour: #4c500e;
-    --blueFour: #4c500e;
-
-
-    --shadeOne: #473c15;
-    --darkRed: #473c15;
-
-
-    --shadeTwo: #48390c;
-    --brickRed: #48390c;
-
-
-    --accent-darkBlue: #3978c1;
-    --blue: #3978c1;
-
-
-/* ? Do I still want darkGrey and steelGrey? */
-    --darkGrey: #363406dd;
-    --steelGrey: #80766d;
-
-    
-        /* fireGate progression */
-        --fireGate0: #ffff00;
-        --fireGate1: #ffd500;
-        --fireGate2: #ffae00;
-        --fireGate3: #ff8400;
-        --fireGate4: #ff5900;
-        --fireGate5: #ff3c00;
+    /* blend progression */
+    --blend0: #ffff00;
+    --blend1: #ffd500;
+    --blend2: #ffae00;
+    --blend3: #ff8400;
+    --blend4: #ff5900;
+    --blend5: #ff3c00;
     
 }

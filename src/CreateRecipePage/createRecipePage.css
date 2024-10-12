@@ -22,7 +22,7 @@
 
 /* footer */
 .createFormNavigation {
-    background-color: var(--darkGrey);
+    background-color: var(--trans-color);
     /* border: 2px solid red; */
     height: 10dvh;
     width: 100%;
@@ -51,28 +51,28 @@
 }
 
 .fireGate0 {
-    border: 1px solid var(--fireGate0);
-    box-shadow: 0px 0px 6px 3px var(--fireGate0);
+    border: 1px solid var(--blend0);
+    box-shadow: 0px 0px 6px 3px var(--blend0);
 }
 .fireGate1 {
-    border: 1px solid var(--fireGate1);
-    box-shadow: 0px 0px 6px 3px var(--fireGate1);
+    border: 1px solid var(--blend1);
+    box-shadow: 0px 0px 6px 3px var(--blend1);
 }
 .fireGate2 {
-    border: 1px solid var(--fireGate2);
-    box-shadow: 0px 0px 6px 3px var(--fireGate2);
+    border: 1px solid var(--blend2);
+    box-shadow: 0px 0px 6px 3px var(--blend2);
 }
 .fireGate3 {
-    border: 1px solid var(--fireGate3);
-    box-shadow: 0px 0px 6px 3px var(--fireGate3);
+    border: 1px solid var(--blend3);
+    box-shadow: 0px 0px 6px 3px var(--blend3);
 }
 .fireGate4 {
-    border: 1px solid var(--fireGate4);
-    box-shadow: 0px 0px 6px 3px var(--fireGate4);
+    border: 1px solid var(--blend4);
+    box-shadow: 0px 0px 6px 3px var(--blend4);
 }
 .fireGate5 {
-    border: 1px solid var(--fireGate5);
-    box-shadow: 0px 0px 6px 3px var(--fireGate5);
+    border: 1px solid var(--blend5);
+    box-shadow: 0px 0px 6px 3px var(--blend5);
 }
 
 
@@ -123,7 +123,7 @@
 .createFormPage {
     border: none;
     border-radius: 30px;
-    box-shadow: 0px 2px 6px 2px var(--blueFour);
+    box-shadow: 0px 2px 6px 2px var(--prime-four);
     height: 95%;
     width: 90%;
     display: flex;
@@ -167,7 +167,7 @@
 .createAddButton,
 .createFormTextArea,
 .createIngredientSelect {
-    border: 1px solid var(--blueThree);
+    border: 1px solid var(--prime-three);
     background-color: var(--featherGrey);
     border-radius: 10px;
     font-size: 18px;
@@ -182,7 +182,7 @@
 .createAddButton {
     width: 30%;
     height: 4dvh;
-    background-color: var(--blueOne);
+    background-color: var(--prime-one);
 }
 /* form text areas */
 .createFormTextArea {
@@ -201,8 +201,8 @@
 
 /* recipe display items on form pages */
 .createRecipeDisplayItems {
-    border-top: 1px solid var(--blueThree);
-    border-bottom: 1px solid var(--blueThree);
+    border-top: 1px solid var(--prime-three);
+    border-bottom: 1px solid var(--prime-three);
     border-radius: 20px;
     width: 90%;
     flex: 1;
@@ -238,7 +238,7 @@
 }
 
 .createFilterItem {
-    background-color: var(--blueFour);
+    background-color: var(--prime-four);
     color: var(--featherGrey);
     border-radius: 20px;
     padding: 6px;
@@ -306,7 +306,7 @@
     display: none;
 }
 .createImageLabelDisguise {
-    border: 2px solid var(--blueThree);
+    border: 2px solid var(--prime-three);
     border-radius: 50%;
     width: 100%;
     height: 100%;

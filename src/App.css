@@ -33,17 +33,17 @@
     z-index: 2;
     background: conic-gradient(
         from var(--gradient-angle),
-        var(--fireGate0),
-        var(--fireGate1),
-        var(--fireGate2),
-        var(--fireGate3),
-        var(--fireGate4),
-        var(--fireGate5),
-        var(--fireGate4),
-        var(--fireGate3),
-        var(--fireGate2),
-        var(--fireGate1),
-        var(--fireGate0));
+        var(--blend0),
+        var(--blend1),
+        var(--blend2),
+        var(--blend3),
+        var(--blend4),
+        var(--blend5),
+        var(--blend4),
+        var(--blend3),
+        var(--blend2),
+        var(--blend1),
+        var(--blend0));
 animation: rotation 5s linear infinite;
 }
 .medFire {
@@ -64,7 +64,7 @@ animation: rotation 5s linear infinite;
     inset: 0.3rem;
     z-index: 1;
     border-radius: inherit;
-    background-color: var(--blueFour);
+    background-color: var(--prime-four);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -97,8 +97,8 @@ animation: rotation 5s linear infinite;
 }
 
 .deleteButton {
-    border: 2px solid var(--yellow);
-    background-color: var(--blueFour);
+    border: 2px solid var(--accent-prime);
+    background-color: var(--prime-four);
     color: var(--featherGrey);
     width: 6dvw;
     aspect-ratio: 1 / 1;
@@ -112,7 +112,7 @@ animation: rotation 5s linear infinite;
 /* Nav bars */
 .navBar {
     /* border: 2px solid orange; */
-    background-color: var(--darkGrey);
+    background-color: var(--trans-color);
     width: 100%;
     height: 10dvh;
     position: fixed;
@@ -129,7 +129,7 @@ animation: rotation 5s linear infinite;
 }
 .navButton {
     /* border: 2px solid black; */
-    color: var(--accent-blue);
+    color: var(--accent-second);
     /* height: 16dvw; */
     height: 8dvh;
     font-size: 8dvh;

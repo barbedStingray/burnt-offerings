@@ -58,11 +58,11 @@ const RecipeHomePage = () => {
 
                 <div className='bottomMain'>
                     {recipeStatus ? (
-                        <>
+                        <div className='recipeDisplay'>
                             <div className='recipeMosaic'>
                                 <div className='homeSearchReturn'>
-                                    <div className="homeRecipeTotal"><p>{totalRecipes}</p></div>
-                                    <div className="homeRecipeLabel"><p>Recipes</p></div>
+                                    <p>{totalRecipes}</p>
+                                    <p className="homeRecipeLabel">Recipes</p>
                                 </div>
 
                                 {allRecipes.map((recipe) => (
@@ -71,18 +71,12 @@ const RecipeHomePage = () => {
                             </div>
 
                             <PageBar pageStatus={{ currentPage, setCurrentPage, totalPages }} />
-                        </>
+                        </div>
                     ) : (
                         <HomeScreen />
                     )}
                 </div>
             </div>
-
-            {recipeStatus && (
-                <div className='homeFooter'>
-                    <div className='homePreview'></div>
-                </div>
-            )}
         </div>
     )
 }
