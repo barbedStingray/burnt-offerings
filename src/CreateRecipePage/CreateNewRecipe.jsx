@@ -57,7 +57,6 @@ const CreateNewRecipe = () => {
             </div>
 
             <div className='createFooter'>
-                <FormShortcuts scrollIndex={scrollIndex} formContainerRef={formContainerRef} />
                 <div className={`createForms`} ref={formContainerRef}>
                     {createForms.map((formContent, i) => (
                         <div key={i} className='createSingleForm'>
@@ -65,6 +64,7 @@ const CreateNewRecipe = () => {
                         </div>
                     ))}
                 </div>
+                <FormShortcuts scrollIndex={scrollIndex} formContainerRef={formContainerRef} />
             </div>
 
         </div >

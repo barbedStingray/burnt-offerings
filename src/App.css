@@ -36,12 +36,12 @@
     z-index: 2;
     background: conic-gradient(
         from var(--gradient-angle),
+
+        var(--blend0),
         var(--blend0),
         var(--blend1),
         var(--blend2),
         var(--blend3),
-        var(--blend4),
-        var(--blend5),
         var(--blend4),
         var(--blend3),
         var(--blend2),
