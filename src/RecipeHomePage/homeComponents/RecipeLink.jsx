@@ -20,9 +20,11 @@ const RecipeLink = ({ recipe }) => {
         <Link
             key={id}
             to={`/recipeDetails/${id}`}
-            className='recipeContainer'
+            className='recipeLink'
         >
-            <div className='recipeMosaicPhoto'>
+
+            <div className='recipeMosaicPhoto' 
+            >
                 {generateHomeImage()}
             </div>
 

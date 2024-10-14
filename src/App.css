@@ -5,6 +5,9 @@
 
 /* App.css */
 .burnt-offerings {
+    /* border: 2px solid magenta; */
+    width: 100dvw;
+    height: 100dvh;
     background-color: var(--background-two);
     color: var(--black)
 }
@@ -129,8 +132,8 @@ animation: rotation 5s linear infinite;
 }
 .navButton {
     /* border: 2px solid black; */
-    color: var(--accent-second);
     /* height: 16dvw; */
+    color: var(--accent-second);
     height: 8dvh;
     font-size: 8dvh;
     aspect-ratio: 1 / 1;
