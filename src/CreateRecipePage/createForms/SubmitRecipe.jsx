@@ -6,6 +6,8 @@ import handleValueIsPresent from '../createFunctions/handleValueIsPresent'
 import useAllCategory from '../createFunctions/allOfCategory'
 import checkDuplicateTitles from '../createFunctions/checkDuplicateTitles'
 import generateNewIcon from '../createFunctions/generateNewIcon'
+import { GiGingerbreadMan } from "react-icons/gi";
+import { FaSnowboarding } from "react-icons/fa";
 
 
 
@@ -15,7 +17,6 @@ const SubmitRecipe = ({ dataPackage }) => {
     const navigate = useNavigate()
 
     const [allRecipes, allRecipesStatus] = useAllCategory('/api/recipes/titleCheck')
-    // const [postModal, setPostModal] = useState(false) // modal toggle
     const [postModalDisplay, setPostModalDisplay] = useState('ready')
     const [navigateNewId, setNavigateNewId] = useState(0)
 
@@ -38,7 +39,6 @@ const SubmitRecipe = ({ dataPackage }) => {
             newRecipeDetails.picture = generateNewIcon()
         }
 
-        // setPostModal(true)
         setPostModalDisplay('loading')
 
         try {
@@ -67,28 +67,43 @@ const SubmitRecipe = ({ dataPackage }) => {
         switch (activeString) {
             case 'ready':
                 return (
-                    <>
+                    <div className='postModal'>
                         <h1>Create that Recipe!</h1>
                         <button className='fireButton' onClick={() => handleCreateRecipe()}>Create Your Recipe</button>
-                    </>
+                    </div>
                 )
             case 'loading':
-                return <div>
-                    <h1>Loading Your Recipe!</h1>
-                </div>
+                return (
+                    <div className='postModal'>
+                        <h1>Loading...</h1>
+                        <div className="createApiStatus">
+                            <GiGingerbreadMan />
+                        </div>
+                    </div>
+                )
             case 'success':
                 return (
-                    <div>
+                    <div className='postModal'>
                         <h1>Recipe Success!</h1>
-                        <button onClick={() => goToNewRecipe(navigateNewId)}>Go To Recipe</button>
-                        <button onClick={() => goHome()}>Home</button>
+                        <div className='postModalDiv'>
+                            <button className='fireButton medFire make' onClick={() => goToNewRecipe(navigateNewId)}>Make It!</button>
+                            <button className='createAddButton' onClick={() => goHome()}>Home</button>
+                        </div>
                     </div>
                 )
             case 'error':
-                return <div>
-                    <h1>recipe error</h1>
-                    <button onClick={() => setPostModalDisplay('ready')}>Womp Womp...</button>
-                </div>
+                return (
+                    <div className='postModal'>
+                        <button className='createAddButton' onClick={() => setPostModalDisplay('ready')}>Retry</button>
+                        <div className="homeApiError">
+                            <FaSnowboarding />
+                            <div className="homeApiErrorMessage">
+                                <p>Check your Connection!</p>
+                                <p>Hang Tight! </p>
+                            </div>
+                        </div>
+                    </div>
+                )
             default:
                 return ''
         }

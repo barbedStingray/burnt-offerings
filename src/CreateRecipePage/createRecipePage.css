@@ -381,4 +381,26 @@
 }
 
 
+.postModal {
+    /* border: 2px solid blue; */
+    width: 80%;
+    height: 35%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1dvh;
+}
+.postModalDiv {
+    /* border: 2px solid red; */
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 2dvh;
+    gap: 2dvh;
+}
+
+
 

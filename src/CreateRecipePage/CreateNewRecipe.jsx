@@ -57,10 +57,7 @@ const CreateNewRecipe = () => {
             </div>
 
             <div className='createFooter'>
-
                 <FormShortcuts scrollIndex={scrollIndex} formContainerRef={formContainerRef} />
-
-                {/* snap forms */}
                 <div className={`createForms`} ref={formContainerRef}>
                     {createForms.map((formContent, i) => (
                         <div key={i} className='createSingleForm'>

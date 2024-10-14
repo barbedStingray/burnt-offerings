@@ -82,6 +82,9 @@ animation: rotation 5s linear infinite;
     font-size: 18px;
     inset: 2px;
 }
+.make::after {
+    content: 'Make It!';
+}
 
 @property --gradient-angle {
     syntax: "<angle>";

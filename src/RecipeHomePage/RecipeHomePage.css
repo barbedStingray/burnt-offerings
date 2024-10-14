@@ -2,7 +2,8 @@
 
 /* Modulate your error handling */
 /* api ERror handling */
-.homeApiStatus {
+.homeApiStatus,
+.createApiStatus {
     /* border: 2px solid magenta; */
     /* background-color: var(--background-one); */
     color: var(--prime-four);
@@ -19,6 +20,13 @@
     align-items: center;
     animation: foreverSpin 1s linear infinite;
 }
+.createApiStatus {
+    /* border: 2px solid blue; */
+    position: relative;
+    top: 35%;
+    left: 12%;
+}
+
 
 @keyframes foreverSpin {
     from {
@@ -172,6 +180,7 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 15px;
+    grid-row-gap: 20px;
     grid-auto-rows: minmax(105px, auto);
     justify-items: center;
 }
