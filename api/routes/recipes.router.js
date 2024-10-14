@@ -511,27 +511,20 @@ search_terms AS (
 -- Find recipes by title
 recipes_by_title AS (
     SELECT r.id, r.title, r.description, r.prep_time, r.servings, r.picture, 1 AS priority,
-           COUNT(st.term) AS match_count
+           COUNT(st.term) AS title_match_count,  -- Count occurrences in the title
+           0 AS ingredient_match_count,  -- Placeholder for ingredient match count
+           0 AS tag_match_count  -- Placeholder for tag match count
     FROM moms_recipes r
     JOIN search_terms st ON LOWER(r.title) LIKE '%' || st.term || '%'
     GROUP BY r.id, r.title, r.description, r.prep_time, r.servings, r.picture
 ),
 
--- Find recipes by tag
-recipes_by_tag AS (
-    SELECT r.id, r.title, r.description, r.prep_time, r.servings, r.picture, 3 AS priority,
-           COUNT(st.term) AS match_count
-    FROM moms_recipes r
-    JOIN recipe_tags rt ON r.id = rt.recipe_id
-    JOIN moms_tags t ON rt.tags_id = t.id
-    JOIN search_terms st ON LOWER(t.tag) LIKE '%' || st.term || '%'
-    GROUP BY r.id, r.title, r.description, r.prep_time, r.servings, r.picture
-),
-
--- Find recipes by ingredient (including sub-recipes)
+-- Find recipes by ingredients (including sub-recipes)
 recipes_by_ingredient AS (
     SELECT r.id, r.title, r.description, r.prep_time, r.servings, r.picture, 2 AS priority,
-           COUNT(st.term) AS match_count
+           0 AS title_match_count,  -- Placeholder for title match count
+           COUNT(st.term) AS ingredient_match_count,  -- Count occurrences in ingredients
+           0 AS tag_match_count  -- Placeholder for tag match count
     FROM moms_recipes r
     JOIN recipe_ingredients ri ON r.id = ri.recipe_id
     JOIN moms_ingredients i ON ri.ingredient_id = i.id
@@ -541,7 +534,9 @@ recipes_by_ingredient AS (
     UNION ALL
 
     SELECT parent.id, parent.title, parent.description, parent.prep_time, parent.servings, parent.picture, 2 AS priority,
-           COUNT(st.term) AS match_count
+           0 AS title_match_count,  -- Placeholder for title match count
+           COUNT(st.term) AS ingredient_match_count,
+           0 AS tag_match_count
     FROM moms_recipes parent
     JOIN recipe_relationship rr ON parent.id = rr.parent_id
     JOIN moms_recipes sub ON rr.sub_id = sub.id
@@ -549,24 +544,43 @@ recipes_by_ingredient AS (
     JOIN moms_ingredients si ON sri.ingredient_id = si.id
     JOIN search_terms st ON LOWER(si.ingredient) LIKE '%' || st.term || '%'
     GROUP BY parent.id, parent.title, parent.description, parent.prep_time, parent.servings, parent.picture
+),
+
+-- Find recipes by tag
+recipes_by_tag AS (
+    SELECT r.id, r.title, r.description, r.prep_time, r.servings, r.picture, 3 AS priority,
+           0 AS title_match_count,  -- Placeholder for title match count
+           0 AS ingredient_match_count,  -- Placeholder for ingredient match count
+           COUNT(st.term) AS tag_match_count  -- Count occurrences in tags
+    FROM moms_recipes r
+    JOIN recipe_tags rt ON r.id = rt.recipe_id
+    JOIN moms_tags t ON rt.tags_id = t.id
+    JOIN search_terms st ON LOWER(t.tag) LIKE '%' || st.term || '%'
+    GROUP BY r.id, r.title, r.description, r.prep_time, r.servings, r.picture
 )
 
--- Combine all results and ensure unique entries
+-- Combine results and ensure unique entries
 SELECT id, title, description, prep_time, servings, picture, 
        MIN(priority) AS priority,
-       SUM(match_count) AS match_count
+       COALESCE(MAX(title_match_count), 0) AS title_match_count,
+       COALESCE(MAX(ingredient_match_count), 0) AS ingredient_match_count,
+       COALESCE(MAX(tag_match_count), 0) AS tag_match_count,
+       (COALESCE(MAX(title_match_count), 0) + COALESCE(MAX(ingredient_match_count), 0) + COALESCE(MAX(tag_match_count), 0)) AS total_match_count
 FROM (
-    SELECT * FROM recipes_by_tag
+    SELECT * FROM recipes_by_title
     UNION ALL
     SELECT * FROM recipes_by_ingredient
     UNION ALL
-    SELECT * FROM recipes_by_title
-
+    SELECT * FROM recipes_by_tag
 ) AS combined_results
 GROUP BY id, title, description, prep_time, servings, picture
-ORDER BY priority, match_count DESC, MIN(priority)
-LIMIT $2 OFFSET $3
-;`
+ORDER BY 
+    title_match_count DESC,  -- Order by title match count first
+    ingredient_match_count DESC,  -- Then by ingredient match count
+    tag_match_count DESC,  -- Finally by tag match count
+    total_match_count DESC,  -- To resolve any ties, order by total matches
+    LOWER(title)  -- Alphabetical order for similar results
+LIMIT $2 OFFSET $3;`
 
     // counting
     const countAllRecipesQuery = `SELECT COUNT(*) AS total_count FROM "moms_recipes";`
