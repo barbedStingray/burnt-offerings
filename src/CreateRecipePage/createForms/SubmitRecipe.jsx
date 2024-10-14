@@ -68,8 +68,7 @@ const SubmitRecipe = ({ dataPackage }) => {
             case 'ready':
                 return (
                     <div className='postModal'>
-                        <h1>Create that Recipe!</h1>
-                        <button className='fireButton' onClick={() => handleCreateRecipe()}>Create Your Recipe</button>
+                        <button className='fireButton' onClick={() => handleCreateRecipe()}>Create Recipe!</button>
                     </div>
                 )
             case 'loading':
@@ -114,7 +113,7 @@ const SubmitRecipe = ({ dataPackage }) => {
         <div className='createFormPage'>
 
             <div >
-                <p className='createFormTitle'>Review Your Recipe!</p>
+                <p className='createFormTitle'>Recipe Review!</p>
             </div>
 
             <div className='createFormBox'>

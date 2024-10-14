@@ -564,7 +564,7 @@ FROM (
 
 ) AS combined_results
 GROUP BY id, title, description, prep_time, servings, picture
-ORDER BY priority, match_count DESC, LOWER(title)
+ORDER BY priority, match_count DESC, MIN(priority)
 LIMIT $2 OFFSET $3
 ;`
 
