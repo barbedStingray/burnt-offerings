@@ -6,7 +6,7 @@ const useScrollTracking = (ref, isLoaded = true) => {
     const [scrollIndex, setScrollIndex] = useState(0)
 
     useEffect(() => {
-        if (isLoaded) {
+        if (isLoaded && ref.current) {
             const handleScroll = () => {
                 const formWidth = ref.current.clientWidth
                 const currentScroll = ref.current.scrollLeft

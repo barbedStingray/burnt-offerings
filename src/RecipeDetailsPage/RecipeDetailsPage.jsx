@@ -120,9 +120,9 @@ const RecipeDetailsPage = () => {
                 </div>
             )}
 
-            <AnimatePresence>
-                {isLoaded ? (
-                    <div className='detailSliderContainer' ref={horizontalScrollRef}
+            {isLoaded ? (
+                <AnimatePresence mode='wait' initial={true}>
+                    <m.div className='detailSliderContainer' ref={horizontalScrollRef}
                         key="detailSliderContainer"
                         variants={basicAnimation}
                         initial="initial"
@@ -202,9 +202,12 @@ const RecipeDetailsPage = () => {
                                 </div>
                             </div>
                         ))}
-                    </div>
-                ) : (
-                    <div
+                    </m.div>
+                </AnimatePresence>
+            ) : (
+                <AnimatePresence mode='wait' initial={true}>
+                    <m.div
+                        className="detailErrorContainer"
                         key="detailErrorContainer"
                         variants={basicAnimation}
                         initial="initial"
@@ -212,14 +215,11 @@ const RecipeDetailsPage = () => {
                         exit="exit"
                     >
                         {handleApiStatus(detailStatus)}
-                    </div>
-                )}
-            </AnimatePresence>
-
-
+                    </m.div>
+                </AnimatePresence>
+            )}
 
             <div className='detailsFooter'></div>
-
 
         </div>
     )
