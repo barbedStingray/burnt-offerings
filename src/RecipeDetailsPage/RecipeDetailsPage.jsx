@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
+import { motion as m, AnimatePresence } from 'framer-motion'
 import { useParams } from 'react-router-dom'
 import './RecipeDetailsPage.css'
 
@@ -16,6 +17,7 @@ import DisplayTags from './detailComponents/DisplayTags'
 import DisplaySubRecipes from './detailComponents/DisplaySubRecipes'
 import DisplayErrorDetail from './detailComponents/DisplayErrorDetail'
 import useScrollTracking from '../CreateRecipePage/createFunctions/scrollFunctions/useScrollTracking'
+import basicAnimation from '../animations/basicAnimation'
 
 import deleteEntireRecipe from './detailFunctions/deleteEntireRecipe'
 import DeleteModal from './detailComponents/DeleteModal'
@@ -118,88 +120,101 @@ const RecipeDetailsPage = () => {
                 </div>
             )}
 
+            <AnimatePresence>
+                {isLoaded ? (
+                    <div className='detailSliderContainer' ref={horizontalScrollRef}
+                        key="detailSliderContainer"
+                        variants={basicAnimation}
+                        initial="initial"
+                        animate="animate"
+                        exit="exit"
+                    >
+                        {recipeDisplay.map((recipe, i) => (
+                            <div key={i} className='recipeDetailsScrollContainer'>
+                                <div className='recipeDetailContainer' >
+                                    <div className='detailsTopDisplay'>
 
-            {isLoaded ? (
-                <div className='detailSliderContainer' ref={horizontalScrollRef}>
-                    {recipeDisplay.map((recipe, i) => (
-                        <div key={i} className='recipeDetailsScrollContainer'>
-                            <div className='recipeDetailContainer' >
-                                <div className='detailsTopDisplay'>
+                                        <div className='detailsTopInfo'>
 
-                                    <div className='detailsTopInfo'>
+                                            <DisplayPhoto
+                                                editPackage={{ letsEdit, refresh, setRefresh }}
+                                                detailPackage={{ displayId, picture: recipe.recipeDetails.picture }}
+                                            />
 
-                                        <DisplayPhoto
-                                            editPackage={{ letsEdit, refresh, setRefresh }}
-                                            detailPackage={{ displayId, picture: recipe.recipeDetails.picture }}
-                                        />
-
-                                        <div className='prepServings'>
-                                            <div className='detailsPrep'>
-                                                <LuAlarmClock />
-                                                <EditTheDetail
-                                                    category={{ type: 'prep_time', detail: recipe.recipeDetails.prep_time, target_id: displayId }}
-                                                    editPackage={{ letsEdit, refresh, setRefresh }}
-                                                />
-                                            </div>
-                                            <div className='detailsServings'>
-                                                <p><FaInfo /></p>
-                                                <EditTheDetail
-                                                    category={{ type: 'servings', detail: recipe.recipeDetails.servings, target_id: displayId }}
-                                                    editPackage={{ letsEdit, refresh, setRefresh }}
-                                                />
+                                            <div className='prepServings'>
+                                                <div className='detailsPrep'>
+                                                    <LuAlarmClock />
+                                                    <EditTheDetail
+                                                        category={{ type: 'prep_time', detail: recipe.recipeDetails.prep_time, target_id: displayId }}
+                                                        editPackage={{ letsEdit, refresh, setRefresh }}
+                                                    />
+                                                </div>
+                                                <div className='detailsServings'>
+                                                    <p><FaInfo /></p>
+                                                    <EditTheDetail
+                                                        category={{ type: 'servings', detail: recipe.recipeDetails.servings, target_id: displayId }}
+                                                        editPackage={{ letsEdit, refresh, setRefresh }}
+                                                    />
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <div className='detailsBottomInfo'>
-                                        <div className='detailsTitleDisplay'>
-                                            <EditTheDetail
-                                                category={{ type: 'title', detail: recipe.recipeDetails.title, target_id: displayId }}
+                                        <div className='detailsBottomInfo'>
+                                            <div className='detailsTitleDisplay'>
+                                                <EditTheDetail
+                                                    category={{ type: 'title', detail: recipe.recipeDetails.title, target_id: displayId }}
+                                                    editPackage={{ letsEdit, refresh, setRefresh }}
+                                                />
+                                            </div>
+
+                                            <DisplayTags
                                                 editPackage={{ letsEdit, refresh, setRefresh }}
+                                                detailPackage={{ tags: recipe.tags, setEditView }}
                                             />
                                         </div>
-
-                                        <DisplayTags
-                                            editPackage={{ letsEdit, refresh, setRefresh }}
-                                            detailPackage={{ tags: recipe.tags, setEditView }}
-                                        />
                                     </div>
+
+                                    <DisplayDescription
+                                        editPackage={{ letsEdit, refresh, setRefresh }}
+                                        detailPackage={{ displayId, description: recipe.recipeDetails.description }}
+                                    />
+
+                                    <DisplayMultiplier multiplier={multiplier} setMultiplier={setMultiplier} />
+
+                                    <DisplayIngredients
+                                        editPackage={{ letsEdit, refresh, setRefresh, multiplier }}
+                                        detailPackage={{ ingredients: recipe.ingredients, setEditView }}
+                                    />
+                                    <DisplaySteps
+                                        editPackage={{ letsEdit, refresh, setRefresh }}
+                                        detailPackage={{ instructions: recipe.steps, setEditView }}
+                                    />
+
+                                    <DisplaySubRecipes
+                                        editPackage={{ displayId, recipeID, refresh, letsEdit, setRefresh, setEditView }}
+                                        detailPackage={{ scrollIndex, recipe, theSubRecipes, theParentRecipes, horizontalScrollRef }}
+                                    />
+
+                                    {scrollIndex === 0 && (
+                                        <button onClick={() => deleteEntireRecipe(displayId, setDeleteModal, setDeleteStatus)}>Delete This Recipe</button>
+                                    )}
+
                                 </div>
-
-                                <DisplayDescription
-                                    editPackage={{ letsEdit, refresh, setRefresh }}
-                                    detailPackage={{ displayId, description: recipe.recipeDetails.description }}
-                                />
-
-                                <DisplayMultiplier multiplier={multiplier} setMultiplier={setMultiplier} />
-
-                                <DisplayIngredients
-                                    editPackage={{ letsEdit, refresh, setRefresh, multiplier }}
-                                    detailPackage={{ ingredients: recipe.ingredients, setEditView }}
-                                />
-                                <DisplaySteps
-                                    editPackage={{ letsEdit, refresh, setRefresh }}
-                                    detailPackage={{ instructions: recipe.steps, setEditView }}
-                                />
-
-                                <DisplaySubRecipes
-                                    editPackage={{ displayId, recipeID, refresh, letsEdit, setRefresh, setEditView }}
-                                    detailPackage={{ scrollIndex, recipe, theSubRecipes, theParentRecipes, horizontalScrollRef }}
-                                />
-
-                                {scrollIndex === 0 && (
-                                    <button onClick={() => deleteEntireRecipe(displayId, setDeleteModal, setDeleteStatus)}>Delete This Recipe</button>
-                                )}
-
                             </div>
-                        </div>
-                    ))}
-                </div>
-            ) : (
-                <>
-                    {handleApiStatus(detailStatus)}
-                </>
-            )}
+                        ))}
+                    </div>
+                ) : (
+                    <div
+                        key="detailErrorContainer"
+                        variants={basicAnimation}
+                        initial="initial"
+                        animate="animate"
+                        exit="exit"
+                    >
+                        {handleApiStatus(detailStatus)}
+                    </div>
+                )}
+            </AnimatePresence>
 
 
 
