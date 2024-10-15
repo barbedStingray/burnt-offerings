@@ -8,7 +8,7 @@ import handleSearchDetailChange from '../createFunctions/handleSearchDetailChang
 import deletePackageItem from '../createFunctions/deletePackageItem'
 import postOnlyType from '../../components/postOnlyType'
 import getTagPrompt from '../createFunctions/getTagPrompt'
-
+import inputLimits from '../../components/InputLimits'
 
 const CreateTags = ({
     dataPackage, // ? is recipeID undefined error?
@@ -39,7 +39,7 @@ const CreateTags = ({
                         type='text'
                         placeholder='tag here...'
                         required
-                        maxLength={25}
+                        maxLength={inputLimits['tag']}
                         minLength={1}
                         autoComplete='off'
                         value={newTag.tag}

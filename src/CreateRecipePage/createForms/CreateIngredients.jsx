@@ -8,7 +8,7 @@ import handleDetailChange from '../createFunctions/handleDetailChange'
 import submitNewObject from '../createFunctions/submitNewObject'
 import deletePackageItem from '../createFunctions/deletePackageItem'
 import postOnlyType from '../../components/postOnlyType'
-
+import inputLimits from '../../components/InputLimits'
 
 const CreateIngredients = ({
     dataPackage,
@@ -38,7 +38,7 @@ const CreateIngredients = ({
             type: 'text',
             placeholder: 'Qty.',
             required: true,
-            maxLength: 5,
+            maxLength: inputLimits['quantity'],
             minLength: 1,
             autoComplete: 'off',
             value: newIngredient.quantity,
@@ -79,7 +79,7 @@ const CreateIngredients = ({
                                 type='text'
                                 placeholder='Add Ingredient'
                                 required
-                                maxLength={30}
+                                maxLength={inputLimits['ingredient']}
                                 minLength={1}
                                 autoComplete='off'
                                 value={newIngredient.ingredient}

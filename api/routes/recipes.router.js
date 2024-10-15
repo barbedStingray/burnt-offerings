@@ -637,6 +637,7 @@ FROM (
     SELECT id FROM recipes_by_title
 ) AS combined_results
 ;`
+const browseQueryText = `SELECT * FROM (SELECT * FROM moms_recipes ORDER BY RANDOM() LIMIT 20) AS limited_results LIMIT $1 OFFSET $2;`
 
     let queryText
     let countQuery
@@ -650,6 +651,12 @@ FROM (
         countQuery = countAllRecipesQuery
         queryParams = [limit, offset]
         countParams = [] // no parameters for counting all recipes
+    } else if (keywordArray[0] === 'browse') {
+        console.log('BROWSE')
+        queryText = browseQueryText
+        countQuery = countAllRecipesQuery
+        queryParams = [limit, offset]
+        countParams = []
     } else {
         queryText = filterQueryText
         countQuery = countQueryText

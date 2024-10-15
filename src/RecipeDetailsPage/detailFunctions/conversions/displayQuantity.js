@@ -3,9 +3,9 @@ import numberToMixed from "./numberToMixed"
 
 
 export default function displayQuantity(detail, multiplier) {
+    const isNumber = Number(detail)
     const numericValue = mixedToNumber(detail)
     if (numericValue === null) return detail // if conversion fails, return og string
-    const multiplyQuantity = numericValue * multiplier
-    const mixedNumberString = numberToMixed(multiplyQuantity)
-    return mixedNumberString
+    const multiplyQuantity = (numericValue * multiplier).toFixed(2)
+    return !isNumber ? numberToMixed(multiplyQuantity) : multiplyQuantity
 }

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { GiGingerbreadMan } from 'react-icons/gi'
 
-export default function generateDeleteModal(deleteStatus, setDeleteModal) {
+export default function generateDeleteModal(deleteStatus, setDeleteStatus) {
     switch (deleteStatus) {
         case 'loading':
             return (
@@ -29,7 +29,7 @@ export default function generateDeleteModal(deleteStatus, setDeleteModal) {
                 <div className='deleteModalFrame'>
                     <div className='deleteModal'>
                         <p>ERROR in deleting</p>
-                        <button className='createAddButton' onClick={() => setDeleteModal(false)}>Return</button>
+                        <button className='createAddButton' onClick={() => setDeleteStatus('')}>Return</button>
                     </div>
                 </div>
 

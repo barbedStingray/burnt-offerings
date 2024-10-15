@@ -6,7 +6,7 @@ import submitNewObject from '../createFunctions/submitNewObject'
 import deletePackageItem from '../createFunctions/deletePackageItem'
 
 import postOnlyType from '../../components/postOnlyType'
-
+import inputLimits from '../../components/InputLimits'
 
 const CreateSteps = ({ 
     dataPackage,
@@ -35,7 +35,7 @@ const CreateSteps = ({
                         name='instructions'
                         className='createFormTextArea'
                         placeholder='How do I make this?'
-                        maxLength={200}
+                        maxLength={inputLimits['instructions']}
                         minLength={0}
                         autoComplete='off'
                         value={newStep.instructions}

@@ -3,7 +3,7 @@ import React from 'react'
 import DetailInput from '../../components/DetailInput'
 import handleDetailChange from '../createFunctions/handleDetailChange'
 import ImageUpload from '../../components/ImageUpload'
-
+import inputLimits from '../../components/InputLimits'
 
 const CreateDetails = ({ dataPackage }) => {
 
@@ -17,7 +17,7 @@ const CreateDetails = ({ dataPackage }) => {
             type: 'text',
             placeholder: 'Recipe Title',
             required: true,
-            maxLength: 40,
+            maxLength: inputLimits['newTitle'],
             minLength: 1,
             autoComplete: 'off',
             value: newRecipeDetails.newTitle,
@@ -29,7 +29,7 @@ const CreateDetails = ({ dataPackage }) => {
             type: 'textarea',
             placeholder: 'The Description of your Recipe!',
             required: false,
-            maxLength: 300,
+            maxLength: inputLimits['description'],
             minLength: 0,
             autoComplete: 'off',
             value: newRecipeDetails.description,
@@ -41,7 +41,7 @@ const CreateDetails = ({ dataPackage }) => {
             type: 'text',
             placeholder: 'Prep Time',
             required: false,
-            maxLength: 5,
+            maxLength: inputLimits['prep_time'],
             minLength: 1,
             autoComplete: 'off',
             value: newRecipeDetails.prep_time,
@@ -53,7 +53,7 @@ const CreateDetails = ({ dataPackage }) => {
             type: 'text',
             placeholder: 'Servings',
             required: false,
-            maxLength: 5,
+            maxLength: inputLimits['servings'],
             minLength: 1,
             autoComplete: 'off',
             value: newRecipeDetails.servings,

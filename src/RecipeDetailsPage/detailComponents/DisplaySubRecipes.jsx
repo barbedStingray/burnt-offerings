@@ -11,7 +11,6 @@ const DisplaySubRecipes = ({ editPackage, detailPackage }) => {
 
     const isSubRecipe = recipe.recipeDetails.is_sub_recipe
     const isParentRecipe = recipe.recipeDetails.is_parent_recipe
-    console.log('isParentRecipe', recipe.recipeDetails.is_parent_recipe)
 
 
     

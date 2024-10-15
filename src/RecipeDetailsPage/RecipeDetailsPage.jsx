@@ -38,9 +38,8 @@ const RecipeDetailsPage = () => {
     const recipeDisplay = [theMainRecipe].concat(theSubRecipes)
     const scrollIndex = useScrollTracking(horizontalScrollRef, isLoaded)
     const [displayId, setDisplayId] = useState(recipeID)
-    const [deleteModal, setDeleteModal] = useState(false)
+    // const [deleteModal, setDeleteModal] = useState(false)
     const [deleteStatus, setDeleteStatus] = useState('')
-    console.log('detailStatus', detailStatus)
 
     // edit properties
     const [letsEdit, setLetsEdit] = useState(false)
@@ -110,8 +109,7 @@ const RecipeDetailsPage = () => {
 
             <NavBar navPackage={{ section: 'details', letsEdit, setLetsEdit, setEditView, horizontalScrollRef }} />
 
-            {generateDeleteModal(deleteStatus, setDeleteModal)}
-
+            {generateDeleteModal(deleteStatus, setDeleteStatus)}
 
             <AnimatePresence mode='wait' initial={true}>
                 {editView.length > 0 && (
@@ -125,8 +123,11 @@ const RecipeDetailsPage = () => {
                         <div className='quarterCircleAddView'></div>
                     </m.div>
                 )}
+            </AnimatePresence>
 
-                {isLoaded ? (
+
+            {isLoaded ? (
+                <AnimatePresence mode='wait' initial={true}>
                     <m.div className='detailSliderContainer' ref={horizontalScrollRef}
                         key="detailSliderContainer"
                         variants={basicAnimation}
@@ -201,14 +202,16 @@ const RecipeDetailsPage = () => {
                                     />
 
                                     {scrollIndex === 0 && (
-                                        <button onClick={() => deleteEntireRecipe(displayId, setDeleteModal, setDeleteStatus)}>Delete This Recipe</button>
+                                        <button onClick={() => deleteEntireRecipe(displayId, setDeleteStatus)}>Delete This Recipe</button>
                                     )}
 
                                 </div>
                             </div>
                         ))}
                     </m.div>
-                ) : (
+                </AnimatePresence>
+            ) : (
+                <AnimatePresence mode='wait' initial={true}>
                     <m.div
                         className="detailErrorContainer"
                         key="detailErrorContainer"
@@ -219,10 +222,10 @@ const RecipeDetailsPage = () => {
                     >
                         {handleApiStatus(detailStatus)}
                     </m.div>
-                )}
+                </AnimatePresence>
+            )}
 
-                {/* <div className='detailsFooter'></div> */}
-            </AnimatePresence>
+            {/* <div className='detailsFooter'></div> */}
 
         </div>
     )

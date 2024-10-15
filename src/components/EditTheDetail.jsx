@@ -5,7 +5,7 @@ import axios from 'axios'
 import checkDuplicateTitles from '../CreateRecipePage/createFunctions/checkDuplicateTitles'
 import displayQuantity from '../RecipeDetailsPage/detailFunctions/conversions/displayQuantity'
 import measurementOptions from './measurements'
-
+import inputLimits from './InputLimits'
 
 
 const EditTheDetail = ({ category, editPackage }) => {
@@ -70,6 +70,7 @@ const EditTheDetail = ({ category, editPackage }) => {
 
 
 
+
     const renderInputField = (category) => {
         switch (category) {
             case 'instructions':
@@ -78,8 +79,9 @@ const EditTheDetail = ({ category, editPackage }) => {
                     <textarea
                         className='detailEditInput'
                         value={newEdit}
+                        maxLength={inputLimits[type]}
                         onChange={(e) => setNewEdit(e.target.value)}
-                        rows={6} // You can adjust the number of rows as needed
+                        rows={6} 
                     />
                 )
             case 'measurement':
@@ -99,6 +101,7 @@ const EditTheDetail = ({ category, editPackage }) => {
                     <input
                         className='detailEditInput'
                         type="text"
+                        maxLength={inputLimits[type]}
                         value={newEdit}
                         onChange={(e) => setNewEdit(e.target.value)}
                     />

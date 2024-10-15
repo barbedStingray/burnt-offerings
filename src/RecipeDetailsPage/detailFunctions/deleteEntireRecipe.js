@@ -1,10 +1,9 @@
 import axios from 'axios'
 
 
-const deleteEntireRecipe = async (id, setDeleteModal, setDeleteStatus) => {
+const deleteEntireRecipe = async (id, setDeleteStatus) => {
     const isConfirmed = window.confirm('Delete this Recipe?')
     if (!isConfirmed) return
-    setDeleteModal(true)
     setDeleteStatus('loading')
     try {
         await axios.delete(`/api/recipes/deleteEntireRecipe/${id}`)
