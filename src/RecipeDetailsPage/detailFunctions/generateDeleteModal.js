@@ -1,28 +1,38 @@
 import { Link } from 'react-router-dom'
+import { GiGingerbreadMan } from 'react-icons/gi'
 
 export default function generateDeleteModal(deleteStatus, setDeleteModal) {
-
-    switch(deleteStatus) {
-        case 'working':
+    switch (deleteStatus) {
+        case 'loading':
             return (
-                <div>
-                    <p>Deleting your Recipe</p>
-
+                <div className='deleteModalFrame'>
+                    <div className='deleteModal'>
+                        <p>Deleting your Recipe</p>
+                        <div className="homeApiStatus detailsApiStatus">
+                            <GiGingerbreadMan />
+                        </div>
+                    </div>
                 </div>
             )
         case 'success':
             return (
-                <div>
-                    <p>SUCCESS in deleting</p>
-                    <Link to={`/`}><p>Great!</p></Link>
+                <div className='deleteModalFrame'>
+                    <div className='deleteModal'>
+                        <p>SUCCESS in deleting</p>
+                        <Link className='fireButton medFire deleteHome' to={`/`}><p></p></Link>
+                    </div>
                 </div>
+
             )
         case 'error':
             return (
-                <div>
-                    <p>ERROR in deleting</p>
-                    <div onClick={() => setDeleteModal(false)}>Aww Man...</div>
+                <div className='deleteModalFrame'>
+                    <div className='deleteModal'>
+                        <p>ERROR in deleting</p>
+                        <button className='createAddButton' onClick={() => setDeleteModal(false)}>Return</button>
+                    </div>
                 </div>
+
             )
         default:
             return null

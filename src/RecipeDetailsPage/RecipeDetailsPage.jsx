@@ -15,12 +15,11 @@ import DisplayDescription from './detailComponents/DisplayDescription'
 import DisplaySteps from './detailComponents/DisplaySteps'
 import DisplayTags from './detailComponents/DisplayTags'
 import DisplaySubRecipes from './detailComponents/DisplaySubRecipes'
-import DisplayErrorDetail from './detailComponents/DisplayErrorDetail'
 import useScrollTracking from '../CreateRecipePage/createFunctions/scrollFunctions/useScrollTracking'
 import basicAnimation from '../animations/basicAnimation'
+import generateDeleteModal from './detailFunctions/generateDeleteModal'
 
 import deleteEntireRecipe from './detailFunctions/deleteEntireRecipe'
-import DeleteModal from './detailComponents/DeleteModal'
 import DisplayMultiplier from './detailComponents/DisplayMultiplier'
 import NavBar from '../components/NavBar'
 import { FaInfo } from "react-icons/fa";
@@ -40,7 +39,7 @@ const RecipeDetailsPage = () => {
     const scrollIndex = useScrollTracking(horizontalScrollRef, isLoaded)
     const [displayId, setDisplayId] = useState(recipeID)
     const [deleteModal, setDeleteModal] = useState(false)
-    const [deleteStatus, setDeleteStatus] = useState('resting')
+    const [deleteStatus, setDeleteStatus] = useState('')
     console.log('detailStatus', detailStatus)
 
     // edit properties
@@ -111,17 +110,23 @@ const RecipeDetailsPage = () => {
 
             <NavBar navPackage={{ section: 'details', letsEdit, setLetsEdit, setEditView, horizontalScrollRef }} />
 
-            <DeleteModal editPackage={{ deleteModal, setDeleteModal, deleteStatus }} />
-            {/* This is generating your add forms */}
-            {editView.length > 0 && (
-                <div className='addViewContainer'>
-                    {generateAddModalType(editView)}
-                    <div className='quarterCircleAddView'></div>
-                </div>
-            )}
+            {generateDeleteModal(deleteStatus, setDeleteModal)}
 
-            {isLoaded ? (
-                <AnimatePresence mode='wait' initial={true}>
+
+            <AnimatePresence mode='wait' initial={true}>
+                {editView.length > 0 && (
+                    <m.div className='addViewContainer' key='addViewContainer'
+                        variants={basicAnimation}
+                        initial="initial"
+                        animate="animate"
+                        exit="exit"
+                    >
+                        {generateAddModalType(editView)}
+                        <div className='quarterCircleAddView'></div>
+                    </m.div>
+                )}
+
+                {isLoaded ? (
                     <m.div className='detailSliderContainer' ref={horizontalScrollRef}
                         key="detailSliderContainer"
                         variants={basicAnimation}
@@ -203,9 +208,7 @@ const RecipeDetailsPage = () => {
                             </div>
                         ))}
                     </m.div>
-                </AnimatePresence>
-            ) : (
-                <AnimatePresence mode='wait' initial={true}>
+                ) : (
                     <m.div
                         className="detailErrorContainer"
                         key="detailErrorContainer"
@@ -216,10 +219,10 @@ const RecipeDetailsPage = () => {
                     >
                         {handleApiStatus(detailStatus)}
                     </m.div>
-                </AnimatePresence>
-            )}
+                )}
 
-            <div className='detailsFooter'></div>
+                {/* <div className='detailsFooter'></div> */}
+            </AnimatePresence>
 
         </div>
     )

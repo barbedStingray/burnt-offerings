@@ -22,9 +22,6 @@
     left: 0;
 }
 
-.mockNav {}
-
-
 
 
 /* ! BUTTONS */
@@ -91,6 +88,10 @@
 
 .make::after {
     content: 'Make It!';
+}
+.deleteHome::after {
+    content: 'Return Home';
+    text-align: center;
 }
 
 @property --gradient-angle {

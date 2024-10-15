@@ -9,7 +9,7 @@
     color: var(--prime-four);
     height: 10dvh;
     width: 10dvh;
-    z-index: 50;
+    z-index: 200;
     font-size: 10dvh;
     position: fixed;
     top: 18%;
@@ -26,6 +26,11 @@
     top: 35%;
     left: 12%;
 }
+.detailsApiStatus {
+    position: relative;
+    border: 2px solid yellow;
+    top: 40%;
+}
 
 
 @keyframes foreverSpin {
@@ -38,8 +43,13 @@
     }
 }
 
+
+.detailErrorContainer {
+    border: 2px solid green;
+}
+
 .homeApiError {
-    /* border: 2px solid magenta; */
+    border: 2px solid magenta;
     background-color: #930a0aee;
     border-radius: 50%;
     position: fixed;
