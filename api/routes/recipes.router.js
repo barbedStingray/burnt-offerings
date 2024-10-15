@@ -582,6 +582,7 @@ ORDER BY
     LOWER(title)  -- Alphabetical order for similar results
 LIMIT $2 OFFSET $3;`
 
+
     // counting
     const countAllRecipesQuery = `SELECT COUNT(*) AS total_count FROM "moms_recipes";`
     const countQueryText = `

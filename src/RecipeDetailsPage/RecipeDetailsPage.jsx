@@ -24,6 +24,8 @@ import NavBar from '../components/NavBar'
 import { FaInfo } from "react-icons/fa";
 import { LuAlarmClock } from "react-icons/lu";
 
+import handleApiStatus from '../RecipeHomePage/homeFunctions/handleApiStatus'
+
 
 const RecipeDetailsPage = () => {
 
@@ -37,8 +39,7 @@ const RecipeDetailsPage = () => {
     const [displayId, setDisplayId] = useState(recipeID)
     const [deleteModal, setDeleteModal] = useState(false)
     const [deleteStatus, setDeleteStatus] = useState('resting')
-    // console.log('scrollIndex', scrollIndex)
-    // console.log('displayId', displayId)
+    console.log('detailStatus', detailStatus)
 
     // edit properties
     const [letsEdit, setLetsEdit] = useState(false)
@@ -100,6 +101,7 @@ const RecipeDetailsPage = () => {
                 return null
         }
     }
+
 
 
     return (
@@ -194,7 +196,9 @@ const RecipeDetailsPage = () => {
                     ))}
                 </div>
             ) : (
-                <DisplayErrorDetail detailStatus={detailStatus} />
+                <>
+                    {handleApiStatus(detailStatus)}
+                </>
             )}
 
 

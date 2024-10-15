@@ -105,7 +105,7 @@
     right: 3dvw;
     height: 5dvh;
     width: 75%;
-    z-index: 5;
+    z-index: 50;
 }
 
 .homeKeywordSearch {
@@ -155,8 +155,8 @@
     /* border: 2px solid blue; */
     height: 100%;
     width: 90%;
-    padding-top: 15dvh;
-    padding-bottom: 15dvh;
+    padding-top: 16dvh;
+    padding-bottom: 16dvh;
     display: flex;
     flex-flow: column nowrap;
     justify-content: flex-start;

@@ -22,6 +22,8 @@
     left: 0;
 }
 
+.mockNav {}
+
 
 
 
@@ -34,31 +36,33 @@
     height: 15vh;
     aspect-ratio: 1 / 1;
     z-index: 2;
-    background: conic-gradient(
-        from var(--gradient-angle),
+    background: conic-gradient(from var(--gradient-angle),
 
-        var(--blend0),
-        var(--blend0),
-        var(--blend1),
-        var(--blend2),
-        var(--blend3),
-        var(--blend4),
-        var(--blend3),
-        var(--blend2),
-        var(--blend1),
-        var(--blend0));
-animation: rotation 5s linear infinite;
+            var(--blend0),
+            var(--blend0),
+            var(--blend1),
+            var(--blend2),
+            var(--blend3),
+            var(--blend4),
+            var(--blend3),
+            var(--blend2),
+            var(--blend1),
+            var(--blend0));
+    animation: rotation 5s linear infinite;
 }
+
 .medFire {
     border-radius: 10px;
     height: 10.5dvw;
     aspect-ratio: 2 / 1;
 }
+
 .addFire {
     border-radius: 5px;
     height: 7dvw;
     aspect-ratio: 2 / 1;
 }
+
 .fireButton::after {
     content: "Create!";
     color: var(--featherGrey);
@@ -72,16 +76,19 @@ animation: rotation 5s linear infinite;
     justify-content: center;
     align-items: center;
 }
+
 .medFire::after {
     content: "Save!";
     font-size: 20px;
-    inset: 3px;    
+    inset: 3px;
 }
+
 .addFire::after {
     content: "Add";
     font-size: 18px;
     inset: 2px;
 }
+
 .make::after {
     content: 'Make It!';
 }
@@ -91,6 +98,7 @@ animation: rotation 5s linear infinite;
     initial-value: 0deg;
     inherits: false;
 }
+
 /* have to register your animated custom value */
 @keyframes rotation {
     0% {
@@ -123,8 +131,9 @@ animation: rotation 5s linear infinite;
     height: 10dvh;
     position: fixed;
     top: 0;
-    z-index: 5;
+    z-index: 50;
 }
+
 .navBarParts {
     /* border: 2px solid blue; */
     height: 100%;
@@ -133,6 +142,7 @@ animation: rotation 5s linear infinite;
     justify-content: flex-start;
     align-items: center;
 }
+
 .navButton {
     /* border: 2px solid black; */
     /* height: 16dvw; */
@@ -145,18 +155,19 @@ animation: rotation 5s linear infinite;
     align-items: center;
     margin-left: 1dvh;
 }
+
 .noNav {
     display: none;
 }
+
 .logoParts {
     display: none;
 }
+
 .homeMomPhoto {
     display: none;
 }
+
 .homeStingrayLogo {
     display: none;
 }
-
-
-

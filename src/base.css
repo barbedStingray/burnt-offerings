@@ -34,13 +34,6 @@ html {
     --inactive: #646464;
     --black: #000;
 
-    /* blend progression */
-    /* --blend0: #ffff00;
-    --blend1: #ffd500;
-    --blend2: #ffae00;
-    --blend3: #ff8400;
-    --blend4: #ff5900;
-    --blend5: #ff3c00; */
 
     --blend0: #fae400;
     --blend1: #afdf4d;
@@ -48,7 +41,6 @@ html {
     --blend3: #41d8bd;
     --blend4: #00d4ff;
     --blend5: #00fff7;
-    /* --blend5: #00d4ff; */
 
     
 }

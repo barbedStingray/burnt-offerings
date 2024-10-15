@@ -17,7 +17,7 @@ const CreateDetails = ({ dataPackage }) => {
             type: 'text',
             placeholder: 'Recipe Title',
             required: true,
-            maxLength: 30,
+            maxLength: 40,
             minLength: 1,
             autoComplete: 'off',
             value: newRecipeDetails.newTitle,
