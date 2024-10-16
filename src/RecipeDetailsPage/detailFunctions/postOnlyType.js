@@ -2,7 +2,7 @@ import axios from 'axios'
 
 
 
-export default async function postOnlyType(type, recipeID, typePackage, setTypePackage, refresh, setRefresh, setEditView) {
+export default async function postOnlyType(type, recipeID, typePackage, setTypePackage, refresh, setRefresh, setAddMoreView) {
 
     const apiCalls = {
         subRecipes: '/api/recipes/postOnlySubRecipes',
@@ -24,7 +24,7 @@ export default async function postOnlyType(type, recipeID, typePackage, setTypeP
         // todo !! loading screen? error handling of duplicates?
         setTypePackage([])
         setRefresh(!refresh)
-        setEditView('')
+        setAddMoreView('')
     } catch (error) {
         console.log('error client side postOnlyType', error)
         alert('something went wrong posting only TYPE!')

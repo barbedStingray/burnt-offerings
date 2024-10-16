@@ -14,10 +14,11 @@ const HomeNav = ({ navPackage }) => {
         section,
         letsEdit = false,
         setLetsEdit = () => { },
-        setEditView = () => { },
+        setAddMoreView = () => { },
         horizontalScrollRef = null
     } = navPackage
 
+    
     const navigationLinks = {
         home: '/createRecipe',
         create: '/',
@@ -41,7 +42,7 @@ const HomeNav = ({ navPackage }) => {
                     className={`navButton ${letsEdit && 'activeMode'} ${noNav} `}
                     onClick={() => {
                         setLetsEdit(!letsEdit)
-                        setEditView('')
+                        setAddMoreView('')
                     }}
                 ><PiPencilThin />
                 </div>

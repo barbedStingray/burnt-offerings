@@ -9,7 +9,7 @@ import deleteSoloDetail from '../RecipeDetailsPage/detailFunctions/deleteSoloDet
 const EditModal = ({ editPackage, refreshPackage }) => {
     const { editType, editId, newEdit, setNewEdit } = editPackage
     const { setEditModalView, refresh, setRefresh } = refreshPackage
-    console.log('edit modal', editType, editId, newEdit)
+    // console.log('edit modal', editType, editId, newEdit)
 
     const [allRecipes, allRecipesStatus] = useAllCategory('/api/recipes/titleCheck')
     const [allIngredients, allIngredientsStatus] = useAllCategory('/api/recipes/ingredients')
@@ -17,12 +17,11 @@ const EditModal = ({ editPackage, refreshPackage }) => {
 
     async function putNewEdit(e, type, target_id, newEdit) {
         e.preventDefault()
-        console.log('putNewEdit', type, target_id, newEdit)
 
         // check for value
         const isValue = newEdit !== ''
         if (!isValue) return alert('No empty boxes, please')
-        // format if necessary Trim all? 
+        // format if necessary Trim all
         let formatDetail = newEdit.trim()
         // check for duplicate title
         if (type === 'title') {
@@ -37,7 +36,6 @@ const EditModal = ({ editPackage, refreshPackage }) => {
                 formatDetail = matchedId.id
             }
         }
-        console.log('formatDetail', formatDetail)
 
         // send to db
         try {
@@ -99,7 +97,7 @@ const EditModal = ({ editPackage, refreshPackage }) => {
                     <button type='submit'>Save</button>
                 </form>
                 <button onClick={() => setEditModalView(false)}>Cancel</button>
-                {editType === 'ingredient' || editType === 'instructions' && (
+                {(editType === 'ingredient' || editType === 'instructions') && (
                     <button onClick={() => deleteSoloDetail(editType, editId, refresh, setRefresh, setEditModalView)}>DELETE</button>
                 )}
             </div>

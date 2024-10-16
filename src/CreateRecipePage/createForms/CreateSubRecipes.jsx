@@ -8,11 +8,11 @@ import postOnlyType from '../../RecipeDetailsPage/detailFunctions/postOnlyType'
 
 const CreateSubRecipes = ({
   dataPackage,
-  editPackage = { editView: '', setEditView: () => { }, refresh: false, setRefresh: () => { } },
+  editPackage = { addMoreView: '', setAddMoreView: () => { }, refresh: false, setRefresh: () => { } },
 }) => {
 
   const { displayId = null, subRecipePackage, setSubRecipePackage } = dataPackage
-  const { editView, setEditView, refresh, setRefresh } = editPackage
+  const { addMoreView, setAddMoreView, refresh, setRefresh } = editPackage
   const [allowedSubRecipes, allowedSubRecipesStatus] = useAllCategory('/api/recipes/notParents')
   const [filteredList, setFilteredList] = useState([]) // dropdown logic
   const [searchAttribute, setSearchAttribute] = useState('') // dropdown logic
@@ -77,10 +77,10 @@ const CreateSubRecipes = ({
           )}
         </div>
 
-        {editView?.length > 0 && (
+        {addMoreView?.length > 0 && (
           <div className='addBtnGroup'>
-            <button className='addBackButton' onClick={() => setEditView('')}>Back</button>
-            <button className='fireButton medFire'  onClick={() => postOnlyType('subRecipes', displayId, subRecipePackage, setSubRecipePackage, refresh, setRefresh, setEditView)}>Submit subrecipes</button>
+            <button className='addBackButton' onClick={() => setAddMoreView('')}>Back</button>
+            <button className='fireButton medFire'  onClick={() => postOnlyType('subRecipes', displayId, subRecipePackage, setSubRecipePackage, refresh, setRefresh, setAddMoreView)}>Submit subrecipes</button>
           </div>
         )}
 

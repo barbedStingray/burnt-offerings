@@ -4,14 +4,14 @@ import deleteSoloDetail from '../detailFunctions/deleteSoloDetail'
 
 const DisplayTags = ({ editPackage, detailPackage }) => {
     const { letsEdit, refresh, setRefresh } = editPackage
-    const { tags, setEditView } = detailPackage
+    const { tags, setAddMoreView } = detailPackage
 
 
     return (
         <div className='tagDetails'>
             <div className='addDetailButton'>
                 {letsEdit && (
-                    <button className='fireButton addFire' onClick={() => setEditView('tag')}></button>
+                    <button className='fireButton addFire' onClick={() => setAddMoreView('tag')}></button>
                 )}
             </div>
             <div className='viewTags'>

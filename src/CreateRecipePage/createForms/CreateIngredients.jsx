@@ -12,11 +12,11 @@ import inputLimits from '../../components/InputLimits'
 
 const CreateIngredients = ({
     dataPackage,
-    editPackage = { editView: '', setEditView: () => { }, refresh: false, setRefresh: () => { } },
+    editPackage = { addMoreView: '', setAddMoreView: () => { }, refresh: false, setRefresh: () => { } },
 }) => {
 
     const { displayId = null, ingredientPackage, setIngredientPackage } = dataPackage
-    const { editView, setEditView, refresh, setRefresh } = editPackage
+    const { addMoreView, setAddMoreView, refresh, setRefresh } = editPackage
 
     const [allIngredients, allIngredientsStatus] = useAllCategory('/api/recipes/ingredients')
     const [filteredList, setFilteredList] = useState([])
@@ -138,10 +138,10 @@ const CreateIngredients = ({
                     ))}
                 </div>
 
-                {editView?.length > 0 && (
+                {addMoreView?.length > 0 && (
                     <div className='addBtnGroup'>
-                        <button className='addBackButton' onClick={() => setEditView('')}>Back</button>
-                        <button className='fireButton medFire' onClick={() => postOnlyType('ingredients', displayId, ingredientPackage, setIngredientPackage, refresh, setRefresh, setEditView)}></button>
+                        <button className='addBackButton' onClick={() => setAddMoreView('')}>Back</button>
+                        <button className='fireButton medFire' onClick={() => postOnlyType('ingredients', displayId, ingredientPackage, setIngredientPackage, refresh, setRefresh, setAddMoreView)}></button>
                     </div>
                 )}
 

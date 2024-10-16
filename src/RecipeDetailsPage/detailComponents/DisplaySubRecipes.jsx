@@ -6,7 +6,7 @@ import scrollToForm from '../../CreateRecipePage/createFunctions/scrollFunctions
 
 
 const DisplaySubRecipes = ({ editPackage, detailPackage }) => {
-    const { displayId, recipeID, refresh, letsEdit, setRefresh, setEditView } = editPackage
+    const { displayId, recipeID, refresh, letsEdit, setRefresh, setAddMoreView } = editPackage
     const { scrollIndex, recipe, theSubRecipes, theParentRecipes, horizontalScrollRef } = detailPackage
 
     const isSubRecipe = recipe.recipeDetails.is_sub_recipe
@@ -17,7 +17,7 @@ const DisplaySubRecipes = ({ editPackage, detailPackage }) => {
             <div className='detailSectionHeader'>
                 <p>{recipe.recipeDetails.is_sub_recipe ? 'Parent Recipes' : 'Sub Recipes'}</p>
                 {letsEdit && !recipe.recipeDetails.is_sub_recipe && (
-                    <button className='fireButton addFire' onClick={() => setEditView('subRecipe')}></button>
+                    <button className='fireButton addFire' onClick={() => setAddMoreView('subRecipe')}></button>
                 )}
             </div>
             <div>
@@ -44,7 +44,7 @@ const DisplaySubRecipes = ({ editPackage, detailPackage }) => {
                     </div>
                 ) : (
                     <div className='viewingSubRecipe'>
-                        <p>This is a sub recipe to the one you are viewing!</p>
+                        <p>You are viewing a Parent Recipe!</p>
                         <button onClick={() => deleteSoloDetail('subRecipe', displayId, refresh, setRefresh, null, recipeID)}>Remove Sub Recipe</button>
                     </div>
                 )}

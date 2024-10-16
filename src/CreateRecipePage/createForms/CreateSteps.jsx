@@ -10,11 +10,11 @@ import inputLimits from '../../components/InputLimits'
 
 const CreateSteps = ({ 
     dataPackage,
-    editPackage = { editView: '', setEditView: () => { }, refresh: false, setRefresh: () => { } },
+    editPackage = { addMoreView: '', setAddMoreView: () => { }, refresh: false, setRefresh: () => { } },
 }) => {
     
     const { displayId = null, stepPackage, setStepPackage } = dataPackage
-    const { editView, setEditView, refresh, setRefresh } = editPackage
+    const { addMoreView, setAddMoreView, refresh, setRefresh } = editPackage
 
 
     const [newStep, setNewStep] = useState({ id: null, instructions: '' })
@@ -67,10 +67,10 @@ const CreateSteps = ({
                     ))}
                 </div>
 
-                {editView?.length > 0 && (
+                {addMoreView?.length > 0 && (
                     <div className='addBtnGroup'>
-                        <button className='addBackButton' onClick={() => setEditView('')}>Back</button>
-                        <button className='fireButton medFire' onClick={() => postOnlyType('steps', displayId, stepPackage, setStepPackage, refresh, setRefresh, setEditView)}>Submit Tags</button>
+                        <button className='addBackButton' onClick={() => setAddMoreView('')}>Back</button>
+                        <button className='fireButton medFire' onClick={() => postOnlyType('steps', displayId, stepPackage, setStepPackage, refresh, setRefresh, setAddMoreView)}>Submit Tags</button>
                     </div>
                 )}
 

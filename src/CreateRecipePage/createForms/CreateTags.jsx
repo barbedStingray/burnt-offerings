@@ -12,11 +12,11 @@ import inputLimits from '../../components/InputLimits'
 
 const CreateTags = ({
     dataPackage, // ? is recipeID undefined error?
-    editPackage = { editView: '', setEditView: () => { }, refresh: false, setRefresh: () => { } },
+    editPackage = { addMoreView: '', setAddMoreView: () => { }, refresh: false, setRefresh: () => { } },
 }) => {
 
     const { displayId = null, tagPackage, setTagPackage } = dataPackage
-    const { editView, setEditView, refresh, setRefresh } = editPackage
+    const { addMoreView, setAddMoreView, refresh, setRefresh } = editPackage
     const [allTags, allTagsStatus] = useAllCategory('/api/recipes/tags')
     const [filteredList, setFilteredList] = useState([]) // dropdown logic
     const [searchAttribute, setSearchAttribute] = useState('') // dropdown logic
@@ -94,10 +94,10 @@ const CreateTags = ({
                     </div>
                 </div>
 
-                {editView?.length > 0 && (
+                {addMoreView?.length > 0 && (
                     <div className='addBtnGroup'>
-                        <button className='addBackButton' onClick={() => setEditView('')}>Back</button>
-                        <button className='fireButton medFire' onClick={() => postOnlyType('tags', displayId, tagPackage, setTagPackage, refresh, setRefresh, setEditView)}>Submit Tags</button>
+                        <button className='addBackButton' onClick={() => setAddMoreView('')}>Back</button>
+                        <button className='fireButton medFire' onClick={() => postOnlyType('tags', displayId, tagPackage, setTagPackage, refresh, setRefresh, setAddMoreView)}>Submit Tags</button>
                     </div>
                 )}
 

@@ -3,14 +3,14 @@ import React from 'react'
 
 const DisplaySteps = ({ editPackage, detailPackage }) => {
     const { letsEdit, openEditModal } = editPackage
-    const { instructions, setEditView } = detailPackage
+    const { instructions, setAddMoreView } = detailPackage
 
 
     return (
         <div className='detailSteps'>
             <p>Instructions</p>
             {letsEdit && (
-                <button className='fireButton addFire' onClick={() => setEditView('step')}></button>
+                <button className='fireButton addFire' onClick={() => setAddMoreView('step')}></button>
             )}
             {instructions.map((step, i) => (
                 <div key={i} className='displayRecipeSteps'>

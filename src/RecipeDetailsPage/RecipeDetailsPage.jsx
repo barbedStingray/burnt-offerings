@@ -4,10 +4,12 @@ import { useParams } from 'react-router-dom'
 import './RecipeDetailsPage.css'
 
 import useRecipeDetails from './detailFunctions/fetchRecipeDetails'
+
 import CreateTags from '../CreateRecipePage/createForms/CreateTags'
 import CreateIngredients from '../CreateRecipePage/createForms/CreateIngredients'
 import CreateSteps from '../CreateRecipePage/createForms/CreateSteps'
 import CreateSubRecipes from '../CreateRecipePage/createForms/CreateSubRecipes'
+
 import DisplayPhoto from './detailComponents/DisplayPhoto'
 import DisplayIngredients from './detailComponents/DisplayIngredients'
 import DisplaySteps from './detailComponents/DisplaySteps'
@@ -17,6 +19,7 @@ import useScrollTracking from '../CreateRecipePage/createFunctions/scrollFunctio
 import basicAnimation from '../animations/basicAnimation'
 import generateDeleteModal from './detailFunctions/generateDeleteModal'
 import EditModal from '../components/EditModal'
+
 
 import deleteEntireRecipe from './detailFunctions/deleteEntireRecipe'
 import DisplayMultiplier from './detailComponents/DisplayMultiplier'
@@ -30,29 +33,27 @@ import handleApiStatus from '../RecipeHomePage/homeFunctions/handleApiStatus'
 const RecipeDetailsPage = () => {
 
     const { recipeID } = useParams()
-    const horizontalScrollRef = useRef(null)
     const [refresh, setRefresh] = useState(true)
-
     const { theMainRecipe, theSubRecipes, theParentRecipes, isLoaded, detailStatus } = useRecipeDetails(recipeID, refresh)
     const recipeDisplay = [theMainRecipe].concat(theSubRecipes)
-    console.log('recipeDisplay', recipeDisplay)
+    const [multiplier, setMultiplier] = useState(1)
+    const [deleteStatus, setDeleteStatus] = useState('')
+    // scrolling
+    const horizontalScrollRef = useRef(null)
     const scrollIndex = useScrollTracking(horizontalScrollRef, isLoaded)
     const [displayId, setDisplayId] = useState(recipeID)
-    const [deleteStatus, setDeleteStatus] = useState('')
-    // console.log('displayId', displayId)
-    // console.log('scrollIndex', scrollIndex)
-    // console.log('isLoaded', isLoaded)
-    // console.log('horizontalScrollRef', horizontalScrollRef.current)
-
-    // edit properties
+    // edit single category
     const [letsEdit, setLetsEdit] = useState(false)
-    const [editView, setEditView] = useState('')
-    const [multiplier, setMultiplier] = useState(1)
+    const [addMoreView, setAddMoreView] = useState('') // displays form for single category
     const [subRecipePackage, setSubRecipePackage] = useState([])
     const [ingredientPackage, setIngredientPackage] = useState([])
     const [stepPackage, setStepPackage] = useState([])
     const [tagPackage, setTagPackage] = useState([])
-
+    // edit single detail
+    const [editModalView, setEditModalView] = useState(false)
+    const [newEdit, setNewEdit] = useState('')
+    const [editType, setEditType] = useState('')
+    const [editId, setEditId] = useState('')
 
     // updates your scroll sync
     useEffect(() => {
@@ -60,9 +61,16 @@ const RecipeDetailsPage = () => {
             setDisplayId(recipeDisplay[scrollIndex].recipeDetails.recipe_id)
         }
     }, [scrollIndex, isLoaded])
+    // opens modal with proper inputs
+    function openEditModal(type, detail, editId) {
+        // console.log('type, detail, editId', type, detail, editId)
+        setEditType(type)
+        setEditId(editId)
+        setNewEdit(detail)
+        setEditModalView(true)
+    }
 
-
-
+    // generates the addition of single category items (createForms)
     function generateAddModalType(addModalType) {
         switch (addModalType) {
             case 'subRecipe':
@@ -70,7 +78,7 @@ const RecipeDetailsPage = () => {
                     <div className='createSingleForm'>
                         <CreateSubRecipes
                             dataPackage={{ displayId, subRecipePackage, setSubRecipePackage }}
-                            editPackage={{ editView, setEditView, refresh, setRefresh }}
+                            editPackage={{ addMoreView, setAddMoreView, refresh, setRefresh }}
                         />
                     </div>
                 )
@@ -79,7 +87,7 @@ const RecipeDetailsPage = () => {
                     <div className='createSingleForm'>
                         <CreateIngredients
                             dataPackage={{ displayId, ingredientPackage, setIngredientPackage }}
-                            editPackage={{ editView, setEditView, refresh, setRefresh }}
+                            editPackage={{ addMoreView, setAddMoreView, refresh, setRefresh }}
                         />
                     </div>
                 )
@@ -88,7 +96,7 @@ const RecipeDetailsPage = () => {
                     <div className='createSingleForm'>
                         <CreateTags
                             dataPackage={{ displayId, tagPackage, setTagPackage }}
-                            editPackage={{ editView, setEditView, refresh, setRefresh }}
+                            editPackage={{ addMoreView, setAddMoreView, refresh, setRefresh }}
                         />
                     </div>
                 )
@@ -97,7 +105,7 @@ const RecipeDetailsPage = () => {
                     <div className='createSingleForm'>
                         <CreateSteps
                             dataPackage={{ displayId, stepPackage, setStepPackage }}
-                            editPackage={{ editView, setEditView, refresh, setRefresh }}
+                            editPackage={{ addMoreView, setAddMoreView, refresh, setRefresh }}
                         />
                     </div>
                 )
@@ -107,27 +115,11 @@ const RecipeDetailsPage = () => {
     }
 
 
-    const [editModalView, setEditModalView] = useState(false)
-    const [newEdit, setNewEdit] = useState('')
-    const [editType, setEditType] = useState('')
-    const [editId, setEditId] = useState('')
-    console.log('details page', editType, editId, newEdit)
-    function openEditModal(type, detail, editId) {
-        console.log('type, detail, editId', type, detail, editId)
-        setEditType(type)
-        setEditId(editId)
-        setNewEdit(detail)
-        setEditModalView(true)
-    }
-
-
-
-
 
     return (
         <div className='detailsPage'>
 
-            <NavBar navPackage={{ section: 'details', letsEdit, setLetsEdit, setEditView, horizontalScrollRef }} />
+            <NavBar navPackage={{ section: 'details', letsEdit, setLetsEdit, setAddMoreView, horizontalScrollRef }} />
 
             {generateDeleteModal(deleteStatus, setDeleteStatus)}
 
@@ -139,23 +131,21 @@ const RecipeDetailsPage = () => {
             )}
 
             <AnimatePresence mode='wait' initial={true}>
-                {editView.length > 0 && (
+                {addMoreView.length > 0 && (
                     <m.div className='addViewContainer' key='addViewContainer'
                         variants={basicAnimation}
                         initial="initial"
                         animate="animate"
                         exit="exit"
                     >
-                        {generateAddModalType(editView)}
+                        {generateAddModalType(addMoreView)}
                         <div className='quarterCircleAddView'></div>
                     </m.div>
                 )}
             </AnimatePresence>
 
 
-
-
-            {isLoaded ? (
+            {isLoaded && (
                 <AnimatePresence mode='wait' initial={true}>
                     <m.div className='detailSliderContainer' ref={horizontalScrollRef}
                         key="detailSliderContainer"
@@ -167,15 +157,13 @@ const RecipeDetailsPage = () => {
                         {recipeDisplay.map((recipe, i) => (
                             <div key={i} className='recipeDetailsScrollContainer' >
                                 <div className='recipeDetailContainer' >
+
                                     <div className='detailsTopDisplay'>
-
                                         <div className='detailsTopInfo'>
-
                                             <DisplayPhoto
                                                 editPackage={{ letsEdit, refresh, setRefresh }}
                                                 detailPackage={{ displayId, picture: recipe.recipeDetails.picture }}
                                             />
-
                                             <div className='prepServings'>
                                                 <div className='detailsPrep'>
                                                     <LuAlarmClock />
@@ -195,7 +183,7 @@ const RecipeDetailsPage = () => {
 
                                             <DisplayTags
                                                 editPackage={{ letsEdit, refresh, setRefresh }}
-                                                detailPackage={{ tags: recipe.tags, setEditView }}
+                                                detailPackage={{ tags: recipe.tags, setAddMoreView }}
                                             />
                                         </div>
                                     </div>
@@ -206,42 +194,53 @@ const RecipeDetailsPage = () => {
 
                                     <DisplayMultiplier multiplier={multiplier} setMultiplier={setMultiplier} />
 
-                                    <DisplayIngredients
-                                        editPackage={{ letsEdit, openEditModal }}
-                                        detailPackage={{ ingredients: recipe.ingredients, multiplier, setEditView }}
-                                    />
+                                    <div className='displayIngredientSteps'>
+                                        <DisplayIngredients
+                                            editPackage={{ letsEdit, openEditModal }}
+                                            detailPackage={{ ingredients: recipe.ingredients, multiplier, setAddMoreView }}
+                                        />
 
-                                    <DisplaySteps
-                                        editPackage={{ letsEdit, openEditModal }}
-                                        detailPackage={{ instructions: recipe.steps, setEditView }}
-                                    />
+                                        <DisplaySteps
+                                            editPackage={{ letsEdit, openEditModal }}
+                                            detailPackage={{ instructions: recipe.steps, setAddMoreView }}
+                                        />
+                                    </div>
 
                                     <DisplaySubRecipes
-                                        editPackage={{ displayId, recipeID, refresh, letsEdit, setRefresh, setEditView }}
+                                        editPackage={{ displayId, recipeID, refresh, letsEdit, setRefresh, setAddMoreView }}
                                         detailPackage={{ scrollIndex, recipe, theSubRecipes, theParentRecipes, horizontalScrollRef }}
                                     />
 
-                                    {scrollIndex === 0 && (
-                                        <button onClick={() => deleteEntireRecipe(displayId, setDeleteStatus)}>Delete This Recipe</button>
-                                    )}
+                                    <div className='deleteThisRecipe'>
+                                        {scrollIndex === 0 && (
+                                            <button onClick={() => deleteEntireRecipe(displayId, setDeleteStatus)}>Delete This Recipe</button>
+                                        )}
+                                    </div>
 
                                 </div>
                             </div>
                         ))}
                     </m.div>
                 </AnimatePresence>
-            ) : (
-                <div
-                    className="detailErrorContainer"
-                    key="detailErrorContainer"
-                    variants={basicAnimation}
-                    initial="initial"
-                    animate="animate"
-                    exit="exit"
-                >
-                    {handleApiStatus(detailStatus)}
-                </div>
             )}
+
+            {!isLoaded && (
+                <AnimatePresence mode='wait' initial={true}>
+                    <m.div
+                        className="detailErrorContainer"
+                        key="detailErrorContainer"
+                        variants={basicAnimation}
+                        initial="initial"
+                        animate="animate"
+                        exit="exit"
+                    >
+                        {handleApiStatus(detailStatus)}
+                    </m.div>
+                </AnimatePresence>
+            )}
+
+
+
         </div >
     )
 }
