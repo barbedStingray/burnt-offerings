@@ -22,23 +22,21 @@ const DisplayPhoto = ({ editPackage, detailPackage }) => {
     }
 
 
-  return (
-    <div className='detailsPhotoContainer'>
-    {letsEdit ? (
-        <ImageUpload photoFunction={addCustomPhoto} recipeImage={picture} />
-    ) : (
-        <>
-            {
-                picture.startsWith('http') ? (
-                    <img className='detailsPhoto' src={picture} />
-                ) : (
-                    <p className='detailGeneratedIcon'>{generatePhoto(picture)}</p>
-                )
-            }
-        </>
-    )}
-</div>
-)
+    return (
+        <div className='detailsPhotoContainer'>
+            {letsEdit ? (
+                <ImageUpload photoFunction={addCustomPhoto} recipeImage={picture} />
+            ) : (
+                <>
+                    {picture.startsWith('http') ? (
+                        <img className='detailsPhoto' src={picture} />
+                    ) : (
+                        <p className='detailGeneratedIcon'>{generatePhoto(picture)}</p>
+                    )}
+                </>
+            )}
+        </div>
+    )
 }
 
 export default DisplayPhoto

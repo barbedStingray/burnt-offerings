@@ -4,16 +4,19 @@ import { useEffect, useState } from 'react'
 
 const useScrollTracking = (ref, isLoaded = true) => {
     const [scrollIndex, setScrollIndex] = useState(0)
+    // console.log('ref', ref)
 
     useEffect(() => {
-        if (isLoaded && ref.current) {
+        const currentRef = ref.current
+
+        if (isLoaded) {
             const handleScroll = () => {
                 const formWidth = ref.current.clientWidth
                 const currentScroll = ref.current.scrollLeft
                 const newIndex = Math.round(currentScroll / formWidth)
                 setScrollIndex(newIndex)
             }
-            const currentRef = ref.current
+
             currentRef.addEventListener('scroll', handleScroll)
             // Cleanup function
             return () => {
@@ -21,6 +24,7 @@ const useScrollTracking = (ref, isLoaded = true) => {
             }
         }
     }, [ref, isLoaded])
+
     return scrollIndex
 }
 

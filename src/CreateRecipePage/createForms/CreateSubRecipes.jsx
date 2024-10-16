@@ -4,7 +4,7 @@ import useAllCategory from '../createFunctions/allOfCategory'
 import handleSearchDetailChange from '../createFunctions/handleSearchDetailChange'
 import submitNewObject from '../createFunctions/submitNewObject'
 import deletePackageItem from '../createFunctions/deletePackageItem'
-import postOnlyType from '../../components/postOnlyType'
+import postOnlyType from '../../RecipeDetailsPage/detailFunctions/postOnlyType'
 
 const CreateSubRecipes = ({
   dataPackage,

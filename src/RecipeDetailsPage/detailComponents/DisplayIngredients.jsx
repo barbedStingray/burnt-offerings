@@ -1,54 +1,25 @@
 import React from 'react'
-import EditTheDetail from '../../components/EditTheDetail'
-import deleteSoloDetail from '../../components/deleteSoloDetail'
 
 
 const DisplayIngredients = ({ editPackage, detailPackage }) => {
-    const { letsEdit, refresh, setRefresh, multiplier = 1 } = editPackage
-    const { ingredients, setEditView } = detailPackage
+    const { letsEdit, openEditModal } = editPackage
+    const { ingredients, multiplier = 1, setEditView } = detailPackage
 
     return (
         <div className='detailIngredients'>
-            <div className='detailSectionHeader'>
-            <p>Ingredients</p>
-            {letsEdit && (
-                <button className='fireButton addFire' onClick={() => setEditView('ingredient')}></button>
-            )}
+        <p>Ingredients</p>
+        {letsEdit && (
+            <button className='fireButton addFire' onClick={() => setEditView('ingredient')}></button>
+        )}
+        {ingredients.map((ingredient, i) => (
+            <div key={i}>
+                <p onClick={letsEdit ? () => openEditModal('quantity', ingredient.quantity, ingredient.target_id) : null}>{ingredient.quantity}</p>
+                <p onClick={letsEdit ? () => openEditModal('measurement', ingredient.measurement, ingredient.target_id) : null}>{ingredient.measurement}</p>
+                <p onClick={letsEdit ? () => openEditModal('ingredient', ingredient.ingredient, ingredient.target_id) : null}>{ingredient.ingredient}</p>
             </div>
-            <div className='displayRecipeIngredients'>
-                {ingredients.map((ingredient, i) => (
-                    <div
-                        key={i}
-                        className='displaySingleIngredient'
-                    >
-                        {letsEdit && <button className='deleteButton' onClick={letsEdit ? () => deleteSoloDetail('ingredient', ingredient.target_id, refresh, setRefresh) : null}>X</button>}
-
-                        <div className='displayIngredientQuantity'>
-                            <EditTheDetail
-                                category={{ type: 'quantity', detail: ingredient.quantity, target_id: ingredient.target_id }}
-                                editPackage={{ letsEdit, refresh, setRefresh, multiplier }}
-                            />
-                        </div>
-                        <div className='displayIngredientMeasurement'>
-                            <EditTheDetail
-                                category={{ type: 'measurement', detail: ingredient.measurement, target_id: ingredient.target_id }}
-                                editPackage={{ letsEdit, refresh, setRefresh }}
-                            />
-
-                        </div>
-                        <div className='displayIngredientIngredient'>
-                            <EditTheDetail
-                                category={{ type: 'ingredient', detail: ingredient.ingredient, target_id: ingredient.target_id }}
-                                editPackage={{ letsEdit, refresh, setRefresh }}
-                            />
-                        </div>
-
-                    </div>
-                ))}
-            </div>
-
-        </div>
-    )
+        ))}
+    </div>
+)
 }
 
 export default DisplayIngredients

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import deleteSoloDetail from '../../components/deleteSoloDetail'
+import deleteSoloDetail from '../detailFunctions/deleteSoloDetail'
 import scrollToForm from '../../CreateRecipePage/createFunctions/scrollFunctions/scrollToForm'
 
 
@@ -10,55 +10,46 @@ const DisplaySubRecipes = ({ editPackage, detailPackage }) => {
     const { scrollIndex, recipe, theSubRecipes, theParentRecipes, horizontalScrollRef } = detailPackage
 
     const isSubRecipe = recipe.recipeDetails.is_sub_recipe
-    const isParentRecipe = recipe.recipeDetails.is_parent_recipe
 
 
-    
     return (
         <div className='detailSubRecipes'>
             <div className='detailSectionHeader'>
-                {/* Header */}
-                {isSubRecipe && (
-                    <p>Parent Recipes</p>
-                )}
-                {isParentRecipe && (
-                    <p>Sub Recipes</p>
-                )}
-                {!isParentRecipe && !isSubRecipe && (
-                    <p>Sub Recipes</p>
-                )}
-                {letsEdit && !isSubRecipe && (
+                <p>{recipe.recipeDetails.is_sub_recipe ? 'Parent Recipes' : 'Sub Recipes'}</p>
+                {letsEdit && !recipe.recipeDetails.is_sub_recipe && (
                     <button className='fireButton addFire' onClick={() => setEditView('subRecipe')}></button>
                 )}
             </div>
-            {scrollIndex > 0 ? (
-                // scroll index is on  sub recipe
-                <div className='viewingSubRecipe'>
-                    <p>This is part of your Main Recipe!</p>
-                    <button onClick={() => deleteSoloDetail('subRecipe', displayId, refresh, setRefresh, recipeID)}>Remove Sub Recipe</button>
-                </div>
-            ) : (
-                <div className='detailSubView'>
-                    {isSubRecipe ? (
-                        <>
-                            {theParentRecipes.map((parent, i) => (
-                                <div key={i} className='displaySingleSub'>
-                                    <Link to={`/recipeDetails/${parent.id}`} key={i}>{parent.title}{parent.id}</Link>
-                                </div>
-                            ))}
-                        </>
-                    ) : (
-                        <>
-                            {theSubRecipes.map((sub, i) => (
-                                <div className='displaySingleSub'>
-                                    <p key={i} onClick={() => scrollToForm((i + 1), horizontalScrollRef)}>{sub.recipeDetails.title}</p>
-                                </div>
-                            ))}
+            <div>
+                {scrollIndex === 0 ? (
+                    <div className='detailSubView'>
+                        {isSubRecipe ? (
+                            <>
+                                {theParentRecipes.map((parent, i) => (
+                                    <div key={i} className='displaySingleSub'>
+                                        <Link to={`/recipeDetails/${parent.id}`} key={i}>{parent.title}{parent.id}</Link>
+                                    </div>
+                                ))}
+                            </>
+                        ) : (
+                            <>
+                                {theSubRecipes.map((sub, i) => (
+                                    <div key={i} className='displaySingleSub'>
+                                        <p onClick={() => scrollToForm((i + 1), horizontalScrollRef)}>{sub.recipeDetails.title}</p>
+                                    </div>
+                                ))}
 
-                        </>
-                    )}
-                </div>
-            )}
+                            </>
+                        )}
+                    </div>
+                ) : (
+                    <div className='viewingSubRecipe'>
+                        <p>This is a sub recipe to the one you are viewing!</p>
+                        <button onClick={() => deleteSoloDetail('subRecipe', displayId, refresh, setRefresh, null, recipeID)}>Remove Sub Recipe</button>
+                    </div>
+                )}
+            </div>
+
         </div>
     )
 }

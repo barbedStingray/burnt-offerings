@@ -8,9 +8,9 @@ const router = express.Router()
 // PUT single text box edits
 router.put('/putDetail/:id', async (req, res) => {
     const target_id = req.params.id
-    const { category } = req.body
+    const { type } = req.body
     let { formatDetail } = req.body
-    console.log('putDetails', target_id, category, formatDetail)
+    console.log('putDetails', target_id, type, formatDetail)
 
     const queryEditTexts = {
         title: `UPDATE moms_recipes SET title = $1 WHERE id = $2;`,
@@ -27,11 +27,12 @@ router.put('/putDetail/:id', async (req, res) => {
 
     const isNumber = !isNaN(Number(formatDetail))
 
-    const queryText = queryEditTexts[category]
+    const queryText = queryEditTexts[type]
+    console.log('queryText', queryText)
 
     try {
 
-        if (category === 'ingredient' && !isNumber) {
+        if (type === 'ingredient' && !isNumber) {
             // console.log('ingredient does not exist', formatDetail)
             const results = await pool.query(postIngredientText, [formatDetail])
             formatDetail = results.rows[0].id
@@ -41,8 +42,6 @@ router.put('/putDetail/:id', async (req, res) => {
         console.log(typeof formatDetail)
         console.log('right before PUT')
         await pool.query(queryText, [formatDetail, target_id])
-
-
         console.log('SUCCESS PUT new')
         res.sendStatus(201)
     } catch (error) {
@@ -637,7 +636,6 @@ FROM (
     SELECT id FROM recipes_by_title
 ) AS combined_results
 ;`
-const browseQueryText = `SELECT * FROM (SELECT * FROM moms_recipes ORDER BY RANDOM() LIMIT 20) AS limited_results LIMIT $1 OFFSET $2;`
 
     let queryText
     let countQuery
@@ -651,12 +649,6 @@ const browseQueryText = `SELECT * FROM (SELECT * FROM moms_recipes ORDER BY RAND
         countQuery = countAllRecipesQuery
         queryParams = [limit, offset]
         countParams = [] // no parameters for counting all recipes
-    } else if (keywordArray[0] === 'browse') {
-        console.log('BROWSE')
-        queryText = browseQueryText
-        countQuery = countAllRecipesQuery
-        queryParams = [limit, offset]
-        countParams = []
     } else {
         queryText = filterQueryText
         countQuery = countQueryText

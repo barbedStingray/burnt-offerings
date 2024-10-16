@@ -1,5 +1,5 @@
 import React from 'react'
-import deleteSoloDetail from '../../components/deleteSoloDetail'
+import deleteSoloDetail from '../detailFunctions/deleteSoloDetail'
 
 
 const DisplayTags = ({ editPackage, detailPackage }) => {
@@ -9,7 +9,6 @@ const DisplayTags = ({ editPackage, detailPackage }) => {
 
     return (
         <div className='tagDetails'>
-
             <div className='addDetailButton'>
                 {letsEdit && (
                     <button className='fireButton addFire' onClick={() => setEditView('tag')}></button>

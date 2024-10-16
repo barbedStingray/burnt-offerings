@@ -7,7 +7,7 @@ import handleSearchDetailChange from '../createFunctions/handleSearchDetailChang
 import handleDetailChange from '../createFunctions/handleDetailChange'
 import submitNewObject from '../createFunctions/submitNewObject'
 import deletePackageItem from '../createFunctions/deletePackageItem'
-import postOnlyType from '../../components/postOnlyType'
+import postOnlyType from '../../RecipeDetailsPage/detailFunctions/postOnlyType'
 import inputLimits from '../../components/InputLimits'
 
 const CreateIngredients = ({

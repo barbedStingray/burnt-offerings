@@ -188,7 +188,7 @@
 }
 
 .editModal {
-    /* border: 2px solid black; */
+    border: 2px solid red;
     width: 100%;
     height: 100%;
     position: fixed;
@@ -199,11 +199,11 @@
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
-    z-index: 10;
+    z-index: 50;
 }
 
 .editDisplayModal {
-    /* border: 2px solid yellow; */
+    border: 2px solid yellow;
     background-color: var(--prime-four);
     border-radius: 20px;
     width: 80dvw;
@@ -470,25 +470,6 @@
     border-radius: 10px;
     font-size: 20px;
 }
-
-
-
-
-
-
-
-
-/* footer */
-.detailsFooter {
-    border: 2px solid gold;
-    background-color: #808080cc;
-    width: 100%;
-    height: 10dvh;
-    display: none;
-}
-
-
-
 
 
 /* END OF 430PX */

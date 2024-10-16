@@ -6,7 +6,7 @@ import axios from 'axios'
 import submitNewObject from '../createFunctions/submitNewObject'
 import handleSearchDetailChange from '../createFunctions/handleSearchDetailChange'
 import deletePackageItem from '../createFunctions/deletePackageItem'
-import postOnlyType from '../../components/postOnlyType'
+import postOnlyType from '../../RecipeDetailsPage/detailFunctions/postOnlyType'
 import getTagPrompt from '../createFunctions/getTagPrompt'
 import inputLimits from '../../components/InputLimits'
 

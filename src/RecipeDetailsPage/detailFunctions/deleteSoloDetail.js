@@ -1,28 +1,30 @@
 import axios from 'axios'
 
-
-export default async function deleteSoloDetail(type, id, refresh, setRefresh, parentId) {
-    console.log('delete solo detail', type, id, parentId)
+// * steps ingredient
+export default async function deleteSoloDetail(type, id, refresh, setRefresh, setEditModalView, parentId) {
+    console.log('delete solo detail', type, id, refresh, parentId)
 
     const apiCalls = {
         subRecipe: `/api/recipes/removeSubRecipe/${id}`,
         ingredient: `/api/recipes/deleteRecipeIngredient/${id}`,
-        step: `/api/recipes/deleteRecipeStep/${id}`,
+        instructions: `/api/recipes/deleteRecipeStep/${id}`,
         tag: `/api/recipes/deleteRecipeTag/${id}`,
     }
-    const deleteText = apiCalls[type]
-    
 
+    const deleteText = apiCalls[type]
+    console.log('deleteText', deleteText)
     try {
         if (type === 'subRecipe') {
-            await axios.delete(deleteText, { data: { parentId }})
+            await axios.delete(deleteText, { data: { parentId } })
         } else {
             await axios.delete(deleteText)
         }
         setRefresh(!refresh)
+        if (!setEditModalView) return // for tags & subRecipes not using edit modal
+        setEditModalView(false)
+
     } catch (error) {
         console.log(`ERROR removing ${type}`, error)
-        // return some form of user error.
         alert(`sorry, there was a problem removing your ${type} `)
     }
 }
