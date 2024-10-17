@@ -288,38 +288,88 @@ router.delete('/deleteEntireRecipe/:id', async (req, res) => {
     console.log('params', req.params)
 
     const recipeId = req.params.id
-    const deleteRelationsText = `DELETE FROM "recipe_relationship" WHERE "parent_id" = $1;`
+    const isParentText = `SELECT is_parent_recipe FROM moms_recipes WHERE id = $1;`
+    const isSubText = `SELECT is_sub_recipe FROM moms_recipes WHERE id = $1;`
+
+    const getSubsOfParent = `SELECT "sub_id" FROM "recipe_relationship" WHERE "parent_id" = $1`
+    const getParentIds = `SELECT "parent_id" FROM "recipe_relationship" WHERE "sub_id" = $1`
+    const updateSubRecipeFalseText = `UPDATE moms_recipes SET is_sub_recipe = false WHERE id = $1`
+    const updateParentRecipeFalseText = `UPDATE moms_recipes SET is_parent_recipe = false WHERE id = $1`
+    
+    const getParentsOfSub = `SELECT "parent_id" FROM "recipe_relationship" WHERE "sub_id" = $1`
+    const getSubIds = `SELECT "sub_id" FROM "recipe_relationship" WHERE "parent_id" = $1`
+    
+    const deleteParentRelations = `DELETE FROM "recipe_relationship" WHERE "parent_id" = $1;`
+    const deleteSubRelations = `DELETE FROM "recipe_relationship" WHERE "sub_id" = $1;`
     const deleteTagsText = `DELETE FROM "recipe_tags" WHERE "recipe_id" = $1;`
     const deleteIngredientsText = `DELETE FROM "recipe_ingredients" WHERE "recipe_id" = $1;`
     const deleteStepsText = `DELETE FROM "moms_steps" WHERE "recipe_id" = $1;`
     const deleteRecipeText = `DELETE FROM "moms_recipes" WHERE "id" = $1;`
-    const getSubRecipesText = `SELECT "sub_id" FROM "recipe_relationship" WHERE "parent_id" = $1`
-    const getParentRecipesText = `SELECT "parent_id" FROM "recipe_relationship" WHERE "sub_id" = $1`
-    const isSubRecipeText = `UPDATE moms_recipes SET is_sub_recipe = false WHERE id = $1`
+
 
     try {
-        // recipe relations - switch to non sub if no parents
-        const potentialNonSubRecipes = await pool.query(getSubRecipesText, [recipeId])
-        // delete the parent recipe from table
-        await pool.query(deleteRelationsText, [recipeId])
-        // check to see if it still has parents
-        const subCheckPromises = potentialNonSubRecipes.rows.map(async (sub) => {
-            const parentRecipes = await pool.query(getParentRecipesText, [sub.sub_id])
-            const hasParent = parentRecipes.rows.length > 0
-            if (!hasParent) {
-                await pool.query(isSubRecipeText, [sub.sub_id])
-            }
-        })
-        await Promise.all(subCheckPromises)
+
+        // identify if it's a parent or sub recipe
+        const isParentResult = await pool.query(isParentText, [recipeId])
+        const isSubResult = await pool.query(isSubText, [recipeId])
+        const isParent = isParentResult.rows[0].is_parent_recipe
+        const isSub = isSubResult.rows[0].is_sub_recipe
+        console.log('isParent', isParent)
+        console.log('isSub', isSub)
+
+        if (isParent) {
+            console.log('its a parent!')
+            // if PARENT...
+            // recipe relations - switch to is_sub false if no parents
+            const potentialNonSubRecipes = await pool.query(getSubsOfParent, [recipeId])
+            // delete the parent recipe from relationship table
+            await pool.query(deleteParentRelations, [recipeId])
+            // check to see if sub recipes attached to the deleted still have parents
+            const subCheckPromises = potentialNonSubRecipes.rows.map(async (sub) => {
+                const parentRecipes = await pool.query(getParentIds, [sub.sub_id])
+                const hasParent = parentRecipes.rows.length > 0
+                if (!hasParent) {
+                    await pool.query(updateSubRecipeFalseText, [sub.sub_id])
+                }
+            })
+            await Promise.all(subCheckPromises)
+
+        } else if (isSub) {
+            console.log('its a sub!')
+            // if SUB...
+            // recipe relations - switch to is_parent false if no parents
+            // get potential non - parents
+            const potentailNonParentRecipes = await pool.query(getParentsOfSub, [recipeId])
+            console.log('potential non parents', potentailNonParentRecipes.rows)
+            // delete the relations table data
+            await pool.query(deleteSubRelations, [recipeId])
+            // check to see if parent recipes attached to the deleted still have subs
+            const parentCheckPromises = potentailNonParentRecipes.rows.map(async (par) => {
+                console.log('par.parent_id', par.parent_id)
+                const subRecipes = await pool.query(getSubIds, [par.parent_id])
+                const hasSub = subRecipes.rows.length > 0
+                console.log('hasSub', hasSub)
+                if (!hasSub) {
+                    await pool.query(updateParentRecipeFalseText, [par.parent_id])
+                }
+            })
+            await Promise.all(parentCheckPromises)
+        }
+
+
 
         // recipe tags
         await pool.query(deleteTagsText, [recipeId])
+
         // recipe ingredients
         await pool.query(deleteIngredientsText, [recipeId])
+
         // moms steps
         await pool.query(deleteStepsText, [recipeId])
+
         // moms recipes
         await pool.query(deleteRecipeText, [recipeId])
+
 
         res.sendStatus(201)
     } catch (error) {

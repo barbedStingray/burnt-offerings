@@ -9,11 +9,6 @@ const DisplayTags = ({ editPackage, detailPackage }) => {
 
     return (
         <div className='tagDetails'>
-            <div className='addDetailButton'>
-                {letsEdit && (
-                    <button className='fireButton addFire' onClick={() => setAddMoreView('tag')}></button>
-                )}
-            </div>
             <div className='viewTags'>
                 {tags.map((tag, i) => (
                     <p
@@ -24,6 +19,12 @@ const DisplayTags = ({ editPackage, detailPackage }) => {
                     </p>
                 ))}
             </div>
+            <div className='addDetailButton'>
+                {letsEdit && (
+                    <button className='fireButton addFire' onClick={() => setAddMoreView('tag')}></button>
+                )}
+            </div>
+
         </div>
     )
 }

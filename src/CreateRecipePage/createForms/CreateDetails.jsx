@@ -2,8 +2,9 @@ import React from 'react'
 
 import DetailInput from '../../components/DetailInput'
 import handleDetailChange from '../createFunctions/handleDetailChange'
-import ImageUpload from '../../components/ImageUpload'
 import inputLimits from '../../components/InputLimits'
+import ImageUpload from '../../renderImage/ImageUpload'
+
 
 const CreateDetails = ({ dataPackage }) => {
 

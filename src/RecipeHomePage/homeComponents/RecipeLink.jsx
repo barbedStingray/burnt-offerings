@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import noIconPhoto from '../../components/noIconPhoto';
+import generatePhoto from '../../renderImage/generatePhoto'
 
 
 const RecipeLink = ({ recipe }) => {
@@ -11,7 +11,7 @@ const RecipeLink = ({ recipe }) => {
     const generateHomeImage = () => {
         const imageOptions = {
             http: <img className='mosaicPhoto' src={picture} alt={title} />,
-            default: <p className='homeGeneratedIcon'>{noIconPhoto(picture)}</p>
+            default: <p className='homeGeneratedIcon'>{generatePhoto(picture)}</p>
         }
         return imageOptions[picture?.startsWith('http') ? 'http' : 'default']
     }

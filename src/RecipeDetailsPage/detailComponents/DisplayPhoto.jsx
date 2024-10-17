@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
-import ImageUpload from '../../components/ImageUpload'
-import generatePhoto from '../../components/generatePhoto'
+import ImageUpload from '../../renderImage/ImageUpload'
+import generatePhoto from '../../renderImage/generatePhoto'
 
 
 const DisplayPhoto = ({ editPackage, detailPackage }) => {

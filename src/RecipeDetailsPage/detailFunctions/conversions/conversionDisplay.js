@@ -26,12 +26,12 @@ export default function conversionDisplay(detail, measurement, multiplier) {
     if (numericValue === null) return { quantity: detail, measurement } // if conversion fails, return original values
 
     let multipliedQuantity = numericValue * multiplier
-
+    // console.log('multipliedQuantity', multipliedQuantity)
     const formatQuantity = measurement === 'oz' ?
         multipliedQuantity
         :
         numberToMixed(multipliedQuantity.toFixed(2)) // back to fraction if necessary
 
-    console.log('final FORMAT', formatQuantity, measurement)
+    // console.log('final FORMAT', formatQuantity, measurement)
     return { quantity: formatQuantity, measurement: measurement }
 }

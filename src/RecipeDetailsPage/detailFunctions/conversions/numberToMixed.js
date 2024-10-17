@@ -37,7 +37,7 @@
             return `${wholePart + 1}`
         }
         if (fractionString === '0') {
-            return 'dash'
+            return `${wholePart + ' dash'}`
         }
         return wholePart === 0 ? `${fractionString}` : `${wholePart} ${fractionString}`
     }

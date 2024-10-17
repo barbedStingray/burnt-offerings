@@ -14,13 +14,13 @@ const DisplaySubRecipes = ({ editPackage, detailPackage }) => {
 
     return (
         <div className='detailSubRecipes'>
-            <div className='detailSectionHeader'>
+            <div className='subRecipeHeader'>
                 <p>{recipe.recipeDetails.is_sub_recipe ? 'Parent Recipes' : 'Sub Recipes'}</p>
                 {letsEdit && !recipe.recipeDetails.is_sub_recipe && (
                     <button className='fireButton addFire' onClick={() => setAddMoreView('subRecipe')}></button>
                 )}
             </div>
-            <div>
+            <div className='detailSubDisplay'>
                 {scrollIndex === 0 ? (
                     <div className='detailSubView'>
                         {isSubRecipe ? (
@@ -43,13 +43,12 @@ const DisplaySubRecipes = ({ editPackage, detailPackage }) => {
                         )}
                     </div>
                 ) : (
-                    <div className='viewingSubRecipe'>
+                    <div className='currentSubRecipe'>
                         <p>You are viewing a Parent Recipe!</p>
-                        <button onClick={() => deleteSoloDetail('subRecipe', displayId, refresh, setRefresh, null, recipeID)}>Remove Sub Recipe</button>
+                        <button className='createAddButton' onClick={() => deleteSoloDetail('subRecipe', displayId, refresh, setRefresh, null, recipeID)}>Remove Sub Recipe</button>
                     </div>
                 )}
             </div>
-
         </div>
     )
 }

@@ -147,7 +147,7 @@ const RecipeDetailsPage = () => {
 
             {isLoaded && (
                 <AnimatePresence mode='wait' initial={true}>
-                    <m.div className='detailSliderContainer' ref={horizontalScrollRef}
+                    <m.div className='detailHorizontalSlide' ref={horizontalScrollRef}
                         key="detailSliderContainer"
                         variants={basicAnimation}
                         initial="initial"
@@ -155,11 +155,11 @@ const RecipeDetailsPage = () => {
                         exit="exit"
                     >
                         {recipeDisplay.map((recipe, i) => (
-                            <div key={i} className='recipeDetailsScrollContainer' >
-                                <div className='recipeDetailContainer' >
+                            <div key={i} className='detailVerticalSlide' >
+                                <div className='detailRecipeContainer' >
 
                                     <div className='detailsTopDisplay'>
-                                        <div className='detailsTopInfo'>
+                                        <div className='detailPhotoItems'>
                                             <DisplayPhoto
                                                 editPackage={{ letsEdit, refresh, setRefresh }}
                                                 detailPackage={{ displayId, picture: recipe.recipeDetails.picture }}
@@ -176,7 +176,7 @@ const RecipeDetailsPage = () => {
                                             </div>
                                         </div>
 
-                                        <div className='detailsBottomInfo'>
+                                        <div className='detailTitleTags'>
                                             <div className='detailsTitleDisplay'>
                                                 <p onClick={letsEdit ? () => openEditModal('title', recipe.recipeDetails.title, displayId) : null}>{recipe.recipeDetails.title}</p>
                                             </div>
@@ -185,10 +185,15 @@ const RecipeDetailsPage = () => {
                                                 editPackage={{ letsEdit, refresh, setRefresh }}
                                                 detailPackage={{ tags: recipe.tags, setAddMoreView }}
                                             />
+
+                                            <div className='detailDescriptionLarge'>
+                                                <p onClick={letsEdit ? () => openEditModal('description', recipe.recipeDetails.description, displayId) : null}>{recipe.recipeDetails.description}</p>
+                                            </div>
+
                                         </div>
                                     </div>
 
-                                    <div className='detailsDescriptionParts'>
+                                    <div className='detailDescriptionSmall'>
                                         <p onClick={letsEdit ? () => openEditModal('description', recipe.recipeDetails.description, displayId) : null}>{recipe.recipeDetails.description}</p>
                                     </div>
 
