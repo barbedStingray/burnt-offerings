@@ -7,7 +7,7 @@ const inputLimits = {
     ingredient: 30,
     quantity: 5,
     instructions: 200,
-    step_number: 3,
+    step_number: 2,
     tag: 25,
 }
 export default inputLimits

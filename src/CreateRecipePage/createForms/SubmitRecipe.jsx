@@ -86,14 +86,14 @@ const SubmitRecipe = ({ dataPackage }) => {
                         <h1>Recipe Success!</h1>
                         <div className='postModalDiv'>
                             <button className='fireButton medFire make' onClick={() => goToNewRecipe(navigateNewId)}>Make It!</button>
-                            <button className='createAddButton' onClick={() => goHome()}>Home</button>
+                            <button className='basicButton' onClick={() => goHome()}>Home</button>
                         </div>
                     </div>
                 )
             case 'error':
                 return (
                     <div className='postModal'>
-                        <button className='createAddButton' onClick={() => setPostModalDisplay('ready')}>Retry</button>
+                        <button className='basicButton' onClick={() => setPostModalDisplay('ready')}>Retry</button>
                         <div className="homeApiError">
                             <FaSnowboarding />
                             <div className="homeApiErrorMessage">

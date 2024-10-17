@@ -59,7 +59,7 @@ const CreateTags = ({
                         <p>{getTagPrompt(tagPackage)}</p>
                     </div>
 
-                    <button className='createAddButton' type='submit'>Add</button>
+                    <button className='basicButton' type='submit'>Add</button>
 
                     <div className='createFilteredContainer' >
                         {filteredList.length > 0 && (
@@ -96,7 +96,7 @@ const CreateTags = ({
 
                 {addMoreView?.length > 0 && (
                     <div className='addBtnGroup'>
-                        <button className='addBackButton' onClick={() => setAddMoreView('')}>Back</button>
+                        <button className='basicButton' onClick={() => setAddMoreView('')}>Back</button>
                         <button className='fireButton medFire' onClick={() => postOnlyType('tags', displayId, tagPackage, setTagPackage, refresh, setRefresh, setAddMoreView)}>Submit Tags</button>
                     </div>
                 )}

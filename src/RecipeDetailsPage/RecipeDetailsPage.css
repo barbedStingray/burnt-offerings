@@ -360,6 +360,14 @@
     gap: 2vh;
 }
 
+.deleteThisRecipe {
+    /* border: 2px solid gold; */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 
 
 /* Add details section */
@@ -389,110 +397,12 @@
     /* border: 2px solid gold; */
     display: flex;
     flex-flow: row nowrap;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
-    width: 60%;
-}
-.addBackButton {
-    background-color: var(--prime-one);
-    border: 1px solid var(--prime-four);
-    height: 10dvw;
-    aspect-ratio: 2 / 1;
-    border-radius: 10px;
-    font-size: 20px;
+    width: 75%;
 }
 
 
-
-/* delete modal here... */
-.deleteModalFrame {
-    /* border: 2px solid red; */
-    /* background-color: var(--trans-color); */
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-    align-items: center;
-    z-index: 70;
-}
-.deleteModal {
-    border: 2px solid blue;
-    background-color: grey;
-    border-radius: 20px;
-    width: 50%;
-    height: 30%;
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 20px;
-    padding: 7dvh 0;
-}
-
-
-/* EDIT MODAL */
-.editModal {
-    border: 2px solid red;
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-    align-items: center;
-    z-index: 50;
-}
-
-.editDisplayModal {
-    border: 2px solid yellow;
-    background-color: var(--prime-four);
-    border-radius: 20px;
-    width: 80dvw;
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: space-evenly;
-    align-items: center;
-    padding: 2vh 0vh;
-    gap: 2vh;
-}
-
-.editHeader {
-    /* border: 2px solid green; */
-    color: var(--featherGrey);
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-    align-items: center;
-}
-
-.editForm {
-    /* border: 2px solid magenta; */
-    width: 90%;
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 2vh;
-}
-
-.detailEditInput {
-    /* border: 2px solid blue; */
-    background-color: var(--featherGrey);
-    border-radius: 10px;
-    padding: 2dvw;
-    width: 90%;
-    font-size: 16px;
-    text-align: center;
-    font-family: inherit;
-}
 
 
 

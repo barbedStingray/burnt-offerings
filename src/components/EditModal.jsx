@@ -4,16 +4,14 @@ import checkDuplicateTitles from '../CreateRecipePage/createFunctions/checkDupli
 import useAllCategory from '../CreateRecipePage/createFunctions/allOfCategory'
 import measurementOptions from './measurements'
 import deleteSoloDetail from '../RecipeDetailsPage/detailFunctions/deleteSoloDetail'
-
+import inputLimits from '../components/InputLimits'
 
 const EditModal = ({ editPackage, refreshPackage }) => {
     const { editType, editId, newEdit, setNewEdit } = editPackage
     const { setEditModalView, refresh, setRefresh } = refreshPackage
-    // console.log('edit modal', editType, editId, newEdit)
 
     const [allRecipes, allRecipesStatus] = useAllCategory('/api/recipes/titleCheck')
     const [allIngredients, allIngredientsStatus] = useAllCategory('/api/recipes/ingredients')
-
 
     async function putNewEdit(e, type, target_id, newEdit) {
         e.preventDefault()
@@ -56,7 +54,7 @@ const EditModal = ({ editPackage, refreshPackage }) => {
                     <textarea
                         className='detailEditInput'
                         value={newEdit}
-                        // maxLength={inputLimits[type]}
+                        maxLength={inputLimits[editType]}
                         onChange={(e) => setNewEdit(e.target.value)}
                         rows={6}
                     />
@@ -78,7 +76,7 @@ const EditModal = ({ editPackage, refreshPackage }) => {
                     <input
                         className='detailEditInput'
                         type="text"
-                        // maxLength={inputLimits[type]}
+                        maxLength={inputLimits[editType]}
                         value={newEdit}
                         placeholder={`title`}
                         onChange={(e) => setNewEdit(e.target.value)}
@@ -89,16 +87,16 @@ const EditModal = ({ editPackage, refreshPackage }) => {
 
 
     return (
-        <div className='editModal'>
-            <div className='editDisplayModal'>
-                <p>This is the edit modal</p>
-                <form onSubmit={(e) => putNewEdit(e, editType, editId, newEdit)}>
+        <div onClick={() => setEditModalView(false)} className='modalFrame'>
+            <div onClick={(e) => e.stopPropagation()} className='modalContents'>
+                <p className='editHeader'>Edit the {editType}</p>
+                <form className='editForm' onSubmit={(e) => putNewEdit(e, editType, editId, newEdit)}>
                     {generateEditInput(editType)}
-                    <button type='submit'>Save</button>
+                    <button className='fireButton medFire' type='submit'>Save</button>
                 </form>
-                <button onClick={() => setEditModalView(false)}>Cancel</button>
+                {/* <button onClick={() => setEditModalView(false)}>Cancel</button> */}
                 {(editType === 'ingredient' || editType === 'instructions') && (
-                    <button onClick={() => deleteSoloDetail(editType, editId, refresh, setRefresh, setEditModalView)}>DELETE</button>
+                    <button className='deleteButton' onClick={() => deleteSoloDetail(editType, editId, refresh, setRefresh, setEditModalView)}>DELETE</button>
                 )}
             </div>
         </div>

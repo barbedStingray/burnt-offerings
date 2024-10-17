@@ -121,6 +121,7 @@
 .homeKeywordSearch {
     border: 2px solid var(--shadow-two);
     outline: none;
+    box-shadow: inset 0px 0px 5px black;
     background-color: var(--featherGrey);
     width: 100%;
     height: 100%;
@@ -291,14 +292,16 @@
 
 
 
-/* border: 2px solid red; */
 .homeRecipeTitle {
-    height: 50%;
+    /* border: 2px solid red; */
+    height: 56%;
     width: 90%;
     font-size: 22px;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
+    word-break: break-word;
+    overflow: hidden;
 }
 
 .paginationBar {

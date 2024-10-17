@@ -5,9 +5,9 @@ export default function generateDeleteModal(deleteStatus, setDeleteStatus) {
     switch (deleteStatus) {
         case 'loading':
             return (
-                <div className='deleteModalFrame'>
-                    <div className='deleteModal'>
-                        <p>Deleting your Recipe</p>
+                <div className='modalFrame'>
+                    <div className='modalContents'>
+                        <p>Deleting your Recipe...</p>
                         <div className="homeApiStatus detailsApiStatus">
                             <GiGingerbreadMan />
                         </div>
@@ -16,20 +16,20 @@ export default function generateDeleteModal(deleteStatus, setDeleteStatus) {
             )
         case 'success':
             return (
-                <div className='deleteModalFrame'>
-                    <div className='deleteModal'>
-                        <p>SUCCESS in deleting</p>
-                        <Link className='fireButton medFire deleteHome' to={`/`}><p></p></Link>
+                <div className='modalFrame'>
+                    <div className='modalContents'>
+                        <h3>Successfully Deleted!</h3>
+                        <Link className='fireButton deleteHome' to={`/`}><p></p></Link>
                     </div>
                 </div>
 
             )
         case 'error':
             return (
-                <div className='deleteModalFrame'>
-                    <div className='deleteModal'>
-                        <p>ERROR in deleting</p>
-                        <button className='createAddButton' onClick={() => setDeleteStatus('')}>Return</button>
+                <div className='modalFrame'>
+                    <div className='modalContents'>
+                        <h4>Error encountered!</h4>
+                        <button className='basicButton' onClick={() => setDeleteStatus('')}>Return</button>
                     </div>
                 </div>
 

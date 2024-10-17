@@ -49,7 +49,7 @@ const CreateSteps = ({
 
                     >
                     </textarea>
-                    <button className='createAddButton' type='submit'>Add</button>
+                    <button className='basicButton' type='submit'>Add</button>
                 </form>
 
                 <p>Added Instructions</p>
@@ -69,7 +69,7 @@ const CreateSteps = ({
 
                 {addMoreView?.length > 0 && (
                     <div className='addBtnGroup'>
-                        <button className='addBackButton' onClick={() => setAddMoreView('')}>Back</button>
+                        <button className='basicButton' onClick={() => setAddMoreView('')}>Back</button>
                         <button className='fireButton medFire' onClick={() => postOnlyType('steps', displayId, stepPackage, setStepPackage, refresh, setRefresh, setAddMoreView)}>Submit Tags</button>
                     </div>
                 )}

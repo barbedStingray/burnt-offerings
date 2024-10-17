@@ -79,7 +79,7 @@ const CreateSubRecipes = ({
 
         {addMoreView?.length > 0 && (
           <div className='addBtnGroup'>
-            <button className='addBackButton' onClick={() => setAddMoreView('')}>Back</button>
+            <button className='basicButton' onClick={() => setAddMoreView('')}>Back</button>
             <button className='fireButton medFire'  onClick={() => postOnlyType('subRecipes', displayId, subRecipePackage, setSubRecipePackage, refresh, setRefresh, setAddMoreView)}>Submit subrecipes</button>
           </div>
         )}

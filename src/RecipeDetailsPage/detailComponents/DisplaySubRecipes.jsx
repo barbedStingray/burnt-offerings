@@ -45,7 +45,7 @@ const DisplaySubRecipes = ({ editPackage, detailPackage }) => {
                 ) : (
                     <div className='currentSubRecipe'>
                         <p>You are viewing a Parent Recipe!</p>
-                        <button className='createAddButton' onClick={() => deleteSoloDetail('subRecipe', displayId, refresh, setRefresh, null, recipeID)}>Remove Sub Recipe</button>
+                        <button className='deleteButton' onClick={() => deleteSoloDetail('subRecipe', displayId, refresh, setRefresh, null, recipeID)}>Remove Sub Recipe</button>
                     </div>
                 )}
             </div>

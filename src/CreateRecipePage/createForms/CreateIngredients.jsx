@@ -94,7 +94,7 @@ const CreateIngredients = ({
                                 }}
                             >
                             </input>
-                            <button className='createAddButton' type='submit'>Add</button>
+                            <button className='basicButton' type='submit'>Add</button>
                         </div>
                     </div>
 
@@ -140,7 +140,7 @@ const CreateIngredients = ({
 
                 {addMoreView?.length > 0 && (
                     <div className='addBtnGroup'>
-                        <button className='addBackButton' onClick={() => setAddMoreView('')}>Back</button>
+                        <button className='basicButton' onClick={() => setAddMoreView('')}>Back</button>
                         <button className='fireButton medFire' onClick={() => postOnlyType('ingredients', displayId, ingredientPackage, setIngredientPackage, refresh, setRefresh, setAddMoreView)}></button>
                     </div>
                 )}

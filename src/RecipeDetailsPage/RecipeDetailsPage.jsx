@@ -218,7 +218,7 @@ const RecipeDetailsPage = () => {
 
                                     <div className='deleteThisRecipe'>
                                         {scrollIndex === 0 && (
-                                            <button onClick={() => deleteEntireRecipe(displayId, setDeleteStatus)}>Delete This Recipe</button>
+                                            <button className='deleteButton' onClick={() => deleteEntireRecipe(displayId, setDeleteStatus)}>Delete This Recipe</button>
                                         )}
                                     </div>
 
