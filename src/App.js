@@ -1,35 +1,36 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
+import { motion as m, AnimatePresence } from 'framer-motion';
+import { setRootVariables } from './components/themes/setRootVars';
 import './App.css';
 
 import RecipeHomePage from './RecipeHomePage/RecipeHomePage'
 import RecipeDetailsPage from './RecipeDetailsPage/RecipeDetailsPage'
 import CreateNewRecipe from './CreateRecipePage/CreateNewRecipe'
-import { motion as m, AnimatePresence } from 'framer-motion';
+import FourOhFour from './FourOhFour/FourOhFour';
 import basicAnimation from './animations/basicAnimation';
+import colorTheme from './components/themes/colorTheme';
 
 
 function App() {
 
   const location = useLocation()
 
+  const holidayThemes = {
+    2: 'halloween',
+    1: 'halloween',
+  }
 
-  // const pageVariants = {
-  //   initial: {
-  //     opacity: 1,
-  //     x: '-100vw', // Start from left off-screen
-  //   },
-  //   animate: {
-  //     opacity: 1,
-  //     x: 0, // End at the normal position
-  //     transition: { duration: 0.5 },
-  //   },
-  //   exit: {
-  //     opacity: 1,
-  //     x: '100vw', // Exit to the right off-screen
-  //     transition: { duration: 0.3 },
-  //   },
-  // };
+  // function getThemeByMonth() {
+  //   const month = new Date().getMonth()
+  //   const holiday = holidayThemes[month]
+  //   return holiday ? colorTheme.colorSets[holiday] : colorTheme.colorSets.default
+  // }
+
+  // useEffect(() => {
+  //   const selectedTheme = getThemeByMonth()
+  //   setRootVariables(selectedTheme)
+  // }, [])
 
 
 
@@ -68,6 +69,16 @@ function App() {
               variants={basicAnimation}
             >
               <CreateNewRecipe />
+            </m.div>
+          } />
+          <Route path='*' element={
+            <m.div
+              initial='initial'
+              animate="animate"
+              exit="exit"
+              variants={basicAnimation}
+            >
+              <FourOhFour />
             </m.div>
           } />
           {/* include *** ROUTE */}

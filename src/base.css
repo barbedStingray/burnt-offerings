@@ -15,7 +15,7 @@ html {
 
 
 :root {
-
+    /* DEFAULT THEMES */
     --background-one: #e2e6b5;
     --background-two: #d7d79f;
     --background-three: #b9ba7c;
@@ -25,15 +25,35 @@ html {
     --accent-two: #98bef0;
     --shadow: #3c2f0a;
     --trans-color: #363406dd;
-    --featherGrey: #d9dcd7;
-    --black: #080a0d;
-    --white: #fffefb;
-    --inactive: #646464;
     --blend0: #fae400;
     --blend1: #afdf4d;
     --blend2: #78dc85;
     --blend3: #41d8bd;
     --blend4: #00d4ff;
     --blend5: #00fff7;
+    --featherGrey: #d9dcd7;
+    --black: #080a0d;
+    --white: #fffefb;
+    --inactive: #646464;
+
+    /* --background-one: #3a053d;
+    --background-two: #48044b;
+    --background-three: #5f0564;
+    --prime-one: #3a053d;
+    --prime-two: #bcbea1;
+    --accent-one: #0ec50e;
+    --accent-two: #f78a31;
+    --shadow: #25c009;
+    --trans-color: #363406dd;
+    --featherGrey: #blue;
+    --black: #fffefb;
+    --white: #d9dcd7;
+    --inactive: #646464;
+    --blend0: #fae400;
+    --blend1: #afdf4d;
+    --blend2: #78dc85;
+    --blend3: #41d8bd;
+    --blend4: #00d4ff;
+    --blend5: #00fff7; */
 
 }
