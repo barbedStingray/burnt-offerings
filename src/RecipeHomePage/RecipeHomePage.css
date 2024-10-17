@@ -1,84 +1,4 @@
 /* DEFAULT 430-425 */
-
-/* Modulate your error handling */
-/* api ERror handling */
-.homeApiStatus,
-.createApiStatus {
-    /* border: 2px solid magenta; */
-    /* background-color: var(--background-one); */
-    color: var(--prime-four);
-    height: 10dvh;
-    width: 10dvh;
-    z-index: 200;
-    font-size: 10dvh;
-    position: fixed;
-    top: 18%;
-    left: 15%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    animation: foreverSpin 1s linear infinite;
-}
-.createApiStatus {
-    /* border: 2px solid blue; */
-    position: relative;
-    top: 35%;
-    left: 12%;
-}
-.detailsApiStatus {
-    position: relative;
-    border: 2px solid yellow;
-    top: 40%;
-}
-
-
-@keyframes foreverSpin {
-    from {
-        transform: translate(-50%, -50%) rotate(0deg)
-    }
-
-    to {
-        transform: translate(-50%, -50%) rotate(360deg)
-    }
-}
-
-
-.detailErrorContainer {
-    border: 2px solid green;
-}
-
-.homeApiError {
-    border: 2px solid magenta;
-    background-color: #930a0aee;
-    border-radius: 50%;
-    position: fixed;
-    z-index: 50;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    height: 30dvh;
-    width: 30dvh;
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-    align-items: center;
-    gap: 1dvh;
-    color: white;
-}
-
-.homeApiError svg {
-    font-size: 12dvh;
-}
-
-.homeApiErrorMessage {
-    text-align: center;
-}
-
-
-
-
-
 .homePage {
     /* border: 2px solid lime; */
     position: relative;
@@ -99,7 +19,6 @@
 }
 
 /* top main */
-
 .homeTopMain {
     /* no properties at 430 */
 }
@@ -108,8 +27,8 @@
     display: none;
 }
 
-/* border: 2px solid black; */
 .homeSearchBar {
+    /* border: 2px solid black; */
     position: fixed;
     top: 3.5dvh;
     right: 3dvw;
@@ -150,17 +69,16 @@
     align-items: center;
 }
 
-/* border: 2px solid yellow; */
 .searchHomeText {
+    /* border: 2px solid yellow; */
     font-size: 7dvh;
     text-align: center;
 }
 
-/* border: 2px solid magenta; */
 .searchHomeIcon {
+    /* border: 2px solid magenta; */
     font-size: 22dvh;
 }
-
 
 .recipeDisplay {
     /* border: 2px solid blue; */
@@ -176,9 +94,6 @@
     overflow-y: scroll;
     scrollbar-width: none;
 }
-
-/* scroll-behavior: smooth; */
-/* transition: all 3s ease; */
 
 .recipeDisplay::-webkit-scrollbar {
     display: none;
@@ -227,6 +142,7 @@
     transform-style: preserve-3d;
     perspective: 1000px;
 }
+
 .recipeLink {
     /* border: 2px solid red; */
     position: relative;
@@ -238,6 +154,7 @@
     transform-style: preserve-3d;
     perspective: 1000px;
 }
+
 .cardDisplay {
     border: 1px solid var(--shadow-one);
     /* border: 2px solid magenta; */
@@ -258,9 +175,6 @@
     perspective: 1000px;
 }
 
-
-
-/* ! same as details page except for height/width */
 .recipeMosaicPhoto {
     background-color: var(--prime-four);
     border-radius: 50%;
@@ -289,9 +203,6 @@
     color: var(--accent-prime);
 }
 
-
-
-
 .homeRecipeTitle {
     /* border: 2px solid red; */
     height: 56%;
@@ -310,21 +221,21 @@
     position: fixed;
     bottom: 0;
     left: 0;
-    height: 10dvh;
+    height: 8dvh;
     width: 100%;
     z-index: 10;
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
     align-items: center;
-    gap: 20dvh
+    gap: 16dvh
 }
 
 .homePageNext {
     /* border: 2px solid blue; */
-    height: 8dvh;
-    width: 8dvh;
-    font-size: 8dvh;
+    height: 7dvh;
+    width: 12dvh;
+    font-size: 7dvh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -334,19 +245,6 @@
 .homeNextDeactivate {
     color: var(--inactive);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -50,7 +50,7 @@
 
 .medFire {
     border-radius: 10px;
-    height: 10.5dvw;
+    height: 12dvw;
     aspect-ratio: 2 / 1;
 }
 
@@ -176,6 +176,9 @@
     align-items: center;
     margin-left: 1dvh;
 }
+.highlightNav {
+    color: var(--accent-prime);
+}
 
 .noNav {
     display: none;
@@ -183,15 +186,28 @@
 
 .logoParts {
     display: none;
+    /* border: 2px solid gold; */
 }
-
 .homeMomPhoto {
     display: none;
 }
-
 .homeStingrayLogo {
     display: none;
 }
+.stingrayImage {
+    /* border: 2px solid blue; */
+    width: 6dvh;
+    height: 6dvh;    
+    position: fixed;
+    bottom: 1dvh;
+    left: 50%;
+    transform: translate(-50%, 0%)
+}
+
+
+
+
+
 
 
 
@@ -258,3 +274,81 @@
     text-align: center;
     font-family: inherit;
 }
+
+
+
+
+
+
+
+
+/* Modulate your error handling */
+/* api ERror handling */
+.homeApiStatus,
+.createApiStatus {
+    /* border: 2px solid magenta; */
+    /* background-color: var(--background-one); */
+    color: var(--prime-four);
+    height: 10dvh;
+    width: 10dvh;
+    z-index: 200;
+    font-size: 10dvh;
+    position: fixed;
+    top: 18%;
+    left: 15%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: foreverSpin 1s linear infinite;
+}
+.createApiStatus {
+    /* border: 2px solid blue; */
+    position: relative;
+    top: 35%;
+    left: 12%;
+}
+.detailsApiStatus {
+    position: relative;
+    border: 2px solid yellow;
+    top: 40%;
+}
+
+
+@keyframes foreverSpin {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg)
+    }
+
+    to {
+        transform: translate(-50%, -50%) rotate(360deg)
+    }
+}
+
+.homeApiError {
+    /* border: 2px solid magenta; */
+    background-color: #930a0aee;
+    border-radius: 50%;
+    position: fixed;
+    z-index: 50;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 30dvh;
+    width: 30dvh;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1dvh;
+    color: white;
+}
+
+.homeApiError svg {
+    font-size: 12dvh;
+}
+
+.homeApiErrorMessage {
+    text-align: center;
+}
+

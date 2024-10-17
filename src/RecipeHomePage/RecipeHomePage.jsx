@@ -23,6 +23,7 @@ const RecipeHomePage = () => {
     const [currentPage, setCurrentPage] = useState(1)
     const bouncedKeywords = useDebounce(keywords, setCurrentPage)
     const { allRecipes, totalPages, totalRecipes, recipeStatus, apiSearching } = useFilteredRecipes(bouncedKeywords, currentPage)
+    console.log('totalPages', totalPages, totalRecipes)
     // local storage for my keywords
     // ? session vs local storage?
     useEffect(() => {
@@ -61,8 +62,6 @@ const RecipeHomePage = () => {
                         />
                     </div>
                 </div>
-
-                <PageBar pageStatus={{ currentPage, setCurrentPage, totalPages, scrollToTopRef }} />
 
                 <div className='bottomMain'>
                     <AnimatePresence initial={true} mode='wait'>
@@ -103,6 +102,7 @@ const RecipeHomePage = () => {
                             <HomeScreen />
                         )}
                     </AnimatePresence>
+                    <PageBar pageStatus={{ currentPage, setCurrentPage, totalPages, scrollToTopRef }} />
                 </div>
             </div>
         </div>

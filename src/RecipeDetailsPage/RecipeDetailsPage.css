@@ -12,7 +12,7 @@
 }
 
 .detailHorizontalSlide {
-    border: 2px solid lime;
+    /* border: 2px solid lime; */
     height: 100dvh;
     width: 100%;
     display: flex;
@@ -25,7 +25,7 @@
 }
 
 .detailVerticalSlide {
-    border: 2px solid magenta;
+    /* border: 2px solid magenta; */
     height: 100%;
     flex: 1 0 100%;
     display: flex;
@@ -38,7 +38,7 @@
 }
 
 .detailRecipeContainer {
-    border: 2px solid black;
+    /* border: 2px solid black; */
     margin: 28dvw 0dvw;
     padding: 5%;
     width: 95%;
@@ -48,17 +48,15 @@
     align-items: center;
     border-radius: 30px;
     box-shadow: 0px 2px 6px 2px var(--prime-four);
-    gap: 4vh;
+    gap: 4dvh;
 }
 .detailHorizontalSlide::-webkit-scrollbar,
 .detailVerticalSlide::-webkit-scrollbar {
     display: none;
 }
 
-
-
 .detailsTopDisplay {
-    border: 2px solid lime;
+    /* border: 2px solid lime; */
     display: flex;
     flex-flow: row nowrap;
     justify-content: flex-start;
@@ -68,7 +66,7 @@
 }
 
 .detailPhotoItems {
-    border: 2px solid orange;
+    /* border: 2px solid orange; */
     flex: 1;
     display: flex;
     flex-flow: column nowrap;
@@ -132,7 +130,7 @@
 
 
 .detailTitleTags {
-    border: 2px solid yellow;
+    /* border: 2px solid yellow; */
     flex: 1;
     display: flex;
     flex-flow: column wrap;
@@ -144,14 +142,14 @@
 }
 
 .detailsTitleDisplay {
-    border: 2px solid blue;
+    /* border: 2px solid blue; */
     /* width: 90%; */
     font-size: 3.75dvh;
     text-align: center;
 }
 
 .tagDetails {
-    border: 2px solid red;
+    /* border: 2px solid red; */
     width: 100%;
     display: flex;
     flex-flow: column nowrap;
@@ -202,7 +200,6 @@
     justify-content: flex-end;
     align-items: center;    
     position: relative;
-    gap: 3dvh;
     z-index: 0;
 }
 .lineThrough {
@@ -214,7 +211,7 @@
 
 .multiplyBtn {
     /* border: 2px solid black; */
-    width: 15%;
+    width: 20%;
     height: 5dvh;
     font-size: 20px;
     display: flex;
@@ -236,7 +233,7 @@
 }
 
 .detailDescriptionSmall {
-    border: 2px solid gold;
+    /* border: 2px solid gold; */
     width: 100%;
     text-align: center;
     padding: 10px;
@@ -244,20 +241,20 @@
 
 
 .displayIngredientSteps {
-    border: 2px solid lime;
+    /* border: 2px solid lime; */
     display: flex;
     width: 100%;
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
-    /* ! matches the gap between everything else */
-    gap: 2dvh;
+    /* matches the gap between everything else */
+    gap: 4dvh;
 }
 
 .detailIngredients,
 .detailSteps,
 .detailSubRecipes {
-    border: 2px solid blue;
+    /* border: 2px solid blue; */
     width: 100%;
     display: flex;
     flex-flow: column nowrap;
@@ -269,7 +266,7 @@
 .ingredientHeader,
 .stepsHeader,
 .subRecipeHeader {
-    border: 2px solid red;
+    /* border: 2px solid red; */
     border-bottom: 1px solid var(--prime-four);
     width: 100%;
     height: 4.5dvh;
@@ -283,7 +280,7 @@
 .displayRecipeIngredients,
 .displayRecipeSteps,
 .detailSubView {
-    border: 2px solid red;
+    /* border: 2px solid red; */
     width: 95%;
     display: flex;
     flex-flow: column nowrap;
@@ -295,7 +292,7 @@
 .displaySingleIngredient,
 .displaySingleStep,
 .displaySingleSub {
-    border: 2px solid grey;
+    /* border: 2px solid grey; */
     width: 100%;
     display: flex;
     flex-flow: row nowrap;
@@ -307,7 +304,7 @@
 .displayQuantity,
 .displayMeasurement,
 .displayIngredient {
-    border: 2px solid green;
+    /* border: 2px solid green; */
     display: flex;
     justify-content: flex-start;
 }
@@ -342,7 +339,7 @@
 }
 
 .detailSubDisplay {
-    border: 2px solid red;
+    /* border: 2px solid red; */
     width: 100%;
     display: flex;
     flex-flow: column nowrap;
@@ -351,7 +348,7 @@
     
 }
 .currentSubRecipe {
-    border: 2px solid green;
+    /* border: 2px solid green; */
     width: 100%;
     display: flex;
     flex-flow: column nowrap;
@@ -381,9 +378,10 @@
     width: 100%;
     height: 100dvh;
     z-index: 10;
-    padding: 18dvw 0px;
+    padding: 26dvw 0px 4dvh 0px;
 }
 .quarterCircleAddView {
+    /* same as quarterCircle in app.js */
     width: 60%;
     height: 50%;
     background-color: var(--background-one);

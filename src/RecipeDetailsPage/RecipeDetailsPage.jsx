@@ -232,7 +232,7 @@ const RecipeDetailsPage = () => {
             {!isLoaded && (
                 <AnimatePresence mode='wait' initial={true}>
                     <m.div
-                        className="detailErrorContainer"
+                        // className="detailErrorContainer"
                         key="detailErrorContainer"
                         variants={basicAnimation}
                         initial="initial"

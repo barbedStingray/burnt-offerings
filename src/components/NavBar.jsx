@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import stingray from '../images/stingray.png'
 
 import scrollToForm from '../CreateRecipePage/createFunctions/scrollFunctions/scrollToForm';
 
@@ -7,6 +8,7 @@ import { CiCirclePlus } from "react-icons/ci";
 import { LiaCookieBiteSolid } from "react-icons/lia";
 import { PiPencilThin } from "react-icons/pi";
 import { IoIosArrowDropleft } from "react-icons/io";
+
 
 
 const HomeNav = ({ navPackage }) => {
@@ -39,7 +41,7 @@ const HomeNav = ({ navPackage }) => {
             <div className='navBarParts'>
                 <Link to={navPath} className='navButton'>{navigationIcons[section]}</Link>
                 <div
-                    className={`navButton ${letsEdit && 'activeMode'} ${noNav} `}
+                    className={`navButton ${letsEdit && 'highlightNav'} ${noNav} `}
                     onClick={() => {
                         setLetsEdit(!letsEdit)
                         setAddMoreView('')
@@ -51,7 +53,9 @@ const HomeNav = ({ navPackage }) => {
 
             <div className='logoParts'>
                 <div className='homeMomPhoto'></div>
-                <div className='homeStingrayLogo'>Logo</div>
+                <div className='homeStingrayLogo'>
+                    <img className='stingrayImage' src={stingray} alt='stingray photo'/>
+                </div>
             </div>
 
         </div>
