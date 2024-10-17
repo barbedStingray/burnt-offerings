@@ -18,8 +18,9 @@ function App() {
 
   const holidayThemes = {
     2: 'halloween',
-    1: 'halloween',
+    1: 'christmas',
   }
+
 
   // function getThemeByMonth() {
   //   const month = new Date().getMonth()
@@ -81,7 +82,6 @@ function App() {
               <FourOhFour />
             </m.div>
           } />
-          {/* include *** ROUTE */}
         </Routes>
       </AnimatePresence>
     </div>

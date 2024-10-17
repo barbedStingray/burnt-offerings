@@ -3,15 +3,50 @@ import { motion as m } from 'framer-motion'
 import basicAnimation from '../../animations/basicAnimation';
 
 
-import { TbCookieMan } from "react-icons/tb";
-import { LiaCookieBiteSolid } from "react-icons/lia";
 import { GiPumpkinLantern } from "react-icons/gi";
+import { BsSnow2 } from "react-icons/bs";
+import { GiFlowerPot } from "react-icons/gi";
+import { GiWheat } from "react-icons/gi";
+import { GiBunnySlippers } from "react-icons/gi";
+import { GiPartyPopper } from "react-icons/gi";
+import { GiIsland } from "react-icons/gi";
+import { GiBoatHorizon } from "react-icons/gi";
+import { GiPineTree } from "react-icons/gi";
+import { LiaHollyBerrySolid } from "react-icons/lia";
+// import { GiGingerbreadMan } from "react-icons/gi";
+import { FaCandyCane } from "react-icons/fa";
+import { GiPineapple } from "react-icons/gi";
+import { PiCloverLight } from "react-icons/pi";
+import { BsArrowThroughHeart } from "react-icons/bs";
+import { GiCornucopia } from "react-icons/gi";
+import { SiAdafruit } from "react-icons/si";
+
+
 
 const HomeScreen = () => {
 
 
-    // todo ! switch icons based on holidays? 
+    const holidayIcons = {
+        0: <GiPartyPopper />, 
+        1: <BsArrowThroughHeart />, 
+        2: <PiCloverLight />, 
+        3: <GiFlowerPot />, 
+        4: <GiIsland />, 
+        5: <GiBoatHorizon />, 
+        6: <SiAdafruit />, 
+        7: <GiWheat />, 
+        8: <GiBunnySlippers />, 
+        9: <GiPumpkinLantern />, 
+        10: <GiCornucopia />,
+        11: <FaCandyCane /> 
+    }
 
+    function getIconByMonth() {
+        const month = new Date().getMonth()
+        const holiday = holidayIcons[month]
+        return holiday ? holidayIcons[month] : null
+    }
+  
 
     return (
         <m.div
@@ -23,7 +58,7 @@ const HomeScreen = () => {
             exit="exit"
         >
             <p className='searchHomeText'>Search Recipes!</p>
-            <div className='searchHomeIcon'><GiPumpkinLantern /></div>
+            <div className='searchHomeIcon'>{getIconByMonth()}</div>
         </m.div>
     )
 }
