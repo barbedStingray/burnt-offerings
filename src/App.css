@@ -68,7 +68,7 @@
     inset: 0.3rem;
     z-index: 1;
     border-radius: inherit;
-    background-color: var(--prime-four);
+    background-color: var(--prime-one);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -113,8 +113,9 @@
 
 /* Basic Button */
 .basicButton {
-    border: 1px solid var(--prime-three);
-    background-color: var(--prime-one);
+    border: 1px solid var(--prime-one);
+    background-color: var(--prime-two);
+    color: var(--black);
     border-radius: 10px;
     height: 10dvw;
     width: 30%;
@@ -124,9 +125,8 @@
 
 .deleteButton {
     color: var(--featherGrey);
-    border: 1px solid var(--prime-three);
     background-color: var(--trans-color);
-    /* box-shadow: -2px 4px 3px 3px var(--prime-four); */
+    border: none;
     border-radius: 10px;
     width: 60%;
     height: 4dvh;
@@ -167,7 +167,7 @@
 .navButton {
     /* border: 2px solid black; */
     /* height: 16dvw; */
-    color: var(--accent-second);
+    color: var(--accent-two);
     height: 8dvh;
     font-size: 8dvh;
     aspect-ratio: 1 / 1;
@@ -177,7 +177,7 @@
     margin-left: 1dvh;
 }
 .highlightNav {
-    color: var(--accent-prime);
+    color: var(--accent-one);
 }
 
 .noNav {
@@ -228,10 +228,10 @@
     z-index: 70;
 }
 .modalContents {
-    border: 8px solid var(--prime-four);
+    border: 8px solid var(--prime-one);
     background-color: var(--prime-two);
     border-radius: 20px;
-    box-shadow: inset 0px 0px 15px black;
+    box-shadow: inset 0px 0px 15px var(--shadow);
     width: 80%;
     display: flex;
     flex-flow: column nowrap;
@@ -265,7 +265,7 @@
 .detailEditInput {
     /* border: 2px solid blue; */
     background-color: var(--featherGrey);
-    border: 1px solid var(--prime-four);
+    border: 1px solid var(--prime-one);
     box-shadow: inset 0px 0px 5px black;
     border-radius: 10px;
     padding: 2dvw;
@@ -287,8 +287,7 @@
 .homeApiStatus,
 .createApiStatus {
     /* border: 2px solid magenta; */
-    /* background-color: var(--background-one); */
-    color: var(--prime-four);
+    color: var(--prime-one);
     height: 10dvh;
     width: 10dvh;
     z-index: 200;

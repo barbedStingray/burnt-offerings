@@ -6,6 +6,7 @@
 
 a {
     text-decoration: none;
+    color: var(--prime-one);
 }
 
 html {
@@ -18,23 +19,16 @@ html {
     --background-one: #e2e6b5;
     --background-two: #d7d79f;
     --background-three: #b9ba7c;
-    --accent-prime: #efe51d;
-    --accent-second: #98bef0;
+    --prime-one: #4c500e;
+    --prime-two: #bcbea1;
+    --accent-one: #efe51d;
+    --accent-two: #98bef0;
+    --shadow: #3c2f0a;
     --trans-color: #363406dd;
-    
-    --prime-one: #bcbea1;
-    --prime-two: #aaab78;
-    --prime-three: #82861a;
-    --prime-four: #4c500e;
-    
-    --shadow-one: #473c15;
-    --shadow-two: #48390c;
-    
     --featherGrey: #d9dcd7;
+    --black: #080a0d;
+    --white: #fffefb;
     --inactive: #646464;
-    --black: #000;
-
-
     --blend0: #fae400;
     --blend1: #afdf4d;
     --blend2: #78dc85;
@@ -42,5 +36,4 @@ html {
     --blend4: #00d4ff;
     --blend5: #00fff7;
 
-    
 }
