@@ -50,6 +50,7 @@
     box-shadow: 0px 2px 6px 2px var(--prime-four);
     gap: 4dvh;
 }
+
 .detailHorizontalSlide::-webkit-scrollbar,
 .detailVerticalSlide::-webkit-scrollbar {
     display: none;
@@ -62,7 +63,7 @@
     justify-content: flex-start;
     align-items: flex-start;
     width: 100%;
-    /* gap: 10px; */
+    gap: 10px;
 }
 
 .detailPhotoItems {
@@ -72,7 +73,7 @@
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 15px;
     /* width: 65%; */
 }
 
@@ -127,8 +128,6 @@
     width: 40%;
 }
 
-
-
 .detailTitleTags {
     /* border: 2px solid yellow; */
     flex: 1;
@@ -145,7 +144,7 @@
     /* border: 2px solid blue; */
     /* width: 90%; */
     font-size: 3.75dvh;
-    text-align: center;
+    text-align: left;
 }
 
 .tagDetails {
@@ -190,18 +189,17 @@
     text-align: center;
 }
 
-
-
 .detailsMultiplier {
     /* border-top: 1px solid black; */
     width: 100%;
     display: flex;
     flex-flow: row nowrap;
     justify-content: flex-end;
-    align-items: center;    
+    align-items: center;
     position: relative;
     z-index: 0;
 }
+
 .lineThrough {
     border: 0.5px solid var(--prime-four);
     position: absolute;
@@ -223,7 +221,8 @@
 
 .activateMultiply {
     /* border: 2px solid gold; */
-    background: linear-gradient(to right, var(--accent-prime), rgba(255, 0, 0, 0)); /* Adjust the color as needed */
+    background: linear-gradient(to right, var(--accent-prime), rgba(255, 0, 0, 0));
+    /* Adjust the color as needed */
     border-radius: 10px;
     z-index: 0;
 }
@@ -235,10 +234,9 @@
 .detailDescriptionSmall {
     /* border: 2px solid gold; */
     width: 100%;
-    text-align: center;
+    text-align: left;
     padding: 10px;
 }
-
 
 .displayIngredientSteps {
     /* border: 2px solid lime; */
@@ -345,8 +343,9 @@
     flex-flow: column nowrap;
     justify-content: center;
     align-items: flex-end;
-    
+
 }
+
 .currentSubRecipe {
     /* border: 2px solid green; */
     width: 100%;
@@ -365,8 +364,6 @@
     align-items: center;
 }
 
-
-
 /* Add details section */
 .addViewContainer {
     border: 2px solid magenta;
@@ -380,6 +377,7 @@
     z-index: 10;
     padding: 26dvw 0px 4dvh 0px;
 }
+
 .quarterCircleAddView {
     /* same as quarterCircle in app.js */
     width: 60%;
@@ -391,6 +389,7 @@
     left: 0;
     z-index: -1;
 }
+
 .addBtnGroup {
     /* border: 2px solid gold; */
     display: flex;
@@ -399,10 +398,5 @@
     align-items: center;
     width: 75%;
 }
-
-
-
-
-
 
 /* END OF 430PX */

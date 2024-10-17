@@ -1,6 +1,5 @@
 
 const scrollToForm = (scrollIndex, ref) => {
-    console.log('scrolling to', scrollIndex)
     const formWidth = ref.current.clientWidth // set width
     ref.current.scrollTo({
         left: formWidth * scrollIndex, // scroll to correct position

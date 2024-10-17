@@ -1,7 +1,7 @@
 const tagPrompt = [
     'What kind of food is this?',
-    'What Type of Cuisine is it?',
     'What Season would you make it for?',
+    'What Type of Cuisine is it?',
     'Add any other Tags you like!'
 ]
 const getTagPrompt = (tagPackage) => {

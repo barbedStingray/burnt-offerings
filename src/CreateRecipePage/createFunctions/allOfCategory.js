@@ -18,7 +18,7 @@ export default function useAllCategory(apiPath) {
         setCategoryStatus('loaded')
       } catch (error) {
         console.log('error in loading api recipes')
-        // todo alert user to an error
+        alert('check your connection!')
       }
     }
     return [allOfCategory, categoryStatus]

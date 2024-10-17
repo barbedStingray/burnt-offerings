@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react'
 
 const useScrollTracking = (ref, isLoaded = true) => {
     const [scrollIndex, setScrollIndex] = useState(0)
-    // console.log('ref', ref)
 
     useEffect(() => {
         const currentRef = ref.current

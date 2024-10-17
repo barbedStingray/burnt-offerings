@@ -27,7 +27,7 @@ const DisplaySubRecipes = ({ editPackage, detailPackage }) => {
                             <>
                                 {theParentRecipes.map((parent, i) => (
                                     <div key={i} className='displaySingleSub'>
-                                        <Link to={`/recipeDetails/${parent.id}`} key={i}>{parent.title}{parent.id}</Link>
+                                        <Link to={`/recipeDetails/${parent.id}`} key={i}>{parent.title}</Link>
                                     </div>
                                 ))}
                             </>
