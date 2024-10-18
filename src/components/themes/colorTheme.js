@@ -51,3 +51,26 @@ const colorTheme = {
   
   export default colorTheme
   
+
+
+
+  // MARCH OLD
+  // --background-one: #dfffd9;
+  // --background-two: #cdfec3;
+  // --background-three: #fff6b0;
+  // --prime-one: #0a5b04;
+  // --prime-two: #d9edb7;
+  // --accent-one: #ffe900;
+  // --accent-two: #77ec18;
+  // --shadow: #022602;
+  // --trans-color: #093b02dd;
+  // --blend0: #fff47b;
+  // --blend1: #ffee2f;
+  // --blend2: #eaff00;
+  // --blend3: #99ff00;
+  // --blend4: #26ff00;
+  // --blend5: #26ff00;
+  // --featherGrey: #f0f0f0;
+  // --black: #080a0d;
+  // --white: #fffefb;
+  // --inactive: #646464;
