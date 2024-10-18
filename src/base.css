@@ -18,9 +18,8 @@ html {
     /* DEFAULT THEMES */
     --background-one: #e2e6b5;
     --background-two: #d7d79f;
-    --prime-two: #b9ba7c;
     --prime-one: #4c500e;
-    --prime-two: #bcbea1;
+    --prime-two: #b9ba7c;
     --accent-one: #efe51d;
     --accent-two: #98bef0;
     --shadow: #3c2f0a;
@@ -35,6 +34,7 @@ html {
     --black: #080a0d;
     --white: #fffefb;
     --inactive: #646464;
+
 
 
     /* Universal Colors */
@@ -65,7 +65,7 @@ html {
     /* February */    
     /* --prime-one: #612231;
     --prime-two: #f3e1ee;
-    --accent-one: #80e2f1;
+    --accent-one: #8fdfec;
     --accent-two: #faa3fe;
     --shadow: #330110;
     --trans-color: #3d2038dd;
@@ -77,27 +77,19 @@ html {
     --blend5: #6200f5; */
 
 
-
     /* January */
-    /* --background-one: #f0f0f0;
-    --background-two: #e1e1e1;
-    --prime-two: #fdfbe1;
-    --prime-one: #3d3c3c;
-    --prime-two: #d9edb7;
-    --accent-one: #d50000;
+    /* --prime-one: #575757;
+    --prime-two: #d0d0d0;
+    --accent-one: #dddddd;
     --accent-two: #f1f74c;
-    --shadow: #022602;
-    --trans-color: #000000dd;
+    --shadow: #1d1d1d;
+    --trans-color: #111111dd;
     --blend0: #fff47b;
     --blend1: #ffee2f;
     --blend2: #eaff00;
     --blend3: #99ff00;
     --blend4: #26ff00;
-    --blend5: #26ff00;
-    --featherGrey: #f0f0f0;
-    --black: #080a0d;
-    --white: #fffefb;
-    --inactive: #646464; */
+    --blend5: #26ff00; */
 
 
 }

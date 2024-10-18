@@ -1,13 +1,6 @@
 {
-  "id": "/",
-  "start_url": "/",
-  "scope": "/",
-  "name": "Mom's Kitchen",
-  "short_name": "MK",
-  "display": "standalone",
-  "theme_color": "#f1f1f1",
-  "background_color": "#ffffff",
-
+  "short_name": "React App",
+  "name": "Create React App Sample",
   "icons": [
     {
       "src": "favicon.ico",
@@ -24,5 +17,9 @@
       "type": "image/png",
       "sizes": "512x512"
     }
-  ]
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
 }
