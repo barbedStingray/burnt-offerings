@@ -4,7 +4,7 @@ export const setRootVariables = (colorSet) => {
   const root = document.documentElement;
   root.style.setProperty('--background-one', colorSet.backgroundOne)
   root.style.setProperty('--background-two', colorSet.backgroundTwo)
-  root.style.setProperty('--background-three', colorSet.backgroundThree)
+  root.style.setProperty('--prime-two', colorSet.backgroundThree)
   root.style.setProperty('--prime-one', colorSet.primeOne)
   root.style.setProperty('--prime-two', colorSet.primeTwo)
   root.style.setProperty('--accent-one', colorSet.accentOne)

@@ -5,7 +5,6 @@ const colorTheme = {
       default: {
         backgroundOne: "#e2e6b5",
         backgroundTwo: "#d7d79f",
-        backgroundThree: "#b9ba7c",
         primeOne: "#4c500e",
         primeTwo: "#bcbea1",
         accentOne: "#efe51d",
@@ -26,7 +25,6 @@ const colorTheme = {
       halloween: {
         backgroundOne: "#ff7518",
         backgroundTwo: "#2e2e2e",
-        backgroundThree: "#ffb703",
         primeOne: "#000000",
         primeTwo: "#bcbea1",
         accentOne: "#ff7518",
@@ -54,23 +52,30 @@ const colorTheme = {
 
 
 
-  // MARCH OLD
-  // --background-one: #dfffd9;
-  // --background-two: #cdfec3;
-  // --background-three: #fff6b0;
-  // --prime-one: #0a5b04;
-  // --prime-two: #d9edb7;
-  // --accent-one: #ffe900;
-  // --accent-two: #77ec18;
-  // --shadow: #022602;
-  // --trans-color: #093b02dd;
-  // --blend0: #fff47b;
-  // --blend1: #ffee2f;
-  // --blend2: #eaff00;
-  // --blend3: #99ff00;
-  // --blend4: #26ff00;
-  // --blend5: #26ff00;
-  // --featherGrey: #f0f0f0;
-  // --black: #080a0d;
-  // --white: #fffefb;
-  // --inactive: #646464;
+    /* MARCH */
+    // --prime-one: #12480e;
+    // --prime-two: #e9e5c4;
+    // --accent-one: #ffef44;
+    // --accent-two: #86df80;
+    // --shadow: #200101;
+    // --trans-color: #1d3b19dd;
+    // --blend0: #fff47b;
+    // --blend1: #ffee2f;
+    // --blend2: #eaff00;
+    // --blend3: #99ff00;
+    // --blend4: #26ff00;
+    // --blend5: #26ff00;
+
+    /* February */    
+    // --prime-one: #612231;
+    // --prime-two: #f3e1ee;
+    // --accent-one: #80e2f1;
+    // --accent-two: #faa3fe;
+    // --shadow: #330110;
+    // --trans-color: #3d2038dd;
+    // --blend0: #f0f0f0;
+    // --blend1: #ff9fd0;
+    // --blend2: #ff4dcf;
+    // --blend3: #e014ff;
+    // --blend4: #a812ff;
+    // --blend5: #6200f5;

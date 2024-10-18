@@ -18,7 +18,7 @@ html {
     /* DEFAULT THEMES */
     --background-one: #e2e6b5;
     --background-two: #d7d79f;
-    --background-three: #b9ba7c;
+    --prime-two: #b9ba7c;
     --prime-one: #4c500e;
     --prime-two: #bcbea1;
     --accent-one: #efe51d;
@@ -36,14 +36,21 @@ html {
     --white: #fffefb;
     --inactive: #646464;
 
-    
+
+    /* Universal Colors */
+    --background-one: #f1f1f1;
+    --background-two: #e6e6e6;
+    --featherGrey: #f0f0f0;
+    --black: #080a0d;
+    --white: #fffefb;
+    --inactive: #646464;
+
+
+    /* background 3 has become prime-two */
+
     /* MARCH */
-    
-    --background-one: #f4fff2;
-    --background-two: #e4ffdf;
-    --background-three: #fffad4;
-    --prime-one: #0d5408;
-    --prime-two: #dfeacc;
+    --prime-one: #12480e;
+    --prime-two: #e9e5c4;
     --accent-one: #ffef44;
     --accent-two: #86df80;
     --shadow: #200101;
@@ -54,59 +61,27 @@ html {
     --blend3: #99ff00;
     --blend4: #26ff00;
     --blend5: #26ff00;
-    --featherGrey: #f0f0f0;
-    --black: #080a0d;
-    --white: #fffefb;
-    --inactive: #646464;
 
-    /* February */
-    --background-one: #fff0fc;
-    --background-two: #ffe4fa;
-    --background-three: #ffd1f6;
-    --prime-one: #610117;
-    --prime-two: #ffd3f7;
-    --accent-one: #87f9ff;
-    --accent-two: #f653ff;
-    --shadow: #030136;
-    --trans-color: #500345dd;
-    --blend0: #f0f0f0;
-    --blend1: #ff9fd0;
-    --blend2: #ff4dcf;
-    --blend3: #e014ff;
-    --blend4: #a812ff;
-    --blend5: #6200f5;
-    --featherGrey: #f0f0f0;
-    --black: #080a0d;
-    --white: #fffefb;
-    --inactive: #646464;
-
-    
-    --background-one: #f1f1f1;
-    --background-two: #e6e6e6;
-    --background-three: #fff2fc;
-    --prime-one: #612231;
-    --prime-two: #ffd3f7;
-    --accent-one: #76dbeb;
+    /* February */    
+    /* --prime-one: #612231;
+    --prime-two: #f3e1ee;
+    --accent-one: #80e2f1;
     --accent-two: #faa3fe;
-    --shadow: #1d0133;
+    --shadow: #330110;
     --trans-color: #3d2038dd;
     --blend0: #f0f0f0;
     --blend1: #ff9fd0;
     --blend2: #ff4dcf;
     --blend3: #e014ff;
     --blend4: #a812ff;
-    --blend5: #6200f5;
-    --featherGrey: #f0f0f0;
-    --black: #080a0d;
-    --white: #fffefb;
-    --inactive: #646464;
+    --blend5: #6200f5; */
 
 
 
     /* January */
     /* --background-one: #f0f0f0;
     --background-two: #e1e1e1;
-    --background-three: #fdfbe1;
+    --prime-two: #fdfbe1;
     --prime-one: #3d3c3c;
     --prime-two: #d9edb7;
     --accent-one: #d50000;
