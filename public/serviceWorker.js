@@ -2,7 +2,7 @@ const CACHE_NAME = 'moms_cache';
 const urlsToCache = [
     '/',
     '/index.html',
-    '/manifest.json',
+    '/app.webmanifest',
     '/serviceWorker.js',
 ];
 
