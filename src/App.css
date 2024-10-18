@@ -28,6 +28,7 @@
 /* FIRE BUTTONS */
 .fireButton {
     position: relative;
+    box-shadow: -1px 3px 8px 4px var(--shadow);
     border: none;
     border-radius: 50%;
     height: 15vh;
@@ -52,12 +53,17 @@
     border-radius: 10px;
     height: 12dvw;
     aspect-ratio: 2 / 1;
+    box-shadow: -1px 1px 5px 2px var(--shadow);
+
 }
 
 .addFire {
     border-radius: 5px;
     height: 7dvw;
     aspect-ratio: 2 / 1;
+    box-shadow: none;
+    box-shadow: -1px 1px 3px 1px var(--shadow);
+
 }
 
 .fireButton::after {
@@ -65,7 +71,7 @@
     color: var(--featherGrey);
     font-size: 26px;
     position: absolute;
-    inset: 0.3rem;
+    inset: 0.35rem;
     z-index: 1;
     border-radius: inherit;
     background-color: var(--prime-one);
