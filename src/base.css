@@ -78,12 +78,19 @@ html {
     --accent-two: #408cff;
     --shadow: #2a1801;
     --trans-color: #0b182bdd;
-    --blend0: #fff47b;
-    --blend1: #ffee2f;
-    --blend2: #eaff00;
-    --blend3: #99ff00;
-    --blend4: #26ff00;
-    --blend5: #26ff00;
+    --blend0: #f1f1f1;
+    --blend1: #a1eefe;
+    --blend2: #31dcfe;
+    --blend3: #1f5afd;
+    --blend4: #0044ff;
+    --blend5: #0044ff;
+
+    --blend0: #ecfbfe;
+    --blend1: #c4f5ff;
+    --blend2: #83eaff;
+    --blend3: #4fccfe;
+    --blend4: #2caeff;
+    --blend5: #0077ff;
 
     /* --prime-one: #4c500e;
     --prime-two: #c6c6af;
