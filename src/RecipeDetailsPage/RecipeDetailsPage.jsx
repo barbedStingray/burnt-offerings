@@ -20,7 +20,7 @@ import basicAnimation from '../animations/basicAnimation'
 import generateDeleteModal from './detailFunctions/generateDeleteModal'
 import EditModal from '../components/EditModal'
 
-
+import deleteSoloDetail from './detailFunctions/deleteSoloDetail'
 import deleteEntireRecipe from './detailFunctions/deleteEntireRecipe'
 import DisplayMultiplier from './detailComponents/DisplayMultiplier'
 import NavBar from '../components/NavBar'
@@ -212,13 +212,15 @@ const RecipeDetailsPage = () => {
                                     </div>
 
                                     <DisplaySubRecipes
-                                        editPackage={{ displayId, recipeID, refresh, letsEdit, setRefresh, setAddMoreView }}
+                                        editPackage={{ letsEdit, setAddMoreView }}
                                         detailPackage={{ scrollIndex, recipe, theSubRecipes, theParentRecipes, horizontalScrollRef }}
                                     />
 
                                     <div className='deleteThisRecipe'>
-                                        {scrollIndex === 0 && (
+                                        {scrollIndex === 0 ? (
                                             <button className='deleteButton' onClick={() => deleteEntireRecipe(displayId, setDeleteStatus)}>Delete This Recipe</button>
+                                        ) : (
+                                            <button className='deleteButton' onClick={() => deleteSoloDetail('subRecipe', displayId, refresh, setRefresh, null, recipeID)}>Remove Sub Recipe</button>
                                         )}
                                     </div>
 

@@ -3,6 +3,16 @@ import axios from 'axios'
 // * steps ingredient
 export default async function deleteSoloDetail(type, id, refresh, setRefresh, setEditModalView, parentId) {
 
+    const deleteMessage = {
+        subRecipe: 'Remove this Sub Recipe?',
+        ingredient: 'Delete this ingredient?',
+        instructions: 'Delete this step?',
+    }
+    if (type !== 'tag') {
+        const confirmDelete = window.confirm(deleteMessage[type])
+        if (!confirmDelete) return
+    }
+
     const apiCalls = {
         subRecipe: `/api/recipes/removeSubRecipe/${id}`,
         ingredient: `/api/recipes/deleteRecipeIngredient/${id}`,

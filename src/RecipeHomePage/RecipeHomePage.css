@@ -38,7 +38,8 @@
 }
 
 .homeKeywordSearch {
-    border: 2px solid var(--shadow);
+    border: 1px solid var(--shadow);
+    /* border: none; */
     outline: none;
     box-shadow: inset 0px 0px 4px var(--shadow);
     background-color: var(--featherGrey);

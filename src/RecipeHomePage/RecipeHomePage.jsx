@@ -23,7 +23,6 @@ const RecipeHomePage = () => {
     const [currentPage, setCurrentPage] = useState(1)
     const bouncedKeywords = useDebounce(keywords, setCurrentPage)
     const { allRecipes, totalPages, totalRecipes, recipeStatus, apiSearching } = useFilteredRecipes(bouncedKeywords, currentPage)
-    console.log('totalPages', totalPages, totalRecipes)
     // local storage for my keywords
     // ? session vs local storage?
     useEffect(() => {

@@ -17,7 +17,6 @@ const useFilteredRecipes = (keywords, page = 1) => {
     useEffect(() => {
 
         if (!keywords) {
-            console.log('no keywords!', keywords)
             setAllRecipes([])
             setTotalPages(1)
             setTotalRecipes(0)
@@ -70,7 +69,6 @@ const useFilteredRecipes = (keywords, page = 1) => {
             // }
 
         } catch (error) {
-            console.log('error in loading all recipes', error)
             setRecipeStatus(false)
             setApiSearching('error')
         }

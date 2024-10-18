@@ -40,7 +40,7 @@
 .detailRecipeContainer {
     /* border: 2px solid black; */
     box-shadow: 0px 0px 6px 2px var(--prime-one);
-    margin: 28dvw 0dvw;
+    margin: 25dvw 0dvw;
     padding: 5%;
     width: 95%;
     display: flex;
@@ -48,7 +48,7 @@
     justify-content: center;
     align-items: center;
     border-radius: 30px;
-    gap: 5dvh;
+    gap: 6dvh;
 }
 .detailHorizontalSlide::-webkit-scrollbar,
 .detailVerticalSlide::-webkit-scrollbar {
@@ -356,11 +356,12 @@
 }
 
 .deleteThisRecipe {
-    /* border: 2px solid gold; */
+    border: 2px solid gold;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 8dvh;
 }
 
 /* Add details section */

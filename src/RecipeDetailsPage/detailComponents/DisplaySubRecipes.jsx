@@ -1,12 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import deleteSoloDetail from '../detailFunctions/deleteSoloDetail'
 import scrollToForm from '../../CreateRecipePage/createFunctions/scrollFunctions/scrollToForm'
 
 
 
 const DisplaySubRecipes = ({ editPackage, detailPackage }) => {
-    const { displayId, recipeID, refresh, letsEdit, setRefresh, setAddMoreView } = editPackage
+    const { letsEdit, setAddMoreView } = editPackage
     const { scrollIndex, recipe, theSubRecipes, theParentRecipes, horizontalScrollRef } = detailPackage
 
     const isSubRecipe = recipe.recipeDetails.is_sub_recipe
@@ -21,7 +20,7 @@ const DisplaySubRecipes = ({ editPackage, detailPackage }) => {
                 )}
             </div>
             <div className='detailSubDisplay'>
-                {scrollIndex === 0 ? (
+                {scrollIndex === 0 && (
                     <div className='detailSubView'>
                         {isSubRecipe ? (
                             <>
@@ -41,11 +40,6 @@ const DisplaySubRecipes = ({ editPackage, detailPackage }) => {
 
                             </>
                         )}
-                    </div>
-                ) : (
-                    <div className='currentSubRecipe'>
-                        <p>You are viewing a Parent Recipe!</p>
-                        <button className='deleteButton' onClick={() => deleteSoloDetail('subRecipe', displayId, refresh, setRefresh, null, recipeID)}>Remove Sub Recipe</button>
                     </div>
                 )}
             </div>

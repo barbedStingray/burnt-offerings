@@ -1,25 +1,28 @@
 
 const measurementOptions = [
-    'Tsp',
-    'Tbsp',
     'Cup',
-    'whole',
+    'Tbsp',
+    'Tsp',
     'oz',
+    'Whole',
+    'Sm.',
+    'Med.',
+    'Lg.',
+    'fl oz',
     'lbs',
-    'Pint',
     'Pinch',
+    'g',
+    'ml',
+    'Qrt',
+    'Pint',
+    'Gal',
     'slice',
+    'strips',
     'box',
     'can',
     'packet',
     'pouch',
     'tube',
-    'strips',
-    'floz',
-    'ml',
-    'g',
-    'Qrt',
-    'Gal'
 ]
 
 export default measurementOptions

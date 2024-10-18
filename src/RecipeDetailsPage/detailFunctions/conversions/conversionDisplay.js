@@ -1,16 +1,9 @@
 import mixedToNumber from "./mixedToNumber"
 import numberToMixed from "./numberToMixed"
 
-
-const conversionMap = {
-    Cup: { tbsp: 16 },
-    Tbsp: { tsp: 3 },
-}
-
-const conversionThresholds = {
-    Cup: 0.25,
-    Tbsp: 0.5,
-}
+const decimalDisplays = [ 'oz', 'fl oz', 'lbs', 'g', 'ml' ]
+const conversionMap = { Cup: { tbsp: 16 }, Tbsp: { tsp: 3 } }
+const conversionThresholds = { Cup: 0.25, Tbsp: 0.5 }
 
 function convertUnits(quantity, fromUnit, toUnit) {
     if (conversionMap[fromUnit] && conversionMap[fromUnit][toUnit]) {
@@ -20,18 +13,25 @@ function convertUnits(quantity, fromUnit, toUnit) {
     return quantity
 }
 
-
 export default function conversionDisplay(detail, measurement, multiplier) {
     const numericValue = mixedToNumber(detail)
     if (numericValue === null) return { quantity: detail, measurement } // if conversion fails, return original values
 
     let multipliedQuantity = numericValue * multiplier
-    // console.log('multipliedQuantity', multipliedQuantity)
-    const formatQuantity = measurement === 'oz' ?
+
+    if (conversionThresholds[measurement] && multipliedQuantity < conversionThresholds[measurement]) {
+        // Convert to a smaller unit
+        if (conversionMap[measurement]) {
+            const smallerUnit = Object.keys(conversionMap[measurement])[0]
+            multipliedQuantity = convertUnits(multipliedQuantity, measurement, smallerUnit)
+            measurement = smallerUnit
+        }
+    }
+
+    const formatQuantity = decimalDisplays.includes(measurement) ?
         multipliedQuantity
         :
         numberToMixed(multipliedQuantity.toFixed(2)) // back to fraction if necessary
 
-    // console.log('final FORMAT', formatQuantity, measurement)
     return { quantity: formatQuantity, measurement: measurement }
 }

@@ -5,7 +5,7 @@
         if (fractionPart === 0) return wholePart.toString() // no fractions
 
         const scale = [
-            { decimal: 0, fraction: '0' },
+            { decimal: 0, fraction: '<1/8' },
             { decimal: 0.125, fraction: '1/8' },
             { decimal: 0.25, fraction: '1/4' },
             { decimal: 0.333, fraction: '1/3' },
@@ -32,12 +32,8 @@
         }
 
         const fractionString = findClosestFraction(fractionPart)
-        // console.log('fractionString', fractionString)
         if (fractionString === '1') {
             return `${wholePart + 1}`
-        }
-        if (fractionString === '0') {
-            return `${wholePart + ' dash'}`
         }
         return wholePart === 0 ? `${fractionString}` : `${wholePart} ${fractionString}`
     }
