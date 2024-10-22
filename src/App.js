@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import { motion as m, AnimatePresence } from 'framer-motion';
-import { setRootVariables } from './components/themes/setRootVars';
 import './App.css';
 
 import RecipeHomePage from './RecipeHomePage/RecipeHomePage'
@@ -9,29 +8,12 @@ import RecipeDetailsPage from './RecipeDetailsPage/RecipeDetailsPage'
 import CreateNewRecipe from './CreateRecipePage/CreateNewRecipe'
 import FourOhFour from './FourOhFour/FourOhFour';
 import basicAnimation from './animations/basicAnimation';
-import colorTheme from './components/themes/colorTheme';
 
 
 function App() {
 
   const location = useLocation()
 
-  const holidayThemes = {
-    2: 'halloween',
-    1: 'christmas',
-  }
-
-
-  // function getThemeByMonth() {
-  //   const month = new Date().getMonth()
-  //   const holiday = holidayThemes[month]
-  //   return holiday ? colorTheme.colorSets[holiday] : colorTheme.colorSets.default
-  // }
-
-  // useEffect(() => {
-  //   const selectedTheme = getThemeByMonth()
-  //   setRootVariables(selectedTheme)
-  // }, [])
 
 
 

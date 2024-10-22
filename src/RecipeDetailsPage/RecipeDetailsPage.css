@@ -48,7 +48,7 @@
     justify-content: center;
     align-items: center;
     border-radius: 30px;
-    gap: 6dvh;
+    gap: 5dvh;
 }
 .detailHorizontalSlide::-webkit-scrollbar,
 .detailVerticalSlide::-webkit-scrollbar {
@@ -79,7 +79,7 @@
 .detailsPhotoContainer {
     /* border: 2px solid yellow; */
     background-color: var(--prime-one);
-    box-shadow: -4px 7px 7px 3px var(--shadow);
+    box-shadow: -3px 6px 7px 3px var(--shadow);
     color: var(--accent-one);
     width: 160px;
     height: 160px;
@@ -361,7 +361,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 8dvh;
+    margin: 10dvh 0 5dvh 0;
+}
+.mainLink {
+    border-bottom: 1px solid var(--prime-one);
 }
 
 /* Add details section */

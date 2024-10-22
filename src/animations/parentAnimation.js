@@ -6,7 +6,7 @@ const parentAnimation = {
             duration: 0.5,
             ease: "easeInOut",
             staggerChildren: 0.1,
-            delayChildren: 0.5
+            delayChildren: 0.25
         },
     },
     exit: { opacity: 0, transition: { duration: 0.3, ease: "easeInOut" } }

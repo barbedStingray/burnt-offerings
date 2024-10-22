@@ -539,17 +539,12 @@ router.get('/all', (req, res) => {
 
     // const keywords = req.query.keywords
     const { keywords, limit, offset } = req.query
-    console.log('keywords', keywords)
-    // console.log('limit', limit)
-    // console.log('offset', offset)
     const keywordArray = keywords.trim().toLowerCase().split(' ')
-    console.log('keywordArray', keywordArray)
+    // console.log('keywordArray', keywordArray)
 
-    const allQueryText = `
-        SELECT * FROM "moms_recipes"
-        ORDER BY LOWER(title)
-        LIMIT $1 OFFSET $2
-        ;`
+    const browseQueryText = `SELECT * FROM moms_recipes ORDER BY RANDOM() LIMIT $1 OFFSET $2;`
+    const allQueryText = `SELECT * FROM "moms_recipes" ORDER BY LOWER(title) LIMIT $1 OFFSET $2;`
+    
     const filterQueryText = `
 WITH 
 -- Define search terms
@@ -693,9 +688,9 @@ FROM (
     let countParams
 
 
-    if (keywordArray[0] === 'library') {
-        console.log('LIBRARY')
-        queryText = allQueryText
+    if (keywordArray[0] === 'browse') {
+        // console.log('browsing...')
+        queryText = browseQueryText
         countQuery = countAllRecipesQuery
         queryParams = [limit, offset]
         countParams = [] // no parameters for counting all recipes
@@ -720,11 +715,11 @@ FROM (
                         totalRecipes: totalRecipes
                     })
                 }).catch((error) => {
-                    console.log('/api/recipes/all ERROR', error)
+                    // console.log('/api/recipes/all ERROR', error)
                     res.sendStatus(500)
                 })
         }).catch((error) => {
-            console.log('/api/recipes/all COUNT ERROR', error)
+            // console.log('/api/recipes/all COUNT ERROR', error)
             res.sendStatus(500)
         })
 

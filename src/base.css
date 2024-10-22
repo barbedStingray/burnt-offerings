@@ -16,82 +16,6 @@ html {
 
 :root {
     /* DEFAULT THEMES */
-    --prime-one: #4c500e;
-    --prime-two: #c6c6af;
-    --accent-one: #f0e847;
-    --accent-two: #8cb9f5;
-    --shadow: #3c2f0a;
-    --trans-color: #363406dd;
-    --blend0: #fae400;
-    --blend1: #afdf4d;
-    --blend2: #78dc85;
-    --blend3: #41d8bd;
-    --blend4: #00d4ff;
-    --blend5: #00fff7;
-
-
-
-    /* Universal Colors */
-    --background-one: #f1f1f1;
-    --background-two: #e6e6e6;
-    --featherGrey: #f0f0f0;
-    --black: #080a0d;
-    --white: #fffefb;
-    --inactive: #646464;
-
-
-    /* background 3 has become prime-two */
-
-    /* MARCH */
-    /* --prime-one: #11420d;
-    --prime-two: #e2e0c9;
-    --accent-one: #e2e0c9;
-    --accent-two: #43b53a;
-    --shadow: #1f0101;
-    --trans-color: #132711dd;
-    --blend0: #fff47b;
-    --blend1: #ffee2f;
-    --blend2: #eaff00;
-    --blend3: #99ff00;
-    --blend4: #26ff00;
-    --blend5: #26ff00; */
-
-    /* February */    
-    /* --prime-one: #612231;
-    --prime-two: #e0d3dc;
-    --accent-one: #e0d3dc;
-    --accent-two: #d68bda;
-    --shadow: #330110;
-    --trans-color: #271323dd;
-    --blend0: #f0f0f0;
-    --blend1: #ff9fd0;
-    --blend2: #ff4dcf;
-    --blend3: #e014ff;
-    --blend4: #a812ff;
-    --blend5: #6200f5; */
-
-
-
-    --prime-one: #1a4857;
-    --prime-two: #c4cdda;
-    --accent-one: #A8C3BC;
-    --accent-two: #408cff;
-    --shadow: #2a1801;
-    --trans-color: #0b182bdd;
-    --blend0: #f1f1f1;
-    --blend1: #a1eefe;
-    --blend2: #31dcfe;
-    --blend3: #1f5afd;
-    --blend4: #0044ff;
-    --blend5: #0044ff;
-
-    --blend0: #ecfbfe;
-    --blend1: #c4f5ff;
-    --blend2: #83eaff;
-    --blend3: #4fccfe;
-    --blend4: #2caeff;
-    --blend5: #0077ff;
-
     /* --prime-one: #4c500e;
     --prime-two: #c6c6af;
     --accent-one: #f0e847;
@@ -106,19 +30,31 @@ html {
     --blend5: #00fff7; */
 
 
-    /* --november-topaz: #FFC87C;
-    --prime-one: #a76811;
-    --prime-two: #ddccb4;
-    --accent-one: #f3d9b5;
-    --accent-two: #e39931;
-    --shadow: #010014;
-    --trans-color: #3a2b16dd;
-    --blend0: #fff47b;
-    --blend1: #ffee2f;
-    --blend2: #eaff00;
-    --blend3: #99ff00;
-    --blend4: #26ff00;
-    --blend5: #26ff00; */
+
+    /* Universal Colors */
+    --background-one: #f1f1f1;
+    --background-two: #e6e6e6;
+    --featherGrey: #f0f0f0;
+    --black: #080a0d;
+    --white: #fffefb;
+    --inactive: #646464;
+
+
+
+    --prime-one: #1a4857;
+    --prime-two: #c4cdda;
+    --accent-one: #afd4ca;
+    --accent-two: #408cff;
+    --shadow: #2a1801;
+    --trans-color: #0b182bdd;
+    --blend0: #ecfbfe;
+    --blend1: #c4f5ff;
+    --blend2: #83eaff;
+    --blend3: #4fccfe;
+    --blend4: #2caeff;
+    --blend5: #0077ff;
+
+
 
 
 

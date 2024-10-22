@@ -1,13 +1,12 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { IoIosArrowDropright } from "react-icons/io";
 import { IoIosArrowDropleft } from "react-icons/io";
-import { motion as m, AnimatePresence } from 'framer-motion'
-import basicAnimation from '../../animations/basicAnimation';
 
 
 const PageBar = ({ pageStatus }) => {
-    const { currentPage, setCurrentPage, totalPages, scrollToTopRef } = pageStatus
+    const { currentPage, setCurrentPage, totalPages, bouncedKeywords, scrollToTopRef } = pageStatus
 
+    console.log('bouncedKeywords', bouncedKeywords)
 
     const handlePageChange = (newPage) => {
         setCurrentPage(newPage)
@@ -23,7 +22,7 @@ const PageBar = ({ pageStatus }) => {
 
 
     return (
-        <div className='paginationBar' key='pageBar'>
+        <div className={`paginationBar ${bouncedKeywords.length > 0 ? 'visible' : 'invisible'} `}>
             <div
                 className={`homePageNext ${currentPage === 1 ? 'homeNextDeactivate' : ''}`}
                 onClick={currentPage === 1 ? null : () => handlePageChange(currentPage - 1)}

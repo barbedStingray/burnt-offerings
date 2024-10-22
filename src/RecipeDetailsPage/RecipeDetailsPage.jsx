@@ -212,8 +212,8 @@ const RecipeDetailsPage = () => {
                                     </div>
 
                                     <DisplaySubRecipes
-                                        editPackage={{ letsEdit, setAddMoreView }}
-                                        detailPackage={{ scrollIndex, recipe, theSubRecipes, theParentRecipes, horizontalScrollRef }}
+                                        editPackage={{ letsEdit, setAddMoreView, scrollIndex, horizontalScrollRef }}
+                                        detailPackage={{ recipe, theSubRecipes, theParentRecipes, theMainRecipe }}
                                     />
 
                                     <div className='deleteThisRecipe'>

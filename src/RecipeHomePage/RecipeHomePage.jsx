@@ -102,7 +102,7 @@ const RecipeHomePage = () => {
                         )}
                     </AnimatePresence>
                 </div>
-                <PageBar pageStatus={{ currentPage, setCurrentPage, totalPages, scrollToTopRef }} />
+                <PageBar pageStatus={{ currentPage, setCurrentPage, totalPages, bouncedKeywords, scrollToTopRef }} />
             </div>
         </div>
     )
