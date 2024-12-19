@@ -166,11 +166,11 @@ const RecipeDetailsPage = () => {
                                             />
                                             <div className='prepServings'>
                                                 <div className='detailsPrep'>
-                                                    <LuAlarmClock />
+                                                    {/* <LuAlarmClock /> */}
                                                     <p onClick={letsEdit ? () => openEditModal('prep_time', recipe.recipeDetails.prep_time, displayId) : null}>{recipe.recipeDetails.prep_time}</p>
                                                 </div>
                                                 <div className='detailsServings'>
-                                                    <p><FaInfo /></p>
+                                                    {/* <p><FaInfo /></p> */}
                                                     <p onClick={letsEdit ? () => openEditModal('servings', recipe.recipeDetails.servings, displayId) : null}>{recipe.recipeDetails.servings}</p>
                                                 </div>
                                             </div>

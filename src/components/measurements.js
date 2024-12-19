@@ -17,6 +17,7 @@ const measurementOptions = [
     'Qrt',
     'Pint',
     'Gal',
+    'Kcup',
     'slice',
     'strips',
     'box',
