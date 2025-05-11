@@ -24,8 +24,6 @@ import deleteSoloDetail from './detailFunctions/deleteSoloDetail'
 import deleteEntireRecipe from './detailFunctions/deleteEntireRecipe'
 import DisplayMultiplier from './detailComponents/DisplayMultiplier'
 import NavBar from '../components/NavBar'
-import { FaInfo } from "react-icons/fa";
-import { LuAlarmClock } from "react-icons/lu";
 
 import handleApiStatus from '../RecipeHomePage/homeFunctions/handleApiStatus'
 
@@ -212,12 +210,12 @@ const RecipeDetailsPage = () => {
                                     </div>
 
                                     <DisplaySubRecipes
-                                        editPackage={{ letsEdit, setAddMoreView, scrollIndex, horizontalScrollRef }}
+                                        editPackage={{ letsEdit, setAddMoreView, i, horizontalScrollRef }}
                                         detailPackage={{ recipe, theSubRecipes, theParentRecipes, theMainRecipe }}
                                     />
 
                                     <div className='deleteThisRecipe'>
-                                        {scrollIndex === 0 ? (
+                                        {i === 0 ? (
                                             <button className='deleteButton' onClick={() => deleteEntireRecipe(displayId, setDeleteStatus)}>Delete This Recipe</button>
                                         ) : (
                                             <button className='deleteButton' onClick={() => deleteSoloDetail('subRecipe', displayId, refresh, setRefresh, null, recipeID)}>Remove Sub Recipe</button>

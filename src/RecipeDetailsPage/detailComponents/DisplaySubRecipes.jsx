@@ -5,7 +5,7 @@ import scrollToForm from '../../CreateRecipePage/createFunctions/scrollFunctions
 
 
 const DisplaySubRecipes = ({ editPackage, detailPackage }) => {
-    const { letsEdit, setAddMoreView, scrollIndex, horizontalScrollRef } = editPackage
+    const { letsEdit, setAddMoreView, i, horizontalScrollRef } = editPackage
     const { recipe, theSubRecipes, theParentRecipes, theMainRecipe } = detailPackage
 
     const isSubRecipe = recipe.recipeDetails.is_sub_recipe
@@ -21,7 +21,7 @@ const DisplaySubRecipes = ({ editPackage, detailPackage }) => {
                 )}
             </div>
             <div className='detailSubDisplay'>
-                {scrollIndex === 0 ? (
+                {i === 0 ? (
                     <div className='detailSubView'>
                         {isSubRecipe ? (
                             <>
