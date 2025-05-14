@@ -28,7 +28,8 @@ const RecipeHomePage = () => {
     const [currentPage, setCurrentPage] = useState(1)
     const bouncedKeywords = useDebounce(keywords, setCurrentPage)
     const { allRecipes, totalPages, totalRecipes, recipeStatus, apiSearching } = useFilteredRecipes(bouncedKeywords, currentPage)
-    
+    const [recipeLoad, setRecipeLoad] = useState('')
+
     // local storage for my keywords
     // ? session vs local storage?
     useEffect(() => {
@@ -48,16 +49,18 @@ const RecipeHomePage = () => {
 
     async function fetchRecipe(recipeID) {
         try {
-                // todo activate spinner
+                setRecipeLoad('loading')
                 const results = await axios.get(`/api/recipes/details/${recipeID}`)
                 const { mainRecipe, subRecipes, parentRecipes } = results.data
                 dispatch({ type: 'SET_RECIPE', payload: { mainRecipe, subRecipes, parentRecipes }})
     
             } catch (error) {
                 console.log('error in fetching details', error)
+                setRecipeLoad('error')
+
             } finally {
+                setRecipeLoad('')
                 navigate(`/recipeDetails`)
-                // todo turn spinner off
             }
         }
 
@@ -68,6 +71,7 @@ const RecipeHomePage = () => {
             <NavBar navPackage={{ section: 'home' }} />
 
             {handleApiStatus(apiSearching)}
+            {handleApiStatus(recipeLoad)}
 
             {/* main display */}
             <div className='homeMainDisplay'>
