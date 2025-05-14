@@ -4,7 +4,6 @@ import measurementOptions from './measurements'
 
 const DetailInput = ({ inputDetails }) => {
   const { name, className, type, placeholder, required, minLength, maxLength, autoComplete, value, onChange } = inputDetails
-  // console.log(name, type, placeholder, required, minLength, maxLength, autoComplete)
   // could add pattern for acceptable characters/numbers/symbols
   // todo what select doesnt use returns undefined
 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import useAllCategory from '../createFunctions/allOfCategory'
-import axios from 'axios'
+import { useDispatch } from 'react-redux'
+
 
 // important functions
 import submitNewObject from '../createFunctions/submitNewObject'
@@ -12,11 +13,13 @@ import inputLimits from '../../components/InputLimits'
 
 const CreateTags = ({
     dataPackage, // ? is recipeID undefined error?
-    editPackage = { addMoreView: '', setAddMoreView: () => { }, refresh: false, setRefresh: () => { } },
+    editPackage = { addMoreView: '', setAddMoreView: () => { }, recipeID: null },
 }) => {
 
+    const dispatch = useDispatch()
     const { displayId = null, tagPackage, setTagPackage } = dataPackage
-    const { addMoreView, setAddMoreView, refresh, setRefresh } = editPackage
+    const { addMoreView, setAddMoreView, recipeID } = editPackage
+
     const [allTags, allTagsStatus] = useAllCategory('/api/recipes/tags')
     const [filteredList, setFilteredList] = useState([]) // dropdown logic
     const [searchAttribute, setSearchAttribute] = useState('') // dropdown logic
@@ -48,7 +51,6 @@ const CreateTags = ({
                             if (e.key === 'Enter') {
                                 e.preventDefault();
                                 const tagToSubmit = filteredList.length > 0 ? filteredList[0] : newTag
-                                console.log('submitting', tagToSubmit)
                                 submitNewObject(e, tagToSubmit, setNewTag, allTags, tagPackage, setTagPackage, initialTagState, setFilteredList)
                             }
                         }}
@@ -97,7 +99,7 @@ const CreateTags = ({
                 {addMoreView?.length > 0 && (
                     <div className='addBtnGroup'>
                         <button className='basicButton' onClick={() => setAddMoreView('')}>Back</button>
-                        <button className='fireButton medFire' onClick={() => postOnlyType('tags', displayId, tagPackage, setTagPackage, refresh, setRefresh, setAddMoreView)}>Submit Tags</button>
+                        <button className='fireButton medFire' onClick={() => postOnlyType('tags', displayId, tagPackage, setTagPackage, setAddMoreView, recipeID, dispatch)}>Submit Tags</button>
                     </div>
                 )}
 

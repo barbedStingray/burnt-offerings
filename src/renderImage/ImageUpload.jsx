@@ -28,7 +28,7 @@ function ImageUpload({ photoFunction, recipeImage }) {
             formData.append('folder', folderPath);
 
             let postUrl = `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUD_NAME}/image/upload`;
-            console.log(`postURL`, postUrl);
+            // console.log(`postURL`, postUrl);
 
             axios.post(postUrl, formData).then(response => {
                 console.log('Success!', response);

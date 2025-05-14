@@ -1,10 +1,13 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
 import deleteSoloDetail from '../detailFunctions/deleteSoloDetail'
 
 
 const DisplayTags = ({ editPackage, detailPackage }) => {
-    const { letsEdit, refresh, setRefresh } = editPackage
-    const { tags, setAddMoreView } = detailPackage
+
+    const dispatch = useDispatch()
+    const { letsEdit } = editPackage
+    const { tags, setAddMoreView, recipeID } = detailPackage
 
 
     return (
@@ -13,7 +16,7 @@ const DisplayTags = ({ editPackage, detailPackage }) => {
                 {tags.map((tag, i) => (
                     <p
                         key={i}
-                        onClick={letsEdit ? (() => deleteSoloDetail('tag', tag.delete_id, refresh, setRefresh)) : null}
+                        onClick={letsEdit ? (() => deleteSoloDetail('tag', tag.delete_id, recipeID, dispatch)) : null}
                     >
                         {tag.tag}{letsEdit && ' X'}
                     </p>

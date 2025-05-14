@@ -103,9 +103,10 @@ router.delete('/removeSubRecipe/:id', async (req, res) => {
         res.sendStatus(500)
     }
 })
+
 // POST sub recipes only
 router.post('/postOnlySubRecipes', async (req, res) => {
-    const recipeID = req.body.recipeID
+    const recipeID = req.body.displayId
     const subRecipePackage = req.body.typePackage
     console.log('backend sub recipe package', recipeID, subRecipePackage)
     const subRecipeText = `INSERT INTO "recipe_relationship" ("parent_id", "sub_id") VALUES ($1, $2);`
@@ -160,7 +161,7 @@ router.delete('/deleteRecipeStep/:id', (req, res) => {
 })
 // POST steps only
 router.post('/postOnlySteps', async (req, res) => {
-    const recipeID = req.body.recipeID
+    const recipeID = req.body.displayId
     const stepPackage = req.body.typePackage
 
     console.log('stepPackage', stepPackage)
@@ -202,7 +203,7 @@ router.delete('/deleteRecipeIngredient/:id', (req, res) => {
 })
 // POST ingredients only
 router.post('/postOnlyIngredients', async (req, res) => {
-    const recipeID = req.body.recipeID
+    const recipeID = req.body.displayId
     const ingredientPackage = req.body.typePackage
     console.log('ingredients only', recipeID, ingredientPackage)
     const ingredientText = `INSERT INTO "moms_ingredients" ("ingredient") VALUES ($1) RETURNING id;`
@@ -236,7 +237,7 @@ router.post('/postOnlyIngredients', async (req, res) => {
 
 // POST only tags
 router.post('/postOnlyTags', async (req, res) => {
-    const recipeID = req.body.recipeID
+    const recipeID = req.body.displayId
     const tagPackage = req.body.typePackage
     console.log('THE PACKAGE', recipeID, tagPackage)
 

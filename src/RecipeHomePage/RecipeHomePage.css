@@ -288,7 +288,7 @@
 @media (min-width: 430px) and (max-width: 767px) {
 
     .homePage {
-        border: 2px solid lime;
+        /* border: 2px solid lime; */
     }
 
 }
@@ -352,7 +352,7 @@
 
     /* NAVIGATION */
     .homeNavigation {
-        border: 2px solid lime;
+        /* border: 2px solid lime; */
         display: flex;
         flex-flow: column nowrap;
         justify-content: space-between;
@@ -390,7 +390,7 @@
 
     /* MAIN display displaying recipes */
     .homeMainDisplay {
-        border: 2px solid lime;
+        /* border: 2px solid lime; */
         flex: 7;
         min-height: 100vh;
         display: grid;

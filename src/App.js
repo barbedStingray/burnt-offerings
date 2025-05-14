@@ -7,15 +7,11 @@ import RecipeHomePage from './RecipeHomePage/RecipeHomePage'
 import RecipeDetailsPage from './RecipeDetailsPage/RecipeDetailsPage'
 import CreateNewRecipe from './CreateRecipePage/CreateNewRecipe'
 import FourOhFour from './FourOhFour/FourOhFour';
-import basicAnimation from './animations/basicAnimation';
 
 
 function App() {
 
   const location = useLocation()
-
-
-
 
   return (
     <div className="burnt-offerings">
@@ -23,51 +19,29 @@ function App() {
 
       <AnimatePresence mode='wait' initial={true}>
         <Routes location={location} key={location.pathname}>
-          <Route path='/'
-            element={
-              <m.div
-                initial='initial'
-                animate="animate"
-                exit="exit"
-                variants={basicAnimation}
-              >
-                <RecipeHomePage />
-              </m.div>
-            } />
-          <Route path='/recipeDetails/:recipeID' element={
-            <m.div
-              initial='initial'
-              animate="animate"
-              exit="exit"
-              variants={basicAnimation}
-            >
-              <RecipeDetailsPage />
-            </m.div>
-          } />
-          <Route path='/createRecipe' element={
-            <m.div
-              initial='initial'
-              animate="animate"
-              exit="exit"
-              variants={basicAnimation}
-            >
-              <CreateNewRecipe />
-            </m.div>
-          } />
-          <Route path='*' element={
-            <m.div
-              initial='initial'
-              animate="animate"
-              exit="exit"
-              variants={basicAnimation}
-            >
-              <FourOhFour />
-            </m.div>
-          } />
+          <Route path='/' element={<PageWrapper><RecipeHomePage /></PageWrapper>} />
+          <Route path='/recipeDetails' element={<PageWrapper><RecipeDetailsPage /></PageWrapper>} />
+          <Route path='/createRecipe' element={<PageWrapper><CreateNewRecipe /></PageWrapper>} />
+          <Route path='/*' element={<PageWrapper><FourOhFour /></PageWrapper>} />
         </Routes>
       </AnimatePresence>
     </div>
   );
 }
+
+
+function PageWrapper({ children }) {
+  return (
+    <m.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.6 }}
+    >
+      {children}
+    </m.div>
+  )
+}
+
 
 export default App;

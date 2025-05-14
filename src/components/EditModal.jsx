@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import { useDispatch } from 'react-redux'
 import checkDuplicateTitles from '../CreateRecipePage/createFunctions/checkDuplicateTitles'
 import useAllCategory from '../CreateRecipePage/createFunctions/allOfCategory'
 import measurementOptions from './measurements'
@@ -7,11 +8,13 @@ import deleteSoloDetail from '../RecipeDetailsPage/detailFunctions/deleteSoloDet
 import inputLimits from '../components/InputLimits'
 
 const EditModal = ({ editPackage, refreshPackage }) => {
+    const dispatch = useDispatch()
     const { editType, editId, newEdit, setNewEdit } = editPackage
-    const { setEditModalView, refresh, setRefresh } = refreshPackage
+    const { setEditModalView, recipeID } = refreshPackage
 
     const [allRecipes, allRecipesStatus] = useAllCategory('/api/recipes/titleCheck')
     const [allIngredients, allIngredientsStatus] = useAllCategory('/api/recipes/ingredients')
+
 
     async function putNewEdit(e, type, target_id, newEdit) {
         e.preventDefault()
@@ -39,12 +42,19 @@ const EditModal = ({ editPackage, refreshPackage }) => {
         try {
             await axios.put(`/api/recipes/putDetail/${target_id}`, { type, formatDetail })
             setEditModalView(false)
-            setRefresh(!refresh)
+            
+            // refresh reducer / replace into a function
+            const results = await axios.get(`/api/recipes/details/${recipeID}`)
+            const { mainRecipe, subRecipes, parentRecipes } = results.data
+            dispatch({ type: 'SET_RECIPE', payload: { mainRecipe, subRecipes, parentRecipes } })
+
         } catch (error) {
             console.log('error client side PUT new', error)
             alert('something went wrong with PUT new')
         }
     }
+
+
 
     const generateEditInput = (editType) => {
         switch (editType) {
@@ -96,7 +106,7 @@ const EditModal = ({ editPackage, refreshPackage }) => {
                 </form>
                 {/* <button onClick={() => setEditModalView(false)}>Cancel</button> */}
                 {(editType === 'ingredient' || editType === 'instructions') && (
-                    <button className='deleteButton' onClick={() => deleteSoloDetail(editType, editId, refresh, setRefresh, setEditModalView)}>DELETE</button>
+                    <button className='deleteButton' onClick={() => deleteSoloDetail(editType, editId, recipeID, dispatch, setEditModalView)}>DELETE</button>
                 )}
             </div>
         </div>

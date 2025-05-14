@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 // * steps ingredient
-export default async function deleteSoloDetail(type, id, refresh, setRefresh, setEditModalView, parentId) {
+export default async function deleteSoloDetail(type, id, recipeID, dispatch, setEditModalView, parentId) {
 
     const deleteMessage = {
         subRecipe: 'Remove this Sub Recipe?',
@@ -26,7 +26,12 @@ export default async function deleteSoloDetail(type, id, refresh, setRefresh, se
         } else {
             await axios.delete(deleteText)
         }
-        setRefresh(!refresh)
+
+        // refresh reducer
+        const results = await axios.get(`/api/recipes/details/${recipeID}`)
+        const { mainRecipe, subRecipes, parentRecipes } = results.data
+        dispatch({ type: 'SET_RECIPE', payload: { mainRecipe, subRecipes, parentRecipes }})
+        
         if (!setEditModalView) return // for tags & subRecipes not using edit modal
         setEditModalView(false)
 

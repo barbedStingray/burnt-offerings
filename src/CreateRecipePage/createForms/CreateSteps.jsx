@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import axios from 'axios'
+import { useDispatch } from 'react-redux'
 
 import handleDetailChange from '../createFunctions/handleDetailChange'
 import submitNewObject from '../createFunctions/submitNewObject'
@@ -10,11 +10,12 @@ import inputLimits from '../../components/InputLimits'
 
 const CreateSteps = ({ 
     dataPackage,
-    editPackage = { addMoreView: '', setAddMoreView: () => { }, refresh: false, setRefresh: () => { } },
+    editPackage = { addMoreView: '', setAddMoreView: () => { }, recipeID: null },
 }) => {
     
     const { displayId = null, stepPackage, setStepPackage } = dataPackage
-    const { addMoreView, setAddMoreView, refresh, setRefresh } = editPackage
+    const { addMoreView, setAddMoreView, recipeID } = editPackage
+    const dispatch = useDispatch()
 
 
     const [newStep, setNewStep] = useState({ id: null, instructions: '' })
@@ -70,7 +71,7 @@ const CreateSteps = ({
                 {addMoreView?.length > 0 && (
                     <div className='addBtnGroup'>
                         <button className='basicButton' onClick={() => setAddMoreView('')}>Back</button>
-                        <button className='fireButton medFire' onClick={() => postOnlyType('steps', displayId, stepPackage, setStepPackage, refresh, setRefresh, setAddMoreView)}>Submit Tags</button>
+                        <button className='fireButton medFire' onClick={() => postOnlyType('steps', displayId, stepPackage, setStepPackage, setAddMoreView, recipeID, dispatch)}>Submit Steps</button>
                     </div>
                 )}
 

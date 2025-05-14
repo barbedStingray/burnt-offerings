@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 
 import DetailInput from '../../components/DetailInput'
 import useAllCategory from '../createFunctions/allOfCategory'
@@ -12,11 +12,12 @@ import inputLimits from '../../components/InputLimits'
 
 const CreateIngredients = ({
     dataPackage,
-    editPackage = { addMoreView: '', setAddMoreView: () => { }, refresh: false, setRefresh: () => { } },
+    editPackage = { addMoreView: '', setAddMoreView: () => { }, recipeID: null },
 }) => {
 
+    const dispatch = useDispatch()
     const { displayId = null, ingredientPackage, setIngredientPackage } = dataPackage
-    const { addMoreView, setAddMoreView, refresh, setRefresh } = editPackage
+    const { addMoreView, setAddMoreView, recipeID } = editPackage
 
     const [allIngredients, allIngredientsStatus] = useAllCategory('/api/recipes/ingredients')
     const [filteredList, setFilteredList] = useState([])
@@ -88,7 +89,6 @@ const CreateIngredients = ({
                                     if (e.key === 'Enter') {
                                         e.preventDefault();
                                         const ingredientToSubmit = filteredList.length > 0 ? { ...filteredList[0], quantity: newIngredient.quantity, measurement: newIngredient.measurement } : newIngredient;
-                                        console.log('submitting', ingredientToSubmit)
                                         submitNewObject(e, ingredientToSubmit, setNewIngredient, allIngredients, ingredientPackage, setIngredientPackage, initialIngredientState, setFilteredList)
                                     }
                                 }}
@@ -141,7 +141,7 @@ const CreateIngredients = ({
                 {addMoreView?.length > 0 && (
                     <div className='addBtnGroup'>
                         <button className='basicButton' onClick={() => setAddMoreView('')}>Back</button>
-                        <button className='fireButton medFire' onClick={() => postOnlyType('ingredients', displayId, ingredientPackage, setIngredientPackage, refresh, setRefresh, setAddMoreView)}></button>
+                        <button className='fireButton medFire' onClick={() => postOnlyType('ingredients', displayId, ingredientPackage, setIngredientPackage, setAddMoreView, recipeID, dispatch)}></button>
                     </div>
                 )}
 

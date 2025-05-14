@@ -1,6 +1,5 @@
     // turns string quantity into whole number
     export default function mixedToNumber(qtyString) {
-        // console.log('identifying number', qtyString)
 
         qtyString = qtyString.trim()
         const mixedNumberPattern = /(\d+)\s+(\d+)\/(\d+)/; // e.g., 2 1/3 Mixed number

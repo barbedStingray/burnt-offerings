@@ -2,13 +2,12 @@
 import { useEffect, useState } from 'react'
 
 
-const useScrollTracking = (ref, isLoaded = true) => {
+const useScrollTracking = (ref) => {
     const [scrollIndex, setScrollIndex] = useState(0)
 
     useEffect(() => {
         const currentRef = ref.current
 
-        if (isLoaded) {
             const handleScroll = () => {
                 const formWidth = ref.current.clientWidth
                 const currentScroll = ref.current.scrollLeft
@@ -21,8 +20,7 @@ const useScrollTracking = (ref, isLoaded = true) => {
             return () => {
                 currentRef.removeEventListener('scroll', handleScroll)
             }
-        }
-    }, [ref, isLoaded])
+    }, [ref])
 
     return scrollIndex
 }

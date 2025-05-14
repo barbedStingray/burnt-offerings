@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export default async function postOnlyType(type, recipeID, typePackage, setTypePackage, refresh, setRefresh, setAddMoreView) {
+export default async function postOnlyType(type, displayId, typePackage, setTypePackage, setAddMoreView, recipeID, dispatch) {
 
     const apiCalls = {
         subRecipes: '/api/recipes/postOnlySubRecipes',
@@ -15,10 +15,14 @@ export default async function postOnlyType(type, recipeID, typePackage, setTypeP
         return
     }
     try {
-        await axios.post(`${postText}`, { recipeID, typePackage })
+        await axios.post(`${postText}`, { displayId, typePackage })
         setTypePackage([])
-        setRefresh(!refresh)
         setAddMoreView('')
+
+        const results = await axios.get(`/api/recipes/details/${recipeID}`)
+        const { mainRecipe, subRecipes, parentRecipes } = results.data
+        dispatch({ type: 'SET_RECIPE', payload: { mainRecipe, subRecipes, parentRecipes }})
+
     } catch (error) {
         alert('something went wrong posting only TYPE!')
     }

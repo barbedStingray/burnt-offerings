@@ -8,16 +8,11 @@ import { BsSnow2 } from "react-icons/bs";
 import { GiFlowerPot } from "react-icons/gi";
 import { GiWheat } from "react-icons/gi";
 import { GiBunnySlippers } from "react-icons/gi";
-import { GiPartyPopper } from "react-icons/gi";
 import { GiIsland } from "react-icons/gi";
 import { GiBoatHorizon } from "react-icons/gi";
 import { GiPineTree } from "react-icons/gi";
-import { LiaHollyBerrySolid } from "react-icons/lia";
-// import { GiGingerbreadMan } from "react-icons/gi";
-import { FaCandyCane } from "react-icons/fa";
 import { GiPineapple } from "react-icons/gi";
 import { PiCloverLight } from "react-icons/pi";
-import { BsArrowThroughHeart } from "react-icons/bs";
 import { GiCornucopia } from "react-icons/gi";
 import { SiAdafruit } from "react-icons/si";
 
@@ -27,8 +22,8 @@ const HomeScreen = () => {
 
 
     const holidayIcons = {
-        0: <GiPartyPopper />, 
-        1: <BsArrowThroughHeart />, 
+        0: <GiPineapple />, 
+        1: <GiPineTree />, 
         2: <PiCloverLight />, 
         3: <GiFlowerPot />, 
         4: <GiIsland />, 
@@ -38,7 +33,7 @@ const HomeScreen = () => {
         8: <GiBunnySlippers />, 
         9: <GiPumpkinLantern />, 
         10: <GiCornucopia />,
-        11: <FaCandyCane /> 
+        11: <BsSnow2 /> 
     }
 
     function getIconByMonth() {

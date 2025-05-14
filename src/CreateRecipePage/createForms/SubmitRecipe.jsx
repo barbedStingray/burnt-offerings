@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 import axios from 'axios'
 import handleValueIsPresent from '../createFunctions/handleValueIsPresent'
@@ -12,14 +14,10 @@ import { FaSnowboarding } from "react-icons/fa";
 
 
 const SubmitRecipe = ({ dataPackage }) => {
+    const dispatch = useDispatch()
     const { newRecipeDetails, subRecipePackage, ingredientPackage, stepPackage, tagPackage } = dataPackage
-
-    const navigate = useNavigate()
-
     const [allRecipes, allRecipesStatus] = useAllCategory('/api/recipes/titleCheck')
     const [postModalDisplay, setPostModalDisplay] = useState('ready')
-    const [navigateNewId, setNavigateNewId] = useState(0)
-
 
 
     const handleCreateRecipe = async () => {
@@ -42,24 +40,21 @@ const SubmitRecipe = ({ dataPackage }) => {
         setPostModalDisplay('loading')
 
         try {
-            console.log('submitting new recipe', newRecipeDetails, subRecipePackage, ingredientPackage, stepPackage, tagPackage)
+            // console.log('submitting new recipe', newRecipeDetails, subRecipePackage, ingredientPackage, stepPackage, tagPackage)
             const postResponse = await axios.post(`/api/recipes/newRecipe`, { newRecipeDetails, subRecipePackage, ingredientPackage, stepPackage, tagPackage })
-            // todo you return a response of success from db... tie up the loose end.
+            
+            // refresh reducer
+            const results = await axios.get(`/api/recipes/details/${postResponse.data.newRecipeId}`)
+            const { mainRecipe, subRecipes, parentRecipes } = results.data
+            dispatch({ type: 'SET_RECIPE', payload: { mainRecipe, subRecipes, parentRecipes } })
+
             setPostModalDisplay('success')
-            setNavigateNewId(postResponse.data.newRecipeId)
+
+
         } catch (error) {
             console.log('error in recipe POST')
             setPostModalDisplay('error')
         }
-    }
-
-    // todo these can be LINKs
-    function goToNewRecipe(id) {
-        console.log('going to new recipe', id)
-        navigate(`/recipeDetails/${id}`)
-    }
-    function goHome() {
-        navigate('/')
     }
 
 
@@ -85,8 +80,8 @@ const SubmitRecipe = ({ dataPackage }) => {
                     <div className='postModal'>
                         <h1>Recipe Success!</h1>
                         <div className='postModalDiv'>
-                            <button className='fireButton medFire make' onClick={() => goToNewRecipe(navigateNewId)}>Make It!</button>
-                            <button className='basicButton' onClick={() => goHome()}>Home</button>
+                            <Link className='fireButton medFire make' to={'/recipeDetails'}></Link>
+                            <Link className='basicButton' to={'/'}>Home</Link>
                         </div>
                     </div>
                 )

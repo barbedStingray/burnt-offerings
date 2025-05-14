@@ -6,8 +6,6 @@ import { IoIosArrowDropleft } from "react-icons/io";
 const PageBar = ({ pageStatus }) => {
     const { currentPage, setCurrentPage, totalPages, bouncedKeywords, scrollToTopRef } = pageStatus
 
-    console.log('bouncedKeywords', bouncedKeywords)
-
     const handlePageChange = (newPage) => {
         setCurrentPage(newPage)
 
@@ -17,8 +15,6 @@ const PageBar = ({ pageStatus }) => {
             }
         }, 200)
     }
-
-
 
 
     return (

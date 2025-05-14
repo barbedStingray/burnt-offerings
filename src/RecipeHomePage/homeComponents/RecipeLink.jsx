@@ -17,9 +17,9 @@ const RecipeLink = ({ recipe }) => {
     }
 
     return (
-        <Link
-            key={id}
-            to={`/recipeDetails/${id}`}
+        <div
+            // key={id}
+            // to={`/recipeDetails/${id}`}
             className='recipeLink'
         >
 
@@ -31,7 +31,7 @@ const RecipeLink = ({ recipe }) => {
             <div className='cardDisplay'>
                 <p className='homeRecipeTitle'>{title}</p>
             </div>
-        </Link>
+        </div>
     )
 }
 

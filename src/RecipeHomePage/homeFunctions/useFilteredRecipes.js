@@ -27,7 +27,6 @@ const useFilteredRecipes = (keywords, page = 1) => {
         requestAllRecipes(keywords, page)
 
         // if (localCache[keywords] && localCache[keywords][page]) {
-        //     console.log('found a cache!')
         //     const cachedData = localCache[keywords][page]
         //     setAllRecipes(cachedData.recipes)
         //     setTotalPages(cachedData.totalPages)

@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 
 import useAllCategory from '../createFunctions/allOfCategory'
 import handleSearchDetailChange from '../createFunctions/handleSearchDetailChange'
@@ -8,11 +9,12 @@ import postOnlyType from '../../RecipeDetailsPage/detailFunctions/postOnlyType'
 
 const CreateSubRecipes = ({
   dataPackage,
-  editPackage = { addMoreView: '', setAddMoreView: () => { }, refresh: false, setRefresh: () => { } },
+  editPackage = { addMoreView: '', setAddMoreView: () => { }, recipeID: null },
 }) => {
 
+  const dispatch = useDispatch()
   const { displayId = null, subRecipePackage, setSubRecipePackage } = dataPackage
-  const { addMoreView, setAddMoreView, refresh, setRefresh } = editPackage
+  const { addMoreView, setAddMoreView, recipeID } = editPackage
   const [allowedSubRecipes, allowedSubRecipesStatus] = useAllCategory('/api/recipes/notParents')
   const [filteredList, setFilteredList] = useState([]) // dropdown logic
   const [searchAttribute, setSearchAttribute] = useState('') // dropdown logic
@@ -80,7 +82,7 @@ const CreateSubRecipes = ({
         {addMoreView?.length > 0 && (
           <div className='addBtnGroup'>
             <button className='basicButton' onClick={() => setAddMoreView('')}>Back</button>
-            <button className='fireButton medFire'  onClick={() => postOnlyType('subRecipes', displayId, subRecipePackage, setSubRecipePackage, refresh, setRefresh, setAddMoreView)}>Submit subrecipes</button>
+            <button className='fireButton medFire' onClick={() => postOnlyType('subRecipes', displayId, subRecipePackage, setSubRecipePackage, setAddMoreView, recipeID, dispatch)}>Submit subrecipes</button>
           </div>
         )}
 

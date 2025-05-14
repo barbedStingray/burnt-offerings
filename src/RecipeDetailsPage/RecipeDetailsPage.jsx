@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { motion as m, AnimatePresence } from 'framer-motion'
-import { useParams } from 'react-router-dom'
 import './RecipeDetailsPage.css'
-
-import useRecipeDetails from './detailFunctions/fetchRecipeDetails'
 
 import CreateTags from '../CreateRecipePage/createForms/CreateTags'
 import CreateIngredients from '../CreateRecipePage/createForms/CreateIngredients'
@@ -25,20 +23,18 @@ import deleteEntireRecipe from './detailFunctions/deleteEntireRecipe'
 import DisplayMultiplier from './detailComponents/DisplayMultiplier'
 import NavBar from '../components/NavBar'
 
-import handleApiStatus from '../RecipeHomePage/homeFunctions/handleApiStatus'
-
 
 const RecipeDetailsPage = () => {
 
-    const { recipeID } = useParams()
-    const [refresh, setRefresh] = useState(true)
-    const { theMainRecipe, theSubRecipes, theParentRecipes, isLoaded, detailStatus } = useRecipeDetails(recipeID, refresh)
-    const recipeDisplay = [theMainRecipe].concat(theSubRecipes)
+    const dispatch = useDispatch()
+    const { mainRecipe, parentRecipes, subRecipes } = useSelector((state) => state.recipe)
+    const recipeID = mainRecipe.recipeDetails.recipe_id
+    const recipeDisplay = [mainRecipe].concat(subRecipes)
     const [multiplier, setMultiplier] = useState(1)
     const [deleteStatus, setDeleteStatus] = useState('')
     // scrolling
     const horizontalScrollRef = useRef(null)
-    const scrollIndex = useScrollTracking(horizontalScrollRef, isLoaded)
+    const scrollIndex = useScrollTracking(horizontalScrollRef)
     const [displayId, setDisplayId] = useState(recipeID)
     // edit single category
     const [letsEdit, setLetsEdit] = useState(false)
@@ -55,13 +51,11 @@ const RecipeDetailsPage = () => {
 
     // updates your scroll sync
     useEffect(() => {
-        if (isLoaded) {
             setDisplayId(recipeDisplay[scrollIndex].recipeDetails.recipe_id)
-        }
-    }, [scrollIndex, isLoaded])
+    }, [scrollIndex])
+
     // opens modal with proper inputs
     function openEditModal(type, detail, editId) {
-        // console.log('type, detail, editId', type, detail, editId)
         setEditType(type)
         setEditId(editId)
         setNewEdit(detail)
@@ -76,7 +70,7 @@ const RecipeDetailsPage = () => {
                     <div className='createSingleForm'>
                         <CreateSubRecipes
                             dataPackage={{ displayId, subRecipePackage, setSubRecipePackage }}
-                            editPackage={{ addMoreView, setAddMoreView, refresh, setRefresh }}
+                            editPackage={{ addMoreView, setAddMoreView, recipeID }}
                         />
                     </div>
                 )
@@ -85,7 +79,7 @@ const RecipeDetailsPage = () => {
                     <div className='createSingleForm'>
                         <CreateIngredients
                             dataPackage={{ displayId, ingredientPackage, setIngredientPackage }}
-                            editPackage={{ addMoreView, setAddMoreView, refresh, setRefresh }}
+                            editPackage={{ addMoreView, setAddMoreView, recipeID }}
                         />
                     </div>
                 )
@@ -94,7 +88,7 @@ const RecipeDetailsPage = () => {
                     <div className='createSingleForm'>
                         <CreateTags
                             dataPackage={{ displayId, tagPackage, setTagPackage }}
-                            editPackage={{ addMoreView, setAddMoreView, refresh, setRefresh }}
+                            editPackage={{ addMoreView, setAddMoreView, recipeID }}
                         />
                     </div>
                 )
@@ -103,7 +97,7 @@ const RecipeDetailsPage = () => {
                     <div className='createSingleForm'>
                         <CreateSteps
                             dataPackage={{ displayId, stepPackage, setStepPackage }}
-                            editPackage={{ addMoreView, setAddMoreView, refresh, setRefresh }}
+                            editPackage={{ addMoreView, setAddMoreView, recipeID }}
                         />
                     </div>
                 )
@@ -124,7 +118,7 @@ const RecipeDetailsPage = () => {
             {editModalView && (
                 <EditModal
                     editPackage={{ editType, editId, newEdit, setNewEdit }}
-                    refreshPackage={{ setEditModalView, refresh, setRefresh }}
+                    refreshPackage={{ setEditModalView, recipeID }}
                 />
             )}
 
@@ -143,108 +137,89 @@ const RecipeDetailsPage = () => {
             </AnimatePresence>
 
 
-            {isLoaded && (
-                <AnimatePresence mode='wait' initial={true}>
-                    <m.div className='detailHorizontalSlide' ref={horizontalScrollRef}
-                        key="detailSliderContainer"
-                        variants={basicAnimation}
-                        initial="initial"
-                        animate="animate"
-                        exit="exit"
-                    >
-                        {recipeDisplay.map((recipe, i) => (
-                            <div key={i} className='detailVerticalSlide' >
-                                <div className='detailRecipeContainer' >
+            <AnimatePresence mode='wait' initial={true}>
+                <m.div className='detailHorizontalSlide' ref={horizontalScrollRef}
+                    key="detailSliderContainer"
+                    variants={basicAnimation}
+                    initial="initial"
+                    animate="animate"
+                    exit="exit"
+                >
+                    {recipeDisplay.map((recipe, i) => (
+                        <div key={i} className='detailVerticalSlide' >
+                            <div className='detailRecipeContainer' >
 
-                                    <div className='detailsTopDisplay'>
-                                        <div className='detailPhotoItems'>
-                                            <DisplayPhoto
-                                                editPackage={{ letsEdit, refresh, setRefresh }}
-                                                detailPackage={{ displayId, picture: recipe.recipeDetails.picture }}
-                                            />
-                                            <div className='prepServings'>
-                                                <div className='detailsPrep'>
-                                                    {/* <LuAlarmClock /> */}
-                                                    <p onClick={letsEdit ? () => openEditModal('prep_time', recipe.recipeDetails.prep_time, displayId) : null}>{recipe.recipeDetails.prep_time}</p>
-                                                </div>
-                                                <div className='detailsServings'>
-                                                    {/* <p><FaInfo /></p> */}
-                                                    <p onClick={letsEdit ? () => openEditModal('servings', recipe.recipeDetails.servings, displayId) : null}>{recipe.recipeDetails.servings}</p>
-                                                </div>
+                                <div className='detailsTopDisplay'>
+                                    <div className='detailPhotoItems'>
+                                        <DisplayPhoto
+                                            editPackage={{ letsEdit }}
+                                            detailPackage={{ displayId, picture: recipe.recipeDetails.picture, recipeID }}
+                                        />
+                                        <div className='prepServings'>
+                                            <div className='detailsPrep'>
+                                                {/* <LuAlarmClock /> */}
+                                                <p onClick={letsEdit ? () => openEditModal('prep_time', recipe.recipeDetails.prep_time, displayId) : null}>{recipe.recipeDetails.prep_time}</p>
                                             </div>
-                                        </div>
-
-                                        <div className='detailTitleTags'>
-                                            <div className='detailsTitleDisplay'>
-                                                <p onClick={letsEdit ? () => openEditModal('title', recipe.recipeDetails.title, displayId) : null}>{recipe.recipeDetails.title}</p>
+                                            <div className='detailsServings'>
+                                                {/* <p><FaInfo /></p> */}
+                                                <p onClick={letsEdit ? () => openEditModal('servings', recipe.recipeDetails.servings, displayId) : null}>{recipe.recipeDetails.servings}</p>
                                             </div>
-
-                                            <DisplayTags
-                                                editPackage={{ letsEdit, refresh, setRefresh }}
-                                                detailPackage={{ tags: recipe.tags, setAddMoreView }}
-                                            />
-
-                                            <div className='detailDescriptionLarge'>
-                                                <p onClick={letsEdit ? () => openEditModal('description', recipe.recipeDetails.description, displayId) : null}>{recipe.recipeDetails.description}</p>
-                                            </div>
-
                                         </div>
                                     </div>
 
-                                    <div className='detailDescriptionSmall'>
-                                        <p onClick={letsEdit ? () => openEditModal('description', recipe.recipeDetails.description, displayId) : null}>{recipe.recipeDetails.description}</p>
-                                    </div>
+                                    <div className='detailTitleTags'>
+                                        <div className='detailsTitleDisplay'>
+                                            <p onClick={letsEdit ? () => openEditModal('title', recipe.recipeDetails.title, displayId) : null}>{recipe.recipeDetails.title}</p>
+                                        </div>
 
-                                    <DisplayMultiplier multiplier={multiplier} setMultiplier={setMultiplier} />
-
-                                    <div className='displayIngredientSteps'>
-                                        <DisplayIngredients
-                                            editPackage={{ letsEdit, openEditModal }}
-                                            detailPackage={{ ingredients: recipe.ingredients, multiplier, setAddMoreView }}
+                                        <DisplayTags
+                                            editPackage={{ letsEdit }}
+                                            detailPackage={{ tags: recipe.tags, setAddMoreView, recipeID }}
                                         />
 
-                                        <DisplaySteps
-                                            editPackage={{ letsEdit, openEditModal }}
-                                            detailPackage={{ instructions: recipe.steps, setAddMoreView }}
-                                        />
-                                    </div>
+                                        <div className='detailDescriptionLarge'>
+                                            <p onClick={letsEdit ? () => openEditModal('description', recipe.recipeDetails.description, displayId) : null}>{recipe.recipeDetails.description}</p>
+                                        </div>
 
-                                    <DisplaySubRecipes
-                                        editPackage={{ letsEdit, setAddMoreView, i, horizontalScrollRef }}
-                                        detailPackage={{ recipe, theSubRecipes, theParentRecipes, theMainRecipe }}
+                                    </div>
+                                </div>
+
+                                <div className='detailDescriptionSmall'>
+                                    <p onClick={letsEdit ? () => openEditModal('description', recipe.recipeDetails.description, displayId) : null}>{recipe.recipeDetails.description}</p>
+                                </div>
+
+                                <DisplayMultiplier multiplier={multiplier} setMultiplier={setMultiplier} />
+
+                                <div className='displayIngredientSteps'>
+                                    <DisplayIngredients
+                                        editPackage={{ letsEdit, openEditModal }}
+                                        detailPackage={{ ingredients: recipe.ingredients, multiplier, setAddMoreView }}
                                     />
 
-                                    <div className='deleteThisRecipe'>
-                                        {i === 0 ? (
-                                            <button className='deleteButton' onClick={() => deleteEntireRecipe(displayId, setDeleteStatus)}>Delete This Recipe</button>
-                                        ) : (
-                                            <button className='deleteButton' onClick={() => deleteSoloDetail('subRecipe', displayId, refresh, setRefresh, null, recipeID)}>Remove Sub Recipe</button>
-                                        )}
-                                    </div>
-
+                                    <DisplaySteps
+                                        editPackage={{ letsEdit, openEditModal }}
+                                        detailPackage={{ instructions: recipe.steps, setAddMoreView }}
+                                    />
                                 </div>
+
+                                <DisplaySubRecipes
+                                    editPackage={{ letsEdit, setAddMoreView, i, horizontalScrollRef }}
+                                    detailPackage={{ recipe, subRecipes, parentRecipes, mainRecipe }}
+                                />
+
+                                <div className='deleteThisRecipe'>
+                                    {i === 0 ? (
+                                        <button className='deleteButton' onClick={() => deleteEntireRecipe(displayId, setDeleteStatus)}>Delete This Recipe</button>
+                                    ) : (
+                                        <button className='deleteButton' onClick={() => deleteSoloDetail('subRecipe', displayId, recipeID, dispatch, null, recipeID)}>Remove Sub Recipe</button>
+                                    )}
+                                </div>
+
                             </div>
-                        ))}
-                    </m.div>
-                </AnimatePresence>
-            )}
-
-            {!isLoaded && (
-                <AnimatePresence mode='wait' initial={true}>
-                    <m.div
-                        // className="detailErrorContainer"
-                        key="detailErrorContainer"
-                        variants={basicAnimation}
-                        initial="initial"
-                        animate="animate"
-                        exit="exit"
-                    >
-                        {handleApiStatus(detailStatus)}
-                    </m.div>
-                </AnimatePresence>
-            )}
-
-
+                        </div>
+                    ))}
+                </m.div>
+            </AnimatePresence>
 
         </div >
     )

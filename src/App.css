@@ -132,6 +132,12 @@
     height: 10dvw;
     width: 30%;
     font-size: 18px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
 }
 
 

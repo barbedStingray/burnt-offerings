@@ -2,7 +2,9 @@ import React, { useState, useEffect, useRef } from 'react'
 import './RecipeHomePage.css'
 import { motion as m, AnimatePresence } from 'framer-motion'
 
-
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios'
 
 
 import useFilteredRecipes from './homeFunctions/useFilteredRecipes';
@@ -16,13 +18,17 @@ import basicAnimation from '../animations/basicAnimation';
 import parentAnimation from '../animations/parentAnimation';
 import childAnimation from '../animations/childAnimation';
 
+
 const RecipeHomePage = () => {
 
     const scrollToTopRef = useRef()
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
     const [keywords, setKeywords] = useState('')
     const [currentPage, setCurrentPage] = useState(1)
     const bouncedKeywords = useDebounce(keywords, setCurrentPage)
     const { allRecipes, totalPages, totalRecipes, recipeStatus, apiSearching } = useFilteredRecipes(bouncedKeywords, currentPage)
+    
     // local storage for my keywords
     // ? session vs local storage?
     useEffect(() => {
@@ -37,6 +43,23 @@ const RecipeHomePage = () => {
         }
     }, [bouncedKeywords])
 
+
+
+
+    async function fetchRecipe(recipeID) {
+        try {
+                // todo activate spinner
+                const results = await axios.get(`/api/recipes/details/${recipeID}`)
+                const { mainRecipe, subRecipes, parentRecipes } = results.data
+                dispatch({ type: 'SET_RECIPE', payload: { mainRecipe, subRecipes, parentRecipes }})
+    
+            } catch (error) {
+                console.log('error in fetching details', error)
+            } finally {
+                navigate(`/recipeDetails`)
+                // todo turn spinner off
+            }
+        }
 
 
     return (
@@ -90,6 +113,7 @@ const RecipeHomePage = () => {
                                                 key={`${recipe.id}-${bouncedKeywords}`}
                                                 className='recipeContainer'
                                                 variants={childAnimation}
+                                                onClick={() => fetchRecipe(recipe.id)}
                                             >
                                                 <RecipeLink key={recipe.id} recipe={recipe} />
                                             </m.div>

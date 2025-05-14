@@ -26,12 +26,14 @@ const HomeNav = ({ navPackage }) => {
         create: '/',
         details: '/',
     }
+    
     const navigationIcons = {
         home: <CiCirclePlus />,
         create: <LiaCookieBiteSolid />,
         details: <LiaCookieBiteSolid />
     }
     const navPath = navigationLinks[section]
+
     const noNav = section !== 'details' ? 'noNav' : ''
 
 
